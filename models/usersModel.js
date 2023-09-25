@@ -9,6 +9,13 @@ const UserDB = db.define('data_diri', {
     primaryKey: true,
     autoIncrement: true,
   },
+  id_akun: {
+    type: DataTypes.INTEGER,
+    references: {
+        model: 'data_akun', // Nama tabel yang direferensikan
+        key: 'id_akun' // Kolom yang direferensikan
+    }
+  },
   nama: {
     type: DataTypes.STRING(255),
     allowNull: false,

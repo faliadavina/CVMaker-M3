@@ -9,11 +9,11 @@ const Pendidikan = db.define('data-pendidikan', {
         primaryKey: true,
         autoIncrement: true
     },
-    id_user: {
+    id_akun: {
         type: DataTypes.INTEGER,
         references: {
-            model: 'data_diri', // Nama tabel yang direferensikan
-            key: 'id_user' // Kolom yang direferensikan
+            model: 'data_akun', // Nama tabel yang direferensikan
+            key: 'id_akun' // Kolom yang direferensikan
         }
     },
     jenjang: {

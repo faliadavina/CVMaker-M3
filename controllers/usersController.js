@@ -1,11 +1,20 @@
 import UserDB from "../models/usersModel.js";
+import AkunDB from "../models/akunModels.js";
 
 // Create user
 export const createUser = async (req, res) => {
     try {
-        const { nama, tempat_lahir, tanggal_lahir, alamat, status, telp, email, sosial_media, linkedin } = req.body;
+        const { nama, tempat_lahir, tanggal_lahir, alamat, status, telp, sosial_media, linkedin } = req.body;
+        const { id_akun } = req.params;
+        const userAccountById = await AkunDB.findOne({
+            where:{
+                id_akun : id_akun
+            }
+        })
+        const email = userAccountById.email;
 
         const newUser = await UserDB.create({
+            id_akun,
             nama,
             tempat_lahir,
             tanggal_lahir,

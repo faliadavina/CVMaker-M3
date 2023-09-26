@@ -11,7 +11,7 @@ const router = express.Router();
 router.post('/pendidikan', insertPendidikan);
 router.get('/pendidikan', getAllPendidikan);
 router.get('/pendidikan/:id_pend', getPendidikanById);
-router.fetch('/pendidikan/:id_pend', updatePendidikan);
+router.patch('/pendidikan/:id_pend', updatePendidikan);
 router.delete('/pendidikan/:id_pend', deletePendidikan)
 
 export default router;

@@ -4,7 +4,8 @@ import bcrypt from 'bcryptjs';
 
 // Create Akun
 export const createAkun = async (req, res) => {
-    const hashedPassword = await bcrypt.hash(password, 10);
+  const { username, email, password, role } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
   try {
     await AkunDB.create({
       username,

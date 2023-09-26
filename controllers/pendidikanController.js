@@ -48,6 +48,36 @@ export const getPendidikanById = async(req, res)=>{
     }
 }
 
+export const updatePendidikan = async (req, res) => {
+    try {
+        const { id_pend } = req.params;
+        const { jenjang, nama_sekolah, jurusan, tahun_masuk, tahun_lulus } = req.body;
+
+        const pendidikan = await Pendidikan.findOne({
+            where: { id_pend }
+        });
+
+        if (!pendidikan) {
+            return res.json({ error: 'Data tidak ditemukan' });
+        }
+
+        // Memperbarui data pendidikan
+        pendidikan.jenjang = jenjang;
+        pendidikan.nama_sekolah = nama_sekolah;
+        pendidikan.jurusan = jurusan;
+        pendidikan.tahun_masuk = tahun_masuk;
+        pendidikan.tahun_lulus = tahun_lulus;
+
+        // Menyimpan perubahan ke database
+        await pendidikan.save();
+
+        res.json(pendidikan);
+    } catch (error) {
+        console.error(error.message);
+        res.json({ error: 'Internal server error' });
+    }
+};
+
 export const deletePendidikan = async(req, res)=>{
     const pendidikan = await Pendidikan.findOne({
         where:{

@@ -1,5 +1,5 @@
 CREATE TABLE data_diri (
-    id_user SERIAL PRIMARY KEY,
+    id_akun SERIAL PRIMARY KEY,
     nama VARCHAR(255) NOT NULL,
     tempat_lahir VARCHAR(255) NOT NULL,
     tanggal_lahir DATE NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE data_diri (
 
 CREATE TABLE data_pendidikan (
     id_pend SERIAL PRIMARY KEY,
-    id_user INT REFERENCES data_diri(id_user),
+    id_akun INT REFERENCES data_diri(id_akun),
     jenjang VARCHAR(255) NOT NULL,
     nama_sekolah VARCHAR(255) NOT NULL,
     jurusan VARCHAR(255) NOT NULL,

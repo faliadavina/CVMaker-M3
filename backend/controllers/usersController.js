@@ -27,9 +27,9 @@ export const createUser = async (req, res) => {
 
 export const getAllUsers = async (req, res) => {
     try {
-        const allUsers = await UserDB.findAll();
+        const user = await UserDB.findAll();
 
-        res.json(allUsers);
+        res.json({user});
     } catch (err) {
         console.error(err);
         res.json({ error: "Internal server error" });

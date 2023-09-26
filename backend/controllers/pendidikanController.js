@@ -3,11 +3,11 @@ import Pendidikan from "../models/pendidikanModel.js";
 // Fungsi untuk memasukkan data pendidikan
 export const insertPendidikan = async (req, res) => {
     try {
-        const { id_user, jenjang, nama_sekolah, jurusan, tahun_masuk, tahun_lulus } = req.body;
+        const { id_akun, jenjang, nama_sekolah, jurusan, tahun_masuk, tahun_lulus } = req.body;
 
         // Membuat data pendidikan baru dalam objek
         const pendidikan =  await Pendidikan.create ({
-            id_user,
+            id_akun,
             jenjang,
             nama_sekolah,
             jurusan,
@@ -24,9 +24,9 @@ export const insertPendidikan = async (req, res) => {
 
 export const getAllPendidikan = async (req, res) => {
     try {
-        const allPendidikan = await Pendidikan.findAll();
+        const pendidikan = await Pendidikan.findAll();
 
-        res.json(allPendidikan);
+        res.json({pendidikan});
     } catch (err) {
         console.error(err);
         res.json({ error: "Internal server error" });
@@ -43,7 +43,7 @@ export const getPendidikanById = async(req, res)=>{
             }
         })
 
-        res.json(pendidikan);
+        res.json({pendidikan});
     } catch (error) {
         console.log(error.message);
     }

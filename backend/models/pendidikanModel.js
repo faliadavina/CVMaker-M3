@@ -3,8 +3,8 @@ import db from '../config/database.js';
 
 const {DataTypes} = Sequelize;
 
-const Pendidikan = db.define('data-pendidikan', {
-    id_pendidikan: {
+const Pendidikan = db.define('data_pendidikan', {
+    id_pend: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true

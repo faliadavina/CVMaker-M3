@@ -7,7 +7,7 @@ import SkillRoute from './routes/SkillRoute.js';
 import AuthRoute from './routes/AuthRoute.js';  // Correct import with correct casing
 
 const app = express();
-//middleware
+//middlewares
 app.use(cors());
 app.use(express.json());
 app.use(UsersRoute);
@@ -17,6 +17,6 @@ app.use(SkillRoute);
 app.use(AuthRoute);
 
 app.listen(5000, () => {
-    console.log('Server is running on port 5000');
+  console.log('Server is running on port 5000');
 });
 

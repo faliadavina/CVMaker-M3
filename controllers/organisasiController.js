@@ -3,10 +3,10 @@ import Organisasi from "../models/organisasiModel.js";
 // Fungsi untuk memasukkan data organisasi
 export const insertOrganisasi = async (req, res) => {
   try {
-    const { id_user, nama_organisasi, jabatan, periode, deskripsi_jabatan } = req.body;
+    const { id_akun, nama_organisasi, jabatan, periode, deskripsi_jabatan } = req.body;
 
     const newOrganisasi = await Organisasi.create({
-      id_user,
+      id_akun,
       nama_organisasi,
       jabatan,
       periode,

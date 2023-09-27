@@ -1,11 +1,20 @@
 import UserDB from "../models/usersModel.js";
+import AkunDB from "../models/akunModels.js";
 
 // Create user
 export const createUser = async (req, res) => {
     try {
-        const { nama, tempat_lahir, tanggal_lahir, alamat, status, telp, email, sosial_media, linkedin } = req.body;
+        const { nama, tempat_lahir, tanggal_lahir, alamat, status, telp, sosial_media, linkedin } = req.body;
+        const { id_akun } = req.params;
+        const userAccountById = await AkunDB.findOne({
+            where:{
+                id_akun : id_akun
+            }
+        })
+        const email = userAccountById.email;
 
         const newUser = await UserDB.create({
+            id_akun,
             nama,
             tempat_lahir,
             tanggal_lahir,
@@ -51,41 +60,73 @@ export const getUserById = async(req, res)=>{
     }
 }
 
-
-// Fungsi untuk memperbarui data pengguna berdasarkan user_id
 export const updateUser = async (req, res) => {
     try {
-        const { id_user } = req.params;
-        const { nama, tempat_lahir, tanggal_lahir, alamat, status, telp, email, sosial_media, linkedin } = req.body;
-
-        const user = await UserDB.findOne({
-            where: { id_user }
-        });
-
-        if (!user) {
-            return res.json({ error: 'Pengguna tidak ditemukan' });
+      const { id_user } = req.params;
+      const fieldsToUpdate = req.body;
+  
+      const user = await UserDB.findOne({
+        where: {
+          id_user: id_user
         }
-
-        // Memperbarui data pengguna
-        user.nama = nama;
-        user.tempat_lahir = tempat_lahir;
-        user.tanggal_lahir = tanggal_lahir;
-        user.alamat = alamat;
-        user.status = status;
-        user.telp = telp;
-        user.email = email;
-        user.sosial_media = sosial_media;
-        user.linkedin = linkedin;
-
-        // Menyimpan perubahan ke database
-        await user.save();
-
-        res.json(user);
+      });
+  
+      if (!user) {
+        return res.status(404).json({ error: 'Skill not found' });
+      }
+  
+      // Update the specified fields
+      for (const field in fieldsToUpdate) {
+        if (Object.prototype.hasOwnProperty.call(fieldsToUpdate, field)) {
+          // Update each specified field
+          user[field] = fieldsToUpdate[field];
+        }
+      }
+  
+      // Save the updated data diri to the database
+      await user.save();
+      return res.json(user);
     } catch (error) {
-        console.error(error.message);
-        res.json({ error: 'Internal server error' });
+      console.error('Error in updateDataDiri:', error.message);  // Log the error message
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
-};
+  };
+
+
+// // Fungsi untuk memperbarui data pengguna berdasarkan user_id
+// export const updateUser = async (req, res) => {
+//     try {
+//         const { id_user } = req.params;
+//         const { nama, tempat_lahir, tanggal_lahir, alamat, status, telp, email, sosial_media, linkedin } = req.body;
+
+//         const user = await UserDB.findOne({
+//             where: { id_user }
+//         });
+
+//         if (!user) {
+//             return res.json({ error: 'Pengguna tidak ditemukan' });
+//         }
+
+//         // Memperbarui data pengguna
+//         user.nama = nama;
+//         user.tempat_lahir = tempat_lahir;
+//         user.tanggal_lahir = tanggal_lahir;
+//         user.alamat = alamat;
+//         user.status = status;
+//         user.telp = telp;
+//         user.email = email;
+//         user.sosial_media = sosial_media;
+//         user.linkedin = linkedin;
+
+//         // Menyimpan perubahan ke database
+//         await user.save();
+
+//         res.json(user);
+//     } catch (error) {
+//         console.error(error.message);
+//         res.json({ error: 'Internal server error' });
+//     }
+// };
 
 
 export const deleteUser = async(req, res)=>{

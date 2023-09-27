@@ -21,6 +21,6 @@ router.put("/organisasi/:id_organisasi", updateOrganisasi);
 // Rute untuk menghapus data organisasi berdasarkan ID
 router.delete("/organisasi/:id_organisasi", deleteOrganisasi);
 
+// Rute untuk melakukan patch (update sebagian) data organisasi berdasarkan ID
 router.patch("/organisasi/:id_organisasi", patchOrganisasi);
-
 export default router;

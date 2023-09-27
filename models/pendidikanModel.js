@@ -3,17 +3,17 @@ import db from '../config/database.js';
 
 const {DataTypes} = Sequelize;
 
-const Pendidikan = db.define('data-pendidikan', {
-    id_pendidikan: {
+const Pendidikan = db.define('data_pendidikan', {
+    id_pend: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    id_user: {
+    id_akun: {
         type: DataTypes.INTEGER,
         references: {
-            model: 'data_diri', // Nama tabel yang direferensikan
-            key: 'id_user' // Kolom yang direferensikan
+            model: 'data_akun', // Nama tabel yang direferensikan
+            key: 'id_akun' // Kolom yang direferensikan
         }
     },
     jenjang: {

@@ -3,8 +3,8 @@ import db from '../config/database.js';
 
 const {DataTypes} = Sequelize;
 
-const UserDB = db.define('data_diri', {
-  id_akun: {
+const Skill = db.define('data_skill', {
+  id_skill: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
@@ -16,52 +16,30 @@ const UserDB = db.define('data_diri', {
         key: 'id_akun' // Kolom yang direferensikan
     }
   },
-  nama: {
+  kategori_skill: {
+    type: 'kategori',
+    allowNull: false,
+  },
+  nama_skill: {
     type: DataTypes.STRING(255),
     allowNull: false,
   },
-  tempat_lahir: {
+  deskripsi: {
     type: DataTypes.STRING(255),
+    allowNull: true,
+  },
+  level: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
-  tanggal_lahir: {
-    type: DataTypes.DATEONLY,
-    allowNull: false,
-  },
-  alamat: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  status: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  telp: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-    validate: {
-      isEmail: true,
-    },
-  },
-  sosial_media: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  linkedin: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
+
 },
 {
     timestamps: false,
     freezeTableName: true 
 });
 
-export default UserDB;
+export default Skill;
 
 (async () => {
     await db.sync();

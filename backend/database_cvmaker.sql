@@ -58,4 +58,12 @@ CREATE TABLE data_portofolio (
 );
 
 
+CREATE TABLE data_lp (
+    id_lp SERIAL PRIMARY KEY,
+    id_akun INT REFERENCES data_akun(id_akun),
+    judul_lp VARCHAR(255) NOT NULL,
+    custom_role VARCHAR(255) NOT NULL,
+    background BYTEA NOT NULL
+);
 
+SELECT * FROM data_diri;

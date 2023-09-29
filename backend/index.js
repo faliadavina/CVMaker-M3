@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import UsersRoute from "./routes/UsersRoute.js";
 import PendidikanRoute from "./routes/PendidikanRoute.js";
+import OrganisaiRoute from "./routes/OrganisasiRoute.js";
 import AkunRoute from "./routes/AkunRoute.js";
 import SkillRoute from "./routes/SkillRoute.js";
 import AuthRoute from "./routes/AuthRoute.js"; // Correct import with correct casing
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(UsersRoute);
 app.use(PendidikanRoute);
+app.use(OrganisaiRoute)
 app.use(AkunRoute);
 app.use(SkillRoute);
 app.use(AuthRoute);

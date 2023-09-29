@@ -46,6 +46,7 @@ export const getPendidikanById = async(req, res)=>{
         res.json({pendidikan});
     } catch (error) {
         console.log(error.message);
+        res.json({ error: "Internal server error" });
     }
 }
 

@@ -106,36 +106,6 @@ export const updateAkun = async (req, res) => {
     }
   };
 
-// Fungsi untuk memperbarui data pengguna berdasarkan user_id
-// export const updateAkun = async (req, res) => {
-//     try {
-//         const { id_akun } = req.params;
-//         const { username, email, password, role } = req.body;
-
-//         const akun = await AkunDB.findOne({
-//             where: { id_akun }
-//         });
-
-//         if (!akun) {
-//             return res.json({ error: 'Akun Pengguna tidak ditemukan' });
-//         }
-
-//         // Memperbarui data pengguna
-//         akun.username = username;
-//         akun.email = email;
-//         akun.password = password;
-//         akun.role = role;
-
-//         // Menyimpan perubahan ke database
-//         await akun.save();
-
-//         res.json(akun);
-//     } catch (error) {
-//         console.error(error.message);
-//         res.json({ error: 'Internal server error' });
-//     }
-// };
-
 
 export const deleteAkun = async(req, res)=>{
     const akun = await AkunDB.findOne({

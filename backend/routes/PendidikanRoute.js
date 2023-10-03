@@ -15,4 +15,3 @@ router.patch('/pendidikan/:id_pend', updatePendidikan);
 router.delete('/pendidikan/:id_pend', deletePendidikan);
 
 export default router;
-

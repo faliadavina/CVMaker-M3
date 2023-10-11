@@ -1,17 +1,22 @@
 import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 const DataDiri = () => {
-    const [user, setUsers] = useState(null);
+    const [data_diri, setUsers] = useState(null);
     const navigate = useNavigate()
+
+    const { user } = useSelector((state) => state.auth);
+    const id_akun = user && user.user && user.user.id_akun;
+
+    console.log(id_akun);
     
     useEffect(()=>{
         getUsers();
     },[]);
     
     const getUsers = async() =>{
-        const id_akun = 1;
         try {
           const response = await axios.get(`http://localhost:5000/users/${id_akun}`);
           setUsers(response.data);
@@ -70,7 +75,7 @@ const DataDiri = () => {
       
             {/* ======= About Section ======= */}
             <section id="about" class="about">
-            {user ? (
+            {data_diri ? (
               <div class="container">
 
                 <div class="section-title d-flex justify-content-between align-items-center">
@@ -80,12 +85,12 @@ const DataDiri = () => {
 
 
                 <div class="section-title">
-                  <p>{user.deskripsi}</p>
+                  <p>{data_diri.deskripsi}</p>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-4" data-aos="fade-right">
-                      <img src={user.url} class="img-fluid" alt=""/>
+                      <img src={data_diri.url} class="img-fluid" alt=""/>
                   </div>
                   <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
                       <h3>Personal Data</h3>
@@ -93,14 +98,14 @@ const DataDiri = () => {
                           <div class="col-lg-8">
                             
                               <ul>
-                                <li><i class="bi bi-chevron-right"></i> <strong>Name :</strong> <span>{user.nama}</span></li>
-                                <li><i class="bi bi-chevron-right"></i> <strong>Place and Date of Birth :</strong> <span>{user.tempat_lahir}, {user.tanggal_lahir}</span></li>
-                                <li><i class="bi bi-chevron-right"></i> <strong>Address :</strong> <span>{user.alamat}</span></li>
-                                <li><i class="bi bi-chevron-right"></i> <strong>Profession :</strong> <span>{user.status}</span></li>
-                                <li><i class="bi bi-chevron-right"></i> <strong>Phone Number :</strong> <span>{user.telp}</span></li>
-                                <li><i class="bi bi-chevron-right"></i> <strong>Email :</strong> <span>{user.email}</span></li>
-                                <li><i class="bi bi-chevron-right"></i> <strong>Social Media :</strong> <span>{user.sosial_media}</span></li>
-                                <li><i class="bi bi-chevron-right"></i> <strong>LinkedIn :</strong> <span>{user.linkedin}</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Name :</strong> <span>{data_diri.nama}</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Place and Date of Birth :</strong> <span>{data_diri.tempat_lahir}, {data_diri.tanggal_lahir}</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Address :</strong> <span>{data_diri.alamat}</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Profession :</strong> <span>{data_diri.status}</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Phone Number :</strong> <span>{data_diri.telp}</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Email :</strong> <span>{data_diri.email}</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Social Media :</strong> <span>{data_diri.sosial_media}</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>LinkedIn :</strong> <span>{data_diri.linkedin}</span></li>
                               </ul>
                             
                           </div>

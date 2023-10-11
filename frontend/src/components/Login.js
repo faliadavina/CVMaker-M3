@@ -21,7 +21,7 @@ const Login = () => {
       if (user && user.user && user.user.role === 1) {
         navigate('/');
       } else {
-        navigate('/');
+        navigate('/data_diri');
       }
     }else{
       dispatch(reset());

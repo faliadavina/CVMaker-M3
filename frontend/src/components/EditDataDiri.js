@@ -1,11 +1,16 @@
 import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 const EditDataDiri = () => {
 
     const navigate = useNavigate();
-    const id_akun = 1;
+
+    const { user } = useSelector((state) => state.auth);
+    const id_akun = user && user.user && user.user.id_akun;
+
+    console.log(id_akun);
 
     // Mengambil email dari data akun
     const [email, setEmail] = useState('');

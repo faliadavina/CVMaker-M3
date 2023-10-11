@@ -1307,3 +1307,14 @@ section {
 .hardskill {
   order: 1; /* Posisikan di kanan */
 }
+/*--------------------------------------------------------------
+# Image Preview
+--------------------------------------------------------------*/
+.image.is-128x128 img {
+  max-width: 128px;
+  max-height: 128px;
+}
+
+.preview-container {
+  margin-right: auto;
+}

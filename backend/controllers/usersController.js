@@ -109,6 +109,36 @@ export const updateUser = async (req, res) => {
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
+
+      let fileName = "";
+      if(req.files === null){
+          fileName = user.profile_pict;
+          console.log(fileName);
+      }else{
+          const file = req.files.file;
+          const fileSize = file.data.length;
+          const ext = path.extname(file.name);
+          const fileNameWithoutExtension = path.basename(file.name, path.extname(file.name));
+          const hashedFileName = await bcrypt.hash(fileNameWithoutExtension, 10); 
+          const sanitizedFileName = hashedFileName.replace(/\//g, '_');       
+          fileName = sanitizedFileName + ext;
+          const allowedType = ['.png','.jpg','.jpeg'];
+  
+          if(!allowedType.includes(ext.toLowerCase())) return res.status(422).json({msg: "Invalid Images"});
+          if(fileSize > 5000000) return res.status(422).json({msg: "Image must be less than 5 MB"});
+  
+          const filepath = `./public/profilePict/${user.profile_pict}`;
+          fs.unlinkSync(filepath);
+
+          console.log(fileName);
+  
+          file.mv(`./public/profilePict/${fileName}`, (err)=>{
+              if(err) return res.status(500).json({msg: err.message});
+          });
+      }
+
+      const url = `${req.protocol}://${req.get("host")}/profilePict/${fileName}`;
+      user.url = url;
   
       // Update the specified fields
       for (const field in fieldsToUpdate) {

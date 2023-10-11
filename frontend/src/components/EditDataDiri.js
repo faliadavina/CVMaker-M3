@@ -51,6 +51,8 @@ const EditDataDiri = () => {
     const [sosial_media, setSosialMedia] = useState('');
     const [linkedin, setLinkedin] = useState('');
     const [deskripsi, setDeskripsi] = useState('');
+    const [file, setFile] = useState('');
+    const [preview, setPreview] = useState('');
 
     const maxDeskripsiLength = 500;
 
@@ -70,6 +72,8 @@ const EditDataDiri = () => {
             setSosialMedia(response.data.sosial_media);
             setLinkedin(response.data.linkedin);
             setDeskripsi(response.data.deskripsi);
+            setFile(response.data.profile_pict);
+            setPreview(response.data.url);
 
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -143,6 +147,14 @@ const EditDataDiri = () => {
         }
       };
       
+      const loadImage = (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+          setFile(selectedFile);
+          setPreview(URL.createObjectURL(selectedFile));
+        }
+      };
+      
 
     // Menyimpan Perubahan
     const saveDataDiri = async (e) => {
@@ -161,6 +173,22 @@ const EditDataDiri = () => {
       }
 
         try {
+
+          const formDataObject = new FormData();
+
+          // Memasukkan data ke dalam FormData
+          formDataObject.append('nama', nama);
+          formDataObject.append('tempat_lahir', tempat_lahir);
+          formDataObject.append('tanggal_lahir', tanggal_lahir);
+          formDataObject.append('alamat', alamat);
+          formDataObject.append('status', status);
+          formDataObject.append('telp', telp);
+          formDataObject.append('email', email);
+          formDataObject.append('sosial_media', sosial_media);
+          formDataObject.append('linkedin', linkedin);
+          formDataObject.append('deskripsi', deskripsi);
+          formDataObject.append('file', file);
+
           await axios.patch(`http://localhost:5000/akun/${id_akun}`,{ email: email },{
             headers: {
               'Content-Type': 'application/json',
@@ -168,20 +196,9 @@ const EditDataDiri = () => {
             }
           );
 
-          await axios.patch(`http://localhost:5000/users/${id_akun}`, {
-            nama: nama,
-            tempat_lahir: tempat_lahir,
-            tanggal_lahir: tanggal_lahir,
-            alamat: alamat,
-            status: status,
-            telp: telp,
-            email: email,
-            sosial_media: sosial_media,
-            linkedin: linkedin,
-            deskripsi: deskripsi
-          }, {
+          await axios.patch(`http://localhost:5000/users/${id_akun}`, formDataObject , {
               headers: {
-                  'Content-Type': 'application/json', // Tentukan tipe konten sebagai JSON
+                'Content-Type': 'multipart/form-data',
               },
           });
 
@@ -239,7 +256,7 @@ const EditDataDiri = () => {
               </div>
                 <form onSubmit={saveDataDiri} class="php-email-form">
                     <div class="row">
-                        <div class="form-group col-md-8">
+                        <div class="form-group col-md-6">
                             <label for="name">Name</label>
                             <input
                                 type="text"
@@ -252,6 +269,39 @@ const EditDataDiri = () => {
                                 required
                             />
                         </div>
+                        <div className="form-group col-md-6">
+                          <label className="label">Profile Picture</label>
+                            <div className="control">
+                                <div className="file">
+                                    <label className="file-label">
+                                        <input
+                                            type="file"
+                                            className="file-input"
+                                            onChange={loadImage}
+                                        />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="form-group col-md-6">
+                          <label className="label"></label>
+                            <div className="control">
+                                <div className="file">
+                                    <label className="file-label">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        {preview && (
+                            <div className="form-group col-md-6">
+                                <label className="label">Preview</label>
+                                <figure className="image is-128x128">
+                                    <img src={preview} alt="" />
+                                </figure>
+                            </div>
+                        )}
                         <div class="form-group">
                             <label for="name">Self Introduction</label>
                             <textarea

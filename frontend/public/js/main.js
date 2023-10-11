@@ -91,12 +91,22 @@
   /**
    * Mobile nav toggle
    */
-  on('click', '.mobile-nav-toggle', function(e) {
-    select('body').classList.toggle('mobile-nav-active')
-    this.classList.toggle('bi-list')
-    this.classList.toggle('bi-x')
-  })
 
+  window.onload = () => {
+    const mobileNavToggle = document.querySelector(".mobile-nav-toggle");
+    const navbar = document.getElementById("#header");
+
+    if (!mobileNavToggle || !navbar) {
+      console.error("Elements not found:", mobileNavToggle, navbar);
+      return;
+    }
+
+    mobileNavToggle.addEventListener("click", () => {
+      document.body.classList.toggle("mobile-nav-active");
+      navbar.classList.toggle("active");
+    });
+  };
+  
   /**
    * Scrool with ofset on links with a class name .scrollto
    */

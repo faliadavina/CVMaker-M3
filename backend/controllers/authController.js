@@ -3,16 +3,9 @@ import jwt from 'jsonwebtoken';
 import SECRET from '../constant/index.js';
 import AkunDB from '../models/akunModels.js';
 
+
 export const login = async (req, res) => {
-  const { username, email, password } = req.body;
-  // Validasi format email menggunakan regex
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    return res.status(400).json({
-      success: false,
-      message: 'Format email tidak sesuai',
-    });
-  }
+  const { username, password } = req.body;
 
   try {
     // Cari pengguna berdasarkan username
@@ -26,20 +19,6 @@ export const login = async (req, res) => {
       return res.status(401).json({
         success: false,
         message: 'Username tidak ditemukan',
-      });
-    }
-
-    // Cari email dengan pengguna yang sesuai
-    const emailUser = await AkunDB.findOne({
-      where: {
-        email,
-      },
-    });
-
-    if (!emailUser) {
-      return res.status(401).json({
-        success: false,
-        message: 'Email yang diinputkan salah',
       });
     }
 
@@ -94,6 +73,7 @@ export const login = async (req, res) => {
     });
   }
 };
+
 
 
 export const protectedRoute = async (req, res) => {

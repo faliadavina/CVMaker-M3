@@ -24,10 +24,6 @@ const Skill = db.define('data_skill', {
     type: DataTypes.STRING(255),
     allowNull: false,
   },
-  deskripsi: {
-    type: DataTypes.STRING(255),
-    allowNull: true,
-  },
   level: {
     type: DataTypes.INTEGER,
     allowNull: false,

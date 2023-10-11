@@ -1104,3 +1104,206 @@ section {
     padding-right: 20px 15px;
   }
 }
+
+/* LoginStyles.css */
+.image-container {
+  position: relative;
+}
+
+.image-container img {
+  opacity: 0.5; /* Adjust opacity for the desired transparency */
+  width: 100%;
+  height: auto;
+  background-size: cover;
+}
+
+/* Overlay effect */
+.image-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.7
+  ); /* Adjust the color and alpha (0.5 for 50% transparency) */
+}
+
+.error-message {
+  background-color: rgb(249, 197, 197);
+  color: rgb(162, 10, 10);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container .icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  margin-right: 20px;
+  transform: translateY(-50%);
+  color: gray;
+}
+
+/* Tambahkan padding-left untuk memberikan jarak antara ikon dan placeholder */
+.input-container input {
+  padding-left: 30px; /* Sesuaikan dengan ukuran margin-right pada ikon */
+}
+
+.fade-in {
+    animation: fadeIn 5s;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0.5;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #59585d; /* Change text color on hover */
+  }
+
+  .navbar-nav .nav-link {
+    color: #fff;
+    font-size: 16px;
+    margin-right: 20px;
+    text-align: center;
+  }
+
+  .nav-icon {
+    text-align: center;
+    margin-bottom: 5px; /* Adjust the margin as needed */
+  }
+  
+  .nav-text {
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+  }
+  
+  .password-toggle {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+  }
+
+  .navbar{
+    top: -50px;
+  }
+  
+
+  .navbar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .navbar-nav.flex-row {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logout-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+  }
+  .icon-text-container .logout-icon:hover {
+    color: #59585d;
+  }
+
+  .logout-icon {
+    font-size: 32px;
+    color: white;
+    margin-left: 20px;
+  }
+
+  .logout-text {
+    color: white;
+    font-size: 16px;
+  }
+  
+  /* AddSkill.css */
+.split-screen {
+  display: flex;
+  height: 100vh;
+}
+
+.left-panel {
+  flex: 0.7;
+  background-color: black;
+}
+
+.right-panel {
+  flex: 3.3;
+  background-color: white;
+}
+
+/* SkillList.css */
+.progress-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.progress {
+  width: 80%;
+}
+
+.progress-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.section-subtitle {
+  margin-bottom: 20px;
+}
+
+
+.btn {
+  margin-left: 10px;
+}
+
+.level-button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+}
+
+.level-button.selected {
+  background-color: #007BFF;
+  color: #fff;
+  border-color: #007BFF;
+}
+
+.error-field {
+  border: 1px solid red;
+}
+
+.required{
+  color: red;
+}
+
+.softskill {
+  order: -1; /* Posisikan di kiri */
+}
+
+.hardskill {
+  order: 1; /* Posisikan di kanan */
+}

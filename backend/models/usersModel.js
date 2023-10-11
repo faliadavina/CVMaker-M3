@@ -55,6 +55,22 @@ const UserDB = db.define('data_diri', {
     type: DataTypes.STRING(255),
     allowNull: false,
   },
+  deskripsi: {
+    type : DataTypes.TEXT,
+    allowNull: false
+  },
+  profile_pict: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+  },
+  profile_title: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+  },
+  url: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+  }
 },
 {
     timestamps: false,

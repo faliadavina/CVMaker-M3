@@ -1,6 +1,9 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import ManageUser from "./components/ManageUser";
+import DataDiri from "./components/DataDiri";
+import EditDataDiri from "./components/EditDataDiri";
+import AddDataDiri from "./components/AddDataDiri";
 
 function App() {
   return (
@@ -8,6 +11,9 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage/>}/>
         <Route path="/manage_user" element={<ManageUser/>}></Route>
+        <Route path="/data_diri" element={<DataDiri/>}></Route>
+        <Route path="/add_data_diri" element={<AddDataDiri/>}></Route>
+        <Route path="/edit_data_diri" element={<EditDataDiri/>}></Route>
       </Routes>
     </BrowserRouter>
   );

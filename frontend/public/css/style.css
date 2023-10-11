@@ -1104,3 +1104,15 @@ section {
     padding-right: 20px 15px;
   }
 }
+
+/*--------------------------------------------------------------
+# Image Preview
+--------------------------------------------------------------*/
+.image.is-128x128 img {
+  max-width: 128px;
+  max-height: 128px;
+}
+
+.preview-container {
+  margin-right: auto;
+}

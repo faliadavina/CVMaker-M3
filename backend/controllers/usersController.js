@@ -1,10 +1,13 @@
 import UserDB from "../models/usersModel.js";
 import AkunDB from "../models/akunModels.js";
+import path from "path";
+import fs from "fs";
+import bcrypt from 'bcryptjs';
 
 // Create user
 export const createUser = async (req, res) => {
     try {
-        const { nama, tempat_lahir, tanggal_lahir, alamat, status, telp, sosial_media, linkedin } = req.body;
+        const { nama, tempat_lahir, tanggal_lahir, alamat, status, telp, sosial_media, linkedin, deskripsi } = req.body;
         const { id_akun } = req.params;
         const userAccountById = await AkunDB.findOne({
             where:{
@@ -12,21 +15,53 @@ export const createUser = async (req, res) => {
             }
         })
         const email = userAccountById.email;
+        
+        if(req.files === null) return res.status(400).json({msg: "No File Uploaded"});
+        //const profile_title = req.body.title;
+        const profile_title = "profile-pict"
+        const file = req.files.file;
+        const fileSize = file.data.length;
+        const ext = path.extname(file.name);
+        const fileNameWithoutExtension = path.basename(file.name, path.extname(file.name));
+        const hashedFileName = await bcrypt.hash(fileNameWithoutExtension, 10); 
+        const sanitizedFileName = hashedFileName.replace(/\//g, '_');       
+        const fileName = sanitizedFileName + ext;
+        const url = `${req.protocol}://${req.get("host")}/profilePict/${fileName}`;
+        const allowedType = ['.png','.jpg','.jpeg'];
 
-        const newUser = await UserDB.create({
-            id_akun,
-            nama,
-            tempat_lahir,
-            tanggal_lahir,
-            alamat,
-            status,
-            telp,
-            email,
-            sosial_media,
-            linkedin
-        });
+        console.log(email);
 
-        res.json(newUser);
+        if(!allowedType.includes(ext.toLowerCase())) return res.status(422).json({msg: "Invalid Images"});
+        if(fileSize > 5000000) return res.status(422).json({msg: "Image must be less than 5 MB"});
+    
+        file.mv(`./public/profilePict/${fileName}`, async(err)=>{
+            if(err) return res.status(500).json({msg: err.message});
+            try {
+                // await Product.create({name: name, image: fileName, url: url});
+                const newUser = await UserDB.create({
+                    id_akun,
+                    nama,
+                    tempat_lahir,
+                    tanggal_lahir,
+                    alamat,
+                    status,
+                    telp,
+                    email,
+                    sosial_media,
+                    linkedin,
+                    deskripsi,
+                    profile_title : profile_title,
+                    profile_pict : fileName,
+                    url: url
+                });
+        
+                res.json(newUser);
+                res.status(201).json({msg: "Product Created Successfuly"});
+            } catch (error) {
+                console.log(error.message);
+            }
+        })
+
     } catch (err) {
         console.error(err);
         res.json({ error: "Internal server error" });
@@ -50,7 +85,7 @@ export const getUserById = async(req, res)=>{
     
         const userById = await UserDB.findOne({
             where:{
-                id_user : req.params.id_user
+                id_akun : req.params.id_akun
             }
         })
 
@@ -62,17 +97,17 @@ export const getUserById = async(req, res)=>{
 
 export const updateUser = async (req, res) => {
     try {
-      const { id_user } = req.params;
+      const { id_akun } = req.params;
       const fieldsToUpdate = req.body;
   
       const user = await UserDB.findOne({
         where: {
-          id_user: id_user
+          id_akun: id_akun
         }
       });
   
       if (!user) {
-        return res.status(404).json({ error: 'Skill not found' });
+        return res.status(404).json({ error: 'User not found' });
       }
   
       // Update the specified fields

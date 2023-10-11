@@ -4,7 +4,7 @@ import User from '../models/akunModels.js';
 export const createSkill = async (req, res) => {
   try {
     const id_akun = req.params.id_akun; // Mengambil id_akun dari parameter URL
-    const { kategori_skill, nama_skill, deskripsi, level } = req.body;
+    const { kategori_skill, nama_skill,  level } = req.body;
 
     // Check if the specified id_user exists
     const user = await User.findOne({
@@ -22,7 +22,6 @@ export const createSkill = async (req, res) => {
       id_akun,
       kategori_skill,
       nama_skill,
-      deskripsi,
       level
     });
 
@@ -57,7 +56,6 @@ export const getSkillById = async (req, res) => {
   }
 };
 
-
 export const getAllSkills = async (req, res) => {
   try {
     const id_akun = req.params.id_akun;
@@ -68,6 +66,11 @@ export const getAllSkills = async (req, res) => {
         id_akun: id_akun
       }
     });
+
+    // Check if there are no skills for the specified user
+    if (userSkills.length === 0) {
+      return res.status(404).json({ success: false, message: 'No skills found' });
+    }
 
     return res.status(200).json({ success: true, skills: userSkills });
   } catch (err) {

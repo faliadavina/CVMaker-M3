@@ -2,20 +2,22 @@ import Portofolio from "../models/PortoModel.js";
 import path from "path";
 import fs from "fs";
 
-export const getPorto = async (req, res) => {
+export const getAllPorto = async (req, res) => {
     try {
-        const response = await Portofolio.findAll();
-        res.json(response);
+        const portofolio = await Portofolio.findAll();
+        res.json(portofolio);
     } catch (error) {
         console.log(error.message);
+        res.json({ error: "Internal server error" });
     }
 }
 
 export const getPortoById = async (req, res) => {
     try {
-        const response = await Portofolio.findOne({
+        const response = await Portofolio.findAll({
             where: {
-                id_porto: req.params.id_porto
+                id_akun: req.params.id_akun
+                // id_porto: req.params.id_porto
             }
         }
         );
@@ -34,7 +36,7 @@ export const savePorto = (req, res) => {
     const ext = path.extname(file.name);
     const fileName = file.md5 + ext;
     const { id_akun } = req.params;
-    // const url = `${req.protocol}://${req.get("host")}/filePorto/${fileName}`;
+    const url = `${req.protocol}://${req.get("host")}/filePorto/${fileName}`;
     const allowedType = ['.jpg', '.png', '.jpeg', '.pdf'];
 
     if (!allowedType.includes(ext.toLowerCase())) return res.status(422).json({ msg: "Invalid File" });
@@ -43,7 +45,7 @@ export const savePorto = (req, res) => {
     file.mv(`./public/filePorto/${fileName}`, async (err) => {
         if (err) return res.status(500).json({ msg: err.message });
         try {
-            await Portofolio.create({ id_akun, portofolio: fileName, deskripsi: deskripsi });
+            await Portofolio.create({ id_akun, portofolio: fileName, deskripsi: deskripsi, url: url });
             res.status(201).json({ msg: "Portofolio Created Succesfully" });
         } catch (error) {
             console.log(error.message);
@@ -80,13 +82,14 @@ export const updatePorto = async (req, res) => {
         });
     }
     const deskripsi = req.body.title;
+    const url = `${req.protocol}://${req.get("host")}/filePorto/${fileName}`;
     try {
-        await Portofolio.update({ portofolio: fileName, deskripsi: deskripsi }, {
+        await Portofolio.update({ portofolio: fileName, deskripsi: deskripsi, url: url }, {
             where: {
                 id_porto: req.params.id_porto
             }
         });
-        res.status(200).json({ msg: "Product updated successfully" })
+        res.status(200).json({ msg: "Portofolio updated successfully" })
     } catch (error) {
         console.log(error.message);
     }

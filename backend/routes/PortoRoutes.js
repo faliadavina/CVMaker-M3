@@ -1,6 +1,6 @@
-import express, { Router } from "express";
+import express from "express";
 import {
-    getPorto,
+    getAllPorto,
     getPortoById,
     savePorto,
     updatePorto,
@@ -9,8 +9,8 @@ import {
 
 const router = express.Router();
 
-router.get('/porto', getPorto);
-router.get('/porto/:id_porto', getPortoById);
+router.get('/porto', getAllPorto);
+router.get('/porto/:id_akun', getPortoById);
 router.post('/porto/:id_akun', savePorto);
 router.patch('/porto/:id_porto', updatePorto);
 router.delete('/porto/:id_porto', deletePorto);

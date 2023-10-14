@@ -97,7 +97,7 @@ const EditPorto = () => {
                     <div className="container">
 
                         <div className="section-title">
-                            <h2>Add Portfolio</h2>
+                            <h2>Update Portfolio</h2>
                         </div>
                         <div className="row justify-content-center">
                             <div className="col-md-7">

@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import Sidebar from '../pages/Sidebar';
 
 const DataDiri = () => {
     const [data_diri, setUsers] = useState(null);
@@ -14,7 +15,7 @@ const DataDiri = () => {
     
     useEffect(()=>{
         getUsers();
-    },[]);
+    },[id_akun]);
     
     const getUsers = async() =>{
         try {
@@ -39,37 +40,7 @@ const DataDiri = () => {
 
     return (
         <body>
-        {/* ======= Mobile nav toggle button ======= */}
-        <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
-      
-        {/* ======= Header ======= */}
-        <header id="header">
-          <div class="d-flex flex-column">
-      
-            <div class="profile">
-              <img src="img/profile-img.jpg" alt="" class="img-fluid rounded-circle"/>
-              <h1 class="text-light"><a href="index.html">Alex Smith</a></h1>
-              <div class="social-links mt-3 text-center">
-                <a href="#about" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#about" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#about" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#about" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#about" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-              </div>
-            </div>
-      
-            <nav id="navbar" class="nav-menu navbar">
-              <ul>
-                <li><a href="#hero" class="nav-link scrollto"><i class="bx bx-home"></i> <span>My CV</span></a></li>
-                <li><a href="#about" class="nav-link scrollto active"><i class="bx bx-user"></i> <span>Edit Personal Data</span></a></li>
-                <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Edit Educational Data</span></a></li>
-                <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Edit Orginizational Experience</span></a></li>
-                <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Edit Skills</span></a></li>
-                <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Edit Portofolio</span></a></li>
-              </ul>
-            </nav>{/* .nav-menu */}
-          </div>
-        </header>{/* End Header */}
+        <Sidebar />
       
         <main id="main">
       

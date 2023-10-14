@@ -1,13 +1,27 @@
 import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
+import { getMe} from "../features/authSlice";
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 
 const AddDataDiri = () => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { isError } = useSelector((state) => state.auth);
+
+      
+    useEffect(() => {
+      dispatch(getMe());
+    }, [dispatch]);
+  
+    useEffect(() => {
+      if (isError) {
+        navigate("/login");
+      }
+    }, [isError, navigate]);
 
     const { user } = useSelector((state) => state.auth);
     const id_akun = user && user.user && user.user.id_akun;

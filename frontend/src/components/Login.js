@@ -21,7 +21,7 @@ const Login = () => {
       if (user && user.user && user.user.role === 1) {
         navigate('/');
       } else {
-        navigate('/data_diri');
+        navigate('/');
       }
     }else{
       dispatch(reset());
@@ -108,7 +108,7 @@ const Login = () => {
               {passwordError && <div className="invalid-feedback">{passwordError}</div>}
             </div>
             <div className="mb-3">
-              <button type="submit" className="btn btn-dark w-100" disabled={isLoading}>
+              <button type="submit" className="btn btn-dark w-100 m-0" disabled={isLoading}>
                 {isLoading ? 'Loading...' : 'Login'}
               </button>
             </div>

@@ -1105,7 +1105,9 @@ section {
   }
 }
 
-/* LoginStyles.css */
+/*--------------------------------------------------------------
+# Login
+--------------------------------------------------------------*/
 .image-container {
   position: relative;
 }
@@ -1216,29 +1218,16 @@ section {
     display: flex;
     align-items: center;
   }
-  
-  .logout-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    cursor: pointer;
-  }
-  .icon-text-container .logout-icon:hover {
-    color: #59585d;
-  }
 
-  .logout-icon {
-    font-size: 32px;
-    color: white;
-    margin-left: 20px;
-  }
-
-  .logout-text {
-    color: white;
-    font-size: 16px;
+  .register input{
+    font-size: 12px;;
   }
   
-  /* AddSkill.css */
+  
+  
+/*--------------------------------------------------------------
+# Add Skill
+--------------------------------------------------------------*/
 .split-screen {
   display: flex;
   height: 100vh;
@@ -1254,7 +1243,9 @@ section {
   background-color: white;
 }
 
-/* SkillList.css */
+/*--------------------------------------------------------------
+# Skill List
+--------------------------------------------------------------*/
 .progress-container {
   display: flex;
   justify-content: space-between;
@@ -1263,6 +1254,7 @@ section {
 
 .progress {
   width: 80%;
+  padding-top: 5px;
 }
 
 .progress-buttons {
@@ -1307,6 +1299,8 @@ section {
 .hardskill {
   order: 1; /* Posisikan di kanan */
 }
+
+
 /*--------------------------------------------------------------
 # Image Preview
 --------------------------------------------------------------*/

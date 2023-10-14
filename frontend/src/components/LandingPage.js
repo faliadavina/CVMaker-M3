@@ -25,8 +25,6 @@ const LandingPage = () => {
         <Sidebar />
         <Hero />
 
-        
-
         <main id="main">
 
         {/* ======= About Section ======= */}

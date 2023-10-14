@@ -10,10 +10,7 @@ const Hero = () => {
   const username = user?.user?.username;
   const id = user && user.user && user.user.id_akun;
   const [skillNames, setSkillNames] = useState([
-    "Designer",
-    "Developer",
-    "Freelancer",
-    "Photographer"
+    "(Ayo isi skill mu)",
   ]);
 
   useEffect(() => {

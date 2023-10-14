@@ -5,12 +5,11 @@ import Login from "./components/Login";
 import AddSkill from "./components/AddSkill.js";
 import SkillList from "./components/SkillList";
 import EditSkill from "./components/EditSkill";
-// import EmptySkill from "./pages/EmptySkilll";
 import DataDiri from "./components/DataDiri";
 import EditDataDiri from "./components/EditDataDiri";
 import AddDataDiri from "./components/AddDataDiri";
 import Contact from "./pages/Contact";
-import Hero from "./pages/Hero";
+import Register from "./components/Register";
 
 function App() {
   return (
@@ -28,7 +27,7 @@ function App() {
         <Route path="/edit_skill" element={<EditSkill />} />
         <Route path="/add_skill" element={<AddSkill />}/>
         <Route path="/contact" element={<Contact />}/>
-        <Route path="/hero" element={<Hero />}/>
+         <Route path="/register" element={<Register />}/>
       </Routes>
     </BrowserRouter>
   );

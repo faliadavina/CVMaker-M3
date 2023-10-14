@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Sidebar from "../pages/Sidebar";
-import Footer from "../pages/Footer";
+
 
 const AddSkill = () => {
   const [name, setName] = useState("");
@@ -51,7 +51,9 @@ const AddSkill = () => {
 
     // Check if the name is filled and meets the validation criteria
     if (name.length > 200 || !/^[A-Za-z\s]+$/.test(name)) {
-      setMsg("Please enter a valid name (letters only, maximum 200 characters).");
+      setMsg(
+        "Please enter a valid name (letters only, maximum 200 characters)."
+      );
       setNameFilled(false);
       return;
     }
@@ -61,8 +63,6 @@ const AddSkill = () => {
       setMsg("Please fill in all required fields.");
       return;
     }
-
-
 
     try {
       await axios.post(`http://localhost:5000/skills/${id}`, {
@@ -74,10 +74,10 @@ const AddSkill = () => {
       // Show success message for 2 seconds before navigating
       setTimeout(() => {
         navigate("/skills");
-      }, 3000);
+      }, 2000);
     } catch (error) {
       if (error.response) {
-        setMsg(error.response.data.msg);
+        setMsg(error.response.data.message);
       }
     }
   };
@@ -102,6 +102,11 @@ const AddSkill = () => {
             <div className="section-title">
               <h2>Add Skill</h2>
             </div>
+            {successMessage && (
+              <div className="alert alert-success" role="alert">
+                {successMessage}
+              </div>
+            )}
             <div className="card-content">
               <div className="content">
                 <form onSubmit={saveSkill}>
@@ -110,7 +115,9 @@ const AddSkill = () => {
                   <div className="mb-3">
                     <label htmlFor="category" className="form-label">
                       <h5>Skill Category {renderAsterisk("category")}</h5>
-                      <p><i>Pilih Salah Satu Kategori di Bawah</i></p>
+                      <p>
+                        <i>Select One of the Categories Below</i>
+                      </p>
                     </label>
                     <div className="form-check">
                       <input
@@ -146,8 +153,9 @@ const AddSkill = () => {
                     </label>
                     <input
                       type="text"
-                      className={`form-control ${formSubmitted && !nameFilled ? "error-field" : ""
-                        }`}
+                      className={`form-control ${
+                        formSubmitted && !nameFilled ? "error-field" : ""
+                      }`}
                       id="name"
                       value={name}
                       onChange={(e) => handleNameChange(e.target.value)}
@@ -157,14 +165,17 @@ const AddSkill = () => {
 
                   <label className="custom-label mb-3">
                     <h5>Level {renderAsterisk("level")}</h5>
-                    <p><i>Pilih Salah Satu Level di Bawah</i></p>
+                    <p>
+                      <i>Select One of the Levels Below</i>
+                    </p>
                     <div className="button-group">
                       {[...Array(10).keys()].map((index) => (
                         <button
                           type="button"
                           key={index + 1}
-                          className={`level-button ${level === index + 1 ? "selected" : ""
-                            }`}
+                          className={`level-button ${
+                            level === index + 1 ? "selected" : ""
+                          }`}
                           onClick={() => handleLevelChange(index + 1)}
                         >
                           {index + 1}
@@ -188,17 +199,11 @@ const AddSkill = () => {
                 </form>
               </div>
             </div>
-            {successMessage && (
-              <div className="alert alert-success" role="alert">
-                {successMessage}
-              </div>
-            )}
-
+         
           </div>
         </section>
       </main>
       {/* End #main */}
-      <Footer />
     </div>
   );
 };

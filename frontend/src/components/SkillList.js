@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FaPlus, FaChevronLeft } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { setSkillId, selectSkillId } from "../features/skillSlice"; // Sesuaikan dengan path ke slice skill
+import { setSkillId } from "../features/skillSlice"; // Sesuaikan dengan path ke slice skill
 import Sidebar from "../pages/Sidebar";
 
 const SkillList = () => {
@@ -17,7 +17,7 @@ const SkillList = () => {
       navigate("/login");
     }
   }, [isError, navigate]);
-  const skillId = useSelector(selectSkillId);
+
   const [softSkills, setSoftSkills] = useState([]);
   const [hardSkills, setHardSkills] = useState([]);
   const [data_skill, setSkill] = useState(null);
@@ -90,13 +90,23 @@ const SkillList = () => {
                 <div className="title-container">
                   <h2>Skills</h2>
                 </div>
+                {errorMessage && (
+                  <div className="alert alert-danger" role="alert">
+                    {errorMessage}
+                  </div>
+                )}
+
+                {successMessage && (
+                  <div className="alert alert-success" role="alert">
+                    {successMessage}
+                  </div>
+                )}
                 <div className="btn-container">
                   <NavLink to="/add_skill">
                     <button
                       className="btn btn-dark"
                       style={{
                         borderRadius: "50px",
-                        marginLeft: "300px",
                         fontSize: "14px",
                         fontWeight: "bold",
                       }}
@@ -193,18 +203,6 @@ const SkillList = () => {
                   ))}
                 </div>
               </div>
-
-              {successMessage && (
-                <div className="alert alert-success" role="alert">
-                  {successMessage}
-                </div>
-              )}
-
-              {errorMessage && (
-                <div className="alert alert-danger" role="alert">
-                  {errorMessage}
-                </div>
-              )}
             </div>
           ) : (
             <div className="container d-flex flex-column justify-content-center align-items-center vh-100">
@@ -213,7 +211,6 @@ const SkillList = () => {
                 style={{
                   marginBottom: "20px",
                   color: "grey",
-                  marginLeft: "300px",
                   fontSize: "14px",
                 }}
               >
@@ -224,7 +221,6 @@ const SkillList = () => {
                   className="btn btn-dark"
                   style={{
                     borderRadius: "50px",
-                    marginLeft: "300px",
                     fontSize: "18px",
                     fontWeight: "bold",
                   }}

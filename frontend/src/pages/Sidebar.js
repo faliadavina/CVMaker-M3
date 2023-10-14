@@ -3,6 +3,7 @@ import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getMe, LogOut, reset } from "../features/authSlice";
+import Footer from "./Footer";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -92,7 +93,7 @@ const Sidebar = () => {
             <ul>
               <li>
                 <NavLink
-                  to="/hero"
+                  to="/"
                   className={`nav-link ${
                     activeMenuItem === "My CV" ? "scrollto active" : "scrollto"
                   }`}
@@ -183,6 +184,7 @@ const Sidebar = () => {
           </nav>
           {/* .nav-menu */}
         </div>
+        <Footer />
       </header>
       {/* End Header */}
     </div>

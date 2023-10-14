@@ -33,6 +33,10 @@ h6 {
   font-family: "Raleway", sans-serif;
 }
 
+h5{
+  font-size: 16px;
+  font-weight: bold;
+}
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
@@ -316,7 +320,7 @@ section {
 }
 
 .section-title {
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
 
 .section-title h2 {
@@ -1122,7 +1126,7 @@ section {
 /* Overlay effect */
 .image-container::before {
   content: "";
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -1133,6 +1137,10 @@ section {
     0,
     0.7
   ); /* Adjust the color and alpha (0.5 for 50% transparency) */
+}
+
+.register-form{
+  font-size: 12px;
 }
 
 .error-message {
@@ -1152,7 +1160,7 @@ section {
   left: 10px;
   margin-right: 20px;
   transform: translateY(-50%);
-  color: gray;
+  color: rgb(193, 189, 189);
 }
 
 /* Tambahkan padding-left untuk memberikan jarak antara ikon dan placeholder */
@@ -1173,26 +1181,23 @@ section {
     }
   }
   
-  .navbar-nav .nav-link:hover {
-    color: #59585d; /* Change text color on hover */
+  .nav-link:hover {
+    color: #3b3a3d; /* Change text color on hover */
   }
 
-  .navbar-nav .nav-link {
-    color: #fff;
-    font-size: 16px;
-    margin-right: 20px;
-    text-align: center;
-  }
 
   .nav-icon {
     text-align: center;
     margin-bottom: 5px; /* Adjust the margin as needed */
+    color: #fff;
+    margin-right: 20px;
   }
   
   .nav-text {
     text-align: center;
     color: #fff;
     font-size: 16px;
+    margin-right: 20px;
   }
   
   .password-toggle {
@@ -1207,6 +1212,37 @@ section {
     top: -50px;
   }
   
+  .register-link {
+    display: flex;
+    align-items: center;
+    margin-top: 10px; /* Sesuaikan margin-top sesuai kebutuhan */
+  }
+  
+  .register-link span{
+    font-size: 12px;
+  }
+
+  .register-link .sign-up {
+    color: blue;
+    text-decoration: underline;
+    transition: color 0.3s; /* Animasi transisi warna saat hover */
+  }
+  
+  .register-link .sign-up:hover {
+    color: darkblue; /* Warna baru saat hover */
+  }
+  
+  .register-link .sign-up i {
+    margin-left: 5px; /* Ruang di antara teks dan ikon */
+  }
+  
+  .register-link .sign-up i:hover {
+    transform: translateX(3px); /* Efek geser saat hover */
+  }
+
+  .regist-container{
+    overflow-y: auto;
+  }
 
   .navbar-nav {
     display: flex;
@@ -1223,6 +1259,9 @@ section {
     font-size: 12px;;
   }
   
+  .register{
+    overflow-y: auto;
+  }
   
   
 /*--------------------------------------------------------------
@@ -1241,6 +1280,14 @@ section {
 .right-panel {
   flex: 3.3;
   background-color: white;
+}
+
+i{
+  font-size: 12px;
+}
+
+.form-check-label p{
+  font-size: 14px;;
 }
 
 /*--------------------------------------------------------------
@@ -1266,6 +1313,9 @@ section {
   margin-bottom: 20px;
 }
 
+#name::placeholder{
+  font-size: 12px !important;
+}
 
 .btn {
   margin-left: 10px;
@@ -1276,6 +1326,7 @@ section {
   margin: 0 5px;
   border: 1px solid #ccc;
   background-color: #f0f0f0;
+  font-size: 14px;
 }
 
 .level-button.selected {

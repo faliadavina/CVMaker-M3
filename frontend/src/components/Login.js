@@ -58,12 +58,13 @@ const Login = () => {
     e.preventDefault();
     setUsernameError(username ? null : "Username is required");
     setPasswordError(password ? null : "Password is required");
+    console.log(usernameError);
     if (username && password) {
       if (usernameError || passwordError) {
-        setTimeout(() => {
-          setUsername("");
-          setPassword("");
-        }, 3000);
+        setUsername("");
+        setPassword("");
+        setUsernameError(null); // Menghapus pesan kesalahan jika field sudah diisi
+        setPasswordError(null); // Menghapus pesan kesalahan jika field sudah diisi
       }
       dispatch(LoginUser({ username, password }));
     }
@@ -90,7 +91,9 @@ const Login = () => {
             {isError && message && <p className="error-message">{message}</p>}
             <div className="mb-3">
               <div className="input-container">
-                <BsPersonFill className="icon" />
+                <BsPersonFill
+                  className={`username-icon ${usernameError ? "error" : ""}`}
+                />
                 <input
                   type="text"
                   className={`form-control ${
@@ -102,14 +105,16 @@ const Login = () => {
                   placeholder="Username"
                   style={{ backgroundColor: "#f5f5f5" }}
                 />
+                {usernameError && (
+                  <div className="invalid-feedback">{usernameError}</div>
+                )}
               </div>
-              {usernameError && (
-                <div className="invalid-feedback">{usernameError}</div>
-              )}
             </div>
             <div className="mb-3">
               <div className="input-container">
-                <BsLockFill className="icon" />
+                <BsLockFill
+                  className={`password-icon ${passwordError ? "error" : ""}`}
+                />
                 <input
                   type={showPassword ? "text" : "password"}
                   className={`form-control ${
@@ -122,15 +127,17 @@ const Login = () => {
                   style={{ backgroundColor: "#f0f0f0" }}
                 />
                 <div
-                  className="password-toggle"
+                  className={`password-toggle ${
+                    passwordError ? "error" : ""
+                  }`}
                   onClick={togglePasswordVisibility}
                 >
                   {showPassword ? <BsEyeSlashFill /> : <BsEyeFill />}
                 </div>
+                {passwordError && (
+                  <div className="invalid-feedback">{passwordError}</div>
+                )}
               </div>
-              {passwordError && (
-                <div className="invalid-feedback">{passwordError}</div>
-              )}
             </div>
             <div className="mb-3">
               <button

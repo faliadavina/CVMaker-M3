@@ -207,10 +207,12 @@ const EditDataDiri = () => {
               },
           });
 
+          alert("Your personal data updated successfully !");
           navigate('/data_diri');
 
         } catch (error) {
             console.log(error);
+            alert("Cannot update your data, please try again");
         }
     };
 

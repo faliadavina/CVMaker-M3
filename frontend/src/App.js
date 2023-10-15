@@ -10,6 +10,9 @@ import EditDataDiri from "./components/EditDataDiri";
 import AddDataDiri from "./components/AddDataDiri";
 import Contact from "./pages/Contact";
 import Register from "./components/Register";
+import AddPendidikan from "./components/AddPendidikan";
+import EditPendidikan from "./components/EditPendidikan";
+import PendidikanList from "./components/PendidikanList";
 
 function App() {
   return (
@@ -26,8 +29,11 @@ function App() {
         <Route path="/skills" element={<SkillList />} />
         <Route path="/edit_skill" element={<EditSkill />} />
         <Route path="/add_skill" element={<AddSkill />}/>
+        <Route path="/add_pendidikan" element={<AddPendidikan />}/>
+        <Route path="/edit_pendidikan" element={<EditPendidikan />}/>
+        <Route path="/pendidikan" element={<PendidikanList />}/>
         <Route path="/contact" element={<Contact />}/>
-         <Route path="/register" element={<Register />}/>
+        <Route path="/register" element={<Register />}/>
       </Routes>
     </BrowserRouter>
   );

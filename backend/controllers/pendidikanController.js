@@ -1,13 +1,26 @@
 import Pendidikan from "../models/pendidikanModel.js";
+import User from "../models/usersModel.js";
 
 // Fungsi untuk memasukkan data pendidikan
 export const insertPendidikan = async (req, res) => {
     try {
-        const { id_user, jenjang, nama_sekolah, jurusan, tahun_masuk, tahun_lulus } = req.body;
+        const id_akun = req.params.id_akun
+
+        const {jenjang, nama_sekolah, jurusan, tahun_masuk, tahun_lulus } = req.body;
+
+        const user = await User.findOne({
+            where: {
+                id_akun: id_akun
+            }
+        });
+
+        if (!user) {
+          return res.status(404).json({ error: 'User not found' });
+        }
 
         // Membuat data pendidikan baru dalam objek
         const newPendidikan =  await Pendidikan.create ({
-            id_user,
+            id_akun,
             jenjang,
             nama_sekolah,
             jurusan,
@@ -15,23 +28,26 @@ export const insertPendidikan = async (req, res) => {
             tahun_lulus
         });
 
-        res.json(newPendidikan);
+        res.status(201).json({pendidikan : newPendidikan});
     } catch (err) {
         console.error(err);
-        res.json({ error: "Internal server error" });
+        res.status(500).json({ error: "Internal server error" });
     }
 };
 
 export const getAllPendidikan = async (req, res) => {
     try {
-        const pendidikan = await Pendidikan.findAll();
-
-        res.json({pendidikan});
+      const id_akun = req.params.id_akun;
+      const pendidikan = await Pendidikan.findAll({
+        where: {
+          id_akun: id_akun
+        }});
+        return res.status(200).json({ success: true, pendidikan: pendidikan });
     } catch (err) {
-        console.error(err);
-        res.json({ error: "Internal server error" });
+      console.error(err);
+      return res.status(500).json({ error: 'Internal server error' });
     }
-};
+}
 
 export const getPendidikanById = async(req, res)=>{
     const { id_pend } = req.params;

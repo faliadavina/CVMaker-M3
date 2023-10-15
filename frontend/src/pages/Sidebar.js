@@ -116,18 +116,17 @@ const Sidebar = () => {
                 </NavLink>
               </li>
               <li>
-                <a
-                  href="#resume"
+                <NavLink
+                  to="/pendidikan"
                   className={`nav-link ${
                     activeMenuItem === "Edit Educational Data"
                       ? "scrollto active"
                       : "scrollto"
                   }`}
-                  onClick={() => handleMenuItemClick("Edit Educational Data")}
+                  onClick={() => handleMenuItemClick("Edit Educational")}
                 >
-                  <i className="bx bx-file-blank"></i>{" "}
-                  <span>Edit Educational Data</span>
-                </a>
+                  <i className="bx bx-server"></i> <span>Edit Educational Data</span>
+                </NavLink>
               </li>
               <li>
                 <a

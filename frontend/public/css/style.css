@@ -1139,11 +1139,12 @@ section {
   ); /* Adjust the color and alpha (0.5 for 50% transparency) */
 }
 
+
 .register-form{
   font-size: 12px;
 }
 
-.error-message {
+.error-message{
   background-color: rgb(249, 197, 197);
   color: rgb(162, 10, 10);
   padding: 10px;
@@ -1152,6 +1153,8 @@ section {
 
 .input-container {
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .input-container .icon {
@@ -1162,6 +1165,30 @@ section {
   transform: translateY(-50%);
   color: rgb(193, 189, 189);
 }
+
+.input-container .username-icon, .input-container .password-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: rgb(193, 189, 189);
+  transition: top 0.3s ease; /* Menambahkan transisi untuk perubahan top */
+}
+
+.input-container .username-icon.error,.input-container .password-icon.error, .password-toggle.error {
+  top: 30%;
+  color: red;
+}
+
+.password-toggle.error{
+  margin-right: 20px;
+}
+
+.is-invalid::placeholder{
+  color: red;
+}
+
+
 
 /* Tambahkan padding-left untuk memberikan jarak antara ikon dan placeholder */
 .input-container input {
@@ -1185,6 +1212,11 @@ section {
     color: #3b3a3d; /* Change text color on hover */
   }
 
+  .invalid-feedback {
+    color: red; /* Warna teks merah untuk pesan error */
+    font-size: 14px; /* Ukuran font pesan error */
+    margin-top: 4px; /* Jarak antara input field dan pesan error */
+  }
 
   .nav-icon {
     text-align: center;

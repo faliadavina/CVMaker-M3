@@ -16,6 +16,11 @@ const isEmailValid = (email) => {
   return emailRegex.test(email);
 };
 
+const isUsernameValid = (username) => {
+  const usernameRegex = /^[a-zA-Z][a-zA-Z0-9]*$/;
+  return usernameRegex.test(username);
+};
+
 const isPasswordValid = (password) => {
   const passwordRegex = /^(?=.*\d).{8,}$/;
   return passwordRegex.test(password);
@@ -24,6 +29,13 @@ const isPasswordValid = (password) => {
 const Register = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+
+  const [isFieldBlurred, setIsFieldBlurred] = useState(false);
+
+  const handleFieldBlur = () => {
+    setIsFieldBlurred(true);
+  };
+
 
   const [values, setValues] = useState({
     email: "",
@@ -53,6 +65,7 @@ const Register = () => {
   };
 
   const onChange = (e) => {
+    setIsFieldBlurred(true);
     const { name, value } = e.target;
     setValues({
       ...values,
@@ -80,6 +93,14 @@ const Register = () => {
         ...prevErrors,
         confirmPassword:
           value === values.password ? "" : "Passwords do not match",
+      }));
+    } else if (name === "username") {
+      const usernameIsValid = isUsernameValid(value);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        username: usernameIsValid
+          ? ""
+          : "Username must start with a letter and only contain letters and numbers",
       }));
     } else {
       setErrors((prevErrors) => ({
@@ -119,6 +140,8 @@ const Register = () => {
 
     setErrors(validationErrors);
 
+
+
     if (Object.keys(validationErrors).length === 0) {
       try {
         const response = await axios.post("http://localhost:5000/akun", {
@@ -151,9 +174,17 @@ const Register = () => {
         } else {
           setError(error.response.data.message);
         }
+
       }
     }
+    console.log(error);
     setIsLoading(false);
+  };
+
+  const shouldDisplayRequired = (field) => {
+    
+    console.log(isFieldBlurred && !values[field])
+    return isFieldBlurred && !values[field];
   };
 
   return (
@@ -181,16 +212,19 @@ const Register = () => {
               <input
                 type="text"
                 className={`form-control ${
-                  errors.username ? "is-invalid" : ""
+                  (shouldDisplayRequired('username') || errors.username) ? "is-invalid" : ""
                 }`}
                 id="username"
                 name="username"
                 value={values.username}
                 onChange={(e) => onChange(e)}
+                onBlur={handleFieldBlur}
                 required
               />
-              {errors.username && (
-                <div className="invalid-feedback">{errors.username}</div>
+              {(shouldDisplayRequired('username') || errors.username) && (
+                <div className="invalid-feedback">
+                  {shouldDisplayRequired('username') ? 'Username is required' : errors.username}
+                </div>
               )}
             </div>
             <div className="mb-2 register">
@@ -199,15 +233,20 @@ const Register = () => {
               </label>
               <input
                 type="email"
-                className={`form-control ${errors.email ? "is-invalid" : ""}`}
+                className={`form-control ${
+                  (shouldDisplayRequired('email') || errors.email) ? "is-invalid" : ""
+                }`}
                 id="email"
                 name="email"
                 value={values.email}
                 onChange={(e) => onChange(e)}
+                onBlur={handleFieldBlur}
                 required
               />
-              {errors.email && (
-                <div className="invalid-feedback">{errors.email}</div>
+             {(shouldDisplayRequired('email') || errors.email) && (
+                <div className="invalid-feedback">
+                  {shouldDisplayRequired('email') ? 'Email is required' : errors.email}
+                </div>
               )}
             </div>
             <div className="mb-2 register">
@@ -218,12 +257,13 @@ const Register = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   className={`form-control ${
-                    errors.password ? "is-invalid" : ""
+                    (shouldDisplayRequired('password') || errors.password) ? "is-invalid" : ""
                   }`}
                   id="password"
                   name="password"
                   value={values.password}
                   onChange={(e) => onChange(e)}
+                  onBlur={handleFieldBlur}
                   required
                 />
                 <button
@@ -233,9 +273,11 @@ const Register = () => {
                 >
                   {showPassword ? <BsEyeSlashFill /> : <BsEyeFill />}
                 </button>
-                {errors.password && (
-                  <div className="invalid-feedback">{errors.password}</div>
-                )}
+                {(shouldDisplayRequired('password') || errors.password) && (
+                <div className="invalid-feedback">
+                  {shouldDisplayRequired('password') ? 'password is required' : errors.password}
+                </div>
+              )}
               </div>
             </div>
             <div className="mb-2 register">
@@ -249,12 +291,13 @@ const Register = () => {
                 <input
                   type={showConfirmPassword ? "text" : "password"}
                   className={`form-control ${
-                    errors.confirmPassword ? "is-invalid" : ""
+                    (shouldDisplayRequired('confirmPassword') || errors.confirmPassword) ? "is-invalid" : ""
                   }`}
                   id="confirmPassword"
                   name="confirmPassword"
                   value={values.confirmPassword}
                   onChange={(e) => onChange(e)}
+                  onBlur={handleFieldBlur}
                   required
                 />
                 <button
@@ -264,11 +307,11 @@ const Register = () => {
                 >
                   {showConfirmPassword ? <BsEyeSlashFill /> : <BsEyeFill />}
                 </button>
-                {errors.confirmPassword && (
-                  <div className="invalid-feedback">
-                    {errors.confirmPassword}
-                  </div>
-                )}
+                {(shouldDisplayRequired('confirmPassword') || errors.confirmPassword) && (
+                <div className="invalid-feedback">
+                  {shouldDisplayRequired('confirmPassword') ? 'confirmPassword is required' : errors.confirmPassword}
+                </div>
+              )}
               </div>
             </div>
             <div className="mb-3 mt-3">

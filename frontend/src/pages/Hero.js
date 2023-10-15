@@ -1,59 +1,70 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { getMe, LogOut, reset } from "../features/authSlice";
-import { IoLogOut } from "react-icons/io5";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import Sidebar from "./Sidebar";
+import Footer from "./Footer";
+import Typed from "typed.js";
+import axios from "axios"; // Import axios
 
 const Hero = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { isError } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    dispatch(getMe());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (isError) {
-      navigate("/login");
-    }
-  }, [isError, navigate]);
-
-  const logout = () => {
-    dispatch(LogOut());
-    dispatch(reset());
-    navigate("/login");
-  };
-
   const { user } = useSelector((state) => state.auth);
-  const username = user && user.user && user.user.username;
-  console.log("username:", username);
+  const username = user?.user?.username;
+  const id = user && user.user && user.user.id_akun;
+  const [skillNames, setSkillNames] = useState([
+    "(Ayo isi skill mu)",
+  ]);
+
+  useEffect(() => {
+    if (id) {
+      getSkills(); // Fetch skills when id is available
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (skillNames.length > 0) {
+      const options = {
+        strings: skillNames,
+        typeSpeed: 100,
+        backSpeed: 50,
+        loop: true
+      };
+
+      const typed = new Typed(".typed", options);
+
+      return () => {
+        typed.destroy(); // Clean up the Typed instance to avoid memory leaks
+      };
+    }
+  }, [skillNames]);
+
+  const getSkills = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/skills/akun/${id}`);
+      const skills = response.data.skills;
+      const skillNames = skills.map((skill) => skill.nama_skill);
+      setSkillNames(skillNames);
+    } catch (error) {
+      console.error("Error fetching skills:", error);
+    }
+  };
 
   return (
     <div>
-      {/* ======= Hero Section ======= */}
+      <Sidebar />
       <section
         id="hero"
         className="d-flex flex-column justify-content-center align-items-center"
       >
         <div className="hero-container" data-aos="fade-in">
-          <div className="logout-button" onClick={logout}>
-            <div className="icon-text-container">
-              <IoLogOut className="logout-icon" />
-              <div className="logout-text">Logout</div>
-            </div>
-          </div>
           <h1>{username}</h1>
           <p>
-            I'm{" "}
+            Saya Memiliki Skill {" "}
             <span
               className="typed"
-              data-typed-items="Designer, Developer, Freelancer, Photographer"
             ></span>
           </p>
         </div>
       </section>
-      {/* End Hero */}
+      <Footer />
     </div>
   );
 };

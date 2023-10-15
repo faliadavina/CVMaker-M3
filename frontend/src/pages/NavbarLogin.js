@@ -20,7 +20,7 @@ const NavbarLogin = () => {
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/contact-us">
+            <NavLink className="nav-link" to="/contact">
               <div className="nav-icon"><FaEnvelope /></div>
               <div className="nav-text">Contact Us</div>
             </NavLink>

@@ -82,18 +82,17 @@ const Sidebar = () => {
                 "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"
               }
               alt=""
-              className="img-fluid rounded-circle"
             />
             <h1 className="text-light m-4">
               <a href="index.html">{userData.username || ""}</a>
             </h1>
           </div>
 
-          <nav id="navbar" className="nav-menu navbar">
+          <nav id="navbar" className="nav-menu navbar" style={{ marginTop: '30px' }}>
             <ul>
               <li>
                 <NavLink
-                  to="/"
+                  to="/My"
                   className={`nav-link ${
                     activeMenuItem === "My CV" ? "scrollto active" : "scrollto"
                   }`}
@@ -105,11 +104,10 @@ const Sidebar = () => {
               <li>
                 <NavLink
                   to="/data_diri"
-                  className={`nav-link ${
-                    activeMenuItem === "Edit Personal Data"
-                      ? "scrollto active"
-                      : "scrollto"
-                  }`}
+                  className={`nav-link ${activeMenuItem === "Edit Personal Data"
+                    ? "scrollto active"
+                    : "scrollto"
+                    }`}
                   onClick={() => handleMenuItemClick("Edit Personal Data")}
                 >
                   <i className="bx bx-user"></i> <span>Edit Personal Data</span>
@@ -118,11 +116,10 @@ const Sidebar = () => {
               <li>
                 <a
                   href="#resume"
-                  className={`nav-link ${
-                    activeMenuItem === "Edit Educational Data"
-                      ? "scrollto active"
-                      : "scrollto"
-                  }`}
+                  className={`nav-link ${activeMenuItem === "Edit Educational Data"
+                    ? "scrollto active"
+                    : "scrollto"
+                    }`}
                   onClick={() => handleMenuItemClick("Edit Educational Data")}
                 >
                   <i className="bx bx-file-blank"></i>{" "}
@@ -132,44 +129,41 @@ const Sidebar = () => {
               <li>
                 <a
                   href="#portfolio"
-                  className={`nav-link ${
-                    activeMenuItem === "Edit Organizational Experience"
-                      ? "scrollto active"
-                      : "scrollto"
-                  }`}
+                  className={`nav-link ${activeMenuItem === "Edit Organizational Experience"
+                    ? "scrollto active"
+                    : "scrollto"
+                    }`}
                   onClick={() =>
                     handleMenuItemClick("Edit Organizational Experience")
                   }
                 >
                   <i className="bx bx-book-content"></i>{" "}
-                  <span>Edit Organizational Experience</span>
+                  <span>Organizational Experience</span>
                 </a>
               </li>
               <li>
                 <NavLink
                   to="/skills"
-                  className={`nav-link ${
-                    activeMenuItem === "Edit Skills"
-                      ? "scrollto active"
-                      : "scrollto"
-                  }`}
+                  className={`nav-link ${activeMenuItem === "Edit Skills"
+                    ? "scrollto active"
+                    : "scrollto"
+                    }`}
                   onClick={() => handleMenuItemClick("Edit Skills")}
                 >
-                  <i className="bx bx-server"></i> <span>Edit Skills</span>
+                  <i className="bx bx-server"></i> <span>Skills</span>
                 </NavLink>
               </li>
               <li>
-                <a
-                  href="#contact"
-                  className={`nav-link ${
-                    activeMenuItem === "Edit Portfolio"
-                      ? "scrollto active"
-                      : "scrollto"
-                  }`}
+                <NavLink
+                  to="/portofolio"
+                  className={`nav-link ${activeMenuItem === "Edit Portfolio"
+                    ? "scrollto active"
+                    : "scrollto"
+                    }`}
                   onClick={() => handleMenuItemClick("Edit Portfolio")}
                 >
-                  <i className="bx bx-envelope"></i> <span>Edit Portfolio</span>
-                </a>
+                  <i className="bx bx-envelope"></i> <span>Portfolio</span>
+                </NavLink>
               </li>
               <li>
                 <a

@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Navbar from './layout/navbar';
-import Footer from './layout/footer';
+import Sidebar from '../pages/Sidebar';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 
 const Portfolio = () => {
   const [portofolios, setPorto] = useState([]);
-  const id_akun = 3;
 
   useEffect(() => {
     getPorto()
   }, []);
 
+  const { user } = useSelector((state) => state.auth);
+  const id = user && user.user && user.user.id_akun;
+  console.log(id);
+
   const getPorto = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/porto/${id_akun}`);
+      const response = await axios.get(`http://localhost:5000/porto/${id}`);
       setPorto(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -53,9 +57,9 @@ const Portfolio = () => {
 
   return (
     <body>
-      <Navbar />
+      <Sidebar />
       <main id="main">
-        <section id="uploadPorto" className="portfolio section-bg">
+        <section id="uploadPorto" className="portfolio">
           <div className="container">
 
             <div className="section-title">
@@ -82,7 +86,7 @@ const Portfolio = () => {
                     <div className="row">
                       {portofolios.map((portofolio) => (
                         <div className="col-md-6 mx-auto" key={portofolio.id_porto}>
-                          <div className="card" style={{ marginBottom: '15px' }}>
+                          <div className="card porto" style={{ marginBottom: '15px' }}>
                             {renderPortofolioContent(portofolio.url)}
                             <div className="deskripsi">
                               <p>{portofolio.deskripsi}</p>
@@ -103,8 +107,6 @@ const Portfolio = () => {
           </div>
         </section>
       </main>
-      <Footer />
-      <a href="#about" className="back-to-top d-flex align-items-center justify-content-center"><i className="bi bi-arrow-up-short"></i></a>
     </body>
   )
 }

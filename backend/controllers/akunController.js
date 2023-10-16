@@ -29,19 +29,23 @@ export const createAkun = async (req, res) => {
 
 
 export const getAllAkun = async (req, res) => {
-    try {
-        const allAkun = await AkunDB.findAll();
-    
-        return res.status(200).json({
-          success: true,
-          allAkun,
-        });
-      } catch (error) {
-        console.log(error.message);
-        return res.status(500).json({
-          error: error.message,
-        });
-      }
+  try {
+    const allAkun = await AkunDB.findAll({
+      where: {
+        role: 2,
+      },
+    });
+
+    return res.status(200).json({
+      success: true,
+      allAkun,
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
 };
 
 

@@ -92,7 +92,7 @@ const DataDiri = () => {
                         </li>
                         <li>
                           <i class="bi bi-chevron-right"></i>{" "}
-                          <strong>Profession :</strong>{" "}
+                          <strong>Marriage Status :</strong>{" "}
                           <span>{data_diri.status}</span>
                         </li>
                         <li>

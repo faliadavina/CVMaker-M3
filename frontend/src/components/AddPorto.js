@@ -11,7 +11,6 @@ const AddPorto = () => {
     const [file, setFile] = useState("");
     const [fileType, setFileType] = useState("");
     const [errors, setErrors] = useState("");
-    const id_akun = 3;
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { isError } = useSelector((state) => state.auth);

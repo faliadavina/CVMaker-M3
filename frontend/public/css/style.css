@@ -33,6 +33,10 @@ h6 {
   font-family: "Raleway", sans-serif;
 }
 
+h5{
+  font-size: 16px;
+  font-weight: bold;
+}
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
@@ -309,6 +313,7 @@ h6 {
 section {
   padding: 60px 0;
   overflow: hidden;
+  max-height: 100%;
 }
 
 .section-bg {
@@ -316,7 +321,7 @@ section {
 }
 
 .section-title {
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
 
 .section-title h2 {
@@ -1105,7 +1110,66 @@ section {
   }
 }
 
-/* LoginStyles.css */
+.card {
+  width: 550px;
+  height: 300px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  margin-left: -25px;
+}
+
+.card img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.deskripsi {
+  display: none;
+  background-color: #173b6c;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  padding: 10px;
+  box-sizing: border-box;
+  opacity: 0.8;
+  transition: all ease-in-out 0.5s;
+  z-index: 3;
+}
+
+.deskripsi p{
+  color: #fff;
+  transition: 0.3s;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+}
+
+.card:hover .deskripsi {
+  display: block;
+}
+
+.conStyle{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add {
+  width: 700px;
+  height: 300px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  margin-left: -25px;
+}
+/*--------------------------------------------------------------
+# Login
+--------------------------------------------------------------*/
 .image-container {
   position: relative;
 }
@@ -1120,7 +1184,7 @@ section {
 /* Overlay effect */
 .image-container::before {
   content: "";
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -1133,7 +1197,12 @@ section {
   ); /* Adjust the color and alpha (0.5 for 50% transparency) */
 }
 
-.error-message {
+
+.register-form{
+  font-size: 12px;
+}
+
+.error-message{
   background-color: rgb(249, 197, 197);
   color: rgb(162, 10, 10);
   padding: 10px;
@@ -1142,6 +1211,8 @@ section {
 
 .input-container {
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .input-container .icon {
@@ -1150,8 +1221,32 @@ section {
   left: 10px;
   margin-right: 20px;
   transform: translateY(-50%);
-  color: gray;
+  color: rgb(193, 189, 189);
 }
+
+.input-container .username-icon, .input-container .password-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: rgb(193, 189, 189);
+  transition: top 0.3s ease; /* Menambahkan transisi untuk perubahan top */
+}
+
+.input-container .username-icon.error,.input-container .password-icon.error, .password-toggle.error {
+  top: 30%;
+  color: red;
+}
+
+.password-toggle.error{
+  margin-right: 20px;
+}
+
+.is-invalid::placeholder{
+  color: red;
+}
+
+
 
 /* Tambahkan padding-left untuk memberikan jarak antara ikon dan placeholder */
 .input-container input {
@@ -1171,26 +1266,28 @@ section {
     }
   }
   
-  .navbar-nav .nav-link:hover {
-    color: #59585d; /* Change text color on hover */
+  .nav-link:hover {
+    color: #3b3a3d; /* Change text color on hover */
   }
 
-  .navbar-nav .nav-link {
-    color: #fff;
-    font-size: 16px;
-    margin-right: 20px;
-    text-align: center;
+  .invalid-feedback {
+    color: red; /* Warna teks merah untuk pesan error */
+    font-size: 14px; /* Ukuran font pesan error */
+    margin-top: 4px; /* Jarak antara input field dan pesan error */
   }
 
   .nav-icon {
     text-align: center;
     margin-bottom: 5px; /* Adjust the margin as needed */
+    color: #fff;
+    margin-right: 20px;
   }
   
   .nav-text {
     text-align: center;
     color: #fff;
     font-size: 16px;
+    margin-right: 20px;
   }
   
   .password-toggle {
@@ -1205,6 +1302,37 @@ section {
     top: -50px;
   }
   
+  .register-link {
+    display: flex;
+    align-items: center;
+    margin-top: 10px; /* Sesuaikan margin-top sesuai kebutuhan */
+  }
+  
+  .register-link span{
+    font-size: 12px;
+  }
+
+  .register-link .sign-up {
+    color: blue;
+    text-decoration: underline;
+    transition: color 0.3s; /* Animasi transisi warna saat hover */
+  }
+  
+  .register-link .sign-up:hover {
+    color: darkblue; /* Warna baru saat hover */
+  }
+  
+  .register-link .sign-up i {
+    margin-left: 5px; /* Ruang di antara teks dan ikon */
+  }
+  
+  .register-link .sign-up i:hover {
+    transform: translateX(3px); /* Efek geser saat hover */
+  }
+
+  .regist-container{
+    overflow-y: auto;
+  }
 
   .navbar-nav {
     display: flex;
@@ -1216,29 +1344,19 @@ section {
     display: flex;
     align-items: center;
   }
-  
-  .logout-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    cursor: pointer;
-  }
-  .icon-text-container .logout-icon:hover {
-    color: #59585d;
-  }
 
-  .logout-icon {
-    font-size: 32px;
-    color: white;
-    margin-left: 20px;
-  }
-
-  .logout-text {
-    color: white;
-    font-size: 16px;
+  .register input{
+    font-size: 12px;;
   }
   
-  /* AddSkill.css */
+  .register{
+    overflow-y: auto;
+  }
+  
+  
+/*--------------------------------------------------------------
+# Add Skill
+--------------------------------------------------------------*/
 .split-screen {
   display: flex;
   height: 100vh;
@@ -1254,7 +1372,17 @@ section {
   background-color: white;
 }
 
-/* SkillList.css */
+i{
+  font-size: 12px;
+}
+
+.form-check-label p{
+  font-size: 14px;;
+}
+
+/*--------------------------------------------------------------
+# Skill List
+--------------------------------------------------------------*/
 .progress-container {
   display: flex;
   justify-content: space-between;
@@ -1263,6 +1391,7 @@ section {
 
 .progress {
   width: 80%;
+  padding-top: 5px;
 }
 
 .progress-buttons {
@@ -1274,6 +1403,9 @@ section {
   margin-bottom: 20px;
 }
 
+#name::placeholder{
+  font-size: 12px !important;
+}
 
 .btn {
   margin-left: 10px;
@@ -1284,6 +1416,7 @@ section {
   margin: 0 5px;
   border: 1px solid #ccc;
   background-color: #f0f0f0;
+  font-size: 14px;
 }
 
 .level-button.selected {
@@ -1307,6 +1440,8 @@ section {
 .hardskill {
   order: 1; /* Posisikan di kanan */
 }
+
+
 /*--------------------------------------------------------------
 # Image Preview
 --------------------------------------------------------------*/

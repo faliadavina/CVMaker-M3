@@ -1,5 +1,5 @@
-import { Sequelize } from "sequelize";
-import db from "../config/Database.js";
+import { Sequelize } from 'sequelize';
+import db from '../config/database.js';
 
 const { DataTypes } = Sequelize;
 
@@ -21,6 +21,10 @@ const Portofolio = db.define('data_portofolio', {
         allowNull: false
     },
     deskripsi: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    url: {
         type: DataTypes.STRING,
         allowNull: false
     }

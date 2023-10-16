@@ -8,6 +8,8 @@ import Login from "./components/Login";
 import AddSkill from "./components/AddSkill.js";
 import SkillList from "./components/SkillList";
 import EditSkill from "./components/EditSkill";
+import AddOrganisasi from "./components/AddOrganisasi";
+import EditOrganisasi from "./components/EditOrganisasi";
 import DataDiri from "./components/DataDiri";
 import EditDataDiri from "./components/EditDataDiri";
 import AddDataDiri from "./components/AddDataDiri";
@@ -36,6 +38,8 @@ function App() {
         <Route path="/skills" element={<SkillList />} />
         <Route path="/edit_skill" element={<EditSkill />} />
         <Route path="/add_skill" element={<AddSkill />} />
+        <Route path="/add_organisasi" element={<AddOrganisasi />} />
+        <Route path="/edit_organisasi" element={<EditOrganisasi />} />
         <Route path="/My" element={<My />} />
         <Route path="/add_skill" element={<AddSkill />}/>
         <Route path="/add_pendidikan" element={<AddPendidikan />}/>

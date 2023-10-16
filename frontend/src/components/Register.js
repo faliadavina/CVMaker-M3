@@ -182,7 +182,7 @@ const Register = () => {
   };
 
   const shouldDisplayRequired = (field) => {
-    
+
     console.log(isFieldBlurred && !values[field])
     return isFieldBlurred && !values[field];
   };
@@ -211,9 +211,8 @@ const Register = () => {
               </label>
               <input
                 type="text"
-                className={`form-control ${
-                  (shouldDisplayRequired('username') || errors.username) ? "is-invalid" : ""
-                }`}
+                className={`form-control ${(shouldDisplayRequired('username') || errors.username) ? "is-invalid" : ""
+                  }`}
                 id="username"
                 name="username"
                 value={values.username}
@@ -233,9 +232,8 @@ const Register = () => {
               </label>
               <input
                 type="email"
-                className={`form-control ${
-                  (shouldDisplayRequired('email') || errors.email) ? "is-invalid" : ""
-                }`}
+                className={`form-control ${(shouldDisplayRequired('email') || errors.email) ? "is-invalid" : ""
+                  }`}
                 id="email"
                 name="email"
                 value={values.email}
@@ -243,7 +241,7 @@ const Register = () => {
                 onBlur={handleFieldBlur}
                 required
               />
-             {(shouldDisplayRequired('email') || errors.email) && (
+              {(shouldDisplayRequired('email') || errors.email) && (
                 <div className="invalid-feedback">
                   {shouldDisplayRequired('email') ? 'Email is required' : errors.email}
                 </div>
@@ -256,9 +254,8 @@ const Register = () => {
               <div className="input-group register">
                 <input
                   type={showPassword ? "text" : "password"}
-                  className={`form-control ${
-                    (shouldDisplayRequired('password') || errors.password) ? "is-invalid" : ""
-                  }`}
+                  className={`form-control ${(shouldDisplayRequired('password') || errors.password) ? "is-invalid" : ""
+                    }`}
                   id="password"
                   name="password"
                   value={values.password}
@@ -274,10 +271,10 @@ const Register = () => {
                   {showPassword ? <BsEyeSlashFill /> : <BsEyeFill />}
                 </button>
                 {(shouldDisplayRequired('password') || errors.password) && (
-                <div className="invalid-feedback">
-                  {shouldDisplayRequired('password') ? 'password is required' : errors.password}
-                </div>
-              )}
+                  <div className="invalid-feedback">
+                    {shouldDisplayRequired('password') ? 'password is required' : errors.password}
+                  </div>
+                )}
               </div>
             </div>
             <div className="mb-2 register">
@@ -290,9 +287,8 @@ const Register = () => {
               <div className="input-group register">
                 <input
                   type={showConfirmPassword ? "text" : "password"}
-                  className={`form-control ${
-                    (shouldDisplayRequired('confirmPassword') || errors.confirmPassword) ? "is-invalid" : ""
-                  }`}
+                  className={`form-control ${(shouldDisplayRequired('confirmPassword') || errors.confirmPassword) ? "is-invalid" : ""
+                    }`}
                   id="confirmPassword"
                   name="confirmPassword"
                   value={values.confirmPassword}
@@ -308,10 +304,10 @@ const Register = () => {
                   {showConfirmPassword ? <BsEyeSlashFill /> : <BsEyeFill />}
                 </button>
                 {(shouldDisplayRequired('confirmPassword') || errors.confirmPassword) && (
-                <div className="invalid-feedback">
-                  {shouldDisplayRequired('confirmPassword') ? 'confirmPassword is required' : errors.confirmPassword}
-                </div>
-              )}
+                  <div className="invalid-feedback">
+                    {shouldDisplayRequired('confirmPassword') ? 'confirmPassword is required' : errors.confirmPassword}
+                  </div>
+                )}
               </div>
             </div>
             <div className="mb-3 mt-3">

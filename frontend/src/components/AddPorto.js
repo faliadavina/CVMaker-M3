@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Navbar from './layout/navbar';
-import Footer from './layout/footer';
+import Sidebar from "../pages/Sidebar";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { getMe } from "../features/authSlice";
 
 const AddPorto = () => {
     const [title, setTitle] = useState("");
@@ -12,6 +13,8 @@ const AddPorto = () => {
     const [errors, setErrors] = useState("");
     const id_akun = 3;
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { isError } = useSelector((state) => state.auth);
 
     const loadFile = (e) => {
         const selectedFile = e.target.files[0];
@@ -20,6 +23,21 @@ const AddPorto = () => {
             setFileType(selectedFile.type);
         }
     };
+
+    useEffect(() => {
+        dispatch(getMe());
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (isError) {
+            navigate("/login");
+        }
+    }, [isError, navigate]);
+
+
+    const { user } = useSelector((state) => state.auth);
+    const id = user && user.user && user.user.id_akun;
+    console.log(id);
 
     const savePorto = async (e) => {
         e.preventDefault();
@@ -47,7 +65,7 @@ const AddPorto = () => {
         formData.append("file", file);
         formData.append("title", title);
         try {
-            await axios.post(`http://localhost:5000/porto/${id_akun}`, formData, {
+            await axios.post(`http://localhost:5000/porto/${id}`, formData, {
                 headers: {
                     "Content-type": "multipart/form-data",
                 },
@@ -75,7 +93,7 @@ const AddPorto = () => {
 
     return (
         <body>
-            <Navbar />
+            <Sidebar />
             <main id="main">
                 <section className="portfolio section-bg">
                     <div className="container">
@@ -113,7 +131,7 @@ const AddPorto = () => {
 
                                     {file && (
                                         <div className="Container" style={{ marginTop: '15px', marginLeft: '25px' }}>
-                                            <div className="card add">
+                                            <div className="card add porto">
                                                 {renderFilePreview()}
                                             </div>
                                         </div>
@@ -130,8 +148,6 @@ const AddPorto = () => {
                     </div>
                 </section>
             </main>
-            <Footer />
-            <a href="#about" className="back-to-top d-flex align-items-center justify-content-center"><i className="bi bi-arrow-up-short"></i></a>
         </body>
     )
 }

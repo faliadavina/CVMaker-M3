@@ -162,7 +162,11 @@ const EditDataDiri = () => {
           setPreview(URL.createObjectURL(selectedFile));
         }
       };
-      
+
+      const handleStatusChange = (e) => {
+          // Update nilai status sesuai dengan opsi yang dipilih
+          setStatus(e.target.value);
+      };
 
     // Menyimpan Perubahan
     const saveDataDiri = async (e) => {
@@ -335,19 +339,21 @@ const EditDataDiri = () => {
                                 required
                             />
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="name">Marriage Status</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="status"
-                                name="status"
-                                value={status}
-                                onChange={handleDataDiriChange}
-                                placeholder="Enter your Profession"
-                                required
-                            />
-                        </div>
+                        <div className="form-group col-md-6">
+                          <label for="name">Marriage Status</label>
+                          <select
+                              className="form-control"
+                              id="status"
+                              name="status"
+                              value={status}
+                              onChange={handleStatusChange}
+                              required
+                          >
+                              <option value="">Select Marriage Status</option>
+                              <option value="Menikah">Menikah</option>
+                              <option value="Belum Menikah">Belum Menikah</option>
+                          </select>
+                      </div>
                         <div class="form-group col-md-6">
                             <label for="name">Email</label>
                             <input

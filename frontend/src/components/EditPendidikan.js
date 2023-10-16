@@ -1,186 +1,176 @@
-import React, { useState, useEffect } from "react";
+import React,{useState, useEffect} from 'react';
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import Sidebar from "../pages/Sidebar";
-import { selectSkillId } from "../features/skillSlice";
 
-const EditSkill = () => {
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
-  const [level, setLevel] = useState("");
-  const [msg, setMsg] = useState("");
-  const skillId = useSelector(selectSkillId);
+const EditPendidikan = () => {
+  const {id_pend} = useParams();
   const navigate = useNavigate();
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-
-  // Get the user ID from Redux
   const { user } = useSelector((state) => state.auth);
   const id_akun = user && user.user && user.user.id_akun;
 
+  const [jenjang, setJenjang] = useState('');
+  const [nama_sekolah, setNamaSekolah] = useState('');
+  const [jurusan, setJurusan] = useState('');
+  const [tahun_masuk, setTahunMasuk] = useState('');
+  const [tahun_lulus, setTahunLulus] = useState('');
+
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [msg, setMsg] = useState("");
+
   useEffect(() => {
-    const getSkillById = async () => {
+    const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/skills/akun/${id_akun}/skill/${skillId}`
-        );
-        const skillData = response.data.skill[0];
-        setName(skillData.nama_skill);
-        setCategory(skillData.kategori_skill);
-        setLevel(skillData.level);
+          `http://localhost:5000/pendidikan/akun/${id_akun}/pendidikan/${id_pend}`
+          );
+        const dataPendidikan = response.data.pendidikan;
+        setJenjang(dataPendidikan.jenjang);
+        setNamaSekolah(dataPendidikan.nama_sekolah);
+        setJurusan(dataPendidikan.jurusan);
+        setTahunMasuk(dataPendidikan.tahun_masuk);
+        setTahunLulus(dataPendidikan.tahun_lulus)
+
+        console.log('pendidikan di edit:', response.data.pendidikan);
       } catch (error) {
-        if (error.response) {
-          setMsg(error.response.data.msg);
-        }
+        console.error('Error fetching education data:', error);
       }
-    };
-    getSkillById();
-  }, [id_akun, skillId]);
-
-  const handleNameChange = (value) => {
-    setName(value);
-    setMsg("");
-  };
-
-  const updateSkill = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
-    console.log("Name:", name);
-    console.log("Name:", name.length);
-    console.log("Is valid name:", /^[A-Za-z\s]+$/.test("dea salma"));
-    if (name.length > 200 || !/^[A-Za-z\s]+$/.test(name)) {
-      setMsg(
-        "Please enter a valid name (letters only, maximum 200 characters)."
-      );
-
-      // Clear the error message after 2 seconds
-      setTimeout(() => {
-        setMsg("");
-      }, 2000);
-
-      return;
     }
+    fetchData();
+  }, [id_akun, id_pend]);
+
+  const handleJenjangChange = (value) => {
+    setJenjang(value);
+  }
+
+  const handleNamaSekolahChange = (value) => {
+    setNamaSekolah(value);
+  }
+
+  const handleJurusanChange = (value) => {
+    setJurusan(value);
+  }
+
+  const handleTahunMasukChange = (value) => {
+    setTahunMasuk(value);
+  }
+
+  const handleTahunLulusChange = (value) => {
+    setTahunLulus(value);
+  }
+
+  const updatePendidikan = async (e) => {
+    e.preventDefault();
+    
+    // Reset error message
+    setMsg("");
 
     try {
-      await axios.patch(`http://localhost:5000/skills/${skillId}`, {
-        nama_skill: name,
-        kategori_skill: category,
-        level: level,
+      await axios.patch(`http://localhost:5000/pendidikan/${id_pend}`, {
+        jenjang: jenjang,
+        nama_sekolah: nama_sekolah,
+        jurusan: jurusan,
+        tahun_masuk: tahun_masuk,
+        tahun_lulus: tahun_lulus,
       });
-      setSuccessMessage("Skill updated successfully!"); // Set success message
+      setSuccessMessage("Education updated successfully!"); // Set success message
 
       // Show success message for 2 seconds before navigating
       setTimeout(() => {
-        navigate("/skills");
+        navigate("/pendidikan");
       }, 3000);
-      setErrorMessage(""); // Clear any previous error messages
+      setErrorMessage("");
     } catch (error) {
-      console.error("Error updating skill:", error);
-      setMsg(error.response.data.message);
-      setSuccessMessage(""); // Clear any previous success messages
+      console.error('Error saving education data:', error);
     }
-  };
+  }
 
   const handleCancel = () => {
-    navigate("/skills");
+    navigate('/pendidikan');
   };
 
   return (
     <div>
       <Sidebar />
       <main id="main">
-        <section id="addSkill" className="addSkill">
+        <section id="addPendidikan" className="addPendidikan">
           <div className="container">
             <div className="section-title">
-              <h2>Edit Skill</h2>
+              <h2>Add Education</h2>
             </div>
             {successMessage && (
               <div className="alert alert-success" role="alert">
                 {successMessage}
               </div>
             )}
-
-            {errorMessage && (
-              <div className="alert alert-danger" role="alert">
-                {errorMessage}
-              </div>
-            )}
             <div className="card-content">
               <div className="content">
-                <form onSubmit={updateSkill}>
+                <form onSubmit={updatePendidikan}>
                   <p className="text-center text-danger">{msg}</p>
 
                   <div className="mb-3">
-                    <label htmlFor="category" className="form-label">
-                      <h5>Skill Category</h5>
-                      <p>
-                        <i>Select One of the Categories Below</i>
-                      </p>
+                    <label htmlFor="jenjang" className="form-label">
+                      <h5>Jenjang Pendidikan</h5>
+                      <input 
+                        value={jenjang}
+                        onChange={(e) => handleJenjangChange(e.target.value)}
+                        type="text"
+                        className="form-control"
+                        placeholder="Jenjang"/>
                     </label>
-                    <div className="form-check">
-                      <input
-                        type="radio"
-                        className="form-check-input"
-                        id="softskill"
-                        value="softskill"
-                        checked={category === "softskill"}
-                        onChange={() => setCategory("softskill")}
-                      />
-                      <label className="form-check-label" htmlFor="softskill">
-                        <p>Soft Skill</p>
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <input
-                        type="radio"
-                        className="form-check-input"
-                        id="hardskill"
-                        value="hardskill"
-                        checked={category === "hardskill"}
-                        onChange={() => setCategory("hardskill")}
-                      />
-                      <label className="form-check-label" htmlFor="hardskill">
-                        <p>Hard Skill</p>
-                      </label>
-                    </div>
                   </div>
 
                   <div className="mb-3">
-                    <label htmlFor="name" className="form-label">
-                      <h5>Skill Name</h5>
+                    <label htmlFor="nama_sekolah" className="form-label">
+                      <h5>Nama Instansi Pendidikan</h5>
+                      <input 
+                        value={nama_sekolah}
+                        onChange={(e) => handleNamaSekolahChange(e.target.value)}
+                        type="text"
+                        className="form-control"
+                        placeholder="Nama Instansi Pendidikan"/>
                     </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="name"
-                      value={name}
-                      onChange={(e) => handleNameChange(e.target.value)}
-                      placeholder="Skill Name"
-                    />
                   </div>
 
-                  <label className="custom-label mb-2">
-                    <h5>Level</h5>
-                    <p>
-                      <i>Select One of the Levels Below</i>
-                    </p>
-                    <div className="button-group">
-                      {[...Array(10).keys()].map((index) => (
-                        <button
-                          type="button"
-                          key={index + 1}
-                          className={`level-button ${
-                            level === index + 1 ? "selected" : ""
-                          }`}
-                          onClick={() => setLevel(index + 1)}
-                        >
-                          {index + 1}
-                        </button>
-                      ))}
-                    </div>
-                  </label>
+                  <div className="mb-3">
+                    <label htmlFor="jurusan" className="form-label">
+                      <h5>Jurusan</h5>
+                      <input 
+                        value={jurusan}
+                        onChange={(e) => handleJurusanChange(e.target.value)}
+                        type="text"
+                        className="form-control"
+                        placeholder="Jurusan"/>
+                    </label>
+                  </div>
 
-                  <div className="d-flex justify-content-center align-items-center mt-3 mb-3">
+                  <div className="mb-3">
+                    <label htmlFor="tahun_masuk" className="form-label">
+                      <h5>Tahun Masuk</h5>
+                      <input 
+                        value={tahun_masuk}
+                        onChange={(e) => handleTahunMasukChange(e.target.value)}
+                        type="text"
+                        className="form-control"
+                        placeholder="Tahun Masuk"/>
+                    </label>
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="tahun_lulus" className="form-label">
+                      <h5>Tahun Lulus</h5>
+                      <input 
+                        value={tahun_lulus}
+                        onChange={(e) => handleTahunLulusChange(e.target.value)}
+                        type="text"
+                        className="form-control"
+                        placeholder="Tahun Lulus"/>
+                    </label>
+                  </div>
+
+                  <div className="d-flex justify-content-center align-items-center mb-3">
                     <button
                       type="button"
                       className="btn btn-secondary ms-2"
@@ -195,7 +185,7 @@ const EditSkill = () => {
                 </form>
               </div>
             </div>
-           
+         
           </div>
         </section>
       </main>
@@ -204,4 +194,6 @@ const EditSkill = () => {
   );
 };
 
-export default EditSkill;
+export default EditPendidikan;
+
+

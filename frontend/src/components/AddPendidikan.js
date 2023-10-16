@@ -13,6 +13,7 @@ const AddPendidikan = () => {
   const [tahun_lulus, setTahunLulus] = useState("");
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
+  
   const [jenjangFilled, setJenjangFilled] = useState(false);
   const [namaSekolahFilled, setNamaSekolahFilled] = useState(false);
   const [jurusanFilled, setJurusanFilled] = useState(false);

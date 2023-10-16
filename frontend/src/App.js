@@ -30,7 +30,7 @@ function App() {
         <Route path="/edit_skill" element={<EditSkill />} />
         <Route path="/add_skill" element={<AddSkill />}/>
         <Route path="/add_pendidikan" element={<AddPendidikan />}/>
-        <Route path="/edit_pendidikan" element={<EditPendidikan />}/>
+        <Route path="/edit_pendidikan/:id_pend" element={<EditPendidikan />}/>
         <Route path="/pendidikan" element={<PendidikanList />}/>
         <Route path="/contact" element={<Contact />}/>
         <Route path="/register" element={<Register />}/>

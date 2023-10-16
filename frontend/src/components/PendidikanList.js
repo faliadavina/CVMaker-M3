@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaPlus } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { setSkillId } from "../features/skillSlice"; 
+import { useSelector } from "react-redux";
 import Sidebar from "../pages/Sidebar";
 
-const SkillList = () => {
-  const dispatch = useDispatch();
+const PendidikanList = () => {
   const navigate = useNavigate();
   const { isError } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.auth);
@@ -18,77 +16,87 @@ const SkillList = () => {
     }
   }, [isError, navigate]);
 
-  const [softSkills, setSoftSkills] = useState([]);
-  const [hardSkills, setHardSkills] = useState([]);
-  const [data_skill, setSkill] = useState(null);
+  const [pendidikan, setPendidikan] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const id = user && user.user && user.user.id_akun;
+  console.log("id:", id);
 
   useEffect(() => {
-    getSkills();
+    getPendidikan();
   }, [id]);
 
-  const getSkills = async () => {
+  const getPendidikan = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/skills/akun/${id}`
+        `http://localhost:5000/pendidikan/akun/${id}`
       );
-      setSkill(response.data);
-
-      // Pisahkan skills berdasarkan kategori_skill
-      const softSkills = response.data.skills.filter(
-        (skill) => skill.kategori_skill === "softskill"
-      );
-      const hardSkills = response.data.skills.filter(
-        (skill) => skill.kategori_skill === "hardskill"
-      );
-
-      setSoftSkills(softSkills);
-      setHardSkills(hardSkills);
+      setPendidikan(response.data.pendidikan);
+      console.log("pendidikan:", response.data.pendidikan);
       setErrorMessage(""); // Reset error message on successful fetch
     } catch (error) {
-      console.error("Error fetching skills:", error);
-      setSkill(null);
+      console.error("Error fetching :", error);
     }
+  }
+
+  const handleEditClick = (id_pend) => {
+    navigate(`/edit_pendidikan/${id_pend}`);
+    console.log("id_pend:", id_pend);
   };
 
-  const handleEditClick = (skillId) => {
-    console.log(skillId);
-    dispatch(setSkillId(skillId));
-  };
-
-  const deleteSkill = async (skillId) => {
+  const deletePendidikan = async (id_pend) => {
     try {
-      await axios.delete(`http://localhost:5000/skills/${skillId}`);
-      getSkills();
-      setSuccessMessage("Skill deleted successfully!");
+      await axios.delete(`http://localhost:5000/pendidikan/${id_pend}`);
+      getPendidikan();
+      setSuccessMessage("Education deleted successfully!");
       setErrorMessage("");
-      // Clear success message after 2 seconds
-      setTimeout(() => setSuccessMessage(""), 2000);
     } catch (error) {
-      console.error("Error deleting skill:", error);
-      setErrorMessage("Error deleting skill.");
+      console.error("Error deleting :", error);
+      setErrorMessage("Error deleting .");
       setSuccessMessage("");
-      // Clear error message after 2 seconds
-      setTimeout(() => setErrorMessage(""), 2000);
     }
-  };
+  }
 
+  const PendidikanDetail = pendidikan.map((pendidikan, index) => {
+    return (
+      <tr key={pendidikan.id_pend}>
+        <td>{pendidikan.jenjang}</td>
+        <td>{pendidikan.nama_sekolah}</td>
+        <td>{pendidikan.jurusan}</td>
+        <td>{pendidikan.tahun_masuk}</td>
+        <td>{pendidikan.tahun_lulus}</td>
+        <td>
+          <Link
+            to={`/edit_pendidikan/${pendidikan.id_pend}`}
+            className="btn btn-primary"
+            onClick={() => handleEditClick(pendidikan.id_pend)}
+          >
+            Edit
+          </Link>
+        </td>
+        <td>
+          <button
+            className="btn btn-danger"
+            onClick={() => deletePendidikan(pendidikan.id_pend)}
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    );
+  });
+    
   return (
     <div>
       <Sidebar />
       <main id="main">
-        <section id="skills" className="skills">
-          {data_skill ? (
+      <section id="pendidikan" className="pendidikan">
+          {pendidikan ? (
             <div className="container">
-              <div
-                className="section-title"
-                style={{ display: "flex", justifyContent: "space-between" }}
-              >
+              <div className="section-title" style={{ display: "flex", justifyContent: "space-between" }}>
                 <div className="title-container">
-                  <h2>Skills</h2>
+                  <h2>Pendidikan</h2>
                 </div>
                 {errorMessage && (
                   <div className="alert alert-danger" role="alert">
@@ -102,7 +110,7 @@ const SkillList = () => {
                   </div>
                 )}
                 <div className="btn-container">
-                  <NavLink to="/add_skill">
+                  <NavLink to="/add_pendidikan">
                     <button
                       className="btn btn-dark"
                       style={{
@@ -117,93 +125,25 @@ const SkillList = () => {
                 </div>
               </div>
 
-              <div className="row skills-content">
-                <div className="col-lg-6">
-                  <div className="section-subtitle">
-                    <h5>Soft Skills</h5>
-                  </div>
-                  {softSkills.map((skill, index) => (
-                    <div
-                      className="progress-container"
-                      key={skill.id_skill}
-                      data-aos="fade-up"
-                    >
-                      <div className="progress">
-                        <span className="skill mb-4">
-                          {skill.nama_skill}{" "}
-                          <i className="val">{skill.level * 10}%</i>
-                        </span>
-                        <div
-                          className="progress-bar progress-bar-striped progress-bar-animated mt-4"
-                          role="progressbar"
-                          aria-valuenow={skill.level * 10}
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                          style={{ width: `${skill.level * 10}%` }}
-                        ></div>
-                      </div>
-                      <div className="progress-buttons">
-                        <Link
-                          to={`/edit_skill`}
-                          onClick={() => handleEditClick(skill.id_skill)}
-                          className="btn btn-primary btn-sm"
-                        >
-                          Edit
-                        </Link>
-                        <button
-                          onClick={() => deleteSkill(skill.id_skill)}
-                          className="btn btn-danger btn-sm"
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="col-lg-6">
-                  <div className="section-subtitle">
-                    <h5>Hard Skills</h5>
-                  </div>
-                  {hardSkills.map((skill, index) => (
-                    <div
-                      className="progress-container"
-                      key={skill.id_skill}
-                      data-aos="fade-up"
-                    >
-                      <div className="progress">
-                        <span className="skill mb-4">
-                          {skill.nama_skill}{" "}
-                          <i className="val">{skill.level * 10}%</i>
-                        </span>
-                        <div
-                          className="progress-bar progress-bar-striped progress-bar-animated mt-4"
-                          role="progressbar"
-                          aria-valuenow={skill.level * 10}
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                          style={{ width: `${skill.level * 10}%` }}
-                        ></div>
-                      </div>
-                      <div className="progress-buttons">
-                        <Link
-                          to={`/edit_skill`}
-                          onClick={() => handleEditClick(skill.id_skill)}
-                          className="btn btn-primary btn-sm"
-                        >
-                          Edit
-                        </Link>
-                        <button
-                          onClick={() => deleteSkill(skill.id_skill)}
-                          className="btn btn-danger btn-sm"
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+            <div className="list-group">
+              <div className="table table-hover">
+                  <thead>
+                      <tr className="bg-primary">
+                          <th scope="col">Jenjang</th>
+                          <th scope="col">Instansi Pendidikan</th>
+                          <th scope="col">Jurusan</th>
+                          <th scope="col">Tahun Masuk</th>
+                          <th scope="col">Tahun Lulus</th>
+                          <th scope="col">Edit</th>
+                          <th scope="col">Delete</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {PendidikanDetail}
+                  </tbody>
               </div>
             </div>
+          </div>
           ) : (
             <div className="container d-flex flex-column justify-content-center align-items-center vh-100">
               <div
@@ -236,4 +176,4 @@ const SkillList = () => {
   );
 };
 
-export default SkillList;
+export default PendidikanList;

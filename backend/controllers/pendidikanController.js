@@ -28,7 +28,7 @@ export const insertPendidikan = async (req, res) => {
             tahun_lulus
         });
 
-        res.status(201).json({pendidikan : newPendidikan});
+        res.status(201).json(newPendidikan);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal server error" });
@@ -42,7 +42,7 @@ export const getAllPendidikan = async (req, res) => {
         where: {
           id_akun: id_akun
         }});
-        return res.status(200).json({ success: true, pendidikan: pendidikan });
+        return res.status(200).json({pendidikan : pendidikan});
     } catch (err) {
       console.error(err);
       return res.status(500).json({ error: 'Internal server error' });
@@ -50,16 +50,16 @@ export const getAllPendidikan = async (req, res) => {
 }
 
 export const getPendidikanById = async(req, res)=>{
-    const { id_pend } = req.params;
-
     try {
-        const pendidikan = await Pendidikan.findOne({
-            where:{
-                id_pend : id_pend
-            }
-        })
-
-        res.json({pendidikan});
+      const { id_akun, id_pend } = req.params;
+        
+      const pendidikan = await Pendidikan.findOne({   
+        where:{
+            id_pend : id_pend,
+            id_akun : id_akun
+        }
+      });
+      return res.status(200).json({pendidikan : pendidikan});
     } catch (error) {
         console.log(error.message);
         res.json({ error: "Internal server error" });

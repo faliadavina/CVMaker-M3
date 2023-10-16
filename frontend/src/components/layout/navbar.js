@@ -1,6 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
-const navbar = () => {
+const Navbar = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+        const navLinks = document.querySelectorAll('.nav-menu .nav-link');
+
+        navLinks.forEach((link) => {
+            const href = link.getAttribute('href');
+            if (location.pathname === href) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }, [location]);
     return (
         <header id="header">
             <div className="d-flex flex-column">
@@ -19,7 +34,7 @@ const navbar = () => {
 
                 <nav id="navbar" className="nav-menu navbar">
                     <ul>
-                        <li><a href="#hero" className="nav-link scrollto active"><i className="bx bx-home"></i> <span>Home</span></a></li>
+                        <li><a href="/manage_user" className="nav-link scrollto"><i className="bx bx-home"></i> <span>Home</span></a></li>
                         <li><a href="#about" className="nav-link scrollto"><i className="bx bx-user"></i> <span>About</span></a></li>
                         <li><a href="#resume" className="nav-link scrollto"><i className="bx bx-file-blank"></i> <span>Resume</span></a></li>
                         <li><a href="#portfolio" className="nav-link scrollto"><i className="bx bx-book-content"></i> <span>Portfolio</span></a></li>
@@ -33,4 +48,4 @@ const navbar = () => {
     )
 }
 
-export default navbar;
+export default Navbar;

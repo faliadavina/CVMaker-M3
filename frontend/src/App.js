@@ -13,6 +13,7 @@ import EditDataDiri from "./components/EditDataDiri";
 import AddDataDiri from "./components/AddDataDiri";
 import Contact from "./pages/Contact";
 import Register from "./components/Register";
+import My from "./components/My";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/add_skill" element={<AddSkill />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/My" element={<My />} />
       </Routes>
     </BrowserRouter>
   );

@@ -336,7 +336,7 @@ const EditDataDiri = () => {
                             />
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="name">Profession</label>
+                            <label for="name">Marriage Status</label>
                             <input
                                 type="text"
                                 className="form-control"

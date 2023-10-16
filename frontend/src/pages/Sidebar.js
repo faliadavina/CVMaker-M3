@@ -93,7 +93,7 @@ const Sidebar = () => {
             <ul>
               <li>
                 <NavLink
-                  to="/"
+                  to="/My"
                   className={`nav-link ${
                     activeMenuItem === "My CV" ? "scrollto active" : "scrollto"
                   }`}

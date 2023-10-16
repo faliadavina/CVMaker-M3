@@ -29,7 +29,7 @@ const Login = () => {
       if (user && user.user && user.user.role === 1) {
         navigate("/manage_user");
       } else {
-        navigate("/");
+        navigate("/My");
       }
     } else {
       dispatch(reset());

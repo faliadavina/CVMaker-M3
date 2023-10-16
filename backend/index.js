@@ -8,7 +8,6 @@ import AkunRoute from "./routes/AkunRoute.js";
 import SkillRoute from "./routes/SkillRoute.js";
 import PortoRoute from "./routes/PortoRoutes.js";
 import AuthRoute from "./routes/AuthRoute.js"; // Correct import with correct casing
-import PortoRoute from "./routes/PortoRoutes.js";
 
 const app = express();
 //middlewares
@@ -27,7 +26,6 @@ app.use(AkunRoute);
 app.use(SkillRoute);
 app.use(PortoRoute);
 app.use(AuthRoute);
-app.use(PortoRoute);
 
 // Menyajikan file statis dari folder 'public'
 app.use('/profilePict', express.static('public/profilePict'));

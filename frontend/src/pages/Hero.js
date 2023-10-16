@@ -47,6 +47,25 @@ const Hero = () => {
     }
   };
 
+  const [data_diri, setUsers] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/users/${id}`
+        );
+        console.log(response.data);
+        const username = response.data.nama;
+        setUsers({ username });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
   return (
     <div>
       <Sidebar />
@@ -55,7 +74,7 @@ const Hero = () => {
         className="d-flex flex-column justify-content-center align-items-center"
       >
         <div className="hero-container" data-aos="fade-in">
-          <h1>{username}</h1>
+          <h1>{data_diri && data_diri.username}</h1>
           <p>
             Saya Memiliki Skill {" "}
             <span

@@ -123,7 +123,7 @@ const Sidebar = () => {
                   }`}
                   onClick={() => handleMenuItemClick("Edit Educational")}
                 >
-                  <i className="bx bx-server"></i> <span>Edit Educational Data</span>
+                  <i className="bx bx-server"></i> <span>Education</span>
                 </NavLink>
               </li>
               <li>

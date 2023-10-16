@@ -55,17 +55,16 @@ const EditPendidikan = () => {
 
   const handleTahunMasukChange = (value) => {
     setTahunMasuk(value);
+    setMsg("");
   }
 
   const handleTahunLulusChange = (value) => {
     setTahunLulus(value);
+    setMsg("");
   }
 
   const updatePendidikan = async (e) => {
     e.preventDefault();
-    
-    // Reset error message
-    setMsg("");
 
     try {
       await axios.patch(`http://localhost:5000/pendidikan/${id_pend}`, {

@@ -51,6 +51,7 @@ const PendidikanList = () => {
       getPendidikan();
       setSuccessMessage("Education deleted successfully!");
       setErrorMessage("");
+      setTimeout(() => setSuccessMessage(""), 2000);
     } catch (error) {
       console.error("Error deleting :", error);
       setErrorMessage("Error deleting .");

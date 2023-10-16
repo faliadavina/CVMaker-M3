@@ -37,10 +37,10 @@ export const savePorto = (req, res) => {
     const fileName = file.md5 + ext;
     const { id_akun } = req.params;
     const url = `${req.protocol}://${req.get("host")}/filePorto/${fileName}`;
-    const allowedType = ['.jpg', '.png', '.jpeg', '.pdf'];
+    const allowedType = ['.jpg', '.png', '.jpeg', 'gif', '.pdf', '.mp4', '.webm', '.mp3', '.wav'];
 
     if (!allowedType.includes(ext.toLowerCase())) return res.status(422).json({ msg: "Invalid File" });
-    if (fileSize > 5000000) return res.status(422).json({ msg: "File must be less than 5MB" });
+    if (fileSize > 1000000000) return res.status(422).json({ msg: "File must be less than 5MB" });
 
     file.mv(`./public/filePorto/${fileName}`, async (err) => {
         if (err) return res.status(500).json({ msg: err.message });

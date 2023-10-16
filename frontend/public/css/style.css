@@ -33,6 +33,10 @@ h6 {
   font-family: "Raleway", sans-serif;
 }
 
+h5{
+  font-size: 16px;
+  font-weight: bold;
+}
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
@@ -317,7 +321,7 @@ section {
 }
 
 .section-title {
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
 
 .section-title h2 {
@@ -1162,4 +1166,290 @@ section {
   text-align: center;
   position: relative;
   margin-left: -25px;
+}
+/*--------------------------------------------------------------
+# Login
+--------------------------------------------------------------*/
+.image-container {
+  position: relative;
+}
+
+.image-container img {
+  opacity: 0.5; /* Adjust opacity for the desired transparency */
+  width: 100%;
+  height: auto;
+  background-size: cover;
+}
+
+/* Overlay effect */
+.image-container::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.7
+  ); /* Adjust the color and alpha (0.5 for 50% transparency) */
+}
+
+
+.register-form{
+  font-size: 12px;
+}
+
+.error-message{
+  background-color: rgb(249, 197, 197);
+  color: rgb(162, 10, 10);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container .icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  margin-right: 20px;
+  transform: translateY(-50%);
+  color: rgb(193, 189, 189);
+}
+
+.input-container .username-icon, .input-container .password-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: rgb(193, 189, 189);
+  transition: top 0.3s ease; /* Menambahkan transisi untuk perubahan top */
+}
+
+.input-container .username-icon.error,.input-container .password-icon.error, .password-toggle.error {
+  top: 30%;
+  color: red;
+}
+
+.password-toggle.error{
+  margin-right: 20px;
+}
+
+.is-invalid::placeholder{
+  color: red;
+}
+
+
+
+/* Tambahkan padding-left untuk memberikan jarak antara ikon dan placeholder */
+.input-container input {
+  padding-left: 30px; /* Sesuaikan dengan ukuran margin-right pada ikon */
+}
+
+.fade-in {
+    animation: fadeIn 5s;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0.5;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .nav-link:hover {
+    color: #3b3a3d; /* Change text color on hover */
+  }
+
+  .invalid-feedback {
+    color: red; /* Warna teks merah untuk pesan error */
+    font-size: 14px; /* Ukuran font pesan error */
+    margin-top: 4px; /* Jarak antara input field dan pesan error */
+  }
+
+  .nav-icon {
+    text-align: center;
+    margin-bottom: 5px; /* Adjust the margin as needed */
+    color: #fff;
+    margin-right: 20px;
+  }
+  
+  .nav-text {
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    margin-right: 20px;
+  }
+  
+  .password-toggle {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+  }
+
+  .navbar{
+    top: -50px;
+  }
+  
+  .register-link {
+    display: flex;
+    align-items: center;
+    margin-top: 10px; /* Sesuaikan margin-top sesuai kebutuhan */
+  }
+  
+  .register-link span{
+    font-size: 12px;
+  }
+
+  .register-link .sign-up {
+    color: blue;
+    text-decoration: underline;
+    transition: color 0.3s; /* Animasi transisi warna saat hover */
+  }
+  
+  .register-link .sign-up:hover {
+    color: darkblue; /* Warna baru saat hover */
+  }
+  
+  .register-link .sign-up i {
+    margin-left: 5px; /* Ruang di antara teks dan ikon */
+  }
+  
+  .register-link .sign-up i:hover {
+    transform: translateX(3px); /* Efek geser saat hover */
+  }
+
+  .regist-container{
+    overflow-y: auto;
+  }
+
+  .navbar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .navbar-nav.flex-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .register input{
+    font-size: 12px;;
+  }
+  
+  .register{
+    overflow-y: auto;
+  }
+  
+  
+/*--------------------------------------------------------------
+# Add Skill
+--------------------------------------------------------------*/
+.split-screen {
+  display: flex;
+  height: 100vh;
+}
+
+.left-panel {
+  flex: 0.7;
+  background-color: black;
+}
+
+.right-panel {
+  flex: 3.3;
+  background-color: white;
+}
+
+i{
+  font-size: 12px;
+}
+
+.form-check-label p{
+  font-size: 14px;;
+}
+
+/*--------------------------------------------------------------
+# Skill List
+--------------------------------------------------------------*/
+.progress-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.progress {
+  width: 80%;
+  padding-top: 5px;
+}
+
+.progress-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.section-subtitle {
+  margin-bottom: 20px;
+}
+
+#name::placeholder{
+  font-size: 12px !important;
+}
+
+.btn {
+  margin-left: 10px;
+}
+
+.level-button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  font-size: 14px;
+}
+
+.level-button.selected {
+  background-color: #007BFF;
+  color: #fff;
+  border-color: #007BFF;
+}
+
+.error-field {
+  border: 1px solid red;
+}
+
+.required{
+  color: red;
+}
+
+.softskill {
+  order: -1; /* Posisikan di kiri */
+}
+
+.hardskill {
+  order: 1; /* Posisikan di kanan */
+}
+
+
+/*--------------------------------------------------------------
+# Image Preview
+--------------------------------------------------------------*/
+.image.is-128x128 img {
+  max-width: 128px;
+  max-height: 128px;
+}
+
+.preview-container {
+  margin-right: auto;
 }

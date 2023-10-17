@@ -76,7 +76,7 @@ const Hero = () => {
         <div className="hero-container" data-aos="fade-in">
           <h1>{data_diri && data_diri.username}</h1>
           <p>
-            Saya Memiliki Skill {" "}
+            Saya Ahli Dalam {" "}
             <span
               className="typed"
             ></span>

@@ -94,7 +94,7 @@ const Sidebar = () => {
                 <NavLink
                   to="/My"
                   className={`nav-link ${
-                    activeMenuItem === "My CV" ? "scrollto active" : "scrollto"
+                    activeMenuItem === "My CV" ? "scrollto" : "scrollto"
                   }`}
                   onClick={() => handleMenuItemClick("My CV")}
                 >

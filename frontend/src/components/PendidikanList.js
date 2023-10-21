@@ -35,6 +35,7 @@ const PendidikanList = () => {
       console.log("pendidikan:", response.data.pendidikan);
       setErrorMessage(""); // Reset error message on successful fetch
     } catch (error) {
+      setPendidikan(null);
       console.error("Error fetching :", error);
       setPendidikan(null);
     }
@@ -51,6 +52,7 @@ const PendidikanList = () => {
       getPendidikan();
       setSuccessMessage("Education deleted successfully!");
       setErrorMessage("");
+      setTimeout(() => setSuccessMessage(""), 2000);
     } catch (error) {
       console.error("Error deleting :", error);
       setErrorMessage("Error deleting .");
@@ -62,7 +64,6 @@ const PendidikanList = () => {
     return (
       <tr key={pendidikan.id_pend}>
         <td>{pendidikan.jenjang}</td>
-        <td>{pendidikan.nama_sekolah}</td>
         <td>{pendidikan.jurusan}</td>
         <td>{pendidikan.tahun_masuk}</td>
         <td>{pendidikan.tahun_lulus}</td>

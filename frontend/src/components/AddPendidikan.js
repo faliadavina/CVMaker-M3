@@ -107,6 +107,18 @@ const AddPendidikan = () => {
       return;
     }
 
+    const yearRegex = /^\d{4}$/;
+
+    // Contoh penggunaan dalam validasi tahun_masuk dan tahun_lulus
+    if (!yearRegex.test(tahun_masuk) || !yearRegex.test(tahun_lulus)) {
+      setMsg("Tahun masuk dan tahun lulus harus berupa 4 digit angka.");
+      if(!yearRegex.test(tahun_masuk)) {
+        setTahunMasukFilled(false);
+      } else {
+        setTahunLulusFilled(false);
+      }
+      return;
+    }
     setIsSubmitting(true);
 
     try {
@@ -117,8 +129,7 @@ const AddPendidikan = () => {
         tahun_masuk: tahun_masuk, // Menggunakan integer untuk tahun masuk
         tahun_lulus: tahun_lulus, // Menggunakan integer untuk tahun lulus
       });
-      setSuccessMessage("Educational data added successfully!");
-      // Show success message for 2 seconds before navigating
+      setSuccessMessage("Education added successfully!");      // Show success message for 2 seconds before navigating
       setTimeout(() => {
         navigate("/pendidikan");
       }, 2000);

@@ -1,7 +1,11 @@
+// skillSlice.js
+
 import { createSlice } from "@reduxjs/toolkit";
 
+const localStorageSkillId = localStorage.getItem("id_skill");
+
 const initialState = {
-  id_skill: null,  // Ganti menjadi sesuai dengan nama properti yang ada di backend
+  id_skill: localStorageSkillId ? JSON.parse(localStorageSkillId) : null,
 };
 
 const skillSlice = createSlice({
@@ -9,7 +13,8 @@ const skillSlice = createSlice({
   initialState,
   reducers: {
     setSkillId: (state, action) => {
-      state.id_skill = action.payload;  // Ganti menjadi sesuai dengan nama properti yang ada di backend
+      state.id_skill = action.payload;
+      localStorage.setItem("id_skill", JSON.stringify(action.payload));
     },
   },
 });

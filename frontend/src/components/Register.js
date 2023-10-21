@@ -297,11 +297,12 @@ const Register = () => {
                   required
                 />
                 <button
-                  className="btn btn-outline-secondary register-form"
+                  className="btn btn-outline-secondary"
                   type="button"
                   onClick={toggleConfirmPasswordVisibility}
                 >
-                  {showConfirmPassword ? <BsEyeSlashFill /> : <BsEyeFill />}
+                 {showConfirmPassword ? <BsEyeSlashFill /> : <BsEyeFill />}
+
                 </button>
                 {(shouldDisplayRequired('confirmPassword') || errors.confirmPassword) && (
                   <div className="invalid-feedback">

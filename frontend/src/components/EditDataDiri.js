@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
-import Sidebar from "../pages/Sidebar";
+
 
 
 
@@ -230,9 +230,6 @@ const EditDataDiri = () => {
 
     return (
         <body>
-        <Sidebar />
-      
-        <main id="main">
           <section class="inner-page">
             <div class="container">
               <div class="section-title d-flex justify-content-between align-items-center">
@@ -417,7 +414,6 @@ const EditDataDiri = () => {
             </div>
           </section>
       
-        </main>{/* End #main */}
      
       
         <a href="#about" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

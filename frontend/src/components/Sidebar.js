@@ -1,26 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getMe, LogOut, reset } from "../features/authSlice";
+import { LogOut, reset } from "../features/authSlice";
 import Footer from "./Footer";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
-  const { isError } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    dispatch(getMe());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (isError) {
-      navigate("/login");
-    }
-  }, [isError, navigate]);
-
+  
   const logout = () => {
     dispatch(LogOut());
     dispatch(reset());
@@ -88,7 +77,11 @@ const Sidebar = () => {
             </h1>
           </div>
 
-          <nav id="navbar" className="nav-menu navbar" style={{ marginTop: '30px' }}>
+          <nav
+            id="navbar"
+            className="nav-menu navbar"
+            style={{ marginTop: "30px" }}
+          >
             <ul>
               <li>
                 <NavLink
@@ -104,10 +97,11 @@ const Sidebar = () => {
               <li>
                 <NavLink
                   to="/data_diri"
-                  className={`nav-link ${activeMenuItem === "Edit Personal Data"
-                    ? "scrollto active"
-                    : "scrollto"
-                    }`}
+                  className={`nav-link ${
+                    activeMenuItem === "Edit Personal Data"
+                      ? "scrollto active"
+                      : "scrollto"
+                  }`}
                   onClick={() => handleMenuItemClick("Edit Personal Data")}
                 >
                   <i className="bx bx-user"></i> <span>Edit Personal Data</span>
@@ -123,16 +117,18 @@ const Sidebar = () => {
                   }`}
                   onClick={() => handleMenuItemClick("Edit Educational")}
                 >
-                  <i className="bx bx-server"></i> <span>Edit Educational Data</span>
+                  <i className="bx bx-server"></i>{" "}
+                  <span>Edit Educational Data</span>
                 </NavLink>
               </li>
               <li>
                 <a
                   href="/edit_organisasi"
-                  className={`nav-link ${activeMenuItem === "Edit Organizational Experience"
-                    ? "scrollto active"
-                    : "scrollto"
-                    }`}
+                  className={`nav-link ${
+                    activeMenuItem === "Edit Organizational Experience"
+                      ? "scrollto active"
+                      : "scrollto"
+                  }`}
                   onClick={() =>
                     handleMenuItemClick("Edit Organizational Experience")
                   }
@@ -144,10 +140,11 @@ const Sidebar = () => {
               <li>
                 <NavLink
                   to="/skills"
-                  className={`nav-link ${activeMenuItem === "Edit Skills"
-                    ? "scrollto active"
-                    : "scrollto"
-                    }`}
+                  className={`nav-link ${
+                    activeMenuItem === "Edit Skills"
+                      ? "scrollto active"
+                      : "scrollto"
+                  }`}
                   onClick={() => handleMenuItemClick("Edit Skills")}
                 >
                   <i className="bx bx-server"></i> <span>Skills</span>
@@ -156,22 +153,19 @@ const Sidebar = () => {
               <li>
                 <NavLink
                   to="/portofolio"
-                  className={`nav-link ${activeMenuItem === "Edit Portfolio"
-                    ? "scrollto active"
-                    : "scrollto"
-                    }`}
+                  className={`nav-link ${
+                    activeMenuItem === "Edit Portfolio"
+                      ? "scrollto active"
+                      : "scrollto"
+                  }`}
                   onClick={() => handleMenuItemClick("Edit Portfolio")}
                 >
                   <i className="bx bx-envelope"></i> <span>Portfolio</span>
                 </NavLink>
               </li>
               <li>
-                <a
-                  href="#logout"
-                  className="nav-link scrollto"
-                  onClick={logout}
-                >
-                  <i className="bx bx-log-in"></i> <span>Logout</span>
+                <a href="/login" className="nav-link scrollto" onClick={logout}>
+                    <i className="bx bx-log-in"></i> <span>Logout</span>
                 </a>
               </li>
             </ul>

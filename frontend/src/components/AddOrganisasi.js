@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Sidebar from "../pages/Sidebar";
 
 const AddOrganisasi = () => {
   const [organizationName, setOrganizationName] = useState("");
@@ -16,6 +15,7 @@ const AddOrganisasi = () => {
   const [periodFilled, setPeriodFilled] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const clearErrorMessage = () => {
     setMsg("");
@@ -61,9 +61,11 @@ const AddOrganisasi = () => {
       return;
     }
 
+    setIsSubmitting(true);
+
     try {
       await axios.post(`http://localhost:5000/organisasi/`, {
-        id_akun: id,  
+        id_akun: id,
         nama_organisasi: organizationName,
         jabatan: position,
         periode: period,
@@ -78,6 +80,8 @@ const AddOrganisasi = () => {
       if (error.response) {
         setMsg(error.response.data.message);
       }
+    } finally {
+      setIsSubmitting(false); // Menandakan bahwa permintaan telah selesai
     }
   };
 
@@ -94,102 +98,109 @@ const AddOrganisasi = () => {
 
   return (
     <div>
-      <Sidebar />
-      <main id="main">
-        <section id="addOrganisasi" className="addOrganisasi">
-          <div className="container">
-            <div className="section-title">
-              <h2>Add Organization</h2>
+      <section id="addOrganisasi" className="addOrganisasi">
+        <div className="container">
+          <div className="section-title">
+            <h2>Add Organization</h2>
+          </div>
+          {successMessage && (
+            <div className="alert alert-success" role="alert">
+              {successMessage}
             </div>
-            {successMessage && (
-              <div className="alert alert-success" role="alert">
-                {successMessage}
-              </div>
-            )}
-            <div className="card-content">
-              <div className="content">
-                <form onSubmit={saveOrganisasi}>
-                  <p className="text-center text-danger">{msg}</p>
+          )}
+          <div className="card-content">
+            <div className="content">
+              <form onSubmit={saveOrganisasi}>
+                <p className="text-center text-danger">{msg}</p>
 
-                  <div className="mb-3">
-                    <label htmlFor="organizationName" className="form-label">
-                      <h5>Organization Name {renderAsterisk("organizationName")}</h5>
-                    </label>
-                    <input
-                      type="text"
-                      className={`form-control ${
-                        formSubmitted && !organizationNameFilled ? "error-field" : ""
-                      }`}
-                      id="organizationName"
-                      value={organizationName}
-                      onChange={(e) => handleOrganizationNameChange(e.target.value)}
-                      placeholder="Organization Name"
-                    />
-                  </div>
+                <div className="mb-3">
+                  <label htmlFor="organizationName" className="form-label">
+                    <h5>
+                      Organization Name {renderAsterisk("organizationName")}
+                    </h5>
+                  </label>
+                  <input
+                    type="text"
+                    className={`form-control ${
+                      formSubmitted && !organizationNameFilled
+                        ? "error-field"
+                        : ""
+                    }`}
+                    id="organizationName"
+                    value={organizationName}
+                    onChange={(e) =>
+                      handleOrganizationNameChange(e.target.value)
+                    }
+                    placeholder="Organization Name"
+                  />
+                </div>
 
-                  <div className="mb-3">
-                    <label htmlFor="position" className="form-label">
-                      <h5>Position {renderAsterisk("position")}</h5>
-                    </label>
-                    <input
-                      type="text"
-                      className={`form-control ${
-                        formSubmitted && !positionFilled ? "error-field" : ""
-                      }`}
-                      id="position"
-                      value={position}
-                      onChange={(e) => handlePositionChange(e.target.value)}
-                      placeholder="Position"
-                    />
-                  </div>
+                <div className="mb-3">
+                  <label htmlFor="position" className="form-label">
+                    <h5>Position {renderAsterisk("position")}</h5>
+                  </label>
+                  <input
+                    type="text"
+                    className={`form-control ${
+                      formSubmitted && !positionFilled ? "error-field" : ""
+                    }`}
+                    id="position"
+                    value={position}
+                    onChange={(e) => handlePositionChange(e.target.value)}
+                    placeholder="Position"
+                  />
+                </div>
 
-                  <div className="mb-3">
-                    <label htmlFor="period" className="form-label">
-                      <h5>Period {renderAsterisk("period")}</h5>
-                    </label>
-                    <input
-                      type="text"
-                      className={`form-control ${
-                        formSubmitted && !periodFilled ? "error-field" : ""
-                      }`}
-                      id="period"
-                      value={period}
-                      onChange={(e) => handlePeriodChange(e.target.value)}
-                      placeholder="Period"
-                    />
-                  </div>
+                <div className="mb-3">
+                  <label htmlFor="period" className="form-label">
+                    <h5>Period {renderAsterisk("period")}</h5>
+                  </label>
+                  <input
+                    type="text"
+                    className={`form-control ${
+                      formSubmitted && !periodFilled ? "error-field" : ""
+                    }`}
+                    id="period"
+                    value={period}
+                    onChange={(e) => handlePeriodChange(e.target.value)}
+                    placeholder="Period"
+                  />
+                </div>
 
-                  <div className="mb-3">
-                    <label htmlFor="description" className="form-label">
-                      <h5>Description</h5>
-                    </label>
-                    <textarea
-                      className="form-control"
-                      id="description"
-                      value={description}
-                      onChange={(e) => handleDescriptionChange(e.target.value)}
-                      placeholder="Description"
-                    />
-                  </div>
+                <div className="mb-3">
+                  <label htmlFor="description" className="form-label">
+                    <h5>Description</h5>
+                  </label>
+                  <textarea
+                    className="form-control"
+                    id="description"
+                    value={description}
+                    onChange={(e) => handleDescriptionChange(e.target.value)}
+                    placeholder="Description"
+                  />
+                </div>
 
-                  <div className="d-flex justify-content-center align-items-center mb-3">
-                    <button
-                      type="button"
-                      className="btn btn-secondary ms-2"
-                      onClick={handleCancel}
-                    >
-                      Cancel
-                    </button>
-                    <button type="submit" className="btn btn-primary">
-                      Save
-                    </button>
-                  </div>
-                </form>
-              </div>
+                <div className="text-center">
+                  <button
+                    className="btn btn-secondary mt-3 me-3"
+                    onClick={handleCancel}
+                    disabled={isSubmitting} // Menonaktifkan tombol saat sedang mengirimkan permintaan
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="btn btn-primary mt-3"
+                    type="submit"
+                    disabled={isSubmitting} // Menonaktifkan tombol saat sedang mengirimkan permintaan
+                  >
+                    {isSubmitting ? "Adding..." : "Add Data"} 
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
     </div>
   );
 };

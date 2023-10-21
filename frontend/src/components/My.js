@@ -151,6 +151,7 @@ const My = () => {
 
   return (
     <body>
+      <Hero />
       {/* ======= Data Diri Section ======= */}
       <section id="about" class="about">
         {data_diri ? (

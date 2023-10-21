@@ -1476,11 +1476,11 @@ i{
   position: relative;
   margin-left: -25px;
 }
-
+/* 
 .pendidikan, .portfolio {
   background-color: #f5f5f5;
   padding: 20px;
-}
+} */
 
 .education-list {
   list-style-type: none;
@@ -1578,4 +1578,10 @@ i{
 .navbar-nav.flex-row {
   display: flex;
   align-items: center;
+}
+
+.section-divider {
+  border-top: 4px solid #ccc; /* Garis abu */
+  margin: 20px 0; /* Jarak di atas dan bawah garis */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Efek bayangan */
 }

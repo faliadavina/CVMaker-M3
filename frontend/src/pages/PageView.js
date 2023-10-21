@@ -10,12 +10,14 @@ const PageView = () => {
   return (
     <div>
       <DataView />
+      <hr className="section-divider" /> {/* Garis abu sebagai pemisah bagian */}
       <PendidikanView />
-      <OrganisasiView/>
+      <hr className="section-divider" /> {/* Garis abu sebagai pemisah bagian */}
+      <OrganisasiView />
+      <hr className="section-divider" /> {/* Garis abu sebagai pemisah bagian */}
       <PortoView />
+      <hr className="section-divider" /> {/* Garis abu sebagai pemisah bagian */}
       <SkillView />
-
-
 
       {/* Tombol back */}
       <Link

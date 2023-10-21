@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import Typed from "typed.js";
 import axios from "axios"; // Import axios
@@ -66,7 +65,6 @@ const Hero = () => {
 
   return (
     <div>
-      <Sidebar />
       <section
         id="hero"
         className="d-flex flex-column justify-content-center align-items-center"

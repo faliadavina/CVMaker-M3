@@ -139,6 +139,7 @@ export const updateUser = async (req, res) => {
 
       const url = `${req.protocol}://${req.get("host")}/profilePict/${fileName}`;
       user.url = url;
+      user.profile_pict = fileName;
   
       // Update the specified fields
       for (const field in fieldsToUpdate) {

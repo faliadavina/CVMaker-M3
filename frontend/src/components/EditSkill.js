@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Sidebar from "../pages/Sidebar";
 import { selectSkillId } from "../features/skillSlice";
 
 const EditSkill = () => {
@@ -14,6 +13,7 @@ const EditSkill = () => {
   const navigate = useNavigate();
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Get the user ID from Redux
   const { user } = useSelector((state) => state.auth);
@@ -48,6 +48,7 @@ const EditSkill = () => {
     console.log("Name:", name);
     console.log("Name:", name.length);
     console.log("Is valid name:", /^[A-Za-z\s]+$/.test("dea salma"));
+    setIsSubmitting(true);
     if (name.length > 200 || !/^[A-Za-z\s]+$/.test(name)) {
       setMsg(
         "Please enter a valid name (letters only, maximum 200 characters)."
@@ -57,6 +58,8 @@ const EditSkill = () => {
       setTimeout(() => {
         setMsg("");
       }, 2000);
+
+      setIsSubmitting(false);
 
       return;
     }
@@ -78,6 +81,8 @@ const EditSkill = () => {
       console.error("Error updating skill:", error);
       setMsg(error.response.data.message);
       setSuccessMessage(""); // Clear any previous success messages
+    } finally {
+      setIsSubmitting(false); // Menandakan bahwa permintaan telah selesai
     }
   };
 
@@ -87,8 +92,6 @@ const EditSkill = () => {
 
   return (
     <div>
-      <Sidebar />
-      <main id="main">
         <section id="addSkill" className="addSkill">
           <div className="container">
             <div className="section-title">
@@ -156,6 +159,7 @@ const EditSkill = () => {
                       value={name}
                       onChange={(e) => handleNameChange(e.target.value)}
                       placeholder="Skill Name"
+                      style={{ width: "45%" }}
                     />
                   </div>
 
@@ -181,16 +185,20 @@ const EditSkill = () => {
                   </label>
 
                   <div className="d-flex justify-content-center align-items-center mt-3 mb-3">
-                    <button
-                      type="button"
-                      className="btn btn-secondary ms-2"
-                      onClick={handleCancel}
-                    >
-                      Cancel
-                    </button>
-                    <button type="submit" className="btn btn-primary">
-                      Save
-                    </button>
+                  <button
+                    className="btn btn-secondary mt-3 ms-2"
+                    onClick={handleCancel}
+                    disabled={isSubmitting} // Menonaktifkan tombol saat sedang mengirimkan permintaan
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="btn btn-primary mt-3"
+                    type="submit"
+                    disabled={isSubmitting} // Menonaktifkan tombol saat sedang mengirimkan permintaan
+                  >
+                    {isSubmitting ? "Saving..." : "Save"} 
+                  </button>
                   </div>
                 </form>
               </div>
@@ -198,8 +206,6 @@ const EditSkill = () => {
            
           </div>
         </section>
-      </main>
-      {/* End #main */}
     </div>
   );
 };

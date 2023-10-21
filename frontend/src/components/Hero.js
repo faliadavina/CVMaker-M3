@@ -7,7 +7,6 @@ import axios from "axios"; // Import axios
 
 const Hero = () => {
   const { user } = useSelector((state) => state.auth);
-  const username = user?.user?.username;
   const id = user && user.user && user.user.id_akun;
   const [skillNames, setSkillNames] = useState([
     "(Ayo isi skill mu)",
@@ -27,7 +26,6 @@ const Hero = () => {
         backSpeed: 50,
         loop: true
       };
-
       const typed = new Typed(".typed", options);
 
       return () => {
@@ -76,7 +74,7 @@ const Hero = () => {
         <div className="hero-container" data-aos="fade-in">
           <h1>{data_diri && data_diri.username}</h1>
           <p>
-            Saya Memiliki Skill {" "}
+            Saya Ahli Dalam {" "}
             <span
               className="typed"
             ></span>

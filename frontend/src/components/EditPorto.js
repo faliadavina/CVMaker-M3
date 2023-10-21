@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Sidebar from "../pages/Sidebar";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Button } from 'react-bootstrap';
 
@@ -90,8 +89,6 @@ const EditPorto = () => {
 
     return (
         <body>
-            <Sidebar />
-            <main id="main">
                 <section className="portfolio section-bg">
                     <div className="container">
 
@@ -144,7 +141,6 @@ const EditPorto = () => {
                         </div>
                     </div>
                 </section>
-            </main>
         </body>
     )
 }

@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
-import Sidebar from "../pages/Sidebar";
+
 
 
 
@@ -162,7 +162,11 @@ const EditDataDiri = () => {
           setPreview(URL.createObjectURL(selectedFile));
         }
       };
-      
+
+      const handleStatusChange = (e) => {
+          // Update nilai status sesuai dengan opsi yang dipilih
+          setStatus(e.target.value);
+      };
 
     // Menyimpan Perubahan
     const saveDataDiri = async (e) => {
@@ -226,9 +230,6 @@ const EditDataDiri = () => {
 
     return (
         <body>
-        <Sidebar />
-      
-        <main id="main">
           <section class="inner-page">
             <div class="container">
               <div class="section-title d-flex justify-content-between align-items-center">
@@ -335,19 +336,21 @@ const EditDataDiri = () => {
                                 required
                             />
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="name">Marriage Status</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="status"
-                                name="status"
-                                value={status}
-                                onChange={handleDataDiriChange}
-                                placeholder="Enter your Profession"
-                                required
-                            />
-                        </div>
+                        <div className="form-group col-md-6">
+                          <label for="name">Marriage Status</label>
+                          <select
+                              className="form-control"
+                              id="status"
+                              name="status"
+                              value={status}
+                              onChange={handleStatusChange}
+                              required
+                          >
+                              <option value="">Select Marriage Status</option>
+                              <option value="Menikah">Menikah</option>
+                              <option value="Belum Menikah">Belum Menikah</option>
+                          </select>
+                      </div>
                         <div class="form-group col-md-6">
                             <label for="name">Email</label>
                             <input
@@ -411,7 +414,6 @@ const EditDataDiri = () => {
             </div>
           </section>
       
-        </main>{/* End #main */}
      
       
         <a href="#about" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

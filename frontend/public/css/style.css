@@ -29,13 +29,14 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6{
   font-family: "Raleway", sans-serif;
 }
 
-h5{
+h5, label h5, .section-subtitle h5{
   font-size: 16px;
   font-weight: bold;
+  color: #173b6c;
 }
 /*--------------------------------------------------------------
 # Back to top button
@@ -135,7 +136,7 @@ h5{
 }
 
 #main {
-  margin-left: 300px;
+  margin-left: 320px;
 }
 
 .container,
@@ -152,6 +153,7 @@ h5{
   #main {
     margin-left: 0;
   }
+
 
   .container,
   .container-fluid {
@@ -320,6 +322,7 @@ section {
 
 .section-bg {
   background: #f5f8fd;
+  height: 100%;
 }
 
 .section-title {
@@ -329,8 +332,8 @@ section {
 .section-title h2 {
   font-size: 32px;
   font-weight: bold;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
   position: relative;
   color: #173b6c;
 }
@@ -769,10 +772,16 @@ section {
   min-height: 320px;
 }
 
+
 .testimonials .testimonial-item .testimonial-img {
   width: 90px;
   border-radius: 50%;
-  margin: 0 auto;
+  margin: 15px auto;
+  display: block;
+  width: 130px;
+  height: 130px;
+  border: 5px solid #2c2f3f;
+  object-fit  : cover;
 }
 
 .testimonials .testimonial-item h3 {
@@ -1290,8 +1299,12 @@ section {
     align-items: center;
   }
 
+  .navbar{
+    top: -50px;
+  }
+
   .register input{
-    font-size: 12px;;
+    font-size: 15,2px;;
   }
   
   .register{
@@ -1462,4 +1475,107 @@ i{
   text-align: center;
   position: relative;
   margin-left: -25px;
+}
+
+.pendidikan, .portfolio {
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.education-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.education-item {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px 0;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.jenjang {
+  font-size: 24px;
+  margin: 0;
+}
+
+.school-info {
+  margin: 10px 0;
+}
+
+.nama-sekolah {
+  font-weight: bold;
+}
+
+.jurusan {
+  font-style: italic;
+}
+
+.tahun {
+  font-weight: bold;
+}
+
+.user-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.user-item {
+  text-align: center;
+  margin: 20px;
+}
+
+.user-image img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+}
+
+.user-name {
+  margin-top: 10px;
+}
+
+/* LandingPage.css */
+.zoom-image {
+  transition: transform 0.3s ease-in-out;
+}
+
+.zoom-image:hover img {
+  transform: scale(1.1);
+}
+
+.container {
+  width: 300px; /* Sesuaikan lebar sesuai kebutuhan */
+  word-wrap: break-word; /* Memastikan teks bisa pindah baris jika melebihi lebar */
+}
+
+.user-description {
+  display: inline-block;
+  width: 100%; /* Menyesuaikan lebar kontainer */
+}
+
+.container .main-lp{
+  color: white;
+  width: 60%;
+  font-weight: 600;
+  z-index: 1000;
+  margin-left: 10px;
+  letter-spacing: 1px;
+  font-family: "Raleway", sans-serif;
+  line-height: 25px;
+  margin-top: 50px;
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.navbar-nav.flex-row {
+  display: flex;
+  align-items: center;
 }

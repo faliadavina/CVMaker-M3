@@ -111,4 +111,25 @@ export const patchOrganisasi = async (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     }
   };
+
+// Fungsi untuk mengambil data organisasi berdasarkan ID Akun
+export const getOrganisasiByAkunId = async (req, res) => {
+  try {
+    const { id_akun } = req.params;
+
+    const organisasi = await Organisasi.findAll({
+      where: { id_akun: id_akun },
+    });
+
+    if (!organisasi) {
+      return res.status(404).json({ error: 'Organisasi not found' });
+    }
+
+    res.json(organisasi);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
   

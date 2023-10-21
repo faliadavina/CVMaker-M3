@@ -2,7 +2,6 @@ import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from 'react-redux';
-import Sidebar from "../pages/Sidebar";
 
 const EditPendidikan = () => {
   const {id_pend} = useParams();
@@ -92,8 +91,6 @@ const EditPendidikan = () => {
 
   return (
     <div>
-      <Sidebar />
-      <main id="main">
         <section id="addPendidikan" className="addPendidikan">
           <div className="container">
             <div className="section-title">
@@ -187,8 +184,6 @@ const EditPendidikan = () => {
          
           </div>
         </section>
-      </main>
-      {/* End #main */}
     </div>
   );
 };

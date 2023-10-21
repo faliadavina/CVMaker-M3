@@ -3,6 +3,7 @@ import axios from "axios";
 import Sidebar from '../pages/Sidebar';
 import Footer from "../pages/Footer";
 import Hero from "../pages/Hero";
+import { FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMe } from "../features/authSlice";
@@ -87,6 +88,18 @@ const My = () => {
             <Hero />
 
             <main id="main">
+                <button
+                    className="btn btn-dark"
+                      style={{
+                        marginTop: "20px",
+                        borderRadius: "50px",
+                        fontSize: "14px",
+                        fontWeight: "bold",
+                      }}
+                      onClick={() => window.print()}
+                    >
+                      <FaPlus style={{ marginRight: "10px" }} /> Print CV
+                </button>
 
                 {/* ======= Data Diri Section ======= */}
                 <section id="about" class="about">

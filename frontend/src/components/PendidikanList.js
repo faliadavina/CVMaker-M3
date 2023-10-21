@@ -16,7 +16,7 @@ const PendidikanList = () => {
     }
   }, [isError, navigate]);
 
-  const [pendidikan, setPendidikan] = useState([]);
+  const [pendidikan, setPendidikan] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -36,6 +36,7 @@ const PendidikanList = () => {
       console.log("pendidikan:", response.data.pendidikan);
       setErrorMessage(""); // Reset error message on successful fetch
     } catch (error) {
+      setPendidikan(null);
       console.error("Error fetching :", error);
     }
   }
@@ -59,11 +60,10 @@ const PendidikanList = () => {
     }
   }
 
-  const PendidikanDetail = pendidikan.map((pendidikan, index) => {
+  const PendidikanDetail = pendidikan.map((pendidikan) => {
     return (
       <tr key={pendidikan.id_pend}>
         <td>{pendidikan.jenjang}</td>
-        <td>{pendidikan.nama_sekolah}</td>
         <td>{pendidikan.jurusan}</td>
         <td>{pendidikan.tahun_masuk}</td>
         <td>{pendidikan.tahun_lulus}</td>
@@ -87,12 +87,12 @@ const PendidikanList = () => {
       </tr>
     );
   });
-    
+
   return (
     <div>
       <Sidebar />
       <main id="main">
-      <section id="pendidikan" className="pendidikan">
+        <section id="pendidikan" className="pendidikan">
           {pendidikan ? (
             <div className="container">
               <div className="section-title" style={{ display: "flex", justifyContent: "space-between" }}>
@@ -126,25 +126,25 @@ const PendidikanList = () => {
                 </div>
               </div>
 
-            <div className="list-group">
-              <div className="table table-hover">
+              <div className="list-group">
+                <div className="table table-hover">
                   <thead>
-                      <tr className="bg-primary">
-                          <th scope="col">Jenjang</th>
-                          <th scope="col">Instansi Pendidikan</th>
-                          <th scope="col">Jurusan</th>
-                          <th scope="col">Tahun Masuk</th>
-                          <th scope="col">Tahun Lulus</th>
-                          <th scope="col">Edit</th>
-                          <th scope="col">Delete</th>
-                      </tr>
+                    <tr className="bg-primary">
+                      <th scope="col">Jenjang</th>
+                      <th scope="col">Instansi Pendidikan</th>
+                      <th scope="col">Jurusan</th>
+                      <th scope="col">Tahun Masuk</th>
+                      <th scope="col">Tahun Lulus</th>
+                      <th scope="col">Edit</th>
+                      <th scope="col">Delete</th>
+                    </tr>
                   </thead>
                   <tbody>
-                      {PendidikanDetail}
+                    {PendidikanDetail}
                   </tbody>
+                </div>
               </div>
             </div>
-          </div>
           ) : (
             <div className="container d-flex flex-column justify-content-center align-items-center vh-100">
               <div
@@ -155,9 +155,9 @@ const PendidikanList = () => {
                   fontSize: "14px",
                 }}
               >
-                Skill Hasn't Been Added
+                Education Hasn't Been Added
               </div>
-              <NavLink to="/add_skill">
+              <NavLink to="/add_pendidikan">
                 <button
                   className="btn btn-dark"
                   style={{

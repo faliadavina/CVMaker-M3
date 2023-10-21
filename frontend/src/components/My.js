@@ -152,6 +152,19 @@ const My = () => {
   return (
     <body>
       <Hero />
+      <button
+        className="btn btn-primary"
+        style={{
+          marginTop: "20px",
+          borderRadius: "50px",
+          fontSize: "14px",
+          fontWeight: "bold",
+        }}
+        onClick={() => window.print()}
+      >
+        {" "}
+        Print CV
+      </button>
       {/* ======= Data Diri Section ======= */}
       <section id="about" class="about">
         {data_diri ? (
@@ -429,20 +442,6 @@ const My = () => {
           </div>
         )}
       </section>
-
-      <button
-        className="btn btn-primary"
-        style={{
-          marginTop: "20px",
-          borderRadius: "50px",
-          fontSize: "14px",
-          fontWeight: "bold",
-        }}
-        onClick={() => window.print()}
-      >
-        {" "}
-        Print CV
-      </button>
 
       <a
         href="#about"

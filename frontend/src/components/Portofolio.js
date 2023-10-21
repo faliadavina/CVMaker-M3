@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Sidebar from '../pages/Sidebar';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link, NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { FaPlus } from "react-icons/fa";
 
 const Portfolio = () => {
   const [portofolios, setPorto] = useState([]);
 
-  useEffect(() => {
-    getPorto()
-  }, []);
-
   const { user } = useSelector((state) => state.auth);
   const id = user && user.user && user.user.id_akun;
   console.log(id);
+
+  useEffect(() => {
+    getPorto();
+  }, [id]);
 
   const getPorto = async () => {
     try {
@@ -23,23 +22,30 @@ const Portfolio = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  }
+  };
 
   const renderPortofolioContent = (url) => {
-    const fileExtension = url.split('.').pop().toLowerCase();
-    const isImage = ['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension);
-    const isPDF = fileExtension === 'pdf';
-    const isAudio = ['mp3', 'wav'].includes(fileExtension);
-    const isVideo = ['mp4', 'webm'].includes(fileExtension);
+    const fileExtension = url.split(".").pop().toLowerCase();
+    const isImage = ["jpg", "jpeg", "png", "gif"].includes(fileExtension);
+    const isPDF = fileExtension === "pdf";
+    const isAudio = ["mp3", "wav"].includes(fileExtension);
+    const isVideo = ["mp4", "webm"].includes(fileExtension);
 
     if (isImage) {
-      return <img src={url} alt="Portofolio" />;
+      return <img src={url} alt="Portofolio" height="550" />;
     } else if (isPDF) {
-      return <embed src={url} type="application/pdf" className="pdf-embed" height="600" />;
+      return (
+        <embed
+          src={url}
+          type="application/pdf"
+          className="pdf-embed"
+          height="550"
+        />
+      );
     } else if (isAudio) {
-      return <audio controls src={url} />;
+      return <audio controls src={url} height="550" />;
     } else if (isVideo) {
-      return <video controls src={url} />;
+      return <video controls src={url} height="550" />;
     } else {
       return <p>Unsupported file format</p>;
     }
@@ -57,58 +63,96 @@ const Portfolio = () => {
 
   return (
     <body>
-      <Sidebar />
-      <main id="main">
-        <section id="uploadPorto" className="portfolio">
+      <section id="uploadPorto" className="portfolio">
+        <div className="container">
           <div className="container">
-
-            <div className="section-title">
-              <h2>Portfolio Section</h2>
-            </div>
-
-            <div className="container">
-              {portofolios === null || portofolios.length === 0 ? (
-                <div className="container text-center contStyle">
-                  <h3>No Data Portofolio Available, Please Add Data First</h3>
-                  <Link to={"add_portofolio"} className="btn btn-primary btn-lg" style={{ backgroundColor: '#000000', fontWeight: '800' }}>
-                    + ADD PORTOFOLIO
-                  </Link>
+            {portofolios === null || portofolios.length === 0 ? (
+              <div className="container d-flex flex-column justify-content-center align-items-center vh-100">
+                <div
+                  className="text-center"
+                  style={{
+                    marginBottom: "20px",
+                    color: "grey",
+                    fontSize: "14px",
+                  }}
+                >
+                  Portofolio Hasn't Been Added
                 </div>
-              ) : (
-                <>
-                  <Link to={"add_portofolio"}
-                    className="btn btn-primary"
-                    style={{ backgroundColor: '#000000', fontWeight: '800', marginBottom: '20px' }}
+                <NavLink to="/add_portofolio">
+                  <button
+                    className="btn btn-dark"
+                    style={{
+                      borderRadius: "50px",
+                      fontSize: "18px",
+                      fontWeight: "bold",
+                    }}
                   >
-                    + ADD PORTOFOLIO
-                  </Link>
-                  <div className="container">
-                    <div className="row">
-                      {portofolios.map((portofolio) => (
-                        <div className="col-md-6 mx-auto" key={portofolio.id_porto}>
-                          <div className="card porto" style={{ marginBottom: '15px' }}>
-                            {renderPortofolioContent(portofolio.url)}
-                            <div className="deskripsi">
-                              <p>{portofolio.deskripsi}</p>
-                              <div className="buttons">
-                                <button onClick={() => deletePorto(portofolio.id_porto)} className="btn btn-danger">Delete</button>
-                                {/* <button onClick={() => handleOnUpdateButton()} className="btn btn-primary">Update</button> */}
-                                <Link to={`edit_portofolio/${portofolio.id_porto}`} className="btn btn-primary">Update</Link>
-                              </div>
+                    <FaPlus style={{ marginRight: "10px" }} /> Add Data
+                  </button>
+                </NavLink>
+              </div>
+            ) : (
+              <>
+                <div class="section-title d-flex justify-content-between align-items-center">
+                <h2>Portofolio</h2>
+                <NavLink to="/add_portofolio">
+                  <button
+                    className="btn btn-dark"
+                    style={{
+                      borderRadius: "50px",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                      marginRight: "30px",
+                    }}
+                  >
+                    <FaPlus style={{ marginRight: "10px" }} /> Add Portfolio
+                  </button>
+                </NavLink>
+              
+              </div>
+                
+                <div className="container">
+                  <div className="row">
+                    {portofolios.map((portofolio) => (
+                      <div
+                        className="col-md-6 mx-auto"
+                        key={portofolio.id_porto}
+                      >
+                        <div
+                          className="card porto"
+                          style={{ marginBottom: "15px", maxWidth: "390px" }}
+                        >
+                          {renderPortofolioContent(portofolio.url)}
+                          <div className="deskripsi">
+                            <p>{portofolio.deskripsi}</p>
+                            <div className="buttons">
+                              <button
+                                onClick={() => deletePorto(portofolio.id_porto)}
+                                className="btn btn-danger"
+                              >
+                                Delete
+                              </button>
+                              {/* <button onClick={() => handleOnUpdateButton()} className="btn btn-primary">Update</button> */}
+                              <Link
+                                to={`edit_portofolio/${portofolio.id_porto}`}
+                                className="btn btn-primary"
+                              >
+                                Update
+                              </Link>
                             </div>
                           </div>
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))}
                   </div>
-                </>
-              )}
-            </div>
+                </div>
+              </>
+            )}
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
     </body>
-  )
-}
+  );
+};
 
 export default Portfolio;

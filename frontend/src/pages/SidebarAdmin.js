@@ -3,7 +3,7 @@ import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getMe, LogOut, reset } from "../features/authSlice";
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 
 const SidebarAdmin = () => {
   const dispatch = useDispatch();
@@ -98,12 +98,8 @@ const SidebarAdmin = () => {
                 </NavLink>
               </li>
               <li>
-                <a
-                  href="#logout"
-                  className="nav-link scrollto"
-                  onClick={logout}
-                >
-                  <i className="bx bx-log-in"></i> <span>Logout</span>
+              <a href="/login" className="nav-link scrollto" onClick={logout}>
+                    <i className="bx bx-log-in"></i> <span>Logout</span>
                 </a>
               </li>
             </ul>

@@ -14,7 +14,7 @@ const NavbarLogin = () => {
 
         <ul className="navbar-nav ml-auto flex-row"> {/* Use flex-row to keep items in the same row */}
           <li className="nav-item">
-            <NavLink className="nav-link" to="/biography">
+            <NavLink className="nav-link" to="/">
               <div className="nav-icon"><FaUser /></div>
               <div className="nav-text">Biography</div>
             </NavLink>

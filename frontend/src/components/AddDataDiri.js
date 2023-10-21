@@ -3,15 +3,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getMe } from "../features/authSlice";
-import Sidebar from "../pages/Sidebar";
-
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
 
 const AddDataDiri = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isError } = useSelector((state) => state.auth);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [msg, setMsg] = useState("");
 
   useEffect(() => {
     dispatch(getMe());
@@ -131,7 +130,7 @@ const AddDataDiri = () => {
     }
   };
 
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState("");
   const handleStatusChange = (e) => {
     // Update nilai status sesuai dengan opsi yang dipilih
     setStatus(e.target.value);
@@ -150,6 +149,8 @@ const AddDataDiri = () => {
       console.log("Invalid email format!");
       return;
     }
+
+    setIsSubmitting(true);
 
     try {
       const formDataObject = new FormData();
@@ -186,13 +187,17 @@ const AddDataDiri = () => {
         }
       );
 
-      //toast.success("Your personal data added successfully !");
-      alert("Your personal data added successfully !");
-      navigate("/data_diri");
+      setSuccessMessage("Your Personal Data added successfully!");
+      // Show success message for 2 seconds before navigating
+      setTimeout(() => {
+        navigate("/data_diri");
+      }, 2000);
     } catch (error) {
       console.log(error);
       //toast.error("Cannot add your input, please try again");
-      alert("Cannot add your input, please try again");
+      setMsg("Cannot add your input, please try again");
+    } finally {
+      setIsSubmitting(false); // Menandakan bahwa permintaan telah selesai
     }
   };
 
@@ -203,211 +208,240 @@ const AddDataDiri = () => {
 
   return (
     <body>
-      <Sidebar />
-
-      <main id="main">
-        <section class="inner-page">
-          <div class="container">
-            <div class="section-title d-flex justify-content-between align-items-center">
-              <h2>Add Your Personal Data</h2>
+      <section class="inner-page">
+        <div class="container">
+          <div class="section-title d-flex justify-content-between align-items-center">
+            <h2>Add Your Personal Data</h2>
+          </div>
+          {successMessage && (
+            <div className="alert alert-success" role="alert">
+              {successMessage}
             </div>
-            <form onSubmit={saveDataDiri} class="php-email-form">
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="name">Name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="nama"
-                    name="nama"
-                    value={formData.nama}
-                    onChange={handleChange}
-                    placeholder="Enter your name"
-                    required
-                  />
-                </div>
-                <div className="form-group col-md-6">
-                  <label className="label">Profile Picture</label>
-                  <div className="control">
-                    <div className="file">
-                      <label className="file-label">
-                        <input
-                          type="file"
-                          className="file-input"
-                          onChange={loadImage}
-                        />
-                      </label>
-                    </div>
+          )}
+          <form onSubmit={saveDataDiri} class="php-email-form">
+            <p className="text-center text-danger">{msg}</p>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="name">
+                  <h5>Name</h5>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="nama"
+                  name="nama"
+                  value={formData.nama}
+                  onChange={handleChange}
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+              <div className="form-group col-md-6">
+                <label className="label">
+                  <h5>Profile Picture</h5>
+                </label>
+                <div className="control">
+                  <div className="file">
+                    <label className="file-label">
+                      <input
+                        type="file"
+                        className="file-input"
+                        onChange={loadImage}
+                      />
+                    </label>
                   </div>
-                </div>
-
-                <div className="form-group col-md-6">
-                  <label className="label"></label>
-                  <div className="control">
-                    <div className="file">
-                      <label className="file-label"></label>
-                    </div>
-                  </div>
-                </div>
-
-                {preview && (
-                  <div className="form-group col-md-6">
-                    <label className="label">Preview</label>
-                    <figure className="image is-128x128">
-                      <img src={preview} alt="" />
-                    </figure>
-                  </div>
-                )}
-                <div class="form-group">
-                  <label for="name">Self Introduction</label>
-                  <textarea
-                    className="form-control"
-                    id="deskripsi"
-                    name="deskripsi"
-                    rows="8"
-                    value={formData.deskripsi}
-                    onChange={handleChange}
-                    placeholder="Write your brief self introduction here ..."
-                    required
-                  />
-                  <p>
-                    {" "}
-                    {formData.deskripsi.length} / {maxDeskripsiLength}{" "}
-                  </p>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="name">Birth Place</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="tempat_lahir"
-                    name="tempat_lahir"
-                    value={formData.tempat_lahir}
-                    onChange={handleChange}
-                    placeholder="Enter your birth place"
-                    required
-                  />
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="name">Birth Date</label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    id="tanggal_lahir"
-                    name="tanggal_lahir"
-                    value={formData.tanggal_lahir}
-                    onChange={handleChange}
-                    placeholder="Enter your birth date"
-                    required
-                  />
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="name">Address</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="alamat"
-                    name="alamat"
-                    value={formData.alamat}
-                    onChange={handleChange}
-                    placeholder="Enter your address"
-                    required
-                  />
-                </div>
-                <div className="form-group col-md-6">
-                  <label for="name">Marriage Status</label>
-                  <select
-                      className="form-control"
-                      id="status"
-                      name="status"
-                      value={status}
-                      onChange={handleStatusChange}
-                      required
-                  >
-                      <option value="">Select Marriage Status</option>
-                      <option value="Menikah">Menikah</option>
-                      <option value="Belum Menikah">Belum Menikah</option>
-                  </select>
-                  </div>
-                <div class="form-group col-md-6">
-                  <label for="name">Email</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="email"
-                    name="email"
-                    value={email}
-                    onChange={handleEmailChange}
-                    placeholder="Enter your email"
-                    required
-                  />
-                  {emailError && (
-                    <span style={{ color: "red" }}>{emailError}</span>
-                  )}
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="name">Phone Number</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="telp"
-                    name="telp"
-                    value={formData.telp}
-                    onChange={handleChange}
-                    placeholder="Enter your phone number"
-                    required
-                  />
-                  {telpError && (
-                    <span style={{ color: "red" }}>{telpError}</span>
-                  )}
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="name">Social Media</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="sosial_media"
-                    name="sosial_media"
-                    value={formData.sosial_media}
-                    onChange={handleChange}
-                    placeholder="Enter your social media (instagram/twitter/facebook)"
-                    required
-                  />
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="name">Linked In</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="linkedin"
-                    name="linkedin"
-                    value={formData.linkedin}
-                    onChange={handleChange}
-                    placeholder="Enter your linkedin username"
-                    required
-                  />
                 </div>
               </div>
-              <div class="text-center">
-                <button
-                  className="btn btn-secondary mt-5 me-3"
-                  onClick={handleCancelClick}
+
+              <div className="form-group col-md-6">
+                <label className="label"></label>
+                <div className="control">
+                  <div className="file">
+                    <label className="file-label"></label>
+                  </div>
+                </div>
+              </div>
+
+              {preview && (
+                <div className="form-group col-md-6">
+                  <label className="label">
+                    <h5>Preview</h5>
+                  </label>
+                  <figure className="image is-128x128">
+                    <img src={preview} alt="" />
+                  </figure>
+                </div>
+              )}
+              <div class="form-group">
+                <label for="name">
+                  <h5>Self Introduction</h5>
+                </label>
+                <textarea
+                  className="form-control"
+                  id="deskripsi"
+                  name="deskripsi"
+                  rows="8"
+                  value={formData.deskripsi}
+                  onChange={handleChange}
+                  placeholder="Write your brief self introduction here ..."
+                  required
+                />
+                <p>
+                  {" "}
+                  {formData.deskripsi.length} / {maxDeskripsiLength}{" "}
+                </p>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="name">
+                  <h5>Birth Place</h5>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="tempat_lahir"
+                  name="tempat_lahir"
+                  value={formData.tempat_lahir}
+                  onChange={handleChange}
+                  placeholder="Enter your birth place"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="name">
+                  <h5>Birth Date</h5>
+                </label>
+                <input
+                  type="date"
+                  className="form-control"
+                  id="tanggal_lahir"
+                  name="tanggal_lahir"
+                  value={formData.tanggal_lahir}
+                  onChange={handleChange}
+                  placeholder="Enter your birth date"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="name">
+                  <h5>Address</h5>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="alamat"
+                  name="alamat"
+                  value={formData.alamat}
+                  onChange={handleChange}
+                  placeholder="Enter your address"
+                  required
+                />
+              </div>
+              <div className="form-group col-md-6">
+                <label for="name">
+                  <h5>Marriage Status</h5>
+                </label>
+                <select
+                  className="form-control"
+                  id="status"
+                  name="status"
+                  value={status}
+                  onChange={handleStatusChange}
+                  required
                 >
-                  Cancel
-                </button>
-                <button class="btn btn-primary mt-5" type="submit">
-                  Save Changes
-                </button>
+                  <option value="">Select Marriage Status</option>
+                  <option value="Menikah">Menikah</option>
+                  <option value="Belum Menikah">Belum Menikah</option>
+                </select>
               </div>
-            </form>
-            {/* {data_akun && (
+              <div class="form-group col-md-6">
+                <label for="name">
+                  <h5>Email</h5>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="email"
+                  name="email"
+                  value={email}
+                  onChange={handleEmailChange}
+                  placeholder="Enter your email"
+                  required
+                />
+                {emailError && (
+                  <span style={{ color: "red" }}>{emailError}</span>
+                )}
+              </div>
+              <div class="form-group col-md-6">
+                <label for="name">
+                  <h5>Phone Number</h5>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="telp"
+                  name="telp"
+                  value={formData.telp}
+                  onChange={handleChange}
+                  placeholder="Enter your phone number"
+                  required
+                />
+                {telpError && <span style={{ color: "red" }}>{telpError}</span>}
+              </div>
+              <div class="form-group col-md-6">
+                <label for="name">
+                  <h5>Social Media</h5>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="sosial_media"
+                  name="sosial_media"
+                  value={formData.sosial_media}
+                  onChange={handleChange}
+                  placeholder="Enter your social media (instagram/twitter/facebook)"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="name">
+                  <h5>Linked In</h5>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="linkedin"
+                  name="linkedin"
+                  value={formData.linkedin}
+                  onChange={handleChange}
+                  placeholder="Enter your linkedin username"
+                  required
+                />
+              </div>
+            </div>
+            <div className="text-center">
+              <button
+                className="btn btn-secondary mt-3 me-3"
+                onClick={handleCancelClick}
+                disabled={isSubmitting} // Menonaktifkan tombol saat sedang mengirimkan permintaan
+              >
+                Cancel
+              </button>
+              <button
+                className="btn btn-primary mt-3"
+                type="submit"
+                disabled={isSubmitting} // Menonaktifkan tombol saat sedang mengirimkan permintaan
+              >
+                {isSubmitting ? "Adding..." : "Add Data"}
+              </button>
+            </div>
+          </form>
+          {/* {data_akun && (
                     <ul>
                         <li><i class="bi bi-chevron-right"></i> <strong>Nama:</strong> <span>{data_akun.akunById.email}</span></li>
 			        </ul>
                 )} */}
-          </div>
-        </section>
-      </main>
+        </div>
+      </section>
       {/* End #main */}
 
       <a

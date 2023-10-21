@@ -1,24 +1,25 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage from "./components/LandingPage";
+import LandingPage from "./pages/LandingPage";
 import ManageUser from "./components/ManageUser";
-import Portfolio from "./components/Portofolio";
-import EditPorto from "./components/EditPorto";
-import AddPorto from "./components/AddPorto";
+import Portfolio from "./pages/PortofolioPage";
+import EditPorto from "./pages/EditPortoPage";
+import AddPorto from "./pages/AddPortoPage";
 import Login from "./components/Login";
-import AddSkill from "./components/AddSkill.js";
-import SkillList from "./components/SkillList";
-import EditSkill from "./components/EditSkill";
-import AddOrganisasi from "./components/AddOrganisasi";
-import EditOrganisasi from "./components/EditOrganisasi";
-import DataDiri from "./components/DataDiri";
-import EditDataDiri from "./components/EditDataDiri";
-import AddDataDiri from "./components/AddDataDiri";
+import AddSkill from "./pages/AddSkillPage";
+import SkillList from "./pages/SkillPage";
+import EditSkill from "./pages/EditSkillPage";
+import AddOrganisasi from "./pages/AddOrganisasiPage";
+import EditOrganisasi from "./pages/EditOrganisasiPage";
+import DataDiri from "./pages/DataDiriPage";
+import EditDataDiri from "./pages/EditDataDiriPage";
+import AddDataDiri from "./pages/AddDataDiriPage";
 import Contact from "./pages/Contact";
 import Register from "./components/Register";
-import My from "./components/My";
-import AddPendidikan from "./components/AddPendidikan";
-import EditPendidikan from "./components/EditPendidikan";
-import PendidikanList from "./components/PendidikanList";
+import My from "./pages/MyCvPage";
+import AddPendidikan from "./pages/AddPendidikanPage";
+import EditPendidikan from "./pages/EditPendidikanPage";
+import PendidikanList from "./pages/PendidikanPage";
+import PageView from "./pages/PageView";
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
         <Route path="/manage_user" element={<ManageUser />}></Route>
         <Route path="/portofolio" element={<Portfolio />}></Route>
         <Route path="/portofolio/edit_portofolio/:id_porto" element={<EditPorto />}></Route>
-        <Route path="/portofolio/add_portofolio" element={<AddPorto />}></Route>
+        <Route path="/add_portofolio" element={<AddPorto />}></Route>
         <Route path="/login" element={<Login />} />
         <Route path="/skills" element={<SkillList />} />
         <Route path="/manage_user" element={<ManageUser />}></Route>
@@ -47,6 +48,7 @@ function App() {
         <Route path="/pendidikan" element={<PendidikanList />}/>
         <Route path="/contact" element={<Contact />}/>
         <Route path="/register" element={<Register />}/>
+        <Route path="/page-view" element={<PageView />} />
       </Routes>
     </BrowserRouter>
   );

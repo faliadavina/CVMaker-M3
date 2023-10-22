@@ -98,7 +98,7 @@ const EditSkill = () => {
               <h2>Edit Skill</h2>
             </div>
             {successMessage && (
-              <div className="alert alert-success" role="alert">
+              <div className="alert alert-success" id="success-message" role="alert">
                 {successMessage}
               </div>
             )}

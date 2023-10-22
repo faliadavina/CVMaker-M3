@@ -110,13 +110,15 @@ const Register = () => {
         confirmPassword: "",
       }));
     }
+
+    setError("");
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
+  
     setIsLoading(true);
-
+  
     const validationErrors = {};
     if (!values.email) {
       validationErrors.email = "Email is required";
@@ -136,12 +138,12 @@ const Register = () => {
     }
     if (!values.username) {
       validationErrors.username = "Username is required";
+    } else if (!isUsernameValid(values.username)) {
+      validationErrors.username = "Username must start with a letter and only contain letters and numbers";
     }
-
+  
     setErrors(validationErrors);
-
-
-
+  
     if (Object.keys(validationErrors).length === 0) {
       try {
         const response = await axios.post("http://localhost:5000/akun", {
@@ -150,11 +152,11 @@ const Register = () => {
           password: values.password,
           role: "2",
         });
-
+  
         console.log("Registration successful:", response.data.akun);
-
+  
         setSuccessMessage("Registration successful!"); // Set success message
-
+  
         // Display success message before navigating
         setTimeout(() => {
           setSuccessMessage(""); // Clear the success message after a delay
@@ -162,7 +164,7 @@ const Register = () => {
         }, 3000); // Display success message for 3 seconds (adjust as needed)
       } catch (error) {
         console.error("Registration error:", error.response.data);
-
+  
         if (error.response.data.errors) {
           const serverErrors = error.response.data.errors;
           setErrors({
@@ -172,14 +174,15 @@ const Register = () => {
             username: serverErrors.username || "",
           });
         } else {
-          setError(error.response.data.message);
+          setError(error.response.data.msg);
         }
-
       }
     }
+  
     console.log(error);
     setIsLoading(false);
   };
+  
 
   const shouldDisplayRequired = (field) => {
 
@@ -202,9 +205,9 @@ const Register = () => {
           >
             <h4 className="mb-2 text-center">Sign Up</h4>
             {successMessage && (
-              <div className="alert alert-success">{successMessage}</div>
+              <div className="alert alert-success" id="success-message" >{successMessage}</div>
             )}
-            {error && <div className="alert alert-danger">{error}</div>}
+            {error && <div className="alert alert-danger" id="error-message">{error}</div>}
             <div className="mb-2 register">
               <label htmlFor="username" className="form-label register-form">
                 <BsPersonFill className="icon" /> Username
@@ -306,7 +309,7 @@ const Register = () => {
                 </button>
                 {(shouldDisplayRequired('confirmPassword') || errors.confirmPassword) && (
                   <div className="invalid-feedback">
-                    {shouldDisplayRequired('confirmPassword') ? 'confirmPassword is required' : errors.confirmPassword}
+                    {shouldDisplayRequired('confirmPassword') ? 'confirm Password is required' : errors.confirmPassword}
                   </div>
                 )}
               </div>

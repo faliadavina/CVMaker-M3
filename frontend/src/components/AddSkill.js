@@ -104,7 +104,7 @@ const AddSkill = () => {
             <h2>Add Skill</h2>
           </div>
           {successMessage && (
-            <div className="alert alert-success" role="alert">
+            <div className="alert alert-success" id="success-message" role="alert">
               {successMessage}
             </div>
           )}

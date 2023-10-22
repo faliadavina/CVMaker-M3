@@ -94,7 +94,7 @@ const SkillList = () => {
                 )}
 
                 {successMessage && (
-                  <div className="alert alert-success" role="alert">
+                  <div className="alert alert-success" id = "success-message" role="alert">
                     {successMessage}
                   </div>
                 )}
@@ -102,6 +102,7 @@ const SkillList = () => {
                   <NavLink to="/add_skill">
                     <button
                       className="btn btn-dark"
+                      id = "add-button-skill"
                       style={{
                         borderRadius: "50px",
                         fontSize: "14px",
@@ -145,12 +146,14 @@ const SkillList = () => {
                           to={`/edit_skill`}
                           onClick={() => handleEditClick(skill.id_skill)}
                           className="btn btn-primary btn-sm"
+                          id = "edit-skill"
                         >
                           Edit
                         </Link>
                         <button
                           onClick={() => deleteSkill(skill.id_skill)}
                           className="btn btn-danger btn-sm"
+                          id = "delete-skill"
                         >
                           Delete
                         </button>
@@ -187,12 +190,14 @@ const SkillList = () => {
                           to={`/edit_skill`}
                           onClick={() => handleEditClick(skill.id_skill)}
                           className="btn btn-primary btn-sm"
+                          id = "edit-skill"
                         >
                           Edit
                         </Link>
                         <button
                           onClick={() => deleteSkill(skill.id_skill)}
                           className="btn btn-danger btn-sm"
+                          id = "delete-skill"
                         >
                           Delete
                         </button>
@@ -217,6 +222,7 @@ const SkillList = () => {
               <NavLink to="/add_skill">
                 <button
                   className="btn btn-dark"
+                  id = "add-button-skill"
                   style={{
                     borderRadius: "50px",
                     fontSize: "18px",

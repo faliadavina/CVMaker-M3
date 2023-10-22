@@ -1,12 +1,13 @@
 import Skill from '../models/skillModel.js';
 import User from '../models/akunModels.js';
 
+import { Op } from 'sequelize';
+
 export const createSkill = async (req, res) => {
   try {
-    const id_akun = req.params.id_akun; // Mengambil id_akun dari parameter URL
+    const id_akun = req.params.id_akun;
     const { kategori_skill, nama_skill, level } = req.body;
 
-    // Check if the specified id_user exists
     const user = await User.findOne({
       where: {
         id_akun: id_akun,
@@ -17,11 +18,16 @@ export const createSkill = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Check if the skill with the same name already exists
+    // Mengubah nama skill menjadi huruf kecil
+    const nama_skill_lowercase = nama_skill.toLowerCase();
+
+    // Check if a skill with the same name (case insensitive) already exists
     const existingSkill = await Skill.findOne({
       where: {
         id_akun,
-        nama_skill: nama_skill,
+        nama_skill: {
+          [Op.iLike]: nama_skill_lowercase,
+        },
       },
     });
 
@@ -29,11 +35,10 @@ export const createSkill = async (req, res) => {
       return res.status(400).json({ message: 'Skill with the same name already exists' });
     }
 
-    // Create the skill
     const newSkill = await Skill.create({
       id_akun,
       kategori_skill,
-      nama_skill,
+      nama_skill: nama_skill_lowercase, // Simpan dalam format huruf kecil
       level,
     });
 
@@ -43,6 +48,7 @@ export const createSkill = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
 
 
 
@@ -101,7 +107,7 @@ export const updateSkill = async (req, res) => {
     const skill = await Skill.findOne({
       where: {
         id_skill: id_skill,
-      }
+      },
     });
 
     if (!skill) {
@@ -109,24 +115,39 @@ export const updateSkill = async (req, res) => {
     }
 
     // Check if the new skill name is provided and is different from the existing name
-    if (fieldsToUpdate.nama_skill && fieldsToUpdate.nama_skill !== skill.nama_skill) {
-      const existingSkill = await Skill.findOne({
-        where: {
-          id_akun: skill.id_akun,
-          nama_skill: fieldsToUpdate.nama_skill,
-        },
-      });
+    if (fieldsToUpdate.nama_skill) {
+      // Ubah nama skill baru menjadi lowercase
+      const newSkillName = fieldsToUpdate.nama_skill.toLowerCase();
 
-      if (existingSkill) {
-        return res.status(400).json({ message: 'Skill with the same name already exists' });
+      // Periksa apakah nama skill yang baru (dalam lowercase) berbeda dengan nama yang sudah ada
+      if (newSkillName !== skill.nama_skill.toLowerCase()) {
+        const existingSkill = await Skill.findOne({
+          where: {
+            id_akun: skill.id_akun,
+            nama_skill: newSkillName,
+          },
+        });
+
+        if (existingSkill) {
+          return res.status(400).json({ message: 'Skill with the same name already exists' });
+        }
       }
+
+      // Simpan nama skill yang sudah diubah menjadi lowercase
+      skill.nama_skill = newSkillName;
     }
 
     // Update the specified fields
     for (const field in fieldsToUpdate) {
       if (Object.prototype.hasOwnProperty.call(fieldsToUpdate, field)) {
-        // Update each specified field
-        skill[field] = fieldsToUpdate[field];
+          // Check if the new skill name is provided and is different from the existing name
+          if (fieldsToUpdate.nama_skill) {
+          // Ubah nama skill baru menjadi lowercase
+            skill.nama_skill = fieldsToUpdate.nama_skill.toLowerCase();
+          }else{
+            skill[field] = fieldsToUpdate[field];
+          }
+        
       }
     }
 
@@ -138,6 +159,7 @@ export const updateSkill = async (req, res) => {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
 
 
 

@@ -187,6 +187,8 @@ const AddDataDiri = () => {
         }
       );
 
+      console.log(id_akun);
+
       setSuccessMessage("Your Personal Data added successfully!");
       // Show success message for 2 seconds before navigating
       setTimeout(() => {

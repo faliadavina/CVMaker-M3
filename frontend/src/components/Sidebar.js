@@ -118,7 +118,7 @@ const Sidebar = () => {
                   }`}
                   onClick={() => handleMenuItemClick("Edit Personal Data")}
                 >
-                  <i className="bx bx-user"></i> <span>Edit Personal Data</span>
+                  <i className="bx bx-user"></i> <span>Personal Data</span>
                 </NavLink>
               </li>
               <li>
@@ -132,7 +132,7 @@ const Sidebar = () => {
                   onClick={() => handleMenuItemClick("Edit Educational")}
                 >
                   <i className="bx bx-server"></i>{" "}
-                  <span>Edit Educational Data</span>
+                  <span>Educational Data</span>
                 </NavLink>
               </li>
               <li>

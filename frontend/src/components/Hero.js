@@ -8,7 +8,7 @@ const Hero = () => {
   const { user } = useSelector((state) => state.auth);
   const id = user && user.user && user.user.id_akun;
   const [skillNames, setSkillNames] = useState([
-    "(Ayo isi skill mu)",
+    "(No skills added yet)",
   ]);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const Hero = () => {
         <div className="hero-container" data-aos="fade-in">
           <h1>{data_diri && data_diri.username}</h1>
           <p>
-            Saya Ahli Dalam {" "}
+            I am an expert in {" "}
             <span
               className="typed"
             ></span>

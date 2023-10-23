@@ -20,6 +20,7 @@ import AddPendidikan from "./pages/AddPendidikanPage";
 import EditPendidikan from "./pages/EditPendidikanPage";
 import PendidikanList from "./pages/PendidikanPage";
 import PageView from "./pages/PageView";
+import GenerateCV from "./pages/GenerateCVPage";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
         <Route path="/add_pendidikan" element={<AddPendidikan />}/>
         <Route path="/edit_pendidikan/:id_pend" element={<EditPendidikan />}/>
         <Route path="/pendidikan" element={<PendidikanList />}/>
+        <Route path="/generate-cv" element={<GenerateCV />} />
         <Route path="/contact" element={<Contact />}/>
         <Route path="/register" element={<Register />}/>
         <Route path="/page-view" element={<PageView />} />

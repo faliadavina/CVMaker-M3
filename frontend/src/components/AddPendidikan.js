@@ -107,18 +107,6 @@ const AddPendidikan = () => {
       return;
     }
 
-    const yearRegex = /^\d{4}$/;
-
-    // Contoh penggunaan dalam validasi tahun_masuk dan tahun_lulus
-    if (!yearRegex.test(tahun_masuk) || !yearRegex.test(tahun_lulus)) {
-      setMsg("Tahun masuk dan tahun lulus harus berupa 4 digit angka.");
-      if(!yearRegex.test(tahun_masuk)) {
-        setTahunMasukFilled(false);
-      } else {
-        setTahunLulusFilled(false);
-      }
-      return;
-    }
     setIsSubmitting(true);
 
     try {

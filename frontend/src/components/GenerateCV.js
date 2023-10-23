@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Hero from "./Hero";
 
-const My = () => {
+
+const GenerateCV= () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // Data Diri
   const [data_diri, setUsers] = useState(null);
-
   const { user } = useSelector((state) => state.auth);
   const id_akun = user && user.user && user.user.id_akun;
 
@@ -151,8 +150,7 @@ const My = () => {
 
   return (
     <body>
-      <Hero />
-      <button
+       <button
         className="btn btn-primary"
         style={{
           marginTop: "20px",
@@ -160,101 +158,55 @@ const My = () => {
           fontSize: "14px",
           fontWeight: "bold",
         }}
-        onClick={navigate("/generate-cv")}
+        onClick={() => window.print()}
       >
         {" "}
         Print CV
       </button>
       {/* ======= Data Diri Section ======= */}
-      <section id="about" class="about">
+      <section id="about" class="about" style={{marginTop : "-100px"}}>
         {data_diri ? (
           <div class="container">
-            <div class="section-title d-flex justify-content-between align-items-center">
-              <h2>Get To Know Me!</h2>
+            <div class="d-flex justify-content-center align-items-center text-center mt-5">
+              <h2 className="display-5">{data_diri.nama}</h2>
             </div>
-
-            <div class="section-title">
-              <p>{data_diri.deskripsi}</p>
+            <div class="row d-flex justify-content-center align-items-center text-center">
+                <p>{data_diri.email} | {data_diri.telp} | {data_diri.alamat}</p>
             </div>
-
             <div class="row">
-              <div class="col-lg-4" data-aos="fade-right">
-                <img src={data_diri.url} class="img-fluid" alt="" />
-              </div>
-              <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-                <h3>Personal Data</h3>
-                <div class="row">
-                  <div class="col-lg-8">
-                    <ul>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Name :</strong> <span>{data_diri.nama}</span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Place and Date of Birth :</strong>{" "}
-                        <span>
-                          {data_diri.tempat_lahir}, {data_diri.tanggal_lahir}
-                        </span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Address :</strong>{" "}
-                        <span>{data_diri.alamat}</span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Marriage Status :</strong>{" "}
-                        <span>{data_diri.status}</span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Phone Number :</strong>{" "}
-                        <span>{data_diri.telp}</span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Email :</strong> <span>{data_diri.email}</span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Social Media :</strong>{" "}
-                        <span>{data_diri.sosial_media}</span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>LinkedIn :</strong>{" "}
-                        <span>{data_diri.linkedin}</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+                <p>{data_diri.deskripsi}</p>
             </div>
           </div>
         ) : (
           <div class="container">
             <div class="title d-flex justify-content-center align-items-center text-center mt-5">
-              <h3>Personal Data Has Not Been Added</h3>
+              <h4>Personal Data Has Not Been Added</h4>
             </div>
           </div>
         )}
       </section>
-      <section id="pendidikan" class="pendidikan">
+      <section id="" class="pendidikan" style={{marginTop: "-100px"}}>
         <div class="container">
-          <div class="section-title">
-            <h2>Riwayat Pendidikan</h2>
+          <div class="">
+            <b style={{fontSize : "25px"}}>Riwayat Pendidikan</b>
           </div>
-
-          <ul class="education-list">
+          <ul class="" style={{borderTop: "2px solid #ccc" }}>
             {pendidikan.map((item, index) => (
-              <li key={index} class="education-item">
-                <h3 class="jenjang">{item.jenjang}</h3>
-                <div class="school-info">
-                  <p class="nama-sekolah">{item.nama_sekolah}</p>
-                  <p class="jurusan">{item.jurusan}</p>
-                </div>
-                <p class="tahun">
+              <li key={index} class=""
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+              >
+                <p class="jenjang" style={{ textAlign: "left", fontSize : "20px"}}>
+                  {item.jenjang} {item.jurusan}, {item.nama_sekolah}</p>
+                <p
+                  style={{
+                    textAlign: "right",
+                    marginRight: "10px",
+                    fontSize : "20px"
+                  }}
+                >
                   {item.tahun_masuk} - {item.tahun_lulus}
                 </p>
               </li>
@@ -264,113 +216,67 @@ const My = () => {
       </section>
 
       {/* Organisasi Section */}
-      <section id="resume" className="resume">
+      <section id="resume" className="resume" style={{marginTop : "-100px"}}>
         <div className="container">
           {organisasi.length > 0 ? (
             <>
-              <div className="section-title">
-                <h2>Organisasi</h2>
+              <div className="">
+                <b style={{fontSize : "25px"}}>Organisasi</b>
               </div>
-              <div className="card-content">
-                <div className="content">
-                  <div>
-                    <ol>
-                      {organisasi.map((org) => (
-                        <li key={org.id_org}>
-                          <h4
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                            }}
-                          >
-                            <b style={{ textAlign: "left" }}>
-                              {org.nama_organisasi}
-                            </b>
-                            <b
-                              style={{
-                                textAlign: "right",
-                                marginRight: "10px",
-                              }}
-                            >
-                              {org.periode}
-                            </b>
-                          </h4>
-                          <p>{org.jabatan}</p>
-                          <p>{org.deskripsi_jabatan}</p>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                </div>
-              </div>
+              <ul style={{borderTop: "2px solid #ccc" }}>
+              {organisasi.map((org) => (
+                  <li key={org.id_org}>
+                  <h4
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <p style={{ textAlign: "left" }}>
+                      {org.jabatan}, {org.nama_organisasi}
+                    </p>
+                    <p
+                      style={{
+                        textAlign: "right",
+                        marginRight: "10px",
+                      }}
+                    >
+                      {org.periode}
+                    </p>
+                  </h4>
+                  <p>{org.deskripsi_jabatan}</p>
+                </li>
+              ))}
+              </ul>
             </>
           ) : (
             <div>
-              <h3>Organization data has not been found</h3>
+              <h4>Organization data has not been found</h4>
             </div>
           )}
         </div>
       </section>
       {/* End Organisasi Section */}
 
-      {/* ======= Portfolio Section ======= */}
-      <section id="Porto" className="portfolio">
-        <div className="container">
-          <div className="section-title">
-            <h2>Portfolio Section</h2>
-          </div>
-
-          <div className="container">
-            {portofolios === null || portofolios.length === 0 ? (
-              <div className="container text-center contStyle">
-                <h3>No Data Portofolio Available, Please Add Data First</h3>
-              </div>
-            ) : (
-              <div className="container">
-                <div className="row">
-                  {portofolios.map((portofolio) => (
-                    <div className="col-md-6 mx-auto" key={portofolio.id_porto}>
-                      <div
-                        className="card porto"
-                        style={{
-                          marginBottom: "15px",
-                          height: "300px",
-                          width: "300px",
-                          marginRight: "50px",
-                        }}
-                      >
-                        {renderPortofolioContent(portofolio.url)}
-                        <div className="deskripsi">
-                          <p>{portofolio.deskripsi}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      <section id="skills" className="skills">
+     
+      <section id="skills" className="skills" style={{marginTop : "-100px"}}>
         {data_skill ? (
           <div className="container">
             <div
-              className="section-title"
+              className=""
               style={{ display: "flex", justifyContent: "space-between" }}
             >
               <div className="title-container">
-                <h2>Skills</h2>
+                <b style={{fontSize : "25px"}}>Skill</b>
               </div>
               {}
               <div className="btn-container">{}</div>
             </div>
 
-            <div className="row skills-content">
+            <div className="row skills-content" style={{borderTop: "2px solid #ccc" }}>
               <div className="col-lg-6">
                 <div className="section-subtitle">
-                  <h5>Soft Skills</h5>
+                  <h4>Soft Skills</h4>
                 </div>
                 {softSkills.map((skill, index) => (
                   <div
@@ -398,7 +304,7 @@ const My = () => {
               </div>
               <div className="col-lg-6">
                 <div className="section-subtitle">
-                  <h5>Hard Skills</h5>
+                  <h4>Hard Skills</h4>
                 </div>
                 {hardSkills.map((skill, index) => (
                   <div
@@ -452,4 +358,4 @@ const My = () => {
   );
 };
 
-export default My;
+export default GenerateCV;

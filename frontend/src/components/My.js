@@ -149,6 +149,10 @@ const My = () => {
     fetchData();
   }, [id_akun]);
 
+  const handleGenerateCV = () => {
+    navigate("/generate-cv");
+  }
+
   return (
     <body>
       <Hero />
@@ -160,7 +164,7 @@ const My = () => {
           fontSize: "14px",
           fontWeight: "bold",
         }}
-        onClick={() => window.print()}
+        onClick={handleGenerateCV}
       >
         {" "}
         Print CV

@@ -160,7 +160,7 @@ const My = () => {
           fontSize: "14px",
           fontWeight: "bold",
         }}
-        onClick={navigate("/generate-cv")}
+        onClick={() => window.print()}
       >
         {" "}
         Print CV
@@ -442,6 +442,9 @@ const My = () => {
           </div>
         )}
       </section>
+
+      
+
       <a
         href="#about"
         class="back-to-top d-flex align-items-center justify-content-center"

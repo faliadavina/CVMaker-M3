@@ -6,6 +6,10 @@ import { FaPlus } from "react-icons/fa";
 
 const Portfolio = () => {
   const [portofolios, setPorto] = useState([]);
+  const [selectedPortofolios, setSelectedPortofolios] = useState([]);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
 
   const { user } = useSelector((state) => state.auth);
   const id = user && user.user && user.user.id_akun;
@@ -32,20 +36,20 @@ const Portfolio = () => {
     const isVideo = ["mp4", "webm"].includes(fileExtension);
 
     if (isImage) {
-      return <img src={url} alt="Portofolio" height="550" />;
+      return <img src={url} alt="Portofolio" height="300" />;
     } else if (isPDF) {
       return (
         <embed
           src={url}
           type="application/pdf"
           className="pdf-embed"
-          height="550"
+          height="300"
         />
       );
     } else if (isAudio) {
-      return <audio controls src={url} height="550" />;
+      return <audio controls src={url} height="300" />;
     } else if (isVideo) {
-      return <video controls src={url} height="550" />;
+      return <video controls src={url} height="300" />;
     } else {
       return <p>Unsupported file format</p>;
     }
@@ -58,6 +62,35 @@ const Portfolio = () => {
       getPorto();
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const toggleSelection = (portoID) => {
+    if (selectedPortofolios.includes(portoID)) {
+      setSelectedPortofolios(selectedPortofolios.filter((id) => id !== portoID));
+    } else {
+      setSelectedPortofolios([...selectedPortofolios, portoID]);
+    }
+  };
+
+  const deleteSelectedPortofolios = async () => {
+    try {
+      // Menghapus portofolio yang dipilih satu per satu
+      for (const portoId of selectedPortofolios) {
+        await axios.delete(`http://localhost:5000/porto/${portoId}`);
+      }
+      getPorto(); // Ambil data portofolio setelah menghapus
+      setSelectedPortofolios([]); // Kosongkan daftar yang dipilih
+      setSuccessMessage("Portofolios deleted successfully!");
+      setErrorMessage("");
+      // Clear success message after 2 seconds
+      setTimeout(() => setSuccessMessage(""), 2000);
+    } catch (error) {
+      console.error("Error deleting portofolios:", error);
+      setErrorMessage("Error deleting portofolios.");
+      setSuccessMessage("");
+      // Clear error message after 2 seconds
+      setTimeout(() => setErrorMessage(""), 2000);
     }
   };
 
@@ -94,23 +127,25 @@ const Portfolio = () => {
             ) : (
               <>
                 <div class="section-title d-flex justify-content-between align-items-center">
-                <h2>Portofolio</h2>
-                <NavLink to="/add_portofolio">
-                  <button
-                    className="btn btn-dark"
-                    style={{
-                      borderRadius: "50px",
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      marginRight: "30px",
-                    }}
-                  >
-                    <FaPlus style={{ marginRight: "10px" }} /> Add Portfolio
+                  <h2>Portofolio</h2>
+                  <button onClick={deleteSelectedPortofolios} className="btn btn-danger" style={{ marginLeft: "56%", fontWeight: "bold" }}>
+                    Delete Selected
                   </button>
-                </NavLink>
-              
-              </div>
-                
+                  <NavLink to="/add_portofolio">
+                    <button
+                      className="btn btn-dark"
+                      style={{
+                        borderRadius: "50px",
+                        fontSize: "14px",
+                        fontWeight: "bold",
+                        marginRight: "80px",
+                      }}
+                    >
+                      <FaPlus style={{ marginRight: "10px" }} /> Add Portfolio
+                    </button>
+                  </NavLink>
+                </div>
+
                 <div className="container">
                   <div className="row">
                     {portofolios.map((portofolio) => (
@@ -118,21 +153,46 @@ const Portfolio = () => {
                         className="col-md-6 mx-auto"
                         key={portofolio.id_porto}
                       >
-                        <div
+                        <div className="row">
+                          <div className="col-md-1">
+                            <input
+                              type="checkbox"
+                              className="checkbox-input"
+                              checked={selectedPortofolios.includes(portofolio.id_porto)}
+                              onChange={() => toggleSelection(portofolio.id_porto)}
+                            />
+                          </div>
+                          <div className="col-md-11">
+                            <div className="card porto" style={{ marginBottom: "15px" }}>
+                              {renderPortofolioContent(portofolio.url)}
+                              <div className="deskripsi">
+                                <p>{portofolio.deskripsi}</p>
+                                <div className="buttons">
+                                  {/* <button
+                                    onClick={() => deletePorto(portofolio.id_porto)}
+                                    className="btn btn-danger"
+                                  >
+                                    Delete
+                                  </button> */}
+                                  <Link
+                                    to={`edit_portofolio/${portofolio.id_porto}`}
+                                    className="btn btn-primary"
+                                  >
+                                    Update
+                                  </Link>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {/* <div
                           className="card porto"
-                          style={{ marginBottom: "15px", maxWidth: "390px" }}
+                          style={{ marginBottom: "15px" }}
                         >
                           {renderPortofolioContent(portofolio.url)}
                           <div className="deskripsi">
                             <p>{portofolio.deskripsi}</p>
                             <div className="buttons">
-                              <button
-                                onClick={() => deletePorto(portofolio.id_porto)}
-                                className="btn btn-danger"
-                              >
-                                Delete
-                              </button>
-                              {/* <button onClick={() => handleOnUpdateButton()} className="btn btn-primary">Update</button> */}
                               <Link
                                 to={`edit_portofolio/${portofolio.id_porto}`}
                                 className="btn btn-primary"
@@ -141,7 +201,7 @@ const Portfolio = () => {
                               </Link>
                             </div>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     ))}
                   </div>

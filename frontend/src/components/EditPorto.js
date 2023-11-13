@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Navbar from './layout/navbar';
-import Footer from './layout/footer';
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Button } from 'react-bootstrap';
 
@@ -91,8 +89,6 @@ const EditPorto = () => {
 
     return (
         <body>
-            <Navbar />
-            <main id="main">
                 <section className="portfolio section-bg">
                     <div className="container">
 
@@ -129,7 +125,7 @@ const EditPorto = () => {
 
                                     {file && (
                                         <div className="Container" style={{ marginTop: '15px', marginLeft: '25px' }}>
-                                            <div className="card add">
+                                            <div className="card add porto">
                                                 {renderFilePreview()}
                                             </div>
                                         </div>
@@ -145,9 +141,6 @@ const EditPorto = () => {
                         </div>
                     </div>
                 </section>
-            </main>
-            <Footer />
-            <a href="#about" className="back-to-top d-flex align-items-center justify-content-center"><i className="bi bi-arrow-up-short"></i></a>
         </body>
     )
 }

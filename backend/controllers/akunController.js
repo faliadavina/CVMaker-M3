@@ -6,9 +6,25 @@ import bcrypt from 'bcryptjs';
 export const createAkun = async (req, res) => {
   const { username, email, password, role } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
+  
   try {
+    // Mengonversi username yang dimasukkan ke huruf kecil
+    const lowercaseUsername = username.toLowerCase();
+
+    // Cek apakah username (dalam format huruf kecil) sudah ada dalam database
+    const existingAkun = await AkunDB.findOne({
+      where: {
+        username: lowercaseUsername,
+      },
+    });
+
+    if (existingAkun) {
+      return res.status(400).json({ msg: "Username sudah terdaftar" });
+    }
+
+    // Jika username belum ada, buat akun baru
     await AkunDB.create({
-      username,
+      username: lowercaseUsername, // Simpan dalam format huruf kecil
       email,
       password: hashedPassword,
       role,
@@ -16,32 +32,36 @@ export const createAkun = async (req, res) => {
     res.status(201).json({
       msg: 'Add user Berhasil',
       akun: {
-        username,
+        username: lowercaseUsername, // Simpan dalam format huruf kecil
         email,
         role
       }
     });
   } catch (error) {
-    res.status(400).json({ msg: error.message });
+    res.status(400).json({ msg: "Email sudah terdaftar" });
   }
-      
 }
 
 
+
 export const getAllAkun = async (req, res) => {
-    try {
-        const allAkun = await AkunDB.findAll();
-    
-        return res.status(200).json({
-          success: true,
-          allAkun,
-        });
-      } catch (error) {
-        console.log(error.message);
-        return res.status(500).json({
-          error: error.message,
-        });
-      }
+  try {
+    const allAkun = await AkunDB.findAll({
+      where: {
+        role: 2,
+      },
+    });
+
+    return res.status(200).json({
+      success: true,
+      allAkun,
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
 };
 
 

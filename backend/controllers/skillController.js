@@ -1,29 +1,45 @@
 import Skill from '../models/skillModel.js';
 import User from '../models/akunModels.js';
 
+import { Op } from 'sequelize';
+
 export const createSkill = async (req, res) => {
   try {
-    const id_akun = req.params.id_akun; // Mengambil id_akun dari parameter URL
-    const { kategori_skill, nama_skill, deskripsi, level } = req.body;
+    const id_akun = req.params.id_akun;
+    const { kategori_skill, nama_skill, level } = req.body;
 
-    // Check if the specified id_user exists
     const user = await User.findOne({
       where: {
-        id_akun: id_akun
-      }
+        id_akun: id_akun,
+      },
     });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ message: 'User not found' });
     }
 
-    // Create the skill
+    // Mengubah nama skill menjadi huruf kecil
+    const nama_skill_lowercase = nama_skill.toLowerCase();
+
+    // Check if a skill with the same name (case insensitive) already exists
+    const existingSkill = await Skill.findOne({
+      where: {
+        id_akun,
+        nama_skill: {
+          [Op.iLike]: nama_skill_lowercase,
+        },
+      },
+    });
+
+    if (existingSkill) {
+      return res.status(400).json({ message: 'Skill with the same name already exists' });
+    }
+
     const newSkill = await Skill.create({
       id_akun,
       kategori_skill,
-      nama_skill,
-      deskripsi,
-      level
+      nama_skill: nama_skill_lowercase, // Simpan dalam format huruf kecil
+      level,
     });
 
     return res.status(201).json({ success: true, skill: newSkill, message: 'Skill created successfully' });
@@ -32,6 +48,7 @@ export const createSkill = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
 
 
 
@@ -57,7 +74,6 @@ export const getSkillById = async (req, res) => {
   }
 };
 
-
 export const getAllSkills = async (req, res) => {
   try {
     const id_akun = req.params.id_akun;
@@ -68,6 +84,11 @@ export const getAllSkills = async (req, res) => {
         id_akun: id_akun
       }
     });
+
+    // Check if there are no skills for the specified user
+    if (userSkills.length === 0) {
+      return res.status(404).json({ success: false, message: 'No skills found' });
+    }
 
     return res.status(200).json({ success: true, skills: userSkills });
   } catch (err) {
@@ -86,29 +107,60 @@ export const updateSkill = async (req, res) => {
     const skill = await Skill.findOne({
       where: {
         id_skill: id_skill,
-      }
+      },
     });
 
     if (!skill) {
-      return res.status(404).json({ error: 'Skill not found' });
+      return res.status(404).json({ message: 'Skill not found' });
+    }
+
+    // Check if the new skill name is provided and is different from the existing name
+    if (fieldsToUpdate.nama_skill) {
+      // Ubah nama skill baru menjadi lowercase
+      const newSkillName = fieldsToUpdate.nama_skill.toLowerCase();
+
+      // Periksa apakah nama skill yang baru (dalam lowercase) berbeda dengan nama yang sudah ada
+      if (newSkillName !== skill.nama_skill.toLowerCase()) {
+        const existingSkill = await Skill.findOne({
+          where: {
+            id_akun: skill.id_akun,
+            nama_skill: newSkillName,
+          },
+        });
+
+        if (existingSkill) {
+          return res.status(400).json({ message: 'Skill with the same name already exists' });
+        }
+      }
+
+      // Simpan nama skill yang sudah diubah menjadi lowercase
+      skill.nama_skill = newSkillName;
     }
 
     // Update the specified fields
     for (const field in fieldsToUpdate) {
       if (Object.prototype.hasOwnProperty.call(fieldsToUpdate, field)) {
-        // Update each specified field
-        skill[field] = fieldsToUpdate[field];
+          // Check if the new skill name is provided and is different from the existing name
+          if (fieldsToUpdate.nama_skill) {
+          // Ubah nama skill baru menjadi lowercase
+            skill.nama_skill = fieldsToUpdate.nama_skill.toLowerCase();
+          }else{
+            skill[field] = fieldsToUpdate[field];
+          }
+        
       }
     }
 
     // Save the updated skill to the database
     await skill.save();
-    return res.status(200).json({ msg: 'Skill updated successfully', skill });
+    return res.status(200).json({ message: 'Skill updated successfully', skill });
   } catch (error) {
-    console.error('Error in updateSkill:', error.message);  // Log the error message
+    console.error('Error in updateSkill:', error.message);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+
 
 
 export const deleteSkill = async (req, res) => {
@@ -126,7 +178,7 @@ export const deleteSkill = async (req, res) => {
     }
 
     await skill.destroy();
-    return res.status(200).json({ msg: 'Skill Deleted Successfully' });
+    return res.status(200).json({ message: 'Skill Deleted Successfully' });
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ error: 'Internal server error' });

@@ -149,10 +149,13 @@ const My = () => {
     fetchData();
   }, [id_akun]);
 
+  const handleGenerateCV = () => {
+    navigate("/generate-cv");
+  }
+
   return (
     <body>
       <Hero />
-
       <button
         className="btn btn-primary"
         style={{
@@ -161,12 +164,11 @@ const My = () => {
           fontSize: "14px",
           fontWeight: "bold",
         }}
-        onClick={() => window.print()}
+        onClick={handleGenerateCV}
       >
         {" "}
         Print CV
       </button>
-
       {/* ======= Data Diri Section ======= */}
       <section id="about" class="about">
         {data_diri ? (
@@ -236,11 +238,8 @@ const My = () => {
           </div>
         ) : (
           <div class="container">
-            <div class="section-title">
-              <h2>Personal Data</h2>
-            </div>
             <div class="title d-flex justify-content-center align-items-center text-center mt-5">
-              <h5>Personal Data Has Not Been Added</h5>
+              <h3>Personal Data Has Not Been Added</h3>
             </div>
           </div>
         )}
@@ -248,7 +247,7 @@ const My = () => {
       <section id="pendidikan" class="pendidikan">
         <div class="container">
           <div class="section-title">
-            <h2>Education</h2>
+            <h2>Riwayat Pendidikan</h2>
           </div>
 
           <ul class="education-list">
@@ -274,7 +273,7 @@ const My = () => {
           {organisasi.length > 0 ? (
             <>
               <div className="section-title">
-                <h2>Organizational Experience</h2>
+                <h2>Organisasi</h2>
               </div>
               <div className="card-content">
                 <div className="content">
@@ -310,14 +309,9 @@ const My = () => {
               </div>
             </>
           ) : (
-            <>
-              <div className="section-title">
-                <h2>Organizational Experience</h2>
-              </div>            
-              <div class="title d-flex justify-content-center align-items-center text-center mt-5">
-              <h5>Organizational Experience Data Has Not Been Added</h5>
+            <div>
+              <h3>Organization data has not been found</h3>
             </div>
-            </>
           )}
         </div>
       </section>
@@ -327,14 +321,14 @@ const My = () => {
       <section id="Porto" className="portfolio">
         <div className="container">
           <div className="section-title">
-            <h2>Portfolio</h2>
+            <h2>Portfolio Section</h2>
           </div>
 
           <div className="container">
             {portofolios === null || portofolios.length === 0 ? (
-            <div class="title d-flex justify-content-center align-items-center text-center mt-5">
-              <h5>Portofolio Data Has Not Been Added</h5>
-            </div>
+              <div className="container text-center contStyle">
+                <h3>No Data Portofolio Available, Please Add Data First</h3>
+              </div>
             ) : (
               <div className="container">
                 <div className="row">
@@ -437,16 +431,23 @@ const My = () => {
             </div>
           </div>
         ) : (
-          <div class="container">
-          <div class="section-title">
-            <h2>Skills</h2>
+          <div className="container d-flex flex-column justify-content-center align-items-center vh-100">
+            <div
+              className="text-center"
+              style={{
+                marginBottom: "20px",
+                color: "grey",
+                fontSize: "14px",
+              }}
+            >
+              Skill Hasn't Been Added
+            </div>
+            {}
           </div>
-          <div class="title d-flex justify-content-center align-items-center text-center mt-5">
-            <h5>Skills Data Has Not Been Added</h5>
-          </div>
-        </div>
         )}
       </section>
+
+      
 
       <a
         href="#about"

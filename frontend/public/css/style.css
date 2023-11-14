@@ -1421,7 +1421,7 @@ i{
 
 .porto {
   width: 550px;
-  height: 300px;
+  height: 310px;
   border: 1px solid #ccc;
   padding: 10px;
   text-align: center;
@@ -1584,4 +1584,26 @@ i{
   border-top: 4px solid #ccc; /* Garis abu */
   margin: 20px 0; /* Jarak di atas dan bawah garis */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Efek bayangan */
+}
+
+/* Untuk memperbesar ukuran checkbox */
+.checkbox-input {
+  width: 20px; /* Lebar */
+  height: 20px; /* Tinggi */
+}
+
+/* Untuk memperbesar ikon centang pada checkbox */
+.checkbox-input:checked::before {
+  width: 16px; /* Lebar centang */
+  height: 16px; /* Tinggi centang */
+}
+
+/* Ganti warna latar belakang checkbox (opsional) */
+.checkbox-input:checked::before {
+  background-color: #007BFF; /* Warna latar belakang saat dicentang */
+}
+
+/* Ganti warna tepi checkbox (opsional) */
+.checkbox-input::before {
+  border: 2px solid #007BFF; /* Warna tepi checkbox */
 }

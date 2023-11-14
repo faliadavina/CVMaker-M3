@@ -44,20 +44,35 @@ const PendidikanView = () => {
 
   return (
     <div>
-      <section id="pendidikan" className="pendidikan">
-        <div className="container">
-          {pendidikan.length > 0 ? (
-            <div className="section-title">
-              <h2>Pendidikan</h2>
-            </div>
-          ) : (
-            <div className="section-title">
-              <h3>No Education Data Available</h3>
-            </div>
-          )}
-          <div className="container">
-            {PendidikanDetail}
+      <section id="pendidikan" class="pendidikan">
+        <div class="container">
+          <div class="section-title">
+            <h2>Education</h2>
           </div>
+
+          {pendidikan.length > 0 ? (
+
+              <ul class="education-list">
+              {pendidikan.map((item, index) => (
+                <li key={index} class="education-item">
+                  <h3 class="jenjang">{item.jenjang}</h3>
+                  <div class="school-info">
+                    <p class="nama-sekolah">{item.nama_sekolah}</p>
+                    <p class="jurusan">{item.jurusan}</p>
+                  </div>
+                  <p class="tahun">
+                    {item.tahun_masuk} - {item.tahun_lulus}
+                  </p>
+                </li>
+              ))}
+              </ul>
+
+          ):(
+              <div class="title d-flex justify-content-center align-items-center text-center mt-5">
+              <h5></h5>
+              </div>
+
+          )}
         </div>
       </section>
     </div>

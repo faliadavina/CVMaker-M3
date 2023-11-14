@@ -10,6 +10,7 @@ const AddDataDiri = () => {
   const { isError } = useSelector((state) => state.auth);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [msg, setMsg] = useState("");
 
   useEffect(() => {
@@ -65,12 +66,14 @@ const AddDataDiri = () => {
   // Menambah Data Diri
   const [formData, setFormData] = useState({
     nama: "",
+    profesi: "",
     tempat_lahir: "",
     tanggal_lahir: "",
     alamat: "",
     status: "",
     telp: "",
     sosial_media: "",
+    twitter: "",
     linkedin: "",
     deskripsi: "",
   });
@@ -85,6 +88,7 @@ const AddDataDiri = () => {
     //Formatting huruf kapital
     const shouldConvertToUpperCase = [
       "nama",
+      "profesi",
       "tempat_lahir",
       "alamat",
       "status",
@@ -196,8 +200,10 @@ const AddDataDiri = () => {
       }, 2000);
     } catch (error) {
       console.log(error);
-      //toast.error("Cannot add your input, please try again");
-      setMsg("Cannot add your input, please try again");
+      setErrorMessage("Cannot Add Your Personal Data Input, Please Try Again");
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 4000);
     } finally {
       setIsSubmitting(false); // Menandakan bahwa permintaan telah selesai
     }
@@ -220,6 +226,11 @@ const AddDataDiri = () => {
               {successMessage}
             </div>
           )}
+          {errorMessage && (
+            <div className="alert alert-danger" role="alert">
+              {errorMessage}
+            </div>
+          )}          
           <form onSubmit={saveDataDiri} class="php-email-form">
             <p className="text-center text-danger">{msg}</p>
             <div class="row">
@@ -309,6 +320,21 @@ const AddDataDiri = () => {
                 />
               </div>
               <div class="form-group col-md-6">
+                <label for="profesi">
+                  <h5>Profesi</h5>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="profesi"
+                  name="profesi"
+                  value={formData.profesi}
+                  onChange={handleChange}
+                  placeholder="Enter your current profession"
+                  required
+                />
+              </div>              
+              <div class="form-group col-md-6">
                 <label for="name">
                   <h5>Birth Date</h5>
                 </label>
@@ -351,8 +377,8 @@ const AddDataDiri = () => {
                   required
                 >
                   <option value="">Select Marriage Status</option>
-                  <option value="Menikah">Menikah</option>
-                  <option value="Belum Menikah">Belum Menikah</option>
+                  <option value="Menikah">MENIKAH</option>
+                  <option value="Belum Menikah">BELUM MENIKAH</option>
                 </select>
               </div>
               <div class="form-group col-md-6">
@@ -390,8 +416,8 @@ const AddDataDiri = () => {
                 {telpError && <span style={{ color: "red" }}>{telpError}</span>}
               </div>
               <div class="form-group col-md-6">
-                <label for="name">
-                  <h5>Social Media</h5>
+                <label for="instagram">
+                  <h5>Instagram</h5>
                 </label>
                 <input
                   type="text"
@@ -400,7 +426,7 @@ const AddDataDiri = () => {
                   name="sosial_media"
                   value={formData.sosial_media}
                   onChange={handleChange}
-                  placeholder="Enter your social media (instagram/twitter/facebook)"
+                  placeholder="Enter your instagram username"
                   required
                 />
               </div>
@@ -416,6 +442,21 @@ const AddDataDiri = () => {
                   value={formData.linkedin}
                   onChange={handleChange}
                   placeholder="Enter your linkedin username"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="twitter">
+                  <h5>Twitter</h5>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="twitter"
+                  name="twitter"
+                  value={formData.twitter}
+                  onChange={handleChange}
+                  placeholder="Enter your twitter username"
                   required
                 />
               </div>

@@ -79,7 +79,7 @@ const Hero = () => {
           </p>
         </div>
       </section>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

@@ -17,11 +17,15 @@ const UserDB = db.define('data_diri', {
     }
   },
   nama: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  profesi: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
   tempat_lahir: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING,
     allowNull: false,
   },
   tanggal_lahir: {
@@ -29,30 +33,42 @@ const UserDB = db.define('data_diri', {
     allowNull: false,
   },
   alamat: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING,
     allowNull: false,
   },
   status: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING,
     allowNull: false,
   },
   telp: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING,
     allowNull: false,
   },
   email: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING,
     allowNull: false,
     validate: {
       isEmail: true,
     },
   },
   sosial_media: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  twitter: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
   linkedin: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  link_sosmed: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  link_twitter: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
   deskripsi: {
@@ -60,15 +76,15 @@ const UserDB = db.define('data_diri', {
     allowNull: false
   },
   profile_pict: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING,
     allowNull: false,
   },
   profile_title: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING,
     allowNull: false,
   },
   url: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING,
     allowNull: false,
   }
 },

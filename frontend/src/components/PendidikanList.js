@@ -64,6 +64,7 @@ const PendidikanList = () => {
     return (
       <tr key={pendidikan.id_pend}>
         <td>{pendidikan.jenjang}</td>
+        <td>{pendidikan.nama_sekolah}</td>
         <td>{pendidikan.jurusan}</td>
         <td>{pendidikan.tahun_masuk}</td>
         <td>{pendidikan.tahun_lulus}</td>

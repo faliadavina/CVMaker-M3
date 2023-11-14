@@ -22,12 +22,12 @@ function OrganisasiView() {
   }, [accountId]);
   return (
     <div>
-       <section id="resume" className="resume">
+      <section id="resume" className="resume">
         <div className="container">
           {organisasi.length > 0 ? (
             <>
               <div className="section-title">
-                <h2>Organisasi</h2>
+                <h2>Organizational Experience</h2>
               </div>
               <div className="card-content">
                 <div className="content">
@@ -63,9 +63,14 @@ function OrganisasiView() {
               </div>
             </>
           ) : (
-            <div>
-              <h3>Organization data has not been found</h3>
+            <>
+              <div className="section-title">
+                <h2>Organizational Experience</h2>
+              </div>            
+              <div class="title d-flex justify-content-center align-items-center text-center mt-5">
+              <h5></h5>
             </div>
+            </>
           )}
         </div>
       </section>

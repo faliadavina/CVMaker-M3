@@ -156,7 +156,7 @@ const PendidikanList = () => {
                 fontSize: "14px",
               }}
             >
-              Pendidikan Hasn't Been Added
+              Educational Data Hasn't Been Added
             </div>
             <NavLink to="/add_pendidikan">
               <button

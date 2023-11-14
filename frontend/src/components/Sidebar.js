@@ -4,7 +4,7 @@ import { NavLink, useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { LogOut, reset } from "../features/authSlice";
 import { getMe } from "../features/authSlice";
-import Footer from "./Footer";
+// import Footer from "./Footer";
 
 const Sidebar = () => {
 
@@ -86,7 +86,7 @@ const Sidebar = () => {
               }
               alt=""
             />
-            <h1 className="text-light m-4">
+            <h1 className="text-light m-6 mb-4">
               <a href="index.html">{userData.username || ""}</a>
             </h1>
           </div>
@@ -186,7 +186,7 @@ const Sidebar = () => {
           </nav>
           {/* .nav-menu */}
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </header>
       {/* End Header */}
     </div>

@@ -181,55 +181,80 @@ const My = () => {
 
             <div class="row">
               <div class="col-lg-4" data-aos="fade-right">
-                <img src={data_diri.url} class="img-fluid" alt="" />
+                <img src={data_diri.url} class="profile_img" alt="" />
               </div>
               <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-                <h3>Personal Data</h3>
+                <h3 class="mb-4">Personal Data</h3>
                 <div class="row">
-                  <div class="col-lg-8">
+                  <div class="col-lg-6">
                     <ul>
                       <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Name :</strong> <span>{data_diri.nama}</span>
+                        <i className="bi bi-person-vcard mr-3"></i>{" "}
+                        {/* <strong> Name </strong>  */}
+                        <br/><span>{data_diri.nama}</span>
                       </li>
                       <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Place and Date of Birth :</strong>{" "}
+                        <i className="bi bi-person-gear mr-3"></i>{" "}
+                        {/* <strong> Name </strong>  */}
+                        <br/><span>{data_diri.profesi}</span>
+                      </li>
+                      <li>
+                        <i class="bi bi-cake mr-3"></i>{" "}
+                        {/* <strong> Place, Date of Birth :</strong>{" "} */}
                         <span>
                           {data_diri.tempat_lahir}, {data_diri.tanggal_lahir}
                         </span>
                       </li>
                       <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Address :</strong>{" "}
+                        <i class="bi bi-house-door mr-3"></i>{" "}
+                        {/* <strong> Address :</strong>{" "} */}
                         <span>{data_diri.alamat}</span>
                       </li>
                       <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Marriage Status :</strong>{" "}
+                        <i className="bi bi-people mr-3"></i>{" "}
+                        {/* <strong> Marriage Status :</strong>{" "} */}
                         <span>{data_diri.status}</span>
                       </li>
                       <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Phone Number :</strong>{" "}
+                        <i class="bi bi-telephone mr-3"></i>{" "}
+                        {/* <strong> Phone Number :</strong>{" "} */}
                         <span>{data_diri.telp}</span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Email :</strong> <span>{data_diri.email}</span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Social Media :</strong>{" "}
-                        <span>{data_diri.sosial_media}</span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>LinkedIn :</strong>{" "}
-                        <span>{data_diri.linkedin}</span>
                       </li>
                     </ul>
                   </div>
+
+                  <div class="col-lg-6">
+                    <ul>
+                      <li>
+                        <i class=""></i>{" "}
+                        <span></span>
+                      </li>
+                      <li>
+                        <i class=""></i>{" "}
+                        <span></span>
+                      </li>
+                      <li>
+                        <i class="bi bi-envelope mr-3"></i>{" "}
+                        {/* <strong> Email :</strong>  */}
+                        <span>{data_diri.email}</span>
+                      </li>
+                      <li>
+                        <i class="bi bi-linkedin mr-3"></i>{" "}
+                        {/* <strong> LinkedIn :</strong>{" "} */}
+                        <span>{data_diri.linkedin}</span>
+                      </li>
+                      <li>
+                        <i class="bi bi-instagram mr-3"></i>{" "}
+                        {/* <strong> Social Media :</strong>{" "} */}
+                        <span><a href={data_diri.link_sosmed}>@{data_diri.sosial_media}</a></span>
+                      </li>
+                      <li>
+                        <i class="bi bi-twitter mr-3"></i>{" "}
+                        <span><a href={data_diri.link_twitter}>@{data_diri.twitter}</a></span>
+                      </li>
+                    </ul>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -240,10 +265,20 @@ const My = () => {
               <h2>Personal Data</h2>
             </div>
             <div class="title d-flex justify-content-center align-items-center text-center mt-5">
-              <h5>Personal Data Has Not Been Added</h5>
+            <div
+              className="text-center"
+              style={{
+                marginBottom: "20px",
+                color: "grey",
+                fontSize: "16px",
+              }}
+            >
+              Personal data Hasn't Been Added
+            </div>
             </div>
           </div>
         )}
+
       </section>
       <section id="pendidikan" class="pendidikan">
         <div class="container">
@@ -251,20 +286,38 @@ const My = () => {
             <h2>Education</h2>
           </div>
 
-          <ul class="education-list">
-            {pendidikan.map((item, index) => (
-              <li key={index} class="education-item">
-                <h3 class="jenjang">{item.jenjang}</h3>
-                <div class="school-info">
-                  <p class="nama-sekolah">{item.nama_sekolah}</p>
-                  <p class="jurusan">{item.jurusan}</p>
-                </div>
-                <p class="tahun">
-                  {item.tahun_masuk} - {item.tahun_lulus}
-                </p>
-              </li>
-            ))}
-          </ul>
+          {pendidikan.length > 0 ? (
+
+              <ul class="education-list">
+              {pendidikan.map((item, index) => (
+                <li key={index} class="education-item">
+                  <h3 class="jenjang">{item.jenjang}</h3>
+                  <div class="school-info">
+                    <p class="nama-sekolah">{item.nama_sekolah}</p>
+                    <p class="jurusan">{item.jurusan}</p>
+                  </div>
+                  <p class="tahun">
+                    {item.tahun_masuk} - {item.tahun_lulus}
+                  </p>
+                </li>
+              ))}
+              </ul>
+
+          ):(
+              <div class="title d-flex justify-content-center align-items-center text-center mt-5">
+            <div
+              className="text-center"
+              style={{
+                marginBottom: "20px",
+                color: "grey",
+                fontSize: "16px",
+              }}
+            >
+              Educational data Hasn't Been Added
+            </div>
+              </div>
+
+          )}
         </div>
       </section>
 
@@ -315,7 +368,16 @@ const My = () => {
                 <h2>Organizational Experience</h2>
               </div>            
               <div class="title d-flex justify-content-center align-items-center text-center mt-5">
-              <h5>Organizational Experience Data Has Not Been Added</h5>
+              <div
+              className="text-center"
+              style={{
+                marginBottom: "20px",
+                color: "grey",
+                fontSize: "16px",
+              }}
+            >
+              Organizational Experience Data Has Not Been Added
+            </div>
             </div>
             </>
           )}
@@ -333,7 +395,16 @@ const My = () => {
           <div className="container">
             {portofolios === null || portofolios.length === 0 ? (
             <div class="title d-flex justify-content-center align-items-center text-center mt-5">
-              <h5>Portofolio Data Has Not Been Added</h5>
+                          <div
+              className="text-center"
+              style={{
+                marginBottom: "20px",
+                color: "grey",
+                fontSize: "16px",
+              }}
+            >
+              Portofolios Hasn't Been Added
+            </div>
             </div>
             ) : (
               <div className="container">
@@ -442,7 +513,16 @@ const My = () => {
             <h2>Skills</h2>
           </div>
           <div class="title d-flex justify-content-center align-items-center text-center mt-5">
-            <h5>Skills Data Has Not Been Added</h5>
+          <div
+              className="text-center"
+              style={{
+                marginBottom: "20px",
+                color: "grey",
+                fontSize: "16px",
+              }}
+            >
+              Skills data Hasn't Been Added
+            </div>
           </div>
         </div>
         )}

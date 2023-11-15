@@ -21,6 +21,7 @@ import EditPendidikan from "./pages/EditPendidikanPage";
 import PendidikanList from "./pages/PendidikanPage";
 import PageView from "./pages/PageView";
 import GenerateCV from "./pages/GenerateCVPage";
+import Template1 from "./pages/CVTemplate1Page";
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
         <Route path="/contact" element={<Contact />}/>
         <Route path="/register" element={<Register />}/>
         <Route path="/page-view" element={<PageView />} />
+        <Route path="/cv-template-1" element={<Template1 />} />
       </Routes>
     </BrowserRouter>
   );

@@ -142,7 +142,7 @@ const DataDiri = () => {
           </div>
         </div>
         ) : (
-          <div className="container d-flex flex-column justify-content-center align-items-center vh-100">
+          <div className="container d-flex flex-column justify-content-center align-items-center" style={{ marginTop: "20%" }}>
             <div
               className="text-center"
               style={{

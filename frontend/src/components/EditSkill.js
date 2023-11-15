@@ -14,10 +14,17 @@ const EditSkill = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [description, setDescription] = useState(""); // Define description here
+  const maxDeskripsiLength = 255; // Define maxDeskripsiLength here
+
 
   // Get the user ID from Redux
   const { user } = useSelector((state) => state.auth);
   const id_akun = user && user.user && user.user.id_akun;
+
+  const handleDescriptionChange = (value) => {
+    setDescription(value);
+  };
 
   useEffect(() => {
     const getSkillById = async () => {
@@ -25,10 +32,13 @@ const EditSkill = () => {
         const response = await axios.get(
           `http://localhost:5000/skills/akun/${id_akun}/skill/${skillId}`
         );
-        const skillData = response.data.skill[0];
+        const skillData = response.data.skill;
         setName(skillData.nama_skill);
         setCategory(skillData.kategori_skill);
         setLevel(skillData.level);
+        if (skillData.deskripsi) {
+          setDescription(skillData.deskripsi);
+        }
       } catch (error) {
         if (error.response) {
           setMsg(error.response.data.msg);
@@ -45,9 +55,6 @@ const EditSkill = () => {
 
   const updateSkill = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
-    console.log("Name:", name);
-    console.log("Name:", name.length);
-    console.log("Is valid name:", /^[A-Za-z\s]+$/.test("dea salma"));
     setIsSubmitting(true);
     if (name.length > 200 || !/^[A-Za-z\s]+$/.test(name)) {
       setMsg(
@@ -69,6 +76,7 @@ const EditSkill = () => {
         nama_skill: name,
         kategori_skill: category,
         level: level,
+        deskripsi: description
       });
       setSuccessMessage("Skill updated successfully!"); // Set success message
 
@@ -92,34 +100,26 @@ const EditSkill = () => {
 
   return (
     <div>
-        <section id="addSkill" className="addSkill">
-          <div className="container">
-            <div className="section-title">
-              <h2>Edit Skill</h2>
+      <section id="addSkill" className="addSkill">
+        <div className="container">
+          <div className="section-title">
+            <h2>Edit Skill</h2>
+          </div>
+          {successMessage && (
+            <div className="alert alert-success" style={{ marginRight: "50px" }} id="success-message" role="alert">
+              {successMessage}
             </div>
-            {successMessage && (
-              <div className="alert alert-success" id="success-message" role="alert">
-                {successMessage}
-              </div>
-            )}
-
-            {errorMessage && (
-              <div className="alert alert-danger" role="alert">
-                {errorMessage}
-              </div>
-            )}
-            <div className="card-content">
-              <div className="content">
-                <form onSubmit={updateSkill}>
-                  <p className="text-center text-danger">{msg}</p>
-
-                  <div className="mb-3">
-                    <label htmlFor="category" className="form-label">
-                      <h5>Skill Category</h5>
-                      <p>
-                        <i>Select One of the Categories Below</i>
-                      </p>
-                    </label>
+          )}
+          <div className="card-content">
+            <div className="content">
+              <form onSubmit={updateSkill}>
+                <p className="text-center text-danger">{msg}</p>
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="mb-3">
+                      <label htmlFor="category" className="form-label">
+                        <h5>Skill Category</h5>
+                      </label>
                     <div className="form-check">
                       <input
                         type="radio"
@@ -148,20 +148,43 @@ const EditSkill = () => {
                     </div>
                   </div>
 
+                  
                   <div className="mb-3">
-                    <label htmlFor="name" className="form-label">
-                      <h5>Skill Name</h5>
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="name"
-                      value={name}
-                      onChange={(e) => handleNameChange(e.target.value)}
-                      placeholder="Skill Name"
-                      style={{ width: "45%" }}
-                    />
+                      <label htmlFor="name" className="form-label">
+                        <h5>Skill Name</h5>
+                      </label>
+                      <input
+                        type="text"
+                        className={"form-control"}
+                        id="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Skill Name"
+                        style={{ width: "80%" }}
+                      />
+                    </div>
                   </div>
+
+                  <div className="col-md-6 pr-4">
+                    <div className="mb-3">
+                      <label htmlFor="description" className="form-label">
+                        <h5>Skill Description</h5>
+                      </label>
+                      <textarea
+                        className="form-control"
+                        id="description"
+                        value={description}
+                        onChange={(e) => handleDescriptionChange(e.target.value)}
+                        placeholder="Skill Description"
+                        rows="2"
+                        style={{ width: "80%" }}
+                      />
+                      <p style={{ fontSize: "10px" }}>
+                        {description.length} / {maxDeskripsiLength}
+                      </p>
+                    </div>
+
+
 
                   <label className="custom-label mb-2">
                     <h5>Level</h5>
@@ -183,6 +206,8 @@ const EditSkill = () => {
                       ))}
                     </div>
                   </label>
+                  </div>
+                </div>
 
                   <div className="d-flex justify-content-center align-items-center mt-3 mb-3">
                   <button

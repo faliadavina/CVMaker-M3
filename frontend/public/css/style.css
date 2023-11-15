@@ -259,10 +259,10 @@ h5, label h5, .section-subtitle h5{
 #hero {
   width: 100%;
   height: 100vh;
-  background: url("../img/bg.jpg") top center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/bg.jpg") top center;
   background-size: cover;
 }
-
+/* 
 #hero:before {
   content: "";
   background: rgba(5, 13, 24, 0.3);
@@ -272,7 +272,9 @@ h5, label h5, .section-subtitle h5{
   left: 0;
   right: 0;
   z-index: 1;
-}
+  width: 100%;
+  height: 100vh;
+} */
 
 #hero .hero-container {
   position: relative;
@@ -458,6 +460,21 @@ section {
   border-radius: 0;
 }
 
+.skill-card {
+  height: 280px; /* Sesuaikan tinggi kartu sesuai kebutuhan Anda */
+  overflow: auto; /* Tambahkan efek overflow jika deskripsi terlalu panjang */
+}
+
+.description {
+  max-height: 50px; /* Sesuaikan tinggi maksimum deskripsi */
+  margin: 0;
+}
+
+.description p {
+  margin-bottom: 0;
+}
+
+
 .skills .progress .skill {
   padding: 0;
   margin: 0 0 6px 0;
@@ -478,11 +495,12 @@ section {
   height: 10px;
 }
 
+
 .skills .progress-bar {
   width: 1px;
   height: 10px;
   transition: 0.9s;
-  background-color: #149ddd;
+  background-color: #7496e0;
 }
 
 /*--------------------------------------------------------------
@@ -1347,6 +1365,16 @@ i{
   font-size: 14px;;
 }
 
+.form-check-label p{
+  font-size: 14px;;
+}
+
+input.form-check-input:checked {
+  background-color: grey !important;
+  border-color: grey !important;
+  color: white !important;
+}
+
 /*--------------------------------------------------------------
 # Skill List
 --------------------------------------------------------------*/
@@ -1355,6 +1383,29 @@ i{
   justify-content: space-between;
   margin-bottom: 20px;
 }
+
+/* Add this to your stylesheet or style block */
+.edit-button:hover {
+  background-color: white !important;
+  color: #001F3F !important;
+  border: 1px solid black !important;
+  padding-left: 10px !important;
+  padding-bottom: 5px !important;
+}
+
+.skill-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Adjust the shadow color and size as needed */
+}
+
+.edit-button {
+  background-color: #001F3F !important;
+  color: white !important;
+  border: 1px solid white !important;
+  padding-left: 10px !important;
+  padding-bottom: 5px !important;
+}
+
 
 .progress {
   width: 80%;
@@ -1370,9 +1421,10 @@ i{
   margin-bottom: 20px;
 }
 
-#name::placeholder{
+#name::placeholder, #description::placeholder{
   font-size: 12px !important;
 }
+
 
 .btn {
   margin-left: 10px;
@@ -1387,9 +1439,9 @@ i{
 }
 
 .level-button.selected {
-  background-color: #007BFF;
+  background-color: #4a4f53;
   color: #fff;
-  border-color: #007BFF;
+  border-color: #4a4f53;
 }
 
 .error-field {
@@ -1599,6 +1651,43 @@ i{
 .checkbox-input {
   width: 20px; /* Lebar */
   height: 20px; /* Tinggi */
+}
+
+/* Tampilan untuk layar kecil */
+.small-screen .testimonial-item {
+  width: 100%; /* 1 user per slide */
+}
+
+.checkbox-custom {
+  width: 15px;
+  height: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  display: inline-block;
+  position: relative;
+  margin-right: 10px;
+}
+
+.custom-card {
+  position: relative;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin: 10px; /* Memberikan jarak antara kartu pendidikan */
+}
+
+
+.card-action {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: row;
+  margin-right: 10px;
+}
+
+
+.card-action button {
+  margin-left: 5px;
 }
 
 /* Untuk memperbesar ikon centang pada checkbox */

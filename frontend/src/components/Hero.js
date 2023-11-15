@@ -33,16 +33,38 @@ const Hero = () => {
     }
   }, [skillNames]);
 
+  // const getSkills = async () => {
+  //   try {
+  //     const response = await axios.get(`http://localhost:5000/skills/akun/${id}`);
+  //     const skills = response.data.skills;
+  //     const skillNames = skills.map((skill) => skill.nama_skill);
+  //     setSkillNames(skillNames);
+  //   } catch (error) {
+  //     console.error("Error fetching skills:", error);
+  //   }
+  // };
+
   const getSkills = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/skills/akun/${id}`);
       const skills = response.data.skills;
-      const skillNames = skills.map((skill) => skill.nama_skill);
+  
+      // Filter skills based on category (hardskill)
+      const hardSkills = skills.filter((skill) => skill.kategori_skill === "hardskill");
+  
+      // If there are hard skills, map their names; otherwise, set a default message
+      const skillNames = hardSkills.length > 0
+        ? hardSkills.map((skill) => skill.nama_skill)
+        : ["No Hardskills added yet"];
+  
       setSkillNames(skillNames);
     } catch (error) {
       console.error("Error fetching skills:", error);
+      // If an error occurs, set a default message
+      setSkillNames(["No Hardskills added yet"]);
     }
   };
+  
 
   const [data_diri, setUsers] = useState(null);
 

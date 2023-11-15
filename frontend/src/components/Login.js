@@ -81,11 +81,11 @@ const Login = () => {
         style={{ backgroundImage: `url(${backgroundImage})` }}
       >
         <NavbarLogin />
-        <div className="container h-100 d-flex justify-content-center align-items-center">
+        <div className="container h-100 d-flex justify-content-center align-items-start">
           <form
             onSubmit={Auth}
             className="card p-4"
-            style={{ maxWidth: "800px" }}
+            style={{ width: "30%" }}
           >
             <h3 className="mb-4 text-center">Sign In</h3>
             {isError && message && <p className="error-message">{message}</p>}

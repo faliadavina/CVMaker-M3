@@ -178,6 +178,19 @@ const Sidebar = () => {
                 </NavLink>
               </li>
               <li>
+                <NavLink
+                  to="/cv-template-1"
+                  className={`nav-link ${
+                    activeMenuItem === "Edit Skills"
+                      ? "scrollto active"
+                      : "scrollto"
+                  }`}
+                  onClick={() => handleMenuItemClick("Edit Skills")}
+                >
+                  <i className="bx bx-server"></i> <span>Template 1</span>
+                </NavLink>
+              </li>
+              <li>
                 <a href="/login" className="nav-link scrollto" onClick={logout}>
                     <i className="bx bx-log-in"></i> <span>Logout</span>
                 </a>

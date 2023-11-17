@@ -137,7 +137,7 @@ const Sidebar = () => {
               </li>
               <li>
                 <a
-                  href="/edit_organisasi"
+                  href="/organisasi"
                   className={`nav-link ${
                     activeMenuItem === "Edit Organizational Experience"
                       ? "scrollto active"

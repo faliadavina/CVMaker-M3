@@ -66,23 +66,34 @@ const My = () => {
     }
   };
 
-  // Data Organisasi
-  const [organisasi, setOrganisasi] = useState([]);
+    // Data Organisasi
+const [organisasi, setOrganisasi] = useState([]);
 
-  useEffect(() => {
-    const fetchDataOrganisasi = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/organisasi-by-id-akun/${id_akun}`
-        );
-        setOrganisasi(response.data);
-      } catch (error) {
-        console.error("Error fetching organisasi data:", error);
-      }
-    };
+useEffect(() => {
+      const fetchOrganisasi = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:5000/organisasi/akun/${id_akun}`
+          );
+      
+          console.log("Raw response:", response);
+      
+          if (response.status === 404) {
+            console.error("Endpoint not found:", response);
+          } else {
+            setOrganisasi(response.data.organisasi); // Pastikan sesuai dengan struktur respons
+            console.log("Organisasi:", response.data.organisasi);
+          }
+        } catch (error) {
+          console.error("Error fetching organizational data:", error);
+        }
+      };
+      
 
-    fetchDataOrganisasi();
-  }, [id_akun]);
+  if (id_akun) {
+    fetchOrganisasi();
+  }
+}, [id_akun]);
 
   // Portopolio
   const [portofolios, setPorto] = useState([]);
@@ -321,68 +332,39 @@ const My = () => {
         </div>
       </section>
 
-      {/* Organisasi Section */}
-      <section id="resume" className="resume">
-        <div className="container">
-          {organisasi.length > 0 ? (
-            <>
-              <div className="section-title">
-                <h2>Organizational Experience</h2>
-              </div>
-              <div className="card-content">
-                <div className="content">
-                  <div>
-                    <ol>
-                      {organisasi.map((org) => (
-                        <li key={org.id_org}>
-                          <h4
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                            }}
-                          >
-                            <b style={{ textAlign: "left" }}>
-                              {org.nama_organisasi}
-                            </b>
-                            <b
-                              style={{
-                                textAlign: "right",
-                                marginRight: "10px",
-                              }}
-                            >
-                              {org.periode}
-                            </b>
-                          </h4>
-                          <p>{org.jabatan}</p>
-                          <p>{org.deskripsi_jabatan}</p>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="section-title">
-                <h2>Organizational Experience</h2>
-              </div>            
-              <div class="title d-flex justify-content-center align-items-center text-center mt-5">
-              <div
-              className="text-center"
-              style={{
-                marginBottom: "20px",
-                color: "grey",
-                fontSize: "16px",
-              }}
-            >
-              Organizational Experience Data Has Not Been Added
+      
+{/* Organisasi Section */}
+<section id="organisasi" className="organisasi">
+  <div className="container">
+    <div className="section-title">
+      <h2>Riwayat Organisasi</h2>
+    </div>
+
+    {Array.isArray(organisasi) && organisasi.length > 0 ? (
+      <ul className="organisasi-list">
+        {organisasi.map((item, index) => (
+          <li key={index} className="organisasi-item">
+            <h3 className="organisasi-name">{item.nama_organisasi}</h3>
+            <div className="organisasi-info">
+              <p className="organisasi-tahun">
+                {item.periode_awal} - {item.periode_akhir || "Sekarang"}
+              </p>
+              <p className="organisasi-jabatan">{item.jabatan}</p>
             </div>
-            </div>
-            </>
-          )}
+            <p className="organisasi-deskripsi">{item.deskripsi_jabatan}</p>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <div className="container">
+        <div className="title d-flex justify-content-center align-items-center text-center mt-5">
+          <h3>{Array.isArray(organisasi) ? "Organization Data Has Not Been Added" : "Loading..."}</h3>
         </div>
-      </section>
+      </div>
+    )}
+  </div>
+</section>
+
       {/* End Organisasi Section */}
 
       {/* ======= Portfolio Section ======= */}

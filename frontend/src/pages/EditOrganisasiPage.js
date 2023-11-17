@@ -6,24 +6,25 @@ import { getMe } from "../features/authSlice";
 import EditOrganisasi from "../components/EditOrganisasi";
 
 const EditOrganisasiPage = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { isError } = useSelector((state) => state.auth);
-  
-    useEffect(() => {
-      dispatch(getMe());
-    }, [dispatch]);
-  
-    useEffect(() => {
-      if (isError) {
-        navigate("/login");
-      }
-    }, [isError, navigate]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isError } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(getMe());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isError) {
+      navigate("/login");
+    }
+  }, [isError, navigate]);
+
   return (
     <Layout>
-    <EditOrganisasi />
-  </Layout>
-  )
-}
+      <EditOrganisasi />
+    </Layout>
+  );
+};
 
 export default EditOrganisasiPage;

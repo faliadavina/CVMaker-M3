@@ -3,9 +3,9 @@ import Layout from "./Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMe } from "../features/authSlice";
-import AddOrganisasi from "../components/AddOrganisasi";
+import OrganisasiList from "../components/OrganisasiList";
 
-const AddOrganisasiPage = () => {
+const OrganisasiPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isError } = useSelector((state) => state.auth);
@@ -22,9 +22,9 @@ const AddOrganisasiPage = () => {
 
   return (
     <Layout>
-      <AddOrganisasi />
+      <OrganisasiList />
     </Layout>
   );
 };
 
-export default AddOrganisasiPage;
+export default OrganisasiPage;

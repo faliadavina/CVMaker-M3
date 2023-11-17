@@ -12,6 +12,8 @@
 body {
   font-family: "Open Sans", sans-serif;
   color: #272829;
+  height: 100vh;
+  
 }
 
 a {
@@ -85,7 +87,7 @@ h5, label h5, .section-subtitle h5{
   transition: all 0.5s;
   padding: 0 15px;
   background: #040b14;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 #header .profile img {
@@ -133,15 +135,6 @@ h5, label h5, .section-subtitle h5{
   background: #149ddd;
   color: #fff;
   text-decoration: none;
-}
-
-.profile_img {
-  margin: 15px auto;
-  display: block;
-  width: 290px;
-  height: 310px;
-  border-radius: 10%;
-  object-fit  : cover;
 }
 
 #main {
@@ -259,10 +252,10 @@ h5, label h5, .section-subtitle h5{
 #hero {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/bg.jpg") top center;
+  background: url("../img/bg.jpg") top center;
   background-size: cover;
 }
-/* 
+
 #hero:before {
   content: "";
   background: rgba(5, 13, 24, 0.3);
@@ -272,9 +265,7 @@ h5, label h5, .section-subtitle h5{
   left: 0;
   right: 0;
   z-index: 1;
-  width: 100%;
-  height: 100vh;
-} */
+}
 
 #hero .hero-container {
   position: relative;
@@ -329,10 +320,12 @@ h5, label h5, .section-subtitle h5{
 section {
   padding: 60px 0;
   overflow: hidden;
+  height: 100%;
+
 }
 
 .section-bg {
-  background: #f5f8fd;
+  background: #9dbcf2;
   height: 100%;
 }
 
@@ -460,21 +453,6 @@ section {
   border-radius: 0;
 }
 
-.skill-card {
-  height: 280px; /* Sesuaikan tinggi kartu sesuai kebutuhan Anda */
-  overflow: auto; /* Tambahkan efek overflow jika deskripsi terlalu panjang */
-}
-
-.description {
-  max-height: 50px; /* Sesuaikan tinggi maksimum deskripsi */
-  margin: 0;
-}
-
-.description p {
-  margin-bottom: 0;
-}
-
-
 .skills .progress .skill {
   padding: 0;
   margin: 0 0 6px 0;
@@ -495,12 +473,11 @@ section {
   height: 10px;
 }
 
-
 .skills .progress-bar {
   width: 1px;
   height: 10px;
   transition: 0.9s;
-  background-color: #7496e0;
+  background-color: #1f5297;
 }
 
 /*--------------------------------------------------------------
@@ -1365,10 +1342,6 @@ i{
   font-size: 14px;;
 }
 
-.form-check-label p{
-  font-size: 14px;;
-}
-
 input.form-check-input:checked {
   background-color: grey !important;
   border-color: grey !important;
@@ -1384,27 +1357,6 @@ input.form-check-input:checked {
   margin-bottom: 20px;
 }
 
-/* Add this to your stylesheet or style block */
-.edit-button:hover {
-  background-color: white !important;
-  color: #001F3F !important;
-  border: 1px solid black !important;
-  padding-left: 10px !important;
-  padding-bottom: 5px !important;
-}
-
-.skill-card {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Adjust the shadow color and size as needed */
-}
-
-.edit-button {
-  background-color: #001F3F !important;
-  color: white !important;
-  border: 1px solid white !important;
-  padding-left: 10px !important;
-  padding-bottom: 5px !important;
-}
 
 
 .progress {
@@ -1421,10 +1373,9 @@ input.form-check-input:checked {
   margin-bottom: 20px;
 }
 
-#name::placeholder, #description::placeholder{
+#name::placeholder{
   font-size: 12px !important;
 }
-
 
 .btn {
   margin-left: 10px;
@@ -1482,7 +1433,7 @@ input.form-check-input:checked {
 
 .porto {
   width: 550px;
-  height: 310px;
+  height: 300px;
   border: 1px solid #ccc;
   padding: 10px;
   text-align: center;
@@ -1578,6 +1529,47 @@ input.form-check-input:checked {
   font-weight: bold;
 }
 
+
+
+
+.organisasi-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.organisasi-item {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px 0;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.organisasi-name {
+  font-size: 24px;
+  margin: 0;
+  font-style: italic;
+}
+
+.organisasi-info {
+  margin: 10px 0;
+}
+
+.organisasi-jabatan {
+  font-weight: bold;
+}
+
+.organisasi-deskripsi {
+  font-style: italic;
+}
+
+.organisasi-tahun {
+  font-weight: bold;
+}
+
+
+
 .user-container {
   display: flex;
   flex-wrap: wrap;
@@ -1647,16 +1639,12 @@ input.form-check-input:checked {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Efek bayangan */
 }
 
-/* Untuk memperbesar ukuran checkbox */
-.checkbox-input {
-  width: 20px; /* Lebar */
-  height: 20px; /* Tinggi */
-}
-
 /* Tampilan untuk layar kecil */
 .small-screen .testimonial-item {
   width: 100%; /* 1 user per slide */
 }
+
+
 
 .checkbox-custom {
   width: 15px;
@@ -1688,20 +1676,4 @@ input.form-check-input:checked {
 
 .card-action button {
   margin-left: 5px;
-}
-
-/* Untuk memperbesar ikon centang pada checkbox */
-.checkbox-input:checked::before {
-  width: 16px; /* Lebar centang */
-  height: 16px; /* Tinggi centang */
-}
-
-/* Ganti warna latar belakang checkbox (opsional) */
-.checkbox-input:checked::before {
-  background-color: #007BFF; /* Warna latar belakang saat dicentang */
-}
-
-/* Ganti warna tepi checkbox (opsional) */
-.checkbox-input::before {
-  border: 2px solid #007BFF; /* Warna tepi checkbox */
 }

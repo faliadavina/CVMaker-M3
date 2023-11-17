@@ -10,6 +10,7 @@ import SkillList from "./pages/SkillPage";
 import EditSkill from "./pages/EditSkillPage";
 import AddOrganisasi from "./pages/AddOrganisasiPage";
 import EditOrganisasi from "./pages/EditOrganisasiPage";
+import OrganisasiList from "./pages/OrganisasiPage";
 import DataDiri from "./pages/DataDiriPage";
 import EditDataDiri from "./pages/EditDataDiriPage";
 import AddDataDiri from "./pages/AddDataDiriPage";
@@ -42,7 +43,8 @@ function App() {
         <Route path="/edit_skill" element={<EditSkill />} />
         <Route path="/add_skill" element={<AddSkill />} />
         <Route path="/add_organisasi" element={<AddOrganisasi />} />
-        <Route path="/edit_organisasi" element={<EditOrganisasi />} />
+        <Route path="/edit_organisasi/:id_org" element={<EditOrganisasi />} />
+        <Route path="/organisasi" element={<OrganisasiList />} />
         <Route path="/My" element={<My />} />
         <Route path="/add_skill" element={<AddSkill />}/>
         <Route path="/add_pendidikan" element={<AddPendidikan />}/>

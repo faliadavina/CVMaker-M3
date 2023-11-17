@@ -6,7 +6,6 @@ import NavbarMainLanding from "../pages/NavbarMainLanding";
 import { setAccountId } from "../features/accountSlice";
 import axios from "axios";
 
-
 const LandingPageMain = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -34,10 +33,8 @@ const LandingPageMain = () => {
         navigate("/page-view");
     };
 
-
     return (
         <>
-            {/* <nav id="navbar"> */}
             <section
                 className="vh-100 image-container fade-in"
                 style={{ backgroundImage: `url(${backgroundImage})` }}
@@ -55,13 +52,12 @@ const LandingPageMain = () => {
             <section id="testimonials" className="testimonials" style={{ zIndex: '1000' }}>
                 <div className="container">
                     <div className="section-title">
-                    <h2 style={{ color: 'lightblue' }}>Biography</h2>
+                        <h2 style={{ color: 'lightblue' }}>Biography</h2>
                     </div>
-
                     <div className="row">
                         {loading ? (
                             <p>Loading users...</p>
-                        ) : (
+                        ) : Array.isArray(users) && users.length > 0 ? (
                             users.map((user) => (
                                 <div
                                     key={user.id}
@@ -83,15 +79,16 @@ const LandingPageMain = () => {
                                             />
                                         </div>
                                         <h3 style={{ color: 'white' }}>{user.nama}</h3>
-<h4 style={{ color: 'white' }}>{user.email}</h4>
+                                        <h4 style={{ color: 'white' }}>{user.email}</h4>
                                     </div>
                                 </div>
                             ))
+                        ) : (
+                            <p>Users data is not in the expected format.</p>
                         )}
                     </div>
                 </div>
             </section>
-            {/* </nav> */}
         </>
     );
 };

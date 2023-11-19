@@ -22,9 +22,7 @@ const My = () => {
 
   const getUsers = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/users/${id_akun}`
-      );
+      const response = await axios.get(`http://localhost:5000/users/${id_akun}`);
       setUsers(response.data);
     } catch (error) {
       // Handle error jika data diri tidak ditemukan
@@ -44,18 +42,12 @@ const My = () => {
 
   const getSkills = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/skills/akun/${id_akun}`
-      );
+      const response = await axios.get(`http://localhost:5000/skills/akun/${id_akun}`);
       setSkill(response.data);
 
       // Pisahkan skills berdasarkan kategori_skill
-      const softSkills = response.data.skills.filter(
-        (skill) => skill.kategori_skill === "softskill"
-      );
-      const hardSkills = response.data.skills.filter(
-        (skill) => skill.kategori_skill === "hardskill"
-      );
+      const softSkills = response.data.skills.filter((skill) => skill.kategori_skill === "softskill");
+      const hardSkills = response.data.skills.filter((skill) => skill.kategori_skill === "hardskill");
 
       setSoftSkills(softSkills);
       setHardSkills(hardSkills);
@@ -72,9 +64,7 @@ const My = () => {
   useEffect(() => {
     const fetchDataOrganisasi = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/organisasi-by-id-akun/${id_akun}`
-        );
+        const response = await axios.get(`http://localhost:5000/organisasi-by-id-akun/${id_akun}`);
         setOrganisasi(response.data);
       } catch (error) {
         console.error("Error fetching organisasi data:", error);
@@ -93,9 +83,7 @@ const My = () => {
 
   const getPorto = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/porto/${id_akun}`
-      );
+      const response = await axios.get(`http://localhost:5000/porto/${id_akun}`);
       setPorto(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -112,14 +100,7 @@ const My = () => {
     if (isImage) {
       return <img src={url} alt="Portofolio" height="600" width="400" />;
     } else if (isPDF) {
-      return (
-        <embed
-          src={url}
-          type="application/pdf"
-          className="pdf-embed"
-          height="600"
-        />
-      );
+      return <embed src={url} type="application/pdf" className="pdf-embed" height="600" />;
     } else if (isAudio) {
       return <audio controls src={url} />;
     } else if (isVideo) {
@@ -135,9 +116,7 @@ const My = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/pendidikan/akun/${id_akun}`
-        );
+        const response = await axios.get(`http://localhost:5000/pendidikan/akun/${id_akun}`);
 
         // Pastikan respons dari API berupa array atau ubah sesuai kebutuhan
         setPendidikan(response.data.pendidikan);
@@ -149,9 +128,9 @@ const My = () => {
     fetchData();
   }, [id_akun]);
 
-  const handleGenerateCV = () => {
-    navigate("/generate-cv");
-  }
+  const handleMenuCV = () => {
+    navigate("/menu_cv");
+  };
 
   return (
     <body>
@@ -164,10 +143,10 @@ const My = () => {
           fontSize: "14px",
           fontWeight: "bold",
         }}
-        onClick={handleGenerateCV}
+        onClick={handleMenuCV}
       >
         {" "}
-        Print CV
+        Select Template CV
       </button>
       {/* ======= Data Diri Section ======= */}
       <section id="about" class="about">
@@ -191,44 +170,31 @@ const My = () => {
                   <div class="col-lg-8">
                     <ul>
                       <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Name :</strong> <span>{data_diri.nama}</span>
+                        <i class="bi bi-chevron-right"></i> <strong>Name :</strong> <span>{data_diri.nama}</span>
                       </li>
                       <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Place and Date of Birth :</strong>{" "}
+                        <i class="bi bi-chevron-right"></i> <strong>Place and Date of Birth :</strong>{" "}
                         <span>
                           {data_diri.tempat_lahir}, {data_diri.tanggal_lahir}
                         </span>
                       </li>
                       <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Address :</strong>{" "}
-                        <span>{data_diri.alamat}</span>
+                        <i class="bi bi-chevron-right"></i> <strong>Address :</strong> <span>{data_diri.alamat}</span>
                       </li>
                       <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Marriage Status :</strong>{" "}
-                        <span>{data_diri.status}</span>
+                        <i class="bi bi-chevron-right"></i> <strong>Marriage Status :</strong> <span>{data_diri.status}</span>
                       </li>
                       <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Phone Number :</strong>{" "}
-                        <span>{data_diri.telp}</span>
+                        <i class="bi bi-chevron-right"></i> <strong>Phone Number :</strong> <span>{data_diri.telp}</span>
                       </li>
                       <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Email :</strong> <span>{data_diri.email}</span>
+                        <i class="bi bi-chevron-right"></i> <strong>Email :</strong> <span>{data_diri.email}</span>
                       </li>
                       <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Social Media :</strong>{" "}
-                        <span>{data_diri.sosial_media}</span>
+                        <i class="bi bi-chevron-right"></i> <strong>Social Media :</strong> <span>{data_diri.sosial_media}</span>
                       </li>
                       <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>LinkedIn :</strong>{" "}
-                        <span>{data_diri.linkedin}</span>
+                        <i class="bi bi-chevron-right"></i> <strong>LinkedIn :</strong> <span>{data_diri.linkedin}</span>
                       </li>
                     </ul>
                   </div>
@@ -287,9 +253,7 @@ const My = () => {
                               justifyContent: "space-between",
                             }}
                           >
-                            <b style={{ textAlign: "left" }}>
-                              {org.nama_organisasi}
-                            </b>
+                            <b style={{ textAlign: "left" }}>{org.nama_organisasi}</b>
                             <b
                               style={{
                                 textAlign: "right",
@@ -360,10 +324,7 @@ const My = () => {
       <section id="skills" className="skills">
         {data_skill ? (
           <div className="container">
-            <div
-              className="section-title"
-              style={{ display: "flex", justifyContent: "space-between" }}
-            >
+            <div className="section-title" style={{ display: "flex", justifyContent: "space-between" }}>
               <div className="title-container">
                 <h2>Skills</h2>
               </div>
@@ -377,24 +338,12 @@ const My = () => {
                   <h5>Soft Skills</h5>
                 </div>
                 {softSkills.map((skill, index) => (
-                  <div
-                    className="progress-container"
-                    key={skill.id_skill}
-                    data-aos="fade-up"
-                  >
+                  <div className="progress-container" key={skill.id_skill} data-aos="fade-up">
                     <div className="progress">
                       <span className="skill mb-4">
-                        {skill.nama_skill}{" "}
-                        <i className="val">{skill.level * 10}%</i>
+                        {skill.nama_skill} <i className="val">{skill.level * 10}%</i>
                       </span>
-                      <div
-                        className="progress-bar progress-bar-striped progress-bar-animated mt-4"
-                        role="progressbar"
-                        aria-valuenow={skill.level * 10}
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        style={{ width: `${skill.level * 10}%` }}
-                      ></div>
+                      <div className="progress-bar progress-bar-striped progress-bar-animated mt-4" role="progressbar" aria-valuenow={skill.level * 10} aria-valuemin="0" aria-valuemax="100" style={{ width: `${skill.level * 10}%` }}></div>
                     </div>
                     <div className="progress-buttons">{}</div>
                   </div>
@@ -405,24 +354,12 @@ const My = () => {
                   <h5>Hard Skills</h5>
                 </div>
                 {hardSkills.map((skill, index) => (
-                  <div
-                    className="progress-container"
-                    key={skill.id_skill}
-                    data-aos="fade-up"
-                  >
+                  <div className="progress-container" key={skill.id_skill} data-aos="fade-up">
                     <div className="progress">
                       <span className="skill mb-4">
-                        {skill.nama_skill}{" "}
-                        <i className="val">{skill.level * 10}%</i>
+                        {skill.nama_skill} <i className="val">{skill.level * 10}%</i>
                       </span>
-                      <div
-                        className="progress-bar progress-bar-striped progress-bar-animated mt-4"
-                        role="progressbar"
-                        aria-valuenow={skill.level * 10}
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        style={{ width: `${skill.level * 10}%` }}
-                      ></div>
+                      <div className="progress-bar progress-bar-striped progress-bar-animated mt-4" role="progressbar" aria-valuenow={skill.level * 10} aria-valuemin="0" aria-valuemax="100" style={{ width: `${skill.level * 10}%` }}></div>
                     </div>
                     <div className="progress-buttons">{}</div>
                   </div>
@@ -447,12 +384,7 @@ const My = () => {
         )}
       </section>
 
-      
-
-      <a
-        href="#about"
-        class="back-to-top d-flex align-items-center justify-content-center"
-      >
+      <a href="#about" class="back-to-top d-flex align-items-center justify-content-center">
         <i class="bi bi-arrow-up-short"></i>
       </a>
     </body>

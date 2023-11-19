@@ -21,6 +21,7 @@ import EditPendidikan from "./pages/EditPendidikanPage";
 import PendidikanList from "./pages/PendidikanPage";
 import PageView from "./pages/PageView";
 import GenerateCV from "./pages/GenerateCVPage";
+import MenuCV from "./pages/MenuCvPage";
 
 function App() {
   return (
@@ -43,13 +44,14 @@ function App() {
         <Route path="/add_organisasi" element={<AddOrganisasi />} />
         <Route path="/edit_organisasi" element={<EditOrganisasi />} />
         <Route path="/My" element={<My />} />
-        <Route path="/add_skill" element={<AddSkill />}/>
-        <Route path="/add_pendidikan" element={<AddPendidikan />}/>
-        <Route path="/edit_pendidikan/:id_pend" element={<EditPendidikan />}/>
-        <Route path="/pendidikan" element={<PendidikanList />}/>
-        <Route path="/generate-cv" element={<GenerateCV />} />
-        <Route path="/contact" element={<Contact />}/>
-        <Route path="/register" element={<Register />}/>
+        <Route path="/add_skill" element={<AddSkill />} />
+        <Route path="/add_pendidikan" element={<AddPendidikan />} />
+        <Route path="/edit_pendidikan/:id_pend" element={<EditPendidikan />} />
+        <Route path="/pendidikan" element={<PendidikanList />} />
+        <Route path="/generate_cv/:templateId" element={<GenerateCV />} />
+        <Route path="/menu_cv" element={<MenuCV />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/page-view" element={<PageView />} />
       </Routes>
     </BrowserRouter>

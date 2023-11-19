@@ -4,7 +4,8 @@ import {
     getAllAkun,
     updateAkun,
     deleteAkun,
-    getAkunById
+    getAkunById,
+    forgotPassword
 } from "../controllers/akunController.js";
 
 import { validationMiddleware} from '../middlewares/validationMiddleware.js';
@@ -16,6 +17,7 @@ router.get('/akun/:id_akun', getAkunById);
 router.post('/akun', createAkun);
 router.patch('/akun/:id_akun', updateAkun);
 router.delete('/akun/:id_akun', deleteAkun);
+router.post('/forgot-password', forgotPassword);
 
 export default router;
 

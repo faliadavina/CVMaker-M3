@@ -201,7 +201,7 @@ const Register = () => {
           <form
             onSubmit={(e) => onSubmit(e)}
             className="card p-4"
-            style={{ width: "50%" }}
+            style={{ width: "80%", maxWidth: "500px", marginTop:"-100px" }}
           >
             <h4 className="mb-2 text-center">Sign Up</h4>
             {successMessage && (
@@ -346,8 +346,7 @@ const Register = () => {
               </button>
             </div>
             <div className="register-link">
-              <span style={{ marginRight: "8px" }}>Have an Account?</span>
-              <span>
+              <span style={{ marginRight: "8px" }}>Have an Account?  <>&nbsp;</>
                 <Link to="/login" className="sign-up">
                   Sign In Here
                 </Link>

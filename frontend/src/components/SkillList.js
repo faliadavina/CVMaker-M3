@@ -4,7 +4,7 @@ import axios from "axios";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setSkillId } from "../features/skillSlice";
-import { Button , Modal} from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 
 const SkillList = () => {
   const dispatch = useDispatch();
@@ -64,7 +64,6 @@ const SkillList = () => {
     setShowDeleteConfirmation(false);
   };
 
-
   const handleEditClick = (skillId) => {
     console.log(skillId);
     dispatch(setSkillId(skillId));
@@ -72,11 +71,11 @@ const SkillList = () => {
 
   const deleteSkill = async (skillId) => {
     try {
+      hideDeleteConfirmationModal(); // Hide the modal after successful deletion
       await axios.delete(`http://localhost:5000/skills/${skillId}`);
       getSkills();
       setSuccessMessage("Skill deleted successfully!");
       setErrorMessage("");
-      hideDeleteConfirmationModal(); // Hide the modal after successful deletion
       setTimeout(() => setSuccessMessage(""), 2000);
     } catch (error) {
       console.error("Error deleting skill:", error);
@@ -116,11 +115,13 @@ const SkillList = () => {
       getSkills();
       setSelectedSoftSkills([]);
       setSelectedHardSkills([]);
+      hideDeleteConfirmationModal();
       setSuccessMessage("Skills deleted successfully!");
       setErrorMessage("");
       setTimeout(() => setSuccessMessage(""), 2000);
     } catch (error) {
       console.error("Error deleting skills:", error);
+      hideDeleteConfirmationModal();
       setErrorMessage("Error deleting skills.");
       setSuccessMessage("");
       setTimeout(() => setErrorMessage(""), 2000);
@@ -145,12 +146,7 @@ const SkillList = () => {
     }
   };
 
-  const SkillCard = ({
-    skill,
-    onEditClick,
-    isChecked,
-    onCheckboxChange,
-  }) => (
+  const SkillCard = ({ skill, onEditClick, isChecked, onCheckboxChange }) => (
     <div className="progress-container mr-4 card mb-4 skill-card">
       <div className="card-body">
         <div className="d-flex justify-content-between align-items-center">
@@ -174,7 +170,7 @@ const SkillList = () => {
               onClick={() => onEditClick(skill.id_skill)}
               className="btn btn-sm edit-button"
             >
-              <FaEdit/>
+              <FaEdit />
             </Link>
           </div>
         </div>
@@ -189,17 +185,13 @@ const SkillList = () => {
             <medium>{skill.level * 10}%</medium>
           </div>
         </div>
-        <div className="description"  style={{ fontSize: "14px" }}>
-          <b>Deskripsi:</b> {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
+        <div className="description" style={{ fontSize: "14px" }}>
+          <b>Deskripsi:</b>{" "}
+          {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
         </div>
       </div>
     </div>
   );
-  
-  
-  
-  
-  
 
   return (
     <div>
@@ -231,7 +223,7 @@ const SkillList = () => {
               <div className="btn-container">
                 {(selectedSoftSkills.length > 0 ||
                   selectedHardSkills.length > 0) && (
-                    <Button
+                  <Button
                     variant="danger"
                     onClick={showDeleteConfirmationModal}
                     style={{
@@ -264,8 +256,8 @@ const SkillList = () => {
 
             <div className="row skills-content">
               <div className="col-lg-6">
-                <div className="section-subtitle" >
-                  <h5 style={{ fontSize:"18px" }}>Soft Skills</h5>
+                <div className="section-subtitle">
+                  <h5 style={{ fontSize: "18px" }}>Soft Skills</h5>
                   <div
                     className="checkbox-container"
                     style={{ marginTop: "10px" }}
@@ -279,9 +271,10 @@ const SkillList = () => {
                             selectedSoftSkills.length === softSkills.length
                           }
                           className="softskill mr-2 text-start"
-                         
                         />
-                        <i><span  style={{ fontSize:"14px" }}>Select All</span></i>
+                        <i>
+                          <span style={{ fontSize: "14px" }}>Select All</span>
+                        </i>
                       </label>
                     )}
                   </div>
@@ -303,7 +296,7 @@ const SkillList = () => {
 
               <div className="col-lg-6">
                 <div className="section-subtitle">
-                <h5 style={{ fontSize:"18px" }}>Hard Skills</h5>
+                  <h5 style={{ fontSize: "18px" }}>Hard Skills</h5>
                   <div
                     className="checkbox-container"
                     style={{ marginTop: "10px" }}
@@ -318,7 +311,9 @@ const SkillList = () => {
                           }
                           className="hardskill mr-2 text-start"
                         />
-                      <i><span  style={{ fontSize:"14px" }}>Select All</span></i>
+                        <i>
+                          <span style={{ fontSize: "14px" }}>Select All</span>
+                        </i>
                       </label>
                     )}
                   </div>
@@ -351,6 +346,12 @@ const SkillList = () => {
               <Modal.Footer>
                 <Button variant="danger" onClick={deleteSelectedSkills}>
                   Delete
+                </Button>
+                <Button
+                  variant="secondary"
+                  onClick={hideDeleteConfirmationModal}
+                >
+                  Cancel
                 </Button>
               </Modal.Footer>
             </Modal>

@@ -42,6 +42,7 @@ const AddSkill = () => {
 
   const handleDescriptionChange = (value) => {
     setDescription(value);
+    clearErrorMessage();
   };
 
   const { user } = useSelector((state) => state.auth);
@@ -60,6 +61,13 @@ const AddSkill = () => {
         "Please enter a valid name (letters only, maximum 200 characters)."
       );
       setNameFilled(false);
+      return;
+    }
+
+    if (description.length > 255) {
+      setMsg(
+        "Description Maximun 255 characters"
+      );
       return;
     }
 

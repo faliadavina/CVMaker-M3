@@ -39,6 +39,7 @@ const Sidebar = () => {
   const { user } = useSelector((state) => state.auth);
   const id_akun = user && user.user && user.user.id_akun;
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {

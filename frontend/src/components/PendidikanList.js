@@ -55,8 +55,6 @@ const PendidikanList = () => {
     navigate(`/edit_pendidikan/${id_pend}`);
   };
 
-
-
   const toggleSelect = (id_pend) => {
     if (selectAll) {
       setSelectedItems([]);
@@ -194,7 +192,14 @@ const PendidikanList = () => {
               </div>
               {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
               {successMessage && (
-                <Alert variant="success">{successMessage}</Alert>
+                <Alert
+                  variant="success"
+                  className="alert alert-success"
+                  id="success-message"
+                  style={{ marginLeft: "70px" }}
+                >
+                  {successMessage}
+                </Alert>
               )}
               <div className="btn-container" style={{ marginLeft: "auto" }}>
                 {selectedItems.length > 0 && (
@@ -242,11 +247,20 @@ const PendidikanList = () => {
                 <Button variant="danger" onClick={deleteSelectedPendidikan}>
                   Delete
                 </Button>
+                <Button
+                  variant="secondary"
+                  onClick={hideDeleteConfirmationModal}
+                >
+                  Cancel
+                </Button>
               </Modal.Footer>
             </Modal>
           </div>
         ) : (
-          <div className="container d-flex flex-column justify-content-center align-items-center vh-100">
+          <div
+          className="d-flex flex-column justify-content-center align-items-center"
+          style={{ marginTop: "20%" }}
+        >
             <div
               className="text-center"
               style={{

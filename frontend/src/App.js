@@ -20,9 +20,12 @@ import My from "./pages/MyCvPage";
 import AddPendidikan from "./pages/AddPendidikanPage";
 import EditPendidikan from "./pages/EditPendidikanPage";
 import PendidikanList from "./pages/PendidikanPage";
-import PageView from "./pages/PageView";
+import ForgotPassword from "./components/ForgotPassword";
+import PageView from "./pages/PageView2";
 import GenerateCV from "./pages/GenerateCVPage";
 import Template1 from "./pages/CVTemplate1Page";
+
+
 
 function App() {
   return (
@@ -53,7 +56,8 @@ function App() {
         <Route path="/generate-cv" element={<GenerateCV />} />
         <Route path="/contact" element={<Contact />}/>
         <Route path="/register" element={<Register />}/>
-        <Route path="/page-view" element={<PageView />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/:id_akun" element={<PageView />} />
         <Route path="/cv-template-1" element={<Template1 />} />
       </Routes>
     </BrowserRouter>

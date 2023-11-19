@@ -12,8 +12,6 @@
 body {
   font-family: "Open Sans", sans-serif;
   color: #272829;
-  height: 100vh;
-  
 }
 
 a {
@@ -87,7 +85,7 @@ h5, label h5, .section-subtitle h5{
   transition: all 0.5s;
   padding: 0 15px;
   background: #040b14;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 #header .profile img {
@@ -137,9 +135,21 @@ h5, label h5, .section-subtitle h5{
   text-decoration: none;
 }
 
+.profile_img {
+  margin: 15px auto;
+  display: block;
+  width: 290px;
+  height: 310px;
+  border-radius: 10%;
+  object-fit  : cover;
+}
+
 #main {
   margin-left: 320px;
 }
+
+
+
 
 .container,
 .container-fluid {
@@ -252,10 +262,11 @@ h5, label h5, .section-subtitle h5{
 #hero {
   width: 100%;
   height: 100vh;
-  background: url("../img/bg.jpg") top center;
+  background: linear-gradient(rgba(55, 53, 53, 0.5), rgba(0, 0, 0, 0.5)), url("../img/bg.jpg") top center;
   background-size: cover;
 }
 
+/* 
 #hero:before {
   content: "";
   background: rgba(5, 13, 24, 0.3);
@@ -265,7 +276,9 @@ h5, label h5, .section-subtitle h5{
   left: 0;
   right: 0;
   z-index: 1;
-}
+  width: 100%;
+  height: 100vh;
+} */
 
 #hero .hero-container {
   position: relative;
@@ -320,12 +333,10 @@ h5, label h5, .section-subtitle h5{
 section {
   padding: 60px 0;
   overflow: hidden;
-  height: 100%;
-
 }
 
 .section-bg {
-  background: #9dbcf2;
+  background: #f5f8fd;
   height: 100%;
 }
 
@@ -453,6 +464,21 @@ section {
   border-radius: 0;
 }
 
+.skill-card {
+  height: 280px; /* Sesuaikan tinggi kartu sesuai kebutuhan Anda */
+  overflow: auto; /* Tambahkan efek overflow jika deskripsi terlalu panjang */
+}
+
+.description {
+  max-height: 40px; /* Sesuaikan tinggi maksimum deskripsi */
+  margin: 0;
+}
+
+.description p {
+  margin-bottom: 0;
+}
+
+
 .skills .progress .skill {
   padding: 0;
   margin: 0 0 6px 0;
@@ -473,11 +499,12 @@ section {
   height: 10px;
 }
 
+
 .skills .progress-bar {
   width: 1px;
   height: 10px;
   transition: 0.9s;
-  background-color: #1f5297;
+  background-color: #7496e0;
 }
 
 /*--------------------------------------------------------------
@@ -1260,23 +1287,23 @@ section {
     top: -50px;
   }
   
-  .register-link {
+  .register-link, .forgot-pw{
     display: flex;
     align-items: center;
     margin-top: 10px; /* Sesuaikan margin-top sesuai kebutuhan */
   }
   
-  .register-link span{
+  .register-link span, .forgot-pw{
     font-size: 12px;
   }
 
-  .register-link .sign-up {
+  .register-link .sign-up, .forgot-password .forgot-pw{
     color: blue;
     text-decoration: underline;
     transition: color 0.3s; /* Animasi transisi warna saat hover */
   }
   
-  .register-link .sign-up:hover {
+  .register-link .sign-up:hover, .forgot-password .forgot-pw:hover{
     color: darkblue; /* Warna baru saat hover */
   }
   
@@ -1342,6 +1369,10 @@ i{
   font-size: 14px;;
 }
 
+.form-check-label p{
+  font-size: 14px;;
+}
+
 input.form-check-input:checked {
   background-color: grey !important;
   border-color: grey !important;
@@ -1357,6 +1388,27 @@ input.form-check-input:checked {
   margin-bottom: 20px;
 }
 
+/* Add this to your stylesheet or style block */
+.edit-button:hover {
+  background-color: white !important;
+  color: #001F3F !important;
+  border: 1px solid black !important;
+  padding-left: 10px !important;
+  padding-bottom: 5px !important;
+}
+
+.skill-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Adjust the shadow color and size as needed */
+}
+
+.edit-button {
+  background-color: #001F3F !important;
+  color: white !important;
+  border: 1px solid white !important;
+  padding-left: 10px !important;
+  padding-bottom: 5px !important;
+}
 
 
 .progress {
@@ -1373,9 +1425,10 @@ input.form-check-input:checked {
   margin-bottom: 20px;
 }
 
-#name::placeholder{
+#name::placeholder, #description::placeholder{
   font-size: 12px !important;
 }
+
 
 .btn {
   margin-left: 10px;
@@ -1433,7 +1486,7 @@ input.form-check-input:checked {
 
 .porto {
   width: 550px;
-  height: 300px;
+  height: 310px;
   border: 1px solid #ccc;
   padding: 10px;
   text-align: center;
@@ -1591,6 +1644,14 @@ input.form-check-input:checked {
   margin-top: 10px;
 }
 
+.custom-bg-dark{
+    height: 200px;
+    background: linear-gradient(to bottom, #173b6c, #3a6eb7)
+}
+
+.body-page{
+  background-color:rgb(212, 224, 241)
+}
 /* LandingPage.css */
 .zoom-image {
   transition: transform 0.3s ease-in-out;
@@ -1633,18 +1694,24 @@ input.form-check-input:checked {
   align-items: center;
 }
 
+
+
 .section-divider {
-  border-top: 4px solid #ccc; /* Garis abu */
+  border-top: 3px solid #173b6c; /* Garis biru muda pastel dengan transparansi 0.8 */
   margin: 20px 0; /* Jarak di atas dan bawah garis */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Efek bayangan */
+}
+
+/* Untuk memperbesar ukuran checkbox */
+.checkbox-input {
+  width: 20px; /* Lebar */
+  height: 20px; /* Tinggi */
 }
 
 /* Tampilan untuk layar kecil */
 .small-screen .testimonial-item {
   width: 100%; /* 1 user per slide */
 }
-
-
 
 .checkbox-custom {
   width: 15px;
@@ -1676,4 +1743,20 @@ input.form-check-input:checked {
 
 .card-action button {
   margin-left: 5px;
+}
+
+/* Untuk memperbesar ikon centang pada checkbox */
+.checkbox-input:checked::before {
+  width: 16px; /* Lebar centang */
+  height: 16px; /* Tinggi centang */
+}
+
+/* Ganti warna latar belakang checkbox (opsional) */
+.checkbox-input:checked::before {
+  background-color: #007BFF; /* Warna latar belakang saat dicentang */
+}
+
+/* Ganti warna tepi checkbox (opsional) */
+.checkbox-input::before {
+  border: 2px solid #007BFF; /* Warna tepi checkbox */
 }

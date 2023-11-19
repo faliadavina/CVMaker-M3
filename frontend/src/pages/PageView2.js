@@ -1,30 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Hero from "./Hero";
-import { Modal, Button } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import { Card, Container, Row, Col } from "react-bootstrap";
+import Header from "../components/Header";
 
-const My = () => {
+const PageView2 = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [shareLink, setShareLink] = useState("");
-  const [showModal, setShowModal] = useState(false);
+  const { id_akun } = useParams();
 
   // Data Diri
   const [data_diri, setUsers] = useState(null);
 
-  const { user } = useSelector((state) => state.auth);
-  const id_akun = user && user.user && user.user.id_akun;
-  
-
-  console.log(id_akun);
-
   useEffect(() => {
     getUsers();
-    if (id_akun) {
-      setShareLink(`http://localhost:3000/${id_akun}`);
-    }
   }, [id_akun]);
 
   const getUsers = async () => {
@@ -40,15 +29,7 @@ const My = () => {
     }
   };
 
-  const copyShareLink = () => {
-    const el = document.createElement("textarea");
-    el.value = shareLink;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
-    setShowModal(false); // Hide modal after link is copied
-  };
+  console.log(id_akun);
 
   // Data Skill
   const [softSkills, setSoftSkills] = useState([]);
@@ -92,24 +73,23 @@ const My = () => {
         const response = await axios.get(
           `http://localhost:5000/organisasi/akun/${id_akun}`
         );
-      
-          console.log("Raw response:", response);
-      
-          if (response.status === 404) {
-            console.error("Endpoint not found:", response);
-          } else {
-        setOrganisasi(response.data.organisasi); // Pastikan sesuai dengan struktur respons
-            console.log("Organisasi:", response.data.organisasi);
-}
+
+        console.log("Raw response:", response);
+
+        if (response.status === 404) {
+          console.error("Endpoint not found:", response);
+        } else {
+          setOrganisasi(response.data.organisasi); // Pastikan sesuai dengan struktur respons
+          console.log("Organisasi:", response.data.organisasi);
+        }
       } catch (error) {
         console.error("Error fetching organizational data:", error);
       }
     };
 
-    
-  if (id_akun) {
-    fetchOrganisasi();
-}
+    if (id_akun) {
+      fetchOrganisasi();
+    }
   }, [id_akun]);
 
   // Portopolio
@@ -129,44 +109,6 @@ const My = () => {
       console.error("Error fetching data:", error);
     }
   };
-
-  const SkillCard = ({ skill, onEditClick, isChecked, onCheckboxChange }) => (
-    <div className="progress-container mr-4 card mb-4 skill-card">
-      <div className="card-body">
-        <div className="d-flex justify-content-between align-items-center">
-          <div>
-            <span
-              className="skill mb-4"
-              style={{ fontWeight: "bold", color: "#001F3F", fontSize: "14px" }}
-            >
-              <input
-                type="checkbox"
-                checked={isChecked}
-                onChange={onCheckboxChange}
-                className="mr-2"
-              />
-              {skill.nama_skill.toUpperCase()}
-            </span>
-          </div>
-        </div>
-        <div className="progress mt-3">
-          <div
-            className="progress-bar progress-bar-striped progress-bar-animated"
-            role="progressbar"
-            style={{ width: `${skill.level * 10}%` }}
-          ></div>
-          {/* Move the percentage to the right */}
-          <div className="progress-percent text-right mt-3">
-            <medium>{skill.level * 10}%</medium>
-          </div>
-        </div>
-        <div className="description" style={{ fontSize: "14px" }}>
-          <b>Deskripsi:</b>{" "}
-          {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
-        </div>
-      </div>
-    </div>
-  );
 
   const renderPortofolioContent = (url) => {
     const fileExtension = url.split(".").pop().toLowerCase();
@@ -215,59 +157,101 @@ const My = () => {
     fetchData();
   }, [id_akun]);
 
+  const PendidikanDetail = pendidikan
+    ? pendidikan.map((pendidikan, index) => (
+        <Col
+          key={pendidikan.id_pend}
+          xs={12}
+          md={6}
+          lg={6}
+          xl={6}
+          className="mb-3"
+        >
+          <Card className="custom-card" data-aos="fade-up">
+            <Card.Body>
+              <div className="pendidikan-details">
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <div>
+                    <Card.Title
+                      style={{ fontSize: "20px", marginBottom: "8px" }}
+                    >
+                      {pendidikan.jenjang}
+                    </Card.Title>
+                    <Card.Subtitle
+                      style={{ fontSize: "17px", marginBottom: "8px" }}
+                    >
+                      {pendidikan.nama_sekolah}
+                    </Card.Subtitle>
+                    <Card.Text
+                      style={{ fontSize: "14px", marginBottom: "8px" }}
+                    >
+                      JURUSAN {pendidikan.jurusan}
+                    </Card.Text>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <span style={{ color: "gray", fontSize: "12px" }}>
+                      {pendidikan.tahun_masuk} - {pendidikan.tahun_lulus}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+      ))
+    : null;
+
+  const OrganisasiDetail = organisasi
+    ? organisasi.map((org) => (
+        <Col key={org.id_org} xs={12} md={6} lg={6} xl={6} className="mb-3">
+          <Card className="custom-card " data-aos="fade-up">
+            <Card.Body>
+              <div className="organisasi-details">
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <div>
+                    <Card.Title
+                      style={{ fontSize: "20px", marginBottom: "8px" }}
+                    >
+                      {org.nama_organisasi.toUpperCase()}
+                    </Card.Title>
+                    <Card.Subtitle
+                      style={{ fontSize: "17px", marginBottom: "8px" }}
+                    >
+                      {org.jabatan.charAt(0).toUpperCase() +
+                        org.jabatan.slice(1)}
+                    </Card.Subtitle>
+                    <Card.Text
+                      style={{ fontSize: "14px", marginBottom: "8px" }}
+                    >
+                      {org.deskripsi_jabatan.charAt(0).toUpperCase() +
+                        org.deskripsi_jabatan.slice(1)}
+                    </Card.Text>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <span style={{ color: "gray", fontSize: "12px" }}>
+                      {org.periode_awal} - {org.periode_akhir}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+      ))
+    : null;
+
   return (
-    <body>
-      <Hero />
-
-      <button
-        className="btn btn-primary"
-        style={{
-          marginTop: "20px",
-          borderRadius: "50px",
-          fontSize: "14px",
-          fontWeight: "bold",
-        }}
-        onClick={() => window.print()}
-      >
-        {" "}
-        Print CV
-      </button>
-      <Button
-        variant="primary"
-        onClick={() => setShowModal(true)}
-        style={{
-          marginTop: "20px",
-          borderRadius: "50px",
-          fontSize: "14px",
-          fontWeight: "bold",
-        }}
-      >
-        Share
-      </Button>
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Share Link</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>Copy the link below:</p>
-          <textarea
-            defaultValue={shareLink} // menggunakan defaultValue
-            readOnly
-            style={{ width: "100%", height: "100px" }}
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={copyShareLink}>
-            Copy Link
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
+    <body style={{ backgroundColor: "rgba(212, 224, 241,0.6)" }}>
+         <Header />
       {/* ======= Data Diri Section ======= */}
-      <section id="about" class="about">
+      <section
+        id="about"
+        className="about ml-3 ml-md-4 ml-lg-5 mr-md-4 mr-lg-5"
+      >
         {data_diri ? (
           <div class="container">
             <div class="section-title d-flex justify-content-between align-items-center">
@@ -385,81 +369,89 @@ const My = () => {
           </div>
         )}
       </section>
-      <section id="pendidikan" class="pendidikan">
-        <div class="container">
-          <div class="section-title">
-            <h2>Education</h2>
-          </div>
 
-          {pendidikan.length > 0 ? (
-            <ul class="education-list">
-              {pendidikan.map((item, index) => (
-                <li key={index} class="education-item">
-                  <h3 class="jenjang">{item.jenjang}</h3>
-                  <div class="school-info">
-                    <p class="nama-sekolah">{item.nama_sekolah}</p>
-                    <p class="jurusan">{item.jurusan}</p>
-                  </div>
-                  <p class="tahun">
-                    {item.tahun_masuk} - {item.tahun_lulus}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <div class="title d-flex justify-content-center align-items-center text-center mt-5">
-              <div
-                className="text-center"
-                style={{
-                  marginBottom: "20px",
-                  color: "grey",
-                  fontSize: "16px",
-                }}
-              >
-                Educational data Hasn't Been Added
+      <hr className="section-divider" />
+
+      <section
+        id="pendidikan"
+        className="pendidikan ml-3 ml-md-4 ml-lg-5 mr-md-4 mr-lg-5"
+      >
+        {pendidikan !== null ? (
+          <div className="container">
+            <div
+              className="section-title"
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <div className="title-container">
+                <h2>Pendidikan</h2>
               </div>
             </div>
+            <Row>{PendidikanDetail}</Row>
+          </div>
+        ) : (
+          <div
+            className="d-flex flex-column justify-content-center align-items-center"
+            style={{ marginTop: "20%" }}
+          >
+            <div
+              className="text-center"
+              style={{
+                marginBottom: "20px",
+                color: "grey",
+                fontSize: "14px",
+              }}
+            >
+              Pendidikan Hasn't Been Added
+            </div>
+          </div>
+        )}
+      </section>
+
+      <hr className="section-divider" />
+
+      <section
+        id="resume"
+        className="resume ml-3 ml-md-4 ml-lg-5 mr-md-4 mr-lg-5"
+      >
+        <div className="container">
+          {organisasi.length > 0 ? (
+            <>
+              <div className="section-title">
+                <h2>Organizational Experience</h2>
+              </div>
+              <div className="row">{OrganisasiDetail}</div>
+            </>
+          ) : (
+            <>
+              <div className="section-title">
+                <h2>Organizational Experience</h2>
+              </div>
+              <div className="title d-flex justify-content-center align-items-center text-center mt-5">
+                <div
+                  className="text-center"
+                  style={{
+                    marginBottom: "20px",
+                    color: "grey",
+                    fontSize: "16px",
+                  }}
+                >
+                  Organizational Experience Data Has Not Been Added
+                </div>
+              </div>
+            </>
           )}
         </div>
       </section>
-
-
-      {/* Organisasi Section */}
-      <section id="organisasi" className="organisasi">
-        <div className="container">
-                        <div className="section-title">
-                <h2>Riwayat Organisasi</h2>
-              </div>
-              
-    {Array.isArray(organisasi) && organisasi.length > 0 ? (
-      <ul className="organisasi-list">
-        {organisasi.map((item, index) => (
-                        <li key={index} className="organisasi-item">
-                            <h3 className="organisasi-name">{item.nama_organisasi}</h3>
-                            <div className="organisasi-info">
-              <p className="organisasi-tahun">
-                              {item.periode_awal} - {item.periode_akhir || "Sekarang"}
-                            </p>
-                          <p className="organisasi-jabatan">{item.jabatan}</p>
-            </div>
-                          <p className="organisasi-deskripsi">{item.deskripsi_jabatan}</p>
-                        </li>
-                      ))}
-                    </ul>
-          ) : (
-            <div className="container">
-              <div className="title d-flex justify-content-center align-items-center text-center mt-5">
-                <h3>{Array.isArray(organisasi) ? "Organization Data Has Not Been Added" : "Loading..."}</h3>
-                </div>
-              </div>
-                      )}
-        </div>
-      </section>
-
       {/* End Organisasi Section */}
 
+      <hr className="section-divider" />
+
       {/* ======= Portfolio Section ======= */}
-      <section id="Porto" className="portfolio">
+      <section
+        id="Porto"
+        className="portfolio ml-3 ml-md-4 ml-lg-5 mr-md-4 mr-lg-5"
+        data-aos="fade-up"
+      >
         <div className="container">
           <div className="section-title">
             <h2>Portfolio</h2>
@@ -506,7 +498,13 @@ const My = () => {
           </div>
         </div>
       </section>
-      <section id="skills" className="skills">
+
+      <hr className="section-divider" />
+
+      <section
+        id="skills"
+        className="skills ml-3 ml-md-4 ml-lg-5 mr-md-4 mr-lg-5"
+      >
         {data_skill ? (
           <div className="container">
             <div className="section-title">
@@ -602,11 +600,11 @@ const My = () => {
             </div>
           </div>
         ) : (
-          <div className="container">
-            <div className="section-title">
+          <div class="container">
+            <div class="section-title">
               <h2>Skills</h2>
             </div>
-            <div className="title d-flex justify-content-center align-items-center text-center mt-5">
+            <div class="title d-flex justify-content-center align-items-center text-center mt-5">
               <div
                 className="text-center"
                 style={{
@@ -621,6 +619,7 @@ const My = () => {
           </div>
         )}
       </section>
+
       <a
         href="#about"
         class="back-to-top d-flex align-items-center justify-content-center"
@@ -631,4 +630,4 @@ const My = () => {
   );
 };
 
-export default My;
+export default PageView2;

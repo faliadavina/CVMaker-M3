@@ -1,0 +1,332 @@
+.body-cv-3 {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  .header-container-cv-3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .page-cv-3 {
+    position: relative;
+    width: 21cm;
+    min-height: 29.7cm;
+    padding: 2cm;
+    margin: 1cm auto;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .page-cv-3-2 {
+    position: relative;
+    width: 21cm;
+    min-height: 29.7cm;
+    padding: 2cm;
+    margin: 1cm auto;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .section-cv-3 {
+    padding: 20px 0;
+    overflow: hidden;
+  }
+
+  .section-edu-cv-3 {
+    padding: 15px 0;
+    overflow: hidden;
+  }
+
+  .section-porto-cv-3 {
+    padding: 15px 0;
+    overflow: hidden;
+  }
+
+  .h1-cv-3 {
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+    font-family: 'Verdana', sans-serif;
+    padding: 5% 5% 3% 5%;
+  }
+  .h2-cv-3 {
+    font-size: 20px;
+    color: #ffc100;
+    padding-left: 5%;
+  }
+  ul .porto-cv-3 {
+    list-style:none;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 15px;
+  }
+  .section {
+    margin-bottom: 10px;
+  }
+  .section h2 {
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+  }
+  img{
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .section ul {
+    list-style-type: disc;
+    margin-left: 20px; 
+    flex-wrap: 2;
+  }
+  
+  .Skill{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .left-super-top-content-cv-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 5%;
+    background: black;
+    z-index: 1;
+  }
+  
+  .left-top-content-cv-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 20%;
+    background: #ffc100;
+    z-index: 1;
+  }
+
+  .left-content-cv-3 {
+    position: absolute;
+    top: 20%;
+    left: 0;
+    width: 40%;
+    height: 80%;
+    background: black;
+    z-index: 1;
+    padding: 2%;
+    padding-top: 5%;
+  }
+
+  .left-bottom-content-cv-3 {
+    position: absolute;
+    top: 98%;
+    left: 0;
+    width: 40%;
+    height: 2%;
+    background: #ffc100;
+    z-index: 1;
+  }
+
+  .right-super-top-content-cv-3 {
+    position: absolute;
+    top: 0;
+    left: 40%;
+    width: 60%;
+    height: 5%;
+    background: white;
+    z-index: 1;
+  }
+
+  .right-top-content-cv-3 {
+    position: absolute;
+    top: 0;
+    left: 40%;
+    width: 60%;
+    height: 20%;
+    background: black;
+    z-index: 1;
+  }
+
+  .right-content-cv-3 {
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    width: 60%;
+    height: 75%;
+    background: white;
+    z-index: 1;
+    padding: 5%;
+    padding-top: 4%;
+  }
+
+  .profile-img-cv-3 {
+    margin: 15px auto;
+    display: block;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit  : cover;
+  }
+
+  .title-1-cv-3{
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+    border-bottom: 5px solid #ffc100;
+  }
+
+  .title-2-cv-3{
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    border: 2px solid #ffc100;
+    padding-left: 5%;
+  }
+
+  .cv-content-profile-cv-3{
+    font-size: 14px;
+    height: 27%;
+    background: white;
+  }
+
+  .cv-content-experience-cv-3{
+    font-size: 14px;
+    height: 35%;
+    background: white;
+    padding-top: 2%;
+  }
+
+  .cv-content-skill-cv-3{
+    font-size: 14px;
+    height: 29%;
+    background: white;
+  }
+
+  .cv-content-bio-cv-3{
+    font-size: 16px;
+    height: 30%;
+    background: black;
+    padding-top: 5%;
+  }
+
+  .cv-content-edu-cv-3{
+    font-size: 16px;
+    height: 30%;
+    background: black;
+  }
+
+  .cv-content-porto-cv-3{
+    font-size: 14px;
+    height: 28%;
+    background: black;
+  }
+
+  .profile-cv-3{
+    margin-left: 5%;
+    color: white;
+    margin-top: 2%;
+    font-size: 14px;
+  }
+
+
+  .progress-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .font-edu-cv-3{
+    color: white;
+    font-size: 14px;
+  }
+
+  .font-org-cv-3{
+    font-size: 14px;
+  }
+
+  .font-porto-cv-3{
+    color: white;
+    font-size: 12px;
+  }
+
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+    .page-cv-3,
+    .page-cv-3 * {
+      visibility: visible;
+    }
+    .page-cv-3 {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 210mm; /* Lebar kertas A4 */
+      height: 297mm; /* Tinggi kertas A4 */
+      margin: 0;
+      transform: scale(2); /* Sesuaikan skala untuk mencocokkan kertas A4 */
+      transform-origin: top left; /* Titik asal transformasi */
+    }
+    /* Tambahkan aturan visibilitas khusus untuk elemen-elemen yang ingin ditampilkan */
+    .header-container-cv-3,
+    .page-cv-3-1,
+    .page-cv-3-2,
+    .section-cv-3,
+    .section-porto-cv-3,
+    .section-edu-cv-3
+    .h1-cv-3,
+    .h2-cv-3,
+    i,
+    .val,
+    ul,
+    li,
+    .section,
+    .section h2,
+    img,
+    .section ul,
+    .Skill,
+    .left-top-content-cv-3,
+    .left-content-cv-3,
+    .left-bottom-content-cv-3,
+    .right-top-content-cv-3,
+    .right-content-cv-3,
+    .profile-img-cv-3,
+    .title-1-cv-3,
+    .title-2-cv-3,
+    .cv-content-profile-cv-3,
+    .cv-content-experience-cv-3,
+    .cv-content-skill-cv-3,
+    .cv-content-bio-cv-3,
+    .cv-content-edu-cv-3,
+    .cv-content-porto-cv-3,
+    .profile-cv-3,
+    .progress-container,
+    .font-edu-cv-3,
+    .font-org-cv-3,
+    .font-porto-cv-3,
+    .progress-container,
+    .skill,
+    .progress,
+    .progress-bar,
+    .progress-buttons,
+    .skills .progress .skill .val {
+      visibility: visible !important;
+    }
+
+    .left-top-content-cv-3 {
+      position: absolute;
+      top: 0%;
+      left: 0;
+      width: 40%;
+      height: 20%;
+      background-color: #ffc100;
+      z-index: 1;
+    }
+  }
+  
+  

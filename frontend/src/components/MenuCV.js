@@ -20,7 +20,7 @@ const MenuCV = () => {
   const templatesCreative = [
     { id: 3, title: "Lilac Serenity", imageUrl: "/img/cv/cv_3.png" },
     { id: 4, title: "Creative Template 2", imageUrl: "/img/cv/cv_1.jpg" },
-    { id: 5, title: "Creative Template 3", imageUrl: "/img/cv/cv_1.jpg" },
+    { id: 5, title: "Creative Template 3", imageUrl: "/img/cv/cv_5.png" },
     { id: 6, title: "Creative Template 4", imageUrl: "/img/cv/cv_1.jpg" },
   ];
 

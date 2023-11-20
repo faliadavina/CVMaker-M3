@@ -126,12 +126,34 @@ const AddDataDiri = () => {
   const [file, setFile] = useState("");
   const [preview, setPreview] = useState("");
 
+  const [fileError, setFileError] = useState('');
   const loadImage = (e) => {
     const selectedFile = e.target.files[0];
-    if (selectedFile) {
+
+    // Validasi tipe file
+    const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+    const fileType = selectedFile ? selectedFile.type : '';
+
+    // Validasi ukuran file
+    const maxSize = 5 * 1024 * 1024; // 5 MB
+    const fileSize = selectedFile ? selectedFile.size : 0;
+
+    let error = '';
+
+    if (!allowedTypes.includes(fileType.toLowerCase())) {
+      error = 'Invalid file type. Please upload an image (png, jpg, jpeg).';
+    } else if (fileSize > maxSize) {
+      error = 'File size must be less than 5 MB.';
+    }
+
+    // Set file dan preview jika valid
+    if (!error) {
       setFile(selectedFile);
       setPreview(URL.createObjectURL(selectedFile));
     }
+
+    // Set pesan error jika tidak valid
+    setFileError(error);
   };
 
   const [status, setStatus] = useState("");
@@ -262,6 +284,8 @@ const AddDataDiri = () => {
                         onChange={loadImage}
                       />
                     </label>
+                    <br/>
+                    {fileError && <span style={{ color: 'red' }}>{fileError}</span>}
                   </div>
                 </div>
               </div>

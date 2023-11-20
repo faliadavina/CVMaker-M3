@@ -16,7 +16,6 @@ const My = () => {
 
   const { user } = useSelector((state) => state.auth);
   const id_akun = user && user.user && user.user.id_akun;
-  
 
   console.log(id_akun);
 
@@ -29,9 +28,7 @@ const My = () => {
 
   const getUsers = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/users/${id_akun}`
-      );
+      const response = await axios.get(`http://localhost:5000/users/${id_akun}`);
       setUsers(response.data);
     } catch (error) {
       // Handle error jika data diri tidak ditemukan
@@ -61,18 +58,12 @@ const My = () => {
 
   const getSkills = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/skills/akun/${id_akun}`
-      );
+      const response = await axios.get(`http://localhost:5000/skills/akun/${id_akun}`);
       setSkill(response.data);
 
       // Pisahkan skills berdasarkan kategori_skill
-      const softSkills = response.data.skills.filter(
-        (skill) => skill.kategori_skill === "softskill"
-      );
-      const hardSkills = response.data.skills.filter(
-        (skill) => skill.kategori_skill === "hardskill"
-      );
+      const softSkills = response.data.skills.filter((skill) => skill.kategori_skill === "softskill");
+      const hardSkills = response.data.skills.filter((skill) => skill.kategori_skill === "hardskill");
 
       setSoftSkills(softSkills);
       setHardSkills(hardSkills);
@@ -89,27 +80,24 @@ const My = () => {
   useEffect(() => {
     const fetchOrganisasi = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/organisasi/akun/${id_akun}`
-        );
-      
-          console.log("Raw response:", response);
-      
-          if (response.status === 404) {
-            console.error("Endpoint not found:", response);
-          } else {
-        setOrganisasi(response.data.organisasi); // Pastikan sesuai dengan struktur respons
-            console.log("Organisasi:", response.data.organisasi);
-}
+        const response = await axios.get(`http://localhost:5000/organisasi/akun/${id_akun}`);
+
+        console.log("Raw response:", response);
+
+        if (response.status === 404) {
+          console.error("Endpoint not found:", response);
+        } else {
+          setOrganisasi(response.data.organisasi); // Pastikan sesuai dengan struktur respons
+          console.log("Organisasi:", response.data.organisasi);
+        }
       } catch (error) {
         console.error("Error fetching organizational data:", error);
       }
     };
 
-    
-  if (id_akun) {
-    fetchOrganisasi();
-}
+    if (id_akun) {
+      fetchOrganisasi();
+    }
   }, [id_akun]);
 
   // Portopolio
@@ -121,9 +109,7 @@ const My = () => {
 
   const getPorto = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/porto/${id_akun}`
-      );
+      const response = await axios.get(`http://localhost:5000/porto/${id_akun}`);
       setPorto(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -135,34 +121,21 @@ const My = () => {
       <div className="card-body">
         <div className="d-flex justify-content-between align-items-center">
           <div>
-            <span
-              className="skill mb-4"
-              style={{ fontWeight: "bold", color: "#001F3F", fontSize: "14px" }}
-            >
-              <input
-                type="checkbox"
-                checked={isChecked}
-                onChange={onCheckboxChange}
-                className="mr-2"
-              />
+            <span className="skill mb-4" style={{ fontWeight: "bold", color: "#001F3F", fontSize: "14px" }}>
+              <input type="checkbox" checked={isChecked} onChange={onCheckboxChange} className="mr-2" />
               {skill.nama_skill.toUpperCase()}
             </span>
           </div>
         </div>
         <div className="progress mt-3">
-          <div
-            className="progress-bar progress-bar-striped progress-bar-animated"
-            role="progressbar"
-            style={{ width: `${skill.level * 10}%` }}
-          ></div>
+          <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style={{ width: `${skill.level * 10}%` }}></div>
           {/* Move the percentage to the right */}
           <div className="progress-percent text-right mt-3">
             <medium>{skill.level * 10}%</medium>
           </div>
         </div>
         <div className="description" style={{ fontSize: "14px" }}>
-          <b>Deskripsi:</b>{" "}
-          {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
+          <b>Deskripsi:</b> {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
         </div>
       </div>
     </div>
@@ -178,14 +151,7 @@ const My = () => {
     if (isImage) {
       return <img src={url} alt="Portofolio" height="600" width="400" />;
     } else if (isPDF) {
-      return (
-        <embed
-          src={url}
-          type="application/pdf"
-          className="pdf-embed"
-          height="600"
-        />
-      );
+      return <embed src={url} type="application/pdf" className="pdf-embed" height="600" />;
     } else if (isAudio) {
       return <audio controls src={url} />;
     } else if (isVideo) {
@@ -201,9 +167,7 @@ const My = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/pendidikan/akun/${id_akun}`
-        );
+        const response = await axios.get(`http://localhost:5000/pendidikan/akun/${id_akun}`);
 
         // Pastikan respons dari API berupa array atau ubah sesuai kebutuhan
         setPendidikan(response.data.pendidikan);
@@ -214,6 +178,10 @@ const My = () => {
     };
     fetchData();
   }, [id_akun]);
+
+  const handleMenuCV = () => {
+    navigate("/menu_cv");
+  };
 
   return (
     <body>
@@ -227,10 +195,10 @@ const My = () => {
           fontSize: "14px",
           fontWeight: "bold",
         }}
-        onClick={() => window.print()}
+        onClick={handleMenuCV}
       >
         {" "}
-        Print CV
+        Select Template CV
       </button>
       <Button
         variant="primary"
@@ -288,37 +256,31 @@ const My = () => {
                   <div class="col-lg-6">
                     <ul>
                       <li>
-                        <i className="bi bi-person-vcard mr-3"></i>{" "}
-                        {/* <strong> Name </strong>  */}
+                        <i className="bi bi-person-vcard mr-3"></i> {/* <strong> Name </strong>  */}
                         <br />
                         <span>{data_diri.nama}</span>
                       </li>
                       <li>
-                        <i className="bi bi-person-gear mr-3"></i>{" "}
-                        {/* <strong> Name </strong>  */}
+                        <i className="bi bi-person-gear mr-3"></i> {/* <strong> Name </strong>  */}
                         <br />
                         <span>{data_diri.profesi}</span>
                       </li>
                       <li>
-                        <i class="bi bi-cake mr-3"></i>{" "}
-                        {/* <strong> Place, Date of Birth :</strong>{" "} */}
+                        <i class="bi bi-cake mr-3"></i> {/* <strong> Place, Date of Birth :</strong>{" "} */}
                         <span>
                           {data_diri.tempat_lahir}, {data_diri.tanggal_lahir}
                         </span>
                       </li>
                       <li>
-                        <i class="bi bi-house-door mr-3"></i>{" "}
-                        {/* <strong> Address :</strong>{" "} */}
+                        <i class="bi bi-house-door mr-3"></i> {/* <strong> Address :</strong>{" "} */}
                         <span>{data_diri.alamat}</span>
                       </li>
                       <li>
-                        <i className="bi bi-people mr-3"></i>{" "}
-                        {/* <strong> Marriage Status :</strong>{" "} */}
+                        <i className="bi bi-people mr-3"></i> {/* <strong> Marriage Status :</strong>{" "} */}
                         <span>{data_diri.status}</span>
                       </li>
                       <li>
-                        <i class="bi bi-telephone mr-3"></i>{" "}
-                        {/* <strong> Phone Number :</strong>{" "} */}
+                        <i class="bi bi-telephone mr-3"></i> {/* <strong> Phone Number :</strong>{" "} */}
                         <span>{data_diri.telp}</span>
                       </li>
                     </ul>
@@ -333,30 +295,23 @@ const My = () => {
                         <i class=""></i> <span></span>
                       </li>
                       <li>
-                        <i class="bi bi-envelope mr-3"></i>{" "}
-                        {/* <strong> Email :</strong>  */}
+                        <i class="bi bi-envelope mr-3"></i> {/* <strong> Email :</strong>  */}
                         <span>{data_diri.email}</span>
                       </li>
                       <li>
-                        <i class="bi bi-linkedin mr-3"></i>{" "}
-                        {/* <strong> LinkedIn :</strong>{" "} */}
+                        <i class="bi bi-linkedin mr-3"></i> {/* <strong> LinkedIn :</strong>{" "} */}
                         <span>{data_diri.linkedin}</span>
                       </li>
                       <li>
-                        <i class="bi bi-instagram mr-3"></i>{" "}
-                        {/* <strong> Social Media :</strong>{" "} */}
+                        <i class="bi bi-instagram mr-3"></i> {/* <strong> Social Media :</strong>{" "} */}
                         <span>
-                          <a href={data_diri.link_sosmed}>
-                            @{data_diri.sosial_media}
-                          </a>
+                          <a href={data_diri.link_sosmed}>@{data_diri.sosial_media}</a>
                         </span>
                       </li>
                       <li>
                         <i class="bi bi-twitter mr-3"></i>{" "}
                         <span>
-                          <a href={data_diri.link_twitter}>
-                            @{data_diri.twitter}
-                          </a>
+                          <a href={data_diri.link_twitter}>@{data_diri.twitter}</a>
                         </span>
                       </li>
                     </ul>
@@ -423,36 +378,35 @@ const My = () => {
         </div>
       </section>
 
-
       {/* Organisasi Section */}
       <section id="organisasi" className="organisasi">
         <div className="container">
-                        <div className="section-title">
-                <h2>Riwayat Organisasi</h2>
-              </div>
-              
-    {Array.isArray(organisasi) && organisasi.length > 0 ? (
-      <ul className="organisasi-list">
-        {organisasi.map((item, index) => (
-                        <li key={index} className="organisasi-item">
-                            <h3 className="organisasi-name">{item.nama_organisasi}</h3>
-                            <div className="organisasi-info">
-              <p className="organisasi-tahun">
-                              {item.periode_awal} - {item.periode_akhir || "Sekarang"}
-                            </p>
-                          <p className="organisasi-jabatan">{item.jabatan}</p>
-            </div>
-                          <p className="organisasi-deskripsi">{item.deskripsi_jabatan}</p>
-                        </li>
-                      ))}
-                    </ul>
+          <div className="section-title">
+            <h2>Riwayat Organisasi</h2>
+          </div>
+
+          {Array.isArray(organisasi) && organisasi.length > 0 ? (
+            <ul className="organisasi-list">
+              {organisasi.map((item, index) => (
+                <li key={index} className="organisasi-item">
+                  <h3 className="organisasi-name">{item.nama_organisasi}</h3>
+                  <div className="organisasi-info">
+                    <p className="organisasi-tahun">
+                      {item.periode_awal} - {item.periode_akhir || "Sekarang"}
+                    </p>
+                    <p className="organisasi-jabatan">{item.jabatan}</p>
+                  </div>
+                  <p className="organisasi-deskripsi">{item.deskripsi_jabatan}</p>
+                </li>
+              ))}
+            </ul>
           ) : (
             <div className="container">
               <div className="title d-flex justify-content-center align-items-center text-center mt-5">
                 <h3>{Array.isArray(organisasi) ? "Organization Data Has Not Been Added" : "Loading..."}</h3>
-                </div>
               </div>
-                      )}
+            </div>
+          )}
         </div>
       </section>
 
@@ -518,11 +472,7 @@ const My = () => {
                   <h5>Soft Skills</h5>
                 </div>
                 {softSkills.map((skill, index) => (
-                  <div
-                    className="progress-container mr-4 card mb-4 skill-card"
-                    key={skill.id_skill}
-                    data-aos="fade-up"
-                  >
+                  <div className="progress-container mr-4 card mb-4 skill-card" key={skill.id_skill} data-aos="fade-up">
                     <div className="card-body">
                       <div className="d-flex justify-content-between align-items-center">
                         <div>
@@ -539,18 +489,13 @@ const My = () => {
                         </div>
                       </div>
                       <div className="progress mt-3">
-                        <div
-                          className="progress-bar progress-bar-striped progress-bar-animated"
-                          role="progressbar"
-                          style={{ width: `${skill.level * 10}%` }}
-                        ></div>
+                        <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style={{ width: `${skill.level * 10}%` }}></div>
                         <div className="progress-percent text-right mt-3">
                           <medium>{skill.level * 10}%</medium>
                         </div>
                       </div>
                       <div className="description" style={{ fontSize: "14px" }}>
-                        <b>Deskripsi:</b>{" "}
-                        {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
+                        <b>Deskripsi:</b> {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
                       </div>
                     </div>
                   </div>
@@ -561,11 +506,7 @@ const My = () => {
                   <h5>Hard Skills</h5>
                 </div>
                 {hardSkills.map((skill, index) => (
-                  <div
-                    className="progress-container mr-4 card mb-4 skill-card"
-                    key={skill.id_skill}
-                    data-aos="fade-up"
-                  >
+                  <div className="progress-container mr-4 card mb-4 skill-card" key={skill.id_skill} data-aos="fade-up">
                     <div className="card-body">
                       <div className="d-flex justify-content-between align-items-center">
                         <div>
@@ -582,18 +523,13 @@ const My = () => {
                         </div>
                       </div>
                       <div className="progress mt-3">
-                        <div
-                          className="progress-bar progress-bar-striped progress-bar-animated"
-                          role="progressbar"
-                          style={{ width: `${skill.level * 10}%` }}
-                        ></div>
+                        <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style={{ width: `${skill.level * 10}%` }}></div>
                         <div className="progress-percent text-right mt-3">
                           <medium>{skill.level * 10}%</medium>
                         </div>
                       </div>
                       <div className="description" style={{ fontSize: "14px" }}>
-                        <b>Deskripsi:</b>{" "}
-                        {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
+                        <b>Deskripsi:</b> {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
                       </div>
                     </div>
                   </div>
@@ -621,10 +557,7 @@ const My = () => {
           </div>
         )}
       </section>
-      <a
-        href="#about"
-        class="back-to-top d-flex align-items-center justify-content-center"
-      >
+      <a href="#about" class="back-to-top d-flex align-items-center justify-content-center">
         <i class="bi bi-arrow-up-short"></i>
       </a>
     </body>

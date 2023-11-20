@@ -23,9 +23,8 @@ import PendidikanList from "./pages/PendidikanPage";
 import ForgotPassword from "./components/ForgotPassword";
 import PageView from "./pages/PageView2";
 import GenerateCV from "./pages/GenerateCVPage";
+import MenuCV from "./pages/MenuCvPage";
 import Template1 from "./pages/CVTemplate1Page";
-
-
 
 function App() {
   return (
@@ -49,13 +48,14 @@ function App() {
         <Route path="/edit_organisasi/:id_org" element={<EditOrganisasi />} />
         <Route path="/organisasi" element={<OrganisasiList />} />
         <Route path="/My" element={<My />} />
-        <Route path="/add_skill" element={<AddSkill />}/>
-        <Route path="/add_pendidikan" element={<AddPendidikan />}/>
-        <Route path="/edit_pendidikan/:id_pend" element={<EditPendidikan />}/>
-        <Route path="/pendidikan" element={<PendidikanList />}/>
-        <Route path="/generate-cv" element={<GenerateCV />} />
-        <Route path="/contact" element={<Contact />}/>
-        <Route path="/register" element={<Register />}/>
+        <Route path="/add_skill" element={<AddSkill />} />
+        <Route path="/add_pendidikan" element={<AddPendidikan />} />
+        <Route path="/edit_pendidikan/:id_pend" element={<EditPendidikan />} />
+        <Route path="/pendidikan" element={<PendidikanList />} />
+        <Route path="/generate_cv/:templateId" element={<GenerateCV />} />
+        <Route path="/menu_cv" element={<MenuCV />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/:id_akun" element={<PageView />} />
         <Route path="/cv-template-1" element={<Template1 />} />

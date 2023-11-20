@@ -29,11 +29,13 @@ h2,
 h3,
 h4,
 h5,
-h6{
+h6 {
   font-family: "Raleway", sans-serif;
 }
 
-h5, label h5, .section-subtitle h5{
+h5,
+label h5,
+.section-subtitle h5 {
   font-size: 16px;
   font-weight: bold;
   color: #173b6c;
@@ -95,7 +97,7 @@ h5, label h5, .section-subtitle h5{
   height: 130px;
   border: 8px solid #2c2f3f;
   border-radius: 50%;
-  object-fit  : cover;
+  object-fit: cover;
 }
 
 #header .profile h1 {
@@ -141,15 +143,12 @@ h5, label h5, .section-subtitle h5{
   width: 290px;
   height: 310px;
   border-radius: 10%;
-  object-fit  : cover;
+  object-fit: cover;
 }
 
 #main {
   margin-left: 320px;
 }
-
-
-
 
 .container,
 .container-fluid {
@@ -165,7 +164,6 @@ h5, label h5, .section-subtitle h5{
   #main {
     margin-left: 0;
   }
-
 
   .container,
   .container-fluid {
@@ -188,7 +186,7 @@ h5, label h5, .section-subtitle h5{
   list-style: none;
 }
 
-.nav-menu>ul>li {
+.nav-menu > ul > li {
   position: relative;
   white-space: nowrap;
 }
@@ -214,7 +212,7 @@ h5, label h5, .section-subtitle h5{
 .nav-menu a:hover,
 .nav-menu .active,
 .nav-menu .active:focus,
-.nav-menu li:hover>a {
+.nav-menu li:hover > a {
   text-decoration: none;
   color: #fff;
 }
@@ -222,7 +220,7 @@ h5, label h5, .section-subtitle h5{
 .nav-menu a:hover i,
 .nav-menu .active i,
 .nav-menu .active:focus i,
-.nav-menu li:hover>a i {
+.nav-menu li:hover > a i {
   color: #149ddd;
 }
 
@@ -478,7 +476,6 @@ section {
   margin-bottom: 0;
 }
 
-
 .skills .progress .skill {
   padding: 0;
   margin: 0 0 6px 0;
@@ -498,7 +495,6 @@ section {
   background: #dce8f8;
   height: 10px;
 }
-
 
 .skills .progress-bar {
   width: 1px;
@@ -652,7 +648,7 @@ section {
   background: rgba(20, 157, 221, 0.95);
 }
 
-.portfolio .portfolio-wrap .portfolio-links a+a {
+.portfolio .portfolio-wrap .portfolio-links a + a {
   border-left: 1px solid #37b3ed;
 }
 
@@ -716,7 +712,7 @@ section {
   font-size: 15px;
 }
 
-.portfolio-details .portfolio-info ul li+li {
+.portfolio-details .portfolio-info ul li + li {
   margin-top: 10px;
 }
 
@@ -803,7 +799,6 @@ section {
   min-height: 320px;
 }
 
-
 .testimonials .testimonial-item .testimonial-img {
   width: 90px;
   border-radius: 50%;
@@ -812,7 +807,7 @@ section {
   width: 130px;
   height: 130px;
   border: 5px solid #2c2f3f;
-  object-fit  : cover;
+  object-fit: cover;
 }
 
 .testimonials .testimonial-item h3 {
@@ -993,7 +988,7 @@ section {
   font-weight: 600;
 }
 
-.contact .php-email-form .error-message br+br {
+.contact .php-email-form .error-message br + br {
   margin-top: 25px;
 }
 
@@ -1048,7 +1043,7 @@ section {
   padding: 10px 15px;
 }
 
-.contact .php-email-form button[type=submit] {
+.contact .php-email-form button[type="submit"] {
   background: #149ddd;
   border: 0;
   padding: 10px 24px;
@@ -1057,7 +1052,7 @@ section {
   border-radius: 4px;
 }
 
-.contact .php-email-form button[type=submit]:hover {
+.contact .php-email-form button[type="submit"]:hover {
   background: #37b3ed;
 }
 
@@ -1093,11 +1088,11 @@ section {
   font-size: 15px;
 }
 
-.breadcrumbs ol li+li {
+.breadcrumbs ol li + li {
   padding-left: 10px;
 }
 
-.breadcrumbs ol li+li::before {
+.breadcrumbs ol li + li::before {
   display: inline-block;
   padding-right: 10px;
   color: #0e2442;
@@ -1174,20 +1169,14 @@ section {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.7
-  ); /* Adjust the color and alpha (0.5 for 50% transparency) */
+  background-color: rgba(0, 0, 0, 0.7); /* Adjust the color and alpha (0.5 for 50% transparency) */
 }
 
-
-.register-form{
+.register-form {
   font-size: 12px;
 }
 
-.error-message{
+.error-message {
   background-color: rgb(249, 197, 197);
   color: rgb(162, 10, 10);
   padding: 10px;
@@ -1209,7 +1198,8 @@ section {
   color: rgb(193, 189, 189);
 }
 
-.input-container .username-icon, .input-container .password-icon {
+.input-container .username-icon,
+.input-container .password-icon {
   position: absolute;
   top: 50%;
   left: 10px;
@@ -1218,20 +1208,20 @@ section {
   transition: top 0.3s ease; /* Menambahkan transisi untuk perubahan top */
 }
 
-.input-container .username-icon.error,.input-container .password-icon.error, .password-toggle.error {
+.input-container .username-icon.error,
+.input-container .password-icon.error,
+.password-toggle.error {
   top: 30%;
   color: red;
 }
 
-.password-toggle.error{
+.password-toggle.error {
   margin-right: 20px;
 }
 
-.is-invalid::placeholder{
+.is-invalid::placeholder {
   color: red;
 }
-
-
 
 /* Tambahkan padding-left untuk memberikan jarak antara ikon dan placeholder */
 .input-container input {
@@ -1239,110 +1229,113 @@ section {
 }
 
 .fade-in {
-    animation: fadeIn 5s;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0.5;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  
-  .nav-link:hover {
-    color: #3b3a3d; /* Change text color on hover */
-  }
+  animation: fadeIn 5s;
+}
 
-  .invalid-feedback {
-    color: red; /* Warna teks merah untuk pesan error */
-    font-size: 14px; /* Ukuran font pesan error */
-    margin-top: 4px; /* Jarak antara input field dan pesan error */
+@keyframes fadeIn {
+  from {
+    opacity: 0.5;
   }
+  to {
+    opacity: 1;
+  }
+}
 
-  .nav-icon {
-    text-align: center;
-    margin-bottom: 5px; /* Adjust the margin as needed */
-    color: #fff;
-    margin-right: 20px;
-  }
-  
-  .nav-text {
-    text-align: center;
-    color: #fff;
-    font-size: 16px;
-    margin-right: 20px;
-  }
-  
-  .password-toggle {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    right: 15px;
-    transform: translateY(-50%);
-  }
+.nav-link:hover {
+  color: #3b3a3d; /* Change text color on hover */
+}
 
-  .navbar{
-    top: -50px;
-  }
-  
-  .register-link, .forgot-pw{
-    display: flex;
-    align-items: center;
-    margin-top: 10px; /* Sesuaikan margin-top sesuai kebutuhan */
-  }
-  
-  .register-link span, .forgot-pw{
-    font-size: 12px;
-  }
+.invalid-feedback {
+  color: red; /* Warna teks merah untuk pesan error */
+  font-size: 14px; /* Ukuran font pesan error */
+  margin-top: 4px; /* Jarak antara input field dan pesan error */
+}
 
-  .register-link .sign-up, .forgot-password .forgot-pw{
-    color: blue;
-    text-decoration: underline;
-    transition: color 0.3s; /* Animasi transisi warna saat hover */
-  }
-  
-  .register-link .sign-up:hover, .forgot-password .forgot-pw:hover{
-    color: darkblue; /* Warna baru saat hover */
-  }
-  
-  .register-link .sign-up i {
-    margin-left: 5px; /* Ruang di antara teks dan ikon */
-  }
-  
-  .register-link .sign-up i:hover {
-    transform: translateX(3px); /* Efek geser saat hover */
-  }
+.nav-icon {
+  text-align: center;
+  margin-bottom: 5px; /* Adjust the margin as needed */
+  color: #fff;
+  margin-right: 20px;
+}
 
-  .regist-container{
-    overflow-y: auto;
-  }
+.nav-text {
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+  margin-right: 20px;
+}
 
-  .navbar-nav {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
+.password-toggle {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+}
 
-  .navbar-nav.flex-row {
-    display: flex;
-    align-items: center;
-  }
+.navbar {
+  top: -50px;
+}
 
-  .navbar{
-    top: -50px;
-  }
+.register-link,
+.forgot-pw {
+  display: flex;
+  align-items: center;
+  margin-top: 10px; /* Sesuaikan margin-top sesuai kebutuhan */
+}
 
-  .register input{
-    font-size: 15,2px;;
-  }
-  
-  .register{
-    overflow-y: auto;
-  }
-  
-  
+.register-link span,
+.forgot-pw {
+  font-size: 12px;
+}
+
+.register-link .sign-up,
+.forgot-password .forgot-pw {
+  color: blue;
+  text-decoration: underline;
+  transition: color 0.3s; /* Animasi transisi warna saat hover */
+}
+
+.register-link .sign-up:hover,
+.forgot-password .forgot-pw:hover {
+  color: darkblue; /* Warna baru saat hover */
+}
+
+.register-link .sign-up i {
+  margin-left: 5px; /* Ruang di antara teks dan ikon */
+}
+
+.register-link .sign-up i:hover {
+  transform: translateX(3px); /* Efek geser saat hover */
+}
+
+.regist-container {
+  overflow-y: auto;
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.navbar-nav.flex-row {
+  display: flex;
+  align-items: center;
+}
+
+.navbar {
+  top: -50px;
+}
+
+.register input {
+  font-size: 15, 2px;
+}
+
+.register {
+  overflow-y: auto;
+}
+
 /*--------------------------------------------------------------
 # Add Skill
 --------------------------------------------------------------*/
@@ -1361,16 +1354,16 @@ section {
   background-color: white;
 }
 
-i{
+i {
   font-size: 12px;
 }
 
-.form-check-label p{
-  font-size: 14px;;
+.form-check-label p {
+  font-size: 14px;
 }
 
-.form-check-label p{
-  font-size: 14px;;
+.form-check-label p {
+  font-size: 14px;
 }
 
 input.form-check-input:checked {
@@ -1391,7 +1384,7 @@ input.form-check-input:checked {
 /* Add this to your stylesheet or style block */
 .edit-button:hover {
   background-color: white !important;
-  color: #001F3F !important;
+  color: #001f3f !important;
   border: 1px solid black !important;
   padding-left: 10px !important;
   padding-bottom: 5px !important;
@@ -1403,13 +1396,12 @@ input.form-check-input:checked {
 }
 
 .edit-button {
-  background-color: #001F3F !important;
+  background-color: #001f3f !important;
   color: white !important;
   border: 1px solid white !important;
   padding-left: 10px !important;
   padding-bottom: 5px !important;
 }
-
 
 .progress {
   width: 80%;
@@ -1425,10 +1417,10 @@ input.form-check-input:checked {
   margin-bottom: 20px;
 }
 
-#name::placeholder, #description::placeholder{
+#name::placeholder,
+#description::placeholder {
   font-size: 12px !important;
 }
-
 
 .btn {
   margin-left: 10px;
@@ -1452,7 +1444,7 @@ input.form-check-input:checked {
   border: 1px solid red;
 }
 
-.required{
+.required {
   color: red;
 }
 
@@ -1463,7 +1455,6 @@ input.form-check-input:checked {
 .hardskill {
   order: 1; /* Posisikan di kanan */
 }
-
 
 /*--------------------------------------------------------------
 # Image Preview
@@ -1515,7 +1506,7 @@ input.form-check-input:checked {
   z-index: 3;
 }
 
-.deskripsi p{
+.deskripsi p {
   color: #fff;
   transition: 0.3s;
   font-family: "Poppins", sans-serif;
@@ -1526,7 +1517,7 @@ input.form-check-input:checked {
   display: block;
 }
 
-.conStyle{
+.conStyle {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1582,9 +1573,6 @@ input.form-check-input:checked {
   font-weight: bold;
 }
 
-
-
-
 .organisasi-list {
   list-style-type: none;
   padding: 0;
@@ -1621,8 +1609,6 @@ input.form-check-input:checked {
   font-weight: bold;
 }
 
-
-
 .user-container {
   display: flex;
   flex-wrap: wrap;
@@ -1644,13 +1630,13 @@ input.form-check-input:checked {
   margin-top: 10px;
 }
 
-.custom-bg-dark{
-    height: 200px;
-    background: linear-gradient(to bottom, #173b6c, #3a6eb7)
+.custom-bg-dark {
+  height: 200px;
+  background: linear-gradient(to bottom, #173b6c, #3a6eb7);
 }
 
-.body-page{
-  background-color:rgb(212, 224, 241)
+.body-page {
+  background-color: rgb(212, 224, 241);
 }
 /* LandingPage.css */
 .zoom-image {
@@ -1671,7 +1657,7 @@ input.form-check-input:checked {
   width: 100%; /* Menyesuaikan lebar kontainer */
 }
 
-.container .main-lp{
+.container .main-lp {
   color: white;
   width: 60%;
   font-weight: 600;
@@ -1693,8 +1679,6 @@ input.form-check-input:checked {
   display: flex;
   align-items: center;
 }
-
-
 
 .section-divider {
   border-top: 3px solid #173b6c; /* Garis biru muda pastel dengan transparansi 0.8 */
@@ -1730,7 +1714,6 @@ input.form-check-input:checked {
   margin: 10px; /* Memberikan jarak antara kartu pendidikan */
 }
 
-
 .card-action {
   position: absolute;
   top: 10px;
@@ -1739,7 +1722,6 @@ input.form-check-input:checked {
   flex-direction: row;
   margin-right: 10px;
 }
-
 
 .card-action button {
   margin-left: 5px;
@@ -1753,10 +1735,77 @@ input.form-check-input:checked {
 
 /* Ganti warna latar belakang checkbox (opsional) */
 .checkbox-input:checked::before {
-  background-color: #007BFF; /* Warna latar belakang saat dicentang */
+  background-color: #007bff; /* Warna latar belakang saat dicentang */
 }
 
 /* Ganti warna tepi checkbox (opsional) */
 .checkbox-input::before {
-  border: 2px solid #007BFF; /* Warna tepi checkbox */
+  border: 2px solid #007bff; /* Warna tepi checkbox */
+}
+
+.navbar {
+  border-radius: 0.5rem;
+  margin-top: 3rem;
+}
+
+.navbar .btn {
+  margin: 0.3rem;
+  font-weight: 500;
+}
+
+.btn-active {
+  background-color: #0e2442;
+  color: #fff;
+}
+
+.card-menu-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+}
+
+.card-menu-cv {
+  width: 21rem;
+  height: 31.5rem;
+  border-radius: 0.6rem;
+  background-color: white;
+  box-shadow: 0 0 2px rgba(0.75, 0.75, 0.75, 0.75);
+  padding-top: 1rem;
+  margin-bottom: 3rem;
+  margin-left: 2rem;
+}
+
+.border {
+  width: 19rem;
+  height: 23rem;
+  border-radius: 0.6rem;
+  border: solid 1px #808080;
+  margin: auto;
+}
+
+.cv-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0.6rem;
+  padding: auto;
+  margin: auto;
+}
+
+.title-cv {
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.select-cv {
+  margin-top: 1rem;
+  background-color: #0e2442;
+  color: #fff;
+  padding: 0.4rem;
+  width: 100%;
+  border-radius: 0.6rem;
+  font-weight: 500;
 }

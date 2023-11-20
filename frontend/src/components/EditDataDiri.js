@@ -9,6 +9,7 @@ const EditDataDiri = () => {
     const navigate = useNavigate();
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const { user } = useSelector((state) => state.auth);
     const id_akun = user && user.user && user.user.id_akun;
@@ -172,28 +173,27 @@ const EditDataDiri = () => {
         // Validasi tipe file
         const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
         const fileType = selectedFile ? selectedFile.type : '';
-      
-        if (!allowedTypes.includes(fileType.toLowerCase())) {
-          setFileError('Invalid file type. Please upload an image (png, jpg, jpeg).');
-        } else {
-          setFileError('');
-        }
-      
+
         // Validasi ukuran file
         const maxSize = 5 * 1024 * 1024; // 5 MB
         const fileSize = selectedFile ? selectedFile.size : 0;
-      
-        if (fileSize > maxSize) {
-          setFileError('File size must be less than 5 MB.');
-        } else {
-          setFileError('');
+
+        let error = '';
+
+        if (!allowedTypes.includes(fileType.toLowerCase())) {
+          error = 'Invalid file type. Please upload an image (png, jpg, jpeg).';
+        } else if (fileSize > maxSize) {
+          error = 'File size must be less than 5 MB.';
         }
-      
+
         // Set file dan preview jika valid
-        if (!fileError) {
+        if (!error) {
           setFile(selectedFile);
           setPreview(URL.createObjectURL(selectedFile));
         }
+
+        // Set pesan error jika tidak valid
+        setFileError(error);
       };
 
       const handleStatusChange = (e) => {
@@ -216,6 +216,8 @@ const EditDataDiri = () => {
         console.log('Invalid email format!');
         return;
       }
+
+      setIsSubmitting(true);
 
         try {
 
@@ -261,7 +263,9 @@ const EditDataDiri = () => {
             setTimeout(() => {
               setErrorMessage("");
             }, 4000);
-        } 
+        } finally {
+          setIsSubmitting(false); // Menandakan bahwa permintaan telah selesai
+        }
     };
 
   // Tombol Cancel
@@ -487,8 +491,8 @@ const EditDataDiri = () => {
                         </div>
                     </div>
                     <div class="text-center">
-                      <button className="btn btn-secondary mt-5 me-3" onClick={handleCancelClick}>Cancel</button>
-                      <button class="btn btn-primary mt-5" type="submit">Save Change</button>
+                      <button className="btn btn-secondary mt-5 me-3" onClick={handleCancelClick} disabled={isSubmitting}>Cancel</button>
+                      <button class="btn btn-primary mt-5" type="submit" disabled={isSubmitting}>{isSubmitting ? "Saving..." : "Save Change"}</button>
                     </div>
                 </form>
             </div>

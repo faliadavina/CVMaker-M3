@@ -4,9 +4,19 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate, NavLink } from "react-router-dom";
 
-import { FaInstagram, FaLinkedin, FaEnvelope, FaTwitter, FaPhone, FaMapMarkerAlt, FaDownload, FaArrowUp } from "react-icons/fa";
+import {
+  FaInstagram,
+  FaLinkedin,
+  FaEnvelope,
+  FaTwitter,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaDownload,
+  FaArrowUp,
+} from "react-icons/fa";
 
 import { FaFilePdf, FaFileImage, FaFileAudio, FaVideo } from "react-icons/fa";
+import { Modal, Button } from "react-bootstrap";
 
 const Template1 = () => {
   const [data_diri, setUsers] = useState(null);
@@ -16,11 +26,18 @@ const Template1 = () => {
   const [clickedDescriptions, setClickedDescriptions] = useState({});
   const navigate = useNavigate();
 
+  const [show, setShow] = useState(true);
+
+  const handleClose = () => setShow(false);
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (id_akun) {
-          const response = await axios.get(`http://localhost:5000/users/${id_akun}`);
+          const response = await axios.get(
+            `http://localhost:5000/users/${id_akun}`
+          );
           setUsers(response.data);
         }
       } catch (error) {
@@ -41,7 +58,9 @@ const Template1 = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/pendidikan/akun/${id_akun}`);
+        const response = await axios.get(
+          `http://localhost:5000/pendidikan/akun/${id_akun}`
+        );
 
         // Pastikan respons dari API berupa array atau ubah sesuai kebutuhan
         setPendidikan(response.data.pendidikan);
@@ -59,7 +78,9 @@ const Template1 = () => {
   useEffect(() => {
     const fetchOrganisasi = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/organisasi/akun/${id_akun}`);
+        const response = await axios.get(
+          `http://localhost:5000/organisasi/akun/${id_akun}`
+        );
 
         console.log("Raw response:", response);
 
@@ -90,12 +111,18 @@ const Template1 = () => {
 
   const getSkills = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/skills/akun/${id_akun}`);
+      const response = await axios.get(
+        `http://localhost:5000/skills/akun/${id_akun}`
+      );
       setSkill(response.data);
 
       // Pisahkan skills berdasarkan kategori_skill
-      const softSkills = response.data.skills.filter((skill) => skill.kategori_skill === "softskill");
-      const hardSkills = response.data.skills.filter((skill) => skill.kategori_skill === "hardskill");
+      const softSkills = response.data.skills.filter(
+        (skill) => skill.kategori_skill === "softskill"
+      );
+      const hardSkills = response.data.skills.filter(
+        (skill) => skill.kategori_skill === "hardskill"
+      );
 
       setSoftSkills(softSkills);
       setHardSkills(hardSkills);
@@ -115,7 +142,9 @@ const Template1 = () => {
 
   const getPorto = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/porto/${id_akun}`);
+      const response = await axios.get(
+        `http://localhost:5000/porto/${id_akun}`
+      );
       setPorto(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -129,7 +158,15 @@ const Template1 = () => {
     const isAudio = ["mp3", "wav"].includes(fileExtension);
     const isVideo = ["mp4", "webm"].includes(fileExtension);
     if (isImage) {
-      return <img src={url} alt="Portofolio" height="150" width="150" style={{ border: "3px solid #8d6ec3" }} />;
+      return (
+        <img
+          src={url}
+          alt="Portofolio"
+          height="150"
+          width="150"
+          style={{ border: "3px solid #8d6ec3" }}
+        />
+      );
     } else if (isPDF) {
       return <FaFilePdf size={150} style={{ color: "#8d6ec3" }} />;
     } else if (isAudio) {
@@ -157,9 +194,41 @@ const Template1 = () => {
     }
   };
 
+
+
   return (
     <div className="body-cv1">
-      <button className="custom-button-cv1 purple-button-cv1 mr-4 margin-around-button" onClick={handleDownloadPDF}>
+        <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Information</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ul>
+            <li>
+            only the first 3 educational data will be displayed
+            </li>
+            <li>
+            only the first 3 organization data will be displayed
+            </li>
+            <li>
+            only the first 2 hardskill data will be displayed
+            </li>
+            <li>
+            only the first 1 softskill data will be displayed
+            </li>
+              
+          </ul>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <button
+        className="custom-button-cv1 purple-button-cv1 mr-4 margin-around-button"
+        onClick={handleDownloadPDF}
+      >
         <FaDownload className="download-icon" />
         <p className="mr-1">Download CV as PDF</p>
       </button>
@@ -169,7 +238,11 @@ const Template1 = () => {
             <div className="image-container-cv1">
               {data_diri && data_diri.url && (
                 <>
-                  <img src={data_diri.url} alt="Your Name" className="my-image-cv1" />
+                  <img
+                    src={data_diri.url}
+                    alt="Your Name"
+                    className="my-image-cv1"
+                  />
                   <p className="name-text-cv1">{displayedName}</p>
                   <p className="profesi-text-cv1">{displayedProfesi}</p>
                   {/* Informasi tambahan */}
@@ -194,7 +267,9 @@ const Template1 = () => {
                         <>
                           <FaInstagram style={{ color: "#4A148C" }} />
                           <span>
-                            <a href={data_diri.link_sosmed}>{data_diri.sosial_media}</a>
+                            <a href={data_diri.link_sosmed}>
+                              {data_diri.sosial_media}
+                            </a>
                           </span>
                         </>
                       )}
@@ -221,7 +296,9 @@ const Template1 = () => {
                         <>
                           <FaTwitter style={{ color: "#4A148C" }} />
                           <span>
-                            <a href={data_diri.link_twitter}>{data_diri.twitter}</a>
+                            <a href={data_diri.link_twitter}>
+                              {data_diri.twitter}
+                            </a>
                           </span>
                         </>
                       )}
@@ -256,8 +333,14 @@ const Template1 = () => {
           <div className="section-divider-cv1"></div>
           {data_diri ? (
             <div className="info-section">
-              <p className="description-cv1" style={{ fontSize: "15px", cursor: "pointer" }} onClick={() => setIsDescriptionClicked(!isDescriptionClicked)}>
-                {isDescriptionClicked || data_diri.deskripsi.length <= 150 ? data_diri.deskripsi : `${data_diri.deskripsi.substring(0, 150)}...`}
+              <p
+                className="description-cv1"
+                style={{ fontSize: "15px", cursor: "pointer" }}
+                onClick={() => setIsDescriptionClicked(!isDescriptionClicked)}
+              >
+                {isDescriptionClicked || data_diri.deskripsi.length <= 150
+                  ? data_diri.deskripsi
+                  : `${data_diri.deskripsi.substring(0, 150)}...`}
               </p>
             </div>
           ) : (
@@ -271,18 +354,30 @@ const Template1 = () => {
                 {pendidikan.slice(0, 3).map((edu, index) => (
                   <div key={index} className="education-item-cv1">
                     <div className="education-left-cv1">
-                      <p className="education-degree-cv1" style={{ fontSize: "20px" }}>
+                      <p
+                        className="education-degree-cv1"
+                        style={{ fontSize: "20px" }}
+                      >
                         {edu.jenjang}
                       </p>
-                      <p className="education-school-cv1" style={{ fontSize: "20px", fontStyle: "normal" }}>
+                      <p
+                        className="education-school-cv1"
+                        style={{ fontSize: "20px", fontStyle: "normal" }}
+                      >
                         {edu.nama_sekolah}
                       </p>
-                      <p className="education-major-cv1" style={{ fontSize: "17px" }}>
+                      <p
+                        className="education-major-cv1"
+                        style={{ fontSize: "17px" }}
+                      >
                         {edu.jurusan}
                       </p>
                     </div>
                     <div className="education-right-cv1">
-                      <p className="education-year-cv1" style={{ fontSize: "15px" }}>
+                      <p
+                        className="education-year-cv1"
+                        style={{ fontSize: "15px" }}
+                      >
                         {edu.tahun_masuk} - {edu.tahun_lulus}
                       </p>
                     </div>
@@ -303,8 +398,17 @@ const Template1 = () => {
                     <div className="porto-card-inner-cv1">
                       {renderPortofolioContent(portofolio.url)}
                       <div className="deskripsi-cv1">
-                        <p className="portfolio-description-cv1" style={{ cursor: "pointer" }} onClick={() => setIsDescriptionClicked(!isDescriptionClicked)}>
-                          {isDescriptionClicked || portofolio.deskripsi.length <= 20 ? portofolio.deskripsi : `${portofolio.deskripsi.substring(0, 20)}...`}
+                        <p
+                          className="portfolio-description-cv1"
+                          style={{ cursor: "pointer" }}
+                          onClick={() =>
+                            setIsDescriptionClicked(!isDescriptionClicked)
+                          }
+                        >
+                          {isDescriptionClicked ||
+                          portofolio.deskripsi.length <= 20
+                            ? portofolio.deskripsi
+                            : `${portofolio.deskripsi.substring(0, 20)}...`}
                         </p>
                       </div>
                     </div>
@@ -323,18 +427,36 @@ const Template1 = () => {
                 {organisasi.slice(0, 2).map((org, index) => (
                   <div key={index} className="organization-item-cv1">
                     <div className="organization-left-cv1">
-                      <p className="organization-name-cv1" style={{ fontSize: "20px" }}>
+                      <p
+                        className="organization-name-cv1"
+                        style={{ fontSize: "20px" }}
+                      >
                         {org.nama_organisasi.toUpperCase()}
                       </p>
-                      <p className="organization-position-cv1" style={{ fontSize: "20px" }}>
+                      <p
+                        className="organization-position-cv1"
+                        style={{ fontSize: "20px" }}
+                      >
                         {org.jabatan}
                       </p>
-                      <p className="organization-desc-cv1" style={{ fontSize: "15px", cursor: "pointer" }} onClick={() => setIsDescriptionClicked(!isDescriptionClicked)}>
-                        {isDescriptionClicked || org.deskripsi_jabatan.length <= 40 ? org.deskripsi_jabatan : `${org.deskripsi_jabatan.substring(0, 40)}...`}
+                      <p
+                        className="organization-desc-cv1"
+                        style={{ fontSize: "15px", cursor: "pointer" }}
+                        onClick={() =>
+                          setIsDescriptionClicked(!isDescriptionClicked)
+                        }
+                      >
+                        {isDescriptionClicked ||
+                        org.deskripsi_jabatan.length <= 40
+                          ? org.deskripsi_jabatan
+                          : `${org.deskripsi_jabatan.substring(0, 40)}...`}
                       </p>
                     </div>
                     <div className="organization-right-cv1">
-                      <p className="organization-year-cv1" style={{ fontSize: "15px" }}>
+                      <p
+                        className="organization-year-cv1"
+                        style={{ fontSize: "15px" }}
+                      >
                         {org.periode_awal} - {org.periode_akhir}
                       </p>
                     </div>
@@ -355,13 +477,26 @@ const Template1 = () => {
                 </p>
                 {hardSkills.slice(0, 3).map((skill, index) => (
                   <div key={index} className="skill-item-cv1">
-                    <p className="name-skill-cv1 mb-1" style={{ fontSize: "14px" }}>
+                    <p
+                      className="name-skill-cv1 mb-1"
+                      style={{ fontSize: "14px" }}
+                    >
                       {" "}
                       {skill.nama_skill.toUpperCase()}
                     </p>
                     <div className="progress-cv1">
-                      <div className="progress-bar-cv1" role="progressbar" style={{ width: `${skill.level * 10}%` }} aria-valuenow={skill.level * 10} aria-valuemin="0" aria-valuemax="100"></div>
-                      <p className="skill-level" style={{ fontSize: "12px", color: "#4A148C" }}>
+                      <div
+                        className="progress-bar-cv1"
+                        role="progressbar"
+                        style={{ width: `${skill.level * 10}%` }}
+                        aria-valuenow={skill.level * 10}
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                      <p
+                        className="skill-level"
+                        style={{ fontSize: "12px", color: "#4A148C" }}
+                      >
                         {skill.level * 10}%
                       </p>
                     </div>
@@ -371,11 +506,15 @@ const Template1 = () => {
                       onClick={() =>
                         setClickedDescriptions({
                           ...clickedDescriptions,
-                          [`hardSkill${index}`]: !clickedDescriptions[`hardSkill${index}`],
+                          [`hardSkill${index}`]:
+                            !clickedDescriptions[`hardSkill${index}`],
                         })
                       }
                     >
-                      {clickedDescriptions[`hardSkill${index}`] || skill.deskripsi.length <= 40 ? skill.deskripsi : `${skill.deskripsi.substring(0, 40)}...`}
+                      {clickedDescriptions[`hardSkill${index}`] ||
+                      skill.deskripsi.length <= 40
+                        ? skill.deskripsi
+                        : `${skill.deskripsi.substring(0, 40)}...`}
                     </p>
                   </div>
                 ))}
@@ -390,12 +529,25 @@ const Template1 = () => {
                 </p>
                 {softSkills.slice(0, 1).map((skill, index) => (
                   <div key={index} className="skill-item-cv1">
-                    <p className="name-skill-cv1 mb-1" style={{ fontSize: "14px" }}>
+                    <p
+                      className="name-skill-cv1 mb-1"
+                      style={{ fontSize: "14px" }}
+                    >
                       {skill.nama_skill.toUpperCase()}
                     </p>
                     <div className="progress-cv1">
-                      <div className="progress-bar-cv1" role="progressbar" style={{ width: `${skill.level * 10}%` }} aria-valuenow={skill.level * 10} aria-valuemin="0" aria-valuemax="100"></div>
-                      <p className="skill-level" style={{ fontSize: "12px", color: "#4A148C" }}>
+                      <div
+                        className="progress-bar-cv1"
+                        role="progressbar"
+                        style={{ width: `${skill.level * 10}%` }}
+                        aria-valuenow={skill.level * 10}
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                      <p
+                        className="skill-level"
+                        style={{ fontSize: "12px", color: "#4A148C" }}
+                      >
                         {skill.level * 10}%
                       </p>
                     </div>
@@ -409,11 +561,15 @@ const Template1 = () => {
                       onClick={() =>
                         setClickedDescriptions({
                           ...clickedDescriptions,
-                          [`softSkill${index}`]: !clickedDescriptions[`softSkill${index}`],
+                          [`softSkill${index}`]:
+                            !clickedDescriptions[`softSkill${index}`],
                         })
                       }
                     >
-                      {clickedDescriptions[`softSkill${index}`] || skill.deskripsi.length <= 40 ? skill.deskripsi : `${skill.deskripsi.substring(0, 40)}...`}
+                      {clickedDescriptions[`softSkill${index}`] ||
+                      skill.deskripsi.length <= 40
+                        ? skill.deskripsi
+                        : `${skill.deskripsi.substring(0, 40)}...`}
                     </p>
                   </div>
                 ))}
@@ -424,11 +580,15 @@ const Template1 = () => {
           </div>
         </div>
       </div>
-      <button onClick={() => window.scrollTo(0, 0)} className="back-button-cv1" style={{ marginLeft: "50px" }}>
+      <button
+        onClick={() => window.scrollTo(0, 0)}
+        className="back-button-cv1"
+        style={{ marginLeft: "50px" }}
+      >
         <FaArrowUp />
       </button>
       <div style={{ textAlign: "center" }}>
-        <NavLink to="/menu_cv">
+        <NavLink to="/My">
           <button
             className="btn btn-dark"
             id="add-button-skill"

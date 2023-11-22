@@ -9,17 +9,24 @@ const PageView2 = () => {
   const dispatch = useDispatch();
   const { id_akun } = useParams();
 
+    // Fungsi dekripsi ID akun
+    const decryptIdAkun = (encodedId) => {
+      return atob(encodedId); // Menggunakan atob untuk Base64 decoding
+    };
+  
+    const decryptedIdAkun = decryptIdAkun(id_akun);
+
   // Data Diri
   const [data_diri, setUsers] = useState(null);
 
   useEffect(() => {
     getUsers();
-  }, [id_akun]);
+  }, [decryptedIdAkun]);
 
   const getUsers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/${id_akun}`
+        `http://localhost:5000/users/${decryptedIdAkun}`
       );
       setUsers(response.data);
     } catch (error) {
@@ -38,12 +45,12 @@ const PageView2 = () => {
 
   useEffect(() => {
     getSkills();
-  }, [id_akun]);
+  }, [decryptedIdAkun]);
 
   const getSkills = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/skills/akun/${id_akun}`
+        `http://localhost:5000/skills/akun/${decryptedIdAkun}`
       );
       setSkill(response.data);
 
@@ -71,7 +78,7 @@ const PageView2 = () => {
     const fetchOrganisasi = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/organisasi/akun/${id_akun}`
+          `http://localhost:5000/organisasi/akun/${decryptedIdAkun}`
         );
 
         console.log("Raw response:", response);
@@ -90,19 +97,19 @@ const PageView2 = () => {
     if (id_akun) {
       fetchOrganisasi();
     }
-  }, [id_akun]);
+  }, [decryptedIdAkun]);
 
   // Portopolio
   const [portofolios, setPorto] = useState([]);
 
   useEffect(() => {
     getPorto();
-  }, [id_akun]);
+  }, [decryptedIdAkun]);
 
   const getPorto = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/porto/${id_akun}`
+        `http://localhost:5000/porto/${decryptedIdAkun}`
       );
       setPorto(response.data);
     } catch (error) {
@@ -144,7 +151,7 @@ const PageView2 = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/pendidikan/akun/${id_akun}`
+          `http://localhost:5000/pendidikan/akun/${decryptedIdAkun}`
         );
 
         // Pastikan respons dari API berupa array atau ubah sesuai kebutuhan
@@ -155,7 +162,7 @@ const PageView2 = () => {
       }
     };
     fetchData();
-  }, [id_akun]);
+  }, [decryptedIdAkun]);
 
   const PendidikanDetail = pendidikan
     ? pendidikan.map((pendidikan, index) => (

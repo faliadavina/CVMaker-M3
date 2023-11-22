@@ -17,12 +17,13 @@ const My = () => {
   const { user } = useSelector((state) => state.auth);
   const id_akun = user && user.user && user.user.id_akun;
 
-  console.log(id_akun);
+
+  let encodedIdAkun = btoa(id_akun);
 
   useEffect(() => {
     getUsers();
     if (id_akun) {
-      setShareLink(`http://localhost:3000/${id_akun}`);
+      setShareLink(`http://localhost:3000/${encodedIdAkun}`);
     }
   }, [id_akun]);
 

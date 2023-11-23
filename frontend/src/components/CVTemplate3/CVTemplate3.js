@@ -9,10 +9,15 @@ import {
   FaArrowUp,
 } from "react-icons/fa";
 
+import { Modal, Button } from "react-bootstrap";
+
 const Template3 = () => {
   const [data_diri, setUsers] = useState(null);
   const { user } = useSelector((state) => state.auth);
   const id_akun = user && user.user && user.user.id_akun;
+
+  const handleClose = () => setShow(false);
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
     getUsers();
@@ -151,6 +156,38 @@ const Template3 = () => {
 
   return (
     <div>
+
+      <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Information</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ul>
+            <li>
+            only the first 2 educational data will be displayed
+            </li>
+            <li>
+            only the first 2 organization data will be displayed
+            </li>
+            <li>
+            only the first 2 hardskill data will be displayed
+            </li>
+            <li>
+            only the first 1 softskill data will be displayed
+            </li>
+            <li>
+            only the first 2 portofolio data will be displayed
+            </li>
+              
+          </ul>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <button
         className="custom-button-cv1 purple-button-cv1 mr-4 margin-around-button"
         onClick={handleDownloadPDF}
@@ -227,10 +264,9 @@ const Template3 = () => {
         <div className="title-2-cv-3">EDUCATIONAL</div> 
         <div className="cv-content-edu-cv-3">
 
-          <section id="pendidikan" class="section-edu-cv-3">
-          <div class="container">
-            <ul class="education-list">
-              {pendidikan.map((item, index) => (
+          <div id="pendidikan" class="section-edu-cv-3">
+            <ul>
+              {pendidikan.slice(0, 2).map((item, index) => (
                 <li key={index} class="">
                   <strong><div class="font-edu-cv-3">{item.jenjang}</div></strong>
                   <div class="font-edu-cv-3">{item.nama_sekolah}</div>
@@ -242,24 +278,21 @@ const Template3 = () => {
               ))}
             </ul>
           </div>
-          </section>
 
         </div>
 
         <div className="title-2-cv-3">PORTOFOLIOS</div> 
         <div className="cv-content-porto-cv-3">
 
-        <section id="pendidikan" class="section-porto-cv-3">
-          <div class="container">
-            <ul class="education-list">
-              {portofolios.map((portofolio, index) => (
+        <div id="pendidikan" class="section-porto-cv-3">
+            <ul >
+              {portofolios.slice(0, 2).map((portofolio, index) => (
                 <li key={index} class="">
                   <div class="font-porto-cv-3"><i class="bi bi-file-pdf mr-2"></i>{" "}{portofolio.deskripsi}</div>
                 </li>
               ))}
             </ul>
           </div>
-          </section>
 
         </div>
 
@@ -291,26 +324,27 @@ const Template3 = () => {
         <div className="title-1-cv-3">Organizational Experience</div>
         <div className="cv-content-experience-cv-3">
           <ul className="organisasi-list">
-            {organisasi.map((item, index) => (
-                <li key={index} className="">
-                  <strong><div className="font-org-cv-3">{item.nama_organisasi}</div></strong>
-                  <div className="font-org-cv-3">- {item.jabatan} -</div>
-                  <div className="font-org-cv-3">{item.periode_awal} - {item.periode_akhir || "Sekarang"}</div>
-                  <i><div className="font-org-cv-3">{item.deskripsi_jabatan}</div></i>
-                </li>
+            {organisasi.slice(0, 2).map((item, index) => (
+              <li key={index} className="">
+                <strong><div className="font-org-cv-3">{item.nama_organisasi}</div></strong>
+                <div className="font-org-cv-3">- {item.jabatan} -</div>
+                <div className="font-org-cv-3">{item.periode_awal} - {item.periode_akhir || "Sekarang"}</div>
+                <i><div className="font-org-cv-3">{item.deskripsi_jabatan}</div></i>
+              </li>
             ))}
           </ul>
         </div>
 
+
         <div className="title-1-cv-3">Skills</div>
         <div className="cv-content-skill-cv-3">
-          <section id="skills" className="skills section-cv-3">
+          <div id="skills" className="skills section-cv-3">
 
-            <div className="container">
 
               <div className="row skills-content">
+
                 <div className="col-lg-6">
-                  {softSkills.map((skill, index) => (
+                  {hardSkills.slice(0, 2).map((skill, index) => (
                     <div
                       className="progress-container"
                       key={skill.id_skill}
@@ -318,8 +352,7 @@ const Template3 = () => {
                     >
                       <div className="progress">
                         <span className="skill mb-4">
-                          {skill.nama_skill}{" "}
-                          <i className="val">{skill.level * 10}%</i>
+                          {skill.nama_skill} <i>{skill.level * 10}%</i>
                         </span>
                         <div
                           className="progress-bar progress-bar-animated mt-4"
@@ -334,8 +367,9 @@ const Template3 = () => {
                     </div>
                   ))}
                 </div>
+
                 <div className="col-lg-6">
-                  {hardSkills.map((skill, index) => (
+                  {softSkills.slice(0, 1).map((skill, index) => (
                     <div
                       className="progress-container"
                       key={skill.id_skill}
@@ -343,8 +377,7 @@ const Template3 = () => {
                     >
                       <div className="progress">
                         <span className="skill mb-4">
-                          {skill.nama_skill}{" "}
-                          <i className="val">{skill.level * 10}%</i>
+                          {skill.nama_skill} <i>{skill.level * 10}%</i>
                         </span>
                         <div
                           className="progress-bar progress-bar-animated mt-4"
@@ -360,8 +393,7 @@ const Template3 = () => {
                   ))}
                 </div>
               </div>
-            </div>
-          </section>
+          </div>
         </div>
 
       </div>

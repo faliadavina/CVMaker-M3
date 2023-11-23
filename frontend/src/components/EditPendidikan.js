@@ -137,7 +137,7 @@ const EditPendidikan = () => {
 
   return (
     <div>
-      <section id="editPendidikan" className="editPendidikan">
+      <section id="editPendidikan" className="pendidikan">
         <div className="container">
           <div className="section-title">
             <h2>Edit Education</h2>

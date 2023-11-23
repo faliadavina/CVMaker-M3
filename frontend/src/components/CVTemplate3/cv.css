@@ -115,7 +115,7 @@
     top: 20%;
     left: 0;
     width: 40%;
-    height: 80%;
+    height: 78%;
     background: black;
     z-index: 1;
     padding: 2%;
@@ -258,8 +258,7 @@
     body * {
       visibility: hidden;
     }
-    .page-cv-3,
-    .page-cv-3 * {
+    .page-cv-3, .page-cv-3 * , .educaton-list{
       visibility: visible;
     }
     .page-cv-3 {
@@ -271,61 +270,6 @@
       margin: 0;
       transform: scale(2); /* Sesuaikan skala untuk mencocokkan kertas A4 */
       transform-origin: top left; /* Titik asal transformasi */
-    }
-    /* Tambahkan aturan visibilitas khusus untuk elemen-elemen yang ingin ditampilkan */
-    .header-container-cv-3,
-    .page-cv-3-1,
-    .page-cv-3-2,
-    .section-cv-3,
-    .section-porto-cv-3,
-    .section-edu-cv-3
-    .h1-cv-3,
-    .h2-cv-3,
-    i,
-    .val,
-    ul,
-    li,
-    .section,
-    .section h2,
-    img,
-    .section ul,
-    .Skill,
-    .left-top-content-cv-3,
-    .left-content-cv-3,
-    .left-bottom-content-cv-3,
-    .right-top-content-cv-3,
-    .right-content-cv-3,
-    .profile-img-cv-3,
-    .title-1-cv-3,
-    .title-2-cv-3,
-    .cv-content-profile-cv-3,
-    .cv-content-experience-cv-3,
-    .cv-content-skill-cv-3,
-    .cv-content-bio-cv-3,
-    .cv-content-edu-cv-3,
-    .cv-content-porto-cv-3,
-    .profile-cv-3,
-    .progress-container,
-    .font-edu-cv-3,
-    .font-org-cv-3,
-    .font-porto-cv-3,
-    .progress-container,
-    .skill,
-    .progress,
-    .progress-bar,
-    .progress-buttons,
-    .skills .progress .skill .val {
-      visibility: visible !important;
-    }
-
-    .left-top-content-cv-3 {
-      position: absolute;
-      top: 0%;
-      left: 0;
-      width: 40%;
-      height: 20%;
-      background-color: #ffc100;
-      z-index: 1;
     }
   }
   

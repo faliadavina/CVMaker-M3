@@ -141,7 +141,7 @@ const EditOrganisasi = () => {
 
   return (
     <div>
-      <section id="editOrganisasi" className="editOrganisasi">
+      <section id="editOrganisasi" className="organisasi">
         <div className="container">
           <div className="section-title">
             <h2>Edit Organization</h2>

@@ -198,7 +198,7 @@ const My = () => {
         }}
         onClick={handleMenuCV}
       >
-        {" "}
+        <i className="bi bi-printer-fill mr-3"></i>{" "}
         Select Template CV
       </button>
       <Button
@@ -211,6 +211,7 @@ const My = () => {
           fontWeight: "bold",
         }}
       >
+        <i className="bi bi-share-fill mr-3"></i>
         Share
       </Button>
       <Modal show={showModal} onHide={() => setShowModal(false)}>
@@ -383,7 +384,7 @@ const My = () => {
       <section id="organisasi" className="organisasi">
         <div className="container">
           <div className="section-title">
-            <h2>Riwayat Organisasi</h2>
+            <h2>Organizational Experience</h2>
           </div>
 
           {Array.isArray(organisasi) && organisasi.length > 0 ? (

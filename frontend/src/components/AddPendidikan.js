@@ -149,7 +149,7 @@ const AddPendidikan = () => {
 
   return (
     <div>
-      <section id="addPendidikan" className="addPendidikan">
+      <section id="addPendidikan" className="pendidikan">
         <div className="container">
           <div className="section-title">
             <h2>Add Education</h2>

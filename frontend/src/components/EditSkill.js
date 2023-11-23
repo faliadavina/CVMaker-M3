@@ -100,7 +100,7 @@ const EditSkill = () => {
 
   return (
     <div>
-      <section id="addSkill" className="addSkill">
+      <section id="addSkill" className="skills">
         <div className="container">
           <div className="section-title">
             <h2>Edit Skill</h2>

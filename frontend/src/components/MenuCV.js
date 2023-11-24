@@ -14,7 +14,7 @@ const MenuCV = () => {
 
   const templatesATS = [
     { id: 1, title: "Functional", imageUrl: "/img/cv/cv_1.jpg" },
-    { id: 2, title: "Hybrid", imageUrl: "/img/cv/cv_2.jpg" },
+    { id: 2, title: "London", imageUrl: "/img/cv/cv_2.jpg" },
   ];
 
   const templatesCreative = [

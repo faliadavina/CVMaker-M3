@@ -6,7 +6,7 @@ import { Op } from 'sequelize';
 export const createSkill = async (req, res) => {
   try {
     const id_akun = req.params.id_akun;
-    const { kategori_skill, nama_skill, level } = req.body;
+    const { kategori_skill, nama_skill, level, deskripsi } = req.body;
 
     const user = await User.findOne({
       where: {
@@ -38,8 +38,9 @@ export const createSkill = async (req, res) => {
     const newSkill = await Skill.create({
       id_akun,
       kategori_skill,
-      nama_skill: nama_skill_lowercase, // Simpan dalam format huruf kecil
+      nama_skill: nama_skill_lowercase,
       level,
+      deskripsi,
     });
 
     return res.status(201).json({ success: true, skill: newSkill, message: 'Skill created successfully' });
@@ -49,21 +50,18 @@ export const createSkill = async (req, res) => {
   }
 };
 
-
-
-
 export const getSkillById = async (req, res) => {
   try {
     const { id_akun, id_skill } = req.params;
 
-    const skillById = await Skill.findAll({
+    const skillById = await Skill.findOne({
       where: {
         id_skill: id_skill,
-        id_akun: id_akun
-      }
+        id_akun: id_akun,
+      },
     });
 
-    if (skillById && skillById.length > 0) {
+    if (skillById) {
       return res.status(200).json({ success: true, skill: skillById });
     } else {
       return res.status(404).json({ success: false, message: 'Skill not found' });
@@ -81,8 +79,8 @@ export const getAllSkills = async (req, res) => {
     // Find all skills for the specified user
     const userSkills = await Skill.findAll({
       where: {
-        id_akun: id_akun
-      }
+        id_akun: id_akun,
+      },
     });
 
     // Check if there are no skills for the specified user
@@ -96,8 +94,6 @@ export const getAllSkills = async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
-
-
 
 export const updateSkill = async (req, res) => {
   try {
@@ -140,14 +136,11 @@ export const updateSkill = async (req, res) => {
     // Update the specified fields
     for (const field in fieldsToUpdate) {
       if (Object.prototype.hasOwnProperty.call(fieldsToUpdate, field)) {
-          // Check if the new skill name is provided and is different from the existing name
-          if (fieldsToUpdate.nama_skill) {
-          // Ubah nama skill baru menjadi lowercase
-            skill.nama_skill = fieldsToUpdate.nama_skill.toLowerCase();
-          }else{
-            skill[field] = fieldsToUpdate[field];
-          }
-        
+        if (field === 'nama_skill') {
+          skill[field] = fieldsToUpdate[field].toLowerCase();
+        } else {
+          skill[field] = fieldsToUpdate[field];
+        }
       }
     }
 
@@ -160,17 +153,14 @@ export const updateSkill = async (req, res) => {
   }
 };
 
-
-
-
 export const deleteSkill = async (req, res) => {
-  const { id_skill} = req.params;
+  const { id_skill } = req.params;
 
   try {
     const skill = await Skill.findOne({
       where: {
-        id_skill: id_skill
-      }
+        id_skill: id_skill,
+      },
     });
 
     if (!skill) {
@@ -192,8 +182,8 @@ export const deleteAllSkillsForUser = async (req, res) => {
     // Delete all skills associated with the specified id_user
     await Skill.destroy({
       where: {
-        id_akun: id_akun
-      }
+        id_akun: id_akun,
+      },
     });
 
     return res.status(200).json({ success: true, msg: 'All skills for the user deleted successfully' });
@@ -202,3 +192,4 @@ export const deleteAllSkillsForUser = async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
+  

@@ -41,9 +41,9 @@ const DataDiri = () => {
       <section id="about" class="about">
         {data_diri ? (
           <div class="container">
-            <div class="section-title d-flex justify-content-between align-items-center">
-              <h2>Get To Know Me!</h2>
-              <button
+          <div class="section-title d-flex justify-content-between align-items-center">
+            <h2>Get To Know Me!</h2>
+            <button
                 className="btn btn-dark"
                 onClick={() => handleEditClick()}
                 style={{
@@ -55,69 +55,94 @@ const DataDiri = () => {
               >
                 <i class="bx bxs-edit mr-2"></i> Edit Personal Data
               </button>
-            </div>
+          </div>
 
-            <div class="section-title">
-              <p>{data_diri.deskripsi}</p>
-            </div>
+          <div class="section-title">
+            <p>{data_diri.deskripsi}</p>
+          </div>
 
-            <div class="row">
-              <div class="col-lg-4" data-aos="fade-right">
-                <img src={data_diri.url} class="img-fluid" alt="" />
-              </div>
-              <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-                <h3>Personal Data</h3>
-                <div class="row">
-                  <div class="col-lg-8">
-                    <ul>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Name :</strong> <span>{data_diri.nama}</span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Place and Date of Birth :</strong>{" "}
-                        <span>
-                          {data_diri.tempat_lahir}, {data_diri.tanggal_lahir}
-                        </span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Address :</strong>{" "}
-                        <span>{data_diri.alamat}</span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Marriage Status :</strong>{" "}
-                        <span>{data_diri.status}</span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Phone Number :</strong>{" "}
-                        <span>{data_diri.telp}</span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Email :</strong> <span>{data_diri.email}</span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>Social Media :</strong>{" "}
-                        <span>{data_diri.sosial_media}</span>
-                      </li>
-                      <li>
-                        <i class="bi bi-chevron-right"></i>{" "}
-                        <strong>LinkedIn :</strong>{" "}
-                        <span>{data_diri.linkedin}</span>
-                      </li>
-                    </ul>
-                  </div>
+          <div class="row">
+            <div class="col-lg-4" data-aos="fade-right">
+              <img src={data_diri.url} class="profile_img" alt="" />
+            </div>
+            <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
+              <h3 class="mb-4">Personal Data</h3>
+              <div class="row">
+                <div class="col-lg-6">
+                  <ul>
+                    <li>
+                      <i className="bi bi-person-vcard mr-3"></i>{" "}
+                      {/* <strong> Name </strong>  */}
+                      <br/><span>{data_diri.nama}</span>
+                    </li>
+                    <li>
+                      <i className="bi bi-person-gear mr-3"></i>{" "}
+                      {/* <strong> Name </strong>  */}
+                      <br/><span>{data_diri.profesi}</span>
+                    </li>
+                    <li>
+                      <i class="bi bi-cake mr-3"></i>{" "}
+                      {/* <strong> Place, Date of Birth :</strong>{" "} */}
+                      <span>
+                        {data_diri.tempat_lahir}, {data_diri.tanggal_lahir}
+                      </span>
+                    </li>
+                    <li>
+                      <i class="bi bi-house-door mr-3"></i>{" "}
+                      {/* <strong> Address :</strong>{" "} */}
+                      <span>{data_diri.alamat}</span>
+                    </li>
+                    <li>
+                      <i className="bi bi-people mr-3"></i>{" "}
+                      {/* <strong> Marriage Status :</strong>{" "} */}
+                      <span>{data_diri.status}</span>
+                    </li>
+                    <li>
+                      <i class="bi bi-telephone mr-3"></i>{" "}
+                      {/* <strong> Phone Number :</strong>{" "} */}
+                      <span>{data_diri.telp}</span>
+                    </li>
+                  </ul>
                 </div>
+
+                <div class="col-lg-6">
+                  <ul>
+                    <li>
+                      <i class=""></i>{" "}
+                      <span></span>
+                    </li>
+                    <li>
+                      <i class=""></i>{" "}
+                      <span></span>
+                    </li>
+                    <li>
+                      <i class="bi bi-envelope mr-3"></i>{" "}
+                      {/* <strong> Email :</strong>  */}
+                      <span>{data_diri.email}</span>
+                    </li>
+                    <li>
+                      <i class="bi bi-linkedin mr-3"></i>{" "}
+                      {/* <strong> LinkedIn :</strong>{" "} */}
+                      <span>{data_diri.linkedin}</span>
+                    </li>
+                    <li>
+                      <i class="bi bi-instagram mr-3"></i>{" "}
+                      {/* <strong> Social Media :</strong>{" "} */}
+                      <span><a href={data_diri.link_sosmed}>@{data_diri.sosial_media}</a></span>
+                    </li>
+                    <li>
+                      <i class="bi bi-twitter mr-3"></i>{" "}
+                      <span><a href={data_diri.link_twitter}>@{data_diri.twitter}</a></span>
+                    </li>
+                  </ul>
+                </div>
+
               </div>
             </div>
           </div>
+        </div>
         ) : (
-          <div className="container d-flex flex-column justify-content-center align-items-center vh-100">
+          <div className="container d-flex flex-column justify-content-center align-items-center" style={{ marginTop: "20%" }}>
             <div
               className="text-center"
               style={{

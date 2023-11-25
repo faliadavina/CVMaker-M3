@@ -10,6 +10,7 @@ import SkillList from "./pages/SkillPage";
 import EditSkill from "./pages/EditSkillPage";
 import AddOrganisasi from "./pages/AddOrganisasiPage";
 import EditOrganisasi from "./pages/EditOrganisasiPage";
+import OrganisasiList from "./pages/OrganisasiPage";
 import DataDiri from "./pages/DataDiriPage";
 import EditDataDiri from "./pages/EditDataDiriPage";
 import AddDataDiri from "./pages/AddDataDiriPage";
@@ -19,8 +20,12 @@ import My from "./pages/MyCvPage";
 import AddPendidikan from "./pages/AddPendidikanPage";
 import EditPendidikan from "./pages/EditPendidikanPage";
 import PendidikanList from "./pages/PendidikanPage";
-import PageView from "./pages/PageView";
+import ForgotPassword from "./components/ForgotPassword";
+import PageView from "./pages/PageView2";
 import GenerateCV from "./pages/GenerateCVPage";
+import MenuCV from "./pages/MenuCvPage";
+import Template1 from "./pages/CVTemplate1Page";
+import Template3 from "./components/CVTemplate3/CVTemplate3";
 
 function App() {
   return (
@@ -41,16 +46,21 @@ function App() {
         <Route path="/edit_skill" element={<EditSkill />} />
         <Route path="/add_skill" element={<AddSkill />} />
         <Route path="/add_organisasi" element={<AddOrganisasi />} />
-        <Route path="/edit_organisasi" element={<EditOrganisasi />} />
+        <Route path="/edit_organisasi/:id_org" element={<EditOrganisasi />} />
+        <Route path="/organisasi" element={<OrganisasiList />} />
         <Route path="/My" element={<My />} />
-        <Route path="/add_skill" element={<AddSkill />}/>
-        <Route path="/add_pendidikan" element={<AddPendidikan />}/>
-        <Route path="/edit_pendidikan/:id_pend" element={<EditPendidikan />}/>
-        <Route path="/pendidikan" element={<PendidikanList />}/>
-        <Route path="/generate-cv" element={<GenerateCV />} />
-        <Route path="/contact" element={<Contact />}/>
-        <Route path="/register" element={<Register />}/>
-        <Route path="/page-view" element={<PageView />} />
+        <Route path="/add_skill" element={<AddSkill />} />
+        <Route path="/add_pendidikan" element={<AddPendidikan />} />
+        <Route path="/edit_pendidikan/:id_pend" element={<EditPendidikan />} />
+        <Route path="/pendidikan" element={<PendidikanList />} />
+        <Route path="/generate_cv/:templateId" element={<GenerateCV />} />
+        <Route path="/menu_cv" element={<MenuCV />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/:id_akun" element={<PageView />} />
+        <Route path="/cv-template-1" element={<Template1 />} />
+        <Route path="/cv-template-3" element={<Template3 />} />
       </Routes>
     </BrowserRouter>
   );

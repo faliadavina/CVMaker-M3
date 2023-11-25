@@ -6,24 +6,25 @@ import { getMe } from "../features/authSlice";
 import AddOrganisasi from "../components/AddOrganisasi";
 
 const AddOrganisasiPage = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { isError } = useSelector((state) => state.auth);
-  
-    useEffect(() => {
-      dispatch(getMe());
-    }, [dispatch]);
-  
-    useEffect(() => {
-      if (isError) {
-        navigate("/login");
-      }
-    }, [isError, navigate]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isError } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(getMe());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isError) {
+      navigate("/login");
+    }
+  }, [isError, navigate]);
+
   return (
     <Layout>
-    <AddOrganisasi />
-  </Layout>
-  )
-}
+      <AddOrganisasi />
+    </Layout>
+  );
+};
 
 export default AddOrganisasiPage;

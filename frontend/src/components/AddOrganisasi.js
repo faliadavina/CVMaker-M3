@@ -4,104 +4,127 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const AddOrganisasi = () => {
-  const [organizationName, setOrganizationName] = useState("");
-  const [position, setPosition] = useState("");
-  const [period, setPeriod] = useState("");
-  const [description, setDescription] = useState("");
-  const [msg, setMsg] = useState("");
-  const navigate = useNavigate();
-  const [organizationNameFilled, setOrganizationNameFilled] = useState(false);
-  const [positionFilled, setPositionFilled] = useState(false);
-  const [periodFilled, setPeriodFilled] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [namaOrganisasi, setNamaOrganisasi] = useState("");
+  const [jabatan, setJabatan] = useState("");
+  const [periodeAwal, setPeriodeAwal] = useState("");
+  const [periodeAkhir, setPeriodeAkhir] = useState("Sekarang");
+  const [deskripsiJabatan, setDeskripsiJabatan] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const navigate = useNavigate();
+
   const clearErrorMessage = () => {
-    setMsg("");
+    setErrorMsg("");
   };
 
-  const handleOrganizationNameChange = (value) => {
-    setOrganizationName(value);
-    setOrganizationNameFilled(!!value);
+  const handleNamaOrganisasiChange = (value) => {
+    setNamaOrganisasi(value);
     clearErrorMessage();
   };
 
-  const handlePositionChange = (value) => {
-    setPosition(value);
-    setPositionFilled(!!value);
+  const handleJabatanChange = (value) => {
+    setJabatan(value);
     clearErrorMessage();
   };
 
-  const handlePeriodChange = (value) => {
-    setPeriod(value);
-    setPeriodFilled(!!value);
+  const handlePeriodeAwalChange = (value) => {
+    setPeriodeAwal(value);
     clearErrorMessage();
   };
 
-  const handleDescriptionChange = (value) => {
-    setDescription(value);
+  const handlePeriodeAkhirChange = (value) => {
+    setPeriodeAkhir(value);
+    clearErrorMessage();
+  };
+
+  const handleDeskripsiJabatanChange = (value) => {
+    setDeskripsiJabatan(value);
     clearErrorMessage();
   };
 
   const { user } = useSelector((state) => state.auth);
   const id = user && user.user && user.user.id_akun;
-  console.log(id);
 
   const saveOrganisasi = async (e) => {
     e.preventDefault();
-    setFormSubmitted(true);
 
-    // Reset error message
-    setMsg("");
+    // Reset pesan
+    setErrorMsg("");
+    setSuccessMessage("");
 
-    // Check if all required fields are filled
-    if (!organizationNameFilled || !positionFilled || !periodFilled) {
-      setMsg("Please fill in all required fields.");
+    const pesanKesalahan = [];
+
+    // Periksa apakah semua kolom diisi
+    if (!namaOrganisasi) {
+      pesanKesalahan.push("Nama Organisasi tidak boleh kosong.");
+    } else if (!/^[a-zA-Z0-9\s]+$/.test(namaOrganisasi)) {
+      pesanKesalahan.push("Nama Organisasi tidak boleh mengandung simbol.");
+    }
+
+    if (!jabatan) {
+      pesanKesalahan.push("Jabatan tidak boleh kosong.");
+    } else if (!/^[a-zA-Z0-9\s]+$/.test(jabatan)) {
+      pesanKesalahan.push("Jabatan tidak boleh mengandung simbol.");
+    }
+
+    if (!periodeAwal) {
+      pesanKesalahan.push("Periode Awal tidak boleh kosong.");
+    }
+
+    if (!deskripsiJabatan) {
+      pesanKesalahan.push("Deskripsi Jabatan tidak boleh kosong.");
+    }
+
+    if (pesanKesalahan.length > 0) {
+      setErrorMsg(pesanKesalahan.join(" "));
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      await axios.post(`http://localhost:5000/organisasi/`, {
+      await axios.post(`http://localhost:5000/organisasi/${id}`, {
         id_akun: id,
-        nama_organisasi: organizationName,
-        jabatan: position,
-        periode: period,
-        deskripsi_jabatan: description,
+        nama_organisasi: namaOrganisasi,
+        jabatan: jabatan,
+        periode_awal: periodeAwal,
+        periode_akhir: periodeAkhir,
+        deskripsi_jabatan: deskripsiJabatan,
       });
-      setSuccessMessage("Organization added successfully!");
-      // Show success message for 2 seconds before navigating
+
+      setSuccessMessage("Organisasi berhasil ditambahkan!");
+
+      // Tampilkan pesan keberhasilan selama 2 detik sebelum navigasi
       setTimeout(() => {
-        navigate("/edit_organisasi");
+        navigate("/organisasi");
       }, 2000);
     } catch (error) {
       if (error.response) {
-        setMsg(error.response.data.message);
+        setErrorMsg(error.response.data.message);
       }
     } finally {
-      setIsSubmitting(false); // Menandakan bahwa permintaan telah selesai
+      setIsSubmitting(false);
     }
-  };
-
-  const renderAsterisk = (field) => {
-    if (field !== "deskripsi") {
-      return <span className="required">*</span>;
-    }
-    return null;
   };
 
   const handleCancel = () => {
-    navigate("/edit_organisasi");
+    navigate("/organisasi");
   };
+
+  // Membuat array tahun dari 1977 sampai 2023
+  const tahunOptions = [];
+  for (let tahun = 1977; tahun <= 2023; tahun++) {
+    tahunOptions.push(tahun);
+  }
 
   return (
     <div>
       <section id="addOrganisasi" className="addOrganisasi">
         <div className="container">
           <div className="section-title">
-            <h2>Add Organization</h2>
+            <h2>Tambah Organisasi</h2>
           </div>
           {successMessage && (
             <div className="alert alert-success" role="alert">
@@ -111,89 +134,107 @@ const AddOrganisasi = () => {
           <div className="card-content">
             <div className="content">
               <form onSubmit={saveOrganisasi}>
-                <p className="text-center text-danger">{msg}</p>
+                <p className="text-center text-danger">{errorMsg}</p>
 
                 <div className="mb-3">
-                  <label htmlFor="organizationName" className="form-label">
-                    <h5>
-                      Organization Name {renderAsterisk("organizationName")}
-                    </h5>
+                  <label htmlFor="nama_organisasi" className="form-label">
+                    <h5>Nama Organisasi</h5>
+                    <input
+                      value={namaOrganisasi}
+                      onChange={(e) =>
+                        handleNamaOrganisasiChange(e.target.value)
+                      }
+                      type="text"
+                      className="form-control"
+                      placeholder="Nama Organisasi"
+                    />
                   </label>
-                  <input
-                    type="text"
-                    className={`form-control ${
-                      formSubmitted && !organizationNameFilled
-                        ? "error-field"
-                        : ""
-                    }`}
-                    id="organizationName"
-                    value={organizationName}
-                    onChange={(e) =>
-                      handleOrganizationNameChange(e.target.value)
-                    }
-                    placeholder="Organization Name"
-                  />
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="position" className="form-label">
-                    <h5>Position {renderAsterisk("position")}</h5>
+                  <label htmlFor="jabatan" className="form-label">
+                    <h5>Jabatan</h5>
+                    <input
+                      value={jabatan}
+                      onChange={(e) => handleJabatanChange(e.target.value)}
+                      type="text"
+                      className="form-control"
+                      placeholder="Jabatan"
+                    />
                   </label>
-                  <input
-                    type="text"
-                    className={`form-control ${
-                      formSubmitted && !positionFilled ? "error-field" : ""
-                    }`}
-                    id="position"
-                    value={position}
-                    onChange={(e) => handlePositionChange(e.target.value)}
-                    placeholder="Position"
-                  />
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="period" className="form-label">
-                    <h5>Period {renderAsterisk("period")}</h5>
+                  <label htmlFor="periode_awal" className="form-label">
+                    <h5>Periode Awal</h5>
+                    <select
+                      value={periodeAwal}
+                      onChange={(e) => handlePeriodeAwalChange(e.target.value)}
+                      className="form-select"
+                    >
+                      <option value="" disabled>
+                        Pilih Tahun
+                      </option>
+                      {tahunOptions.map((tahun) => (
+                        <option key={tahun} value={tahun}>
+                          {tahun}
+                        </option>
+                      ))}
+                    </select>
                   </label>
-                  <input
-                    type="text"
-                    className={`form-control ${
-                      formSubmitted && !periodFilled ? "error-field" : ""
-                    }`}
-                    id="period"
-                    value={period}
-                    onChange={(e) => handlePeriodChange(e.target.value)}
-                    placeholder="Period"
-                  />
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="description" className="form-label">
-                    <h5>Description</h5>
+                  <label htmlFor="periode_akhir" className="form-label">
+                    <h5>Periode Akhir</h5>
+                    <select
+                      value={periodeAkhir}
+                      onChange={(e) => handlePeriodeAkhirChange(e.target.value)}
+                      className="form-select"
+                    >
+                      <option value="Sekarang">Sekarang</option>
+                      {tahunOptions.map((tahun) => (
+                        <option key={tahun} value={tahun}>
+                          {tahun}
+                        </option>
+                      ))}
+                    </select>
                   </label>
-                  <textarea
-                    className="form-control"
-                    id="description"
-                    value={description}
-                    onChange={(e) => handleDescriptionChange(e.target.value)}
-                    placeholder="Description"
-                  />
                 </div>
+
+                <div className="mb-3">
+                  <label htmlFor="deskripsi_jabatan" className="form-label">
+                    <h5>Deskripsi Jabatan</h5>
+                    <textarea
+                      value={deskripsiJabatan}
+                      onChange={(e) =>
+                        handleDeskripsiJabatanChange(e.target.value)
+                      }
+                      className="form-control"
+                      rows="4"
+                      placeholder="Deskripsi Jabatan"
+                    ></textarea>
+                  </label>
+                </div>
+
+                {errorMsg && (
+                  <p className="text-center text-danger">{errorMsg}</p>
+                )}
 
                 <div className="text-center">
                   <button
                     className="btn btn-secondary mt-3 me-3"
                     onClick={handleCancel}
-                    disabled={isSubmitting} // Menonaktifkan tombol saat sedang mengirimkan permintaan
+                    disabled={isSubmitting}
                   >
-                    Cancel
+                    Batal
                   </button>
                   <button
                     className="btn btn-primary mt-3"
                     type="submit"
-                    disabled={isSubmitting} // Menonaktifkan tombol saat sedang mengirimkan permintaan
+                    disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Adding..." : "Add Data"} 
+                    {isSubmitting ? "Menambahkan..." : "Tambah Data"}
                   </button>
                 </div>
               </form>

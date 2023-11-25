@@ -28,6 +28,10 @@ const Skill = db.define('data_skill', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  deskripsi: {
+    type: DataTypes.STRING(255),
+    allowNull: true, // Set to false if deskripsi is required
+  },
 
 },
 {

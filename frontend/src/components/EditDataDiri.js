@@ -2,13 +2,14 @@ import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
-
-
-
+// import path from "path";
 
 const EditDataDiri = () => {
 
     const navigate = useNavigate();
+    const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const { user } = useSelector((state) => state.auth);
     const id_akun = user && user.user && user.user.id_akun;
@@ -61,6 +62,8 @@ const EditDataDiri = () => {
     const [deskripsi, setDeskripsi] = useState('');
     const [file, setFile] = useState('');
     const [preview, setPreview] = useState('');
+    const [profesi, setProfesi] = useState('');
+    const [twitter, setTwitter] = useState('');
 
     const maxDeskripsiLength = 500;
 
@@ -82,6 +85,8 @@ const EditDataDiri = () => {
             setDeskripsi(response.data.deskripsi);
             setFile(response.data.profile_pict);
             setPreview(response.data.url);
+            setTwitter(response.data.twitter);
+            setProfesi(response.data.profesi);
 
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -109,13 +114,16 @@ const EditDataDiri = () => {
         }
 
         //Formatting huruf kapital
-        const shouldConvertToUpperCase = ["nama", "tempat_lahir", "alamat", "status", "linkedin"].includes(name);
+        const shouldConvertToUpperCase = ["nama", "tempat_lahir", "alamat", "status", "linkedin", "profesi"].includes(name);
         const formattedValue = shouldConvertToUpperCase ? value.toUpperCase() : value;
       
         // Menggunakan switch case untuk menentukan variabel mana yang akan diubah
         switch (name) {
             case 'nama':
                 setNama(formattedValue);
+                break;
+            case 'profesi':
+                  setProfesi(formattedValue);
                 break;
             case 'tempat_lahir':
                 setTempatLahir(formattedValue);
@@ -134,6 +142,9 @@ const EditDataDiri = () => {
                 break;
             case 'sosial_media':
                 setSosialMedia(value);
+                break;
+            case 'twitter':
+                  setTwitter(value);
                 break;
             case 'linkedin':
                 setLinkedin(formattedValue);
@@ -155,12 +166,34 @@ const EditDataDiri = () => {
         }
       };
       
+      const [fileError, setFileError] = useState('');
       const loadImage = (e) => {
         const selectedFile = e.target.files[0];
-        if (selectedFile) {
+
+        // Validasi tipe file
+        const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+        const fileType = selectedFile ? selectedFile.type : '';
+
+        // Validasi ukuran file
+        const maxSize = 5 * 1024 * 1024; // 5 MB
+        const fileSize = selectedFile ? selectedFile.size : 0;
+
+        let error = '';
+
+        if (!allowedTypes.includes(fileType.toLowerCase())) {
+          error = 'Invalid file type. Please upload an image (png, jpg, jpeg).';
+        } else if (fileSize > maxSize) {
+          error = 'File size must be less than 5 MB.';
+        }
+
+        // Set file dan preview jika valid
+        if (!error) {
           setFile(selectedFile);
           setPreview(URL.createObjectURL(selectedFile));
         }
+
+        // Set pesan error jika tidak valid
+        setFileError(error);
       };
 
       const handleStatusChange = (e) => {
@@ -184,12 +217,15 @@ const EditDataDiri = () => {
         return;
       }
 
+      setIsSubmitting(true);
+
         try {
 
           const formDataObject = new FormData();
 
           // Memasukkan data ke dalam FormData
           formDataObject.append('nama', nama);
+          formDataObject.append('profesi', profesi);
           formDataObject.append('tempat_lahir', tempat_lahir);
           formDataObject.append('tanggal_lahir', tanggal_lahir);
           formDataObject.append('alamat', alamat);
@@ -197,6 +233,7 @@ const EditDataDiri = () => {
           formDataObject.append('telp', telp);
           formDataObject.append('email', email);
           formDataObject.append('sosial_media', sosial_media);
+          formDataObject.append('twitter', twitter);
           formDataObject.append('linkedin', linkedin);
           formDataObject.append('deskripsi', deskripsi);
           formDataObject.append('file', file);
@@ -214,12 +251,20 @@ const EditDataDiri = () => {
               },
           });
 
-          alert("Your personal data updated successfully !");
-          navigate('/data_diri');
+          setSuccessMessage("Your Personal Data Updated Successfully!");
+          // Show success message for 2 seconds before navigating
+          setTimeout(() => {
+            navigate("/data_diri");
+          }, 2000);
 
         } catch (error) {
             console.log(error);
-            alert("Cannot update your data, please try again");
+            setErrorMessage("Cannot Update Your Personal Data Input, Please Try Again");
+            setTimeout(() => {
+              setErrorMessage("");
+            }, 4000);
+        } finally {
+          setIsSubmitting(false); // Menandakan bahwa permintaan telah selesai
         }
     };
 
@@ -235,10 +280,20 @@ const EditDataDiri = () => {
               <div class="section-title d-flex justify-content-between align-items-center">
                 <h2>Edit Your Personal Data</h2>
               </div>
+              {successMessage && (
+                <div className="alert alert-success" role="alert">
+                  {successMessage}
+                </div>
+              )}
+              {errorMessage && (
+                <div className="alert alert-danger" role="alert">
+                  {errorMessage}
+                </div>
+              )}  
                 <form onSubmit={saveDataDiri} class="php-email-form">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label for="name">Name</label>
+                            <label for="name"><h5>Name</h5></label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -251,7 +306,7 @@ const EditDataDiri = () => {
                             />
                         </div>
                         <div className="form-group col-md-6">
-                          <label className="label">Profile Picture</label>
+                          <label className="label"><h5>Profile Picture</h5></label>
                             <div className="control">
                                 <div className="file">
                                     <label className="file-label">
@@ -261,6 +316,8 @@ const EditDataDiri = () => {
                                             onChange={loadImage}
                                         />
                                     </label>
+                                    <br/>
+                                      {fileError && <span style={{ color: 'red' }}>{fileError}</span>}
                                 </div>
                             </div>
                         </div>
@@ -283,8 +340,9 @@ const EditDataDiri = () => {
                                 </figure>
                             </div>
                         )}
+
                         <div class="form-group">
-                            <label for="name">Self Introduction</label>
+                            <label for="name"><h5>Self Introduction</h5></label>
                             <textarea
                                 className="form-control"
                                 id="deskripsi"
@@ -298,7 +356,7 @@ const EditDataDiri = () => {
                             <p> {deskripsi.length} / {maxDeskripsiLength} </p>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="name">Birth Place</label>
+                            <label for="name"><h5>Birth Place</h5></label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -311,7 +369,20 @@ const EditDataDiri = () => {
                             />
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="name">Birth Date</label>
+                            <label for="name"><h5>Profession</h5></label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="profesi"
+                                name="profesi"
+                                value={profesi}
+                                onChange={handleDataDiriChange}
+                                placeholder="Enter your current profession"
+                                required
+                            />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="name"><h5>Birth Date</h5></label>
                             <input
                                 type="date"
                                 className="form-control"
@@ -324,7 +395,7 @@ const EditDataDiri = () => {
                             />
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="name">Address</label>
+                            <label for="name"><h5>Address</h5></label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -337,7 +408,7 @@ const EditDataDiri = () => {
                             />
                         </div>
                         <div className="form-group col-md-6">
-                          <label for="name">Marriage Status</label>
+                          <label for="name"><h5>Marriage Status</h5></label>
                           <select
                               className="form-control"
                               id="status"
@@ -347,12 +418,12 @@ const EditDataDiri = () => {
                               required
                           >
                               <option value="">Select Marriage Status</option>
-                              <option value="Menikah">Menikah</option>
-                              <option value="Belum Menikah">Belum Menikah</option>
+                              <option value="Menikah">MENIKAH</option>
+                              <option value="Belum Menikah">BELUM MENIKAH</option>
                           </select>
                       </div>
                         <div class="form-group col-md-6">
-                            <label for="name">Email</label>
+                            <label for="name"><h5>Email</h5></label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -366,7 +437,7 @@ const EditDataDiri = () => {
                             {emailError && <span style={{ color: 'red' }}>{emailError}</span>}
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="name">Phone Number</label>
+                            <label for="name"><h5>Phone Number</h5></label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -380,7 +451,7 @@ const EditDataDiri = () => {
                             {telpError && <span style={{ color: 'red' }}>{telpError}</span>}
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="name">Social Media</label>
+                            <label for="name"><h5>Instagram</h5></label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -388,12 +459,12 @@ const EditDataDiri = () => {
                                 name="sosial_media"
                                 value={sosial_media}
                                 onChange={handleDataDiriChange}
-                                placeholder="Enter your social media (instagram/twitter/facebook)"
+                                placeholder="Enter your instagram username"
                                 required
                             />
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="name">Linked In</label>
+                            <label for="name"><h5>Linked In</h5></label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -405,10 +476,23 @@ const EditDataDiri = () => {
                                 required
                             />
                         </div>
+                        <div class="form-group col-md-6">
+                            <label for="name"><h5>Twitter</h5></label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="twitter"
+                                name="twitter"
+                                value={twitter}
+                                onChange={handleDataDiriChange}
+                                placeholder="Enter your twitter username"
+                                required
+                            />
+                        </div>
                     </div>
                     <div class="text-center">
-                      <button className="btn btn-secondary mt-5 me-3" onClick={handleCancelClick}>Cancel</button>
-                      <button class="btn btn-primary mt-5" type="submit">Save Change</button>
+                      <button className="btn btn-secondary mt-5 me-3" onClick={handleCancelClick} disabled={isSubmitting}>Cancel</button>
+                      <button class="btn btn-primary mt-5" type="submit" disabled={isSubmitting}>{isSubmitting ? "Saving..." : "Save Change"}</button>
                     </div>
                 </form>
             </div>

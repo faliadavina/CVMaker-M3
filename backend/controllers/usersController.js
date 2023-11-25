@@ -7,8 +7,11 @@ import bcrypt from 'bcryptjs';
 // Create user
 export const createUser = async (req, res) => {
     try {
-        const { nama, tempat_lahir, tanggal_lahir, alamat, status, telp, sosial_media, linkedin, deskripsi } = req.body;
+        const { nama, profesi, tempat_lahir, tanggal_lahir, alamat, status, telp, sosial_media, twitter, linkedin, deskripsi } = req.body;
         const { id_akun } = req.params;
+        const link_sosmed = `https://www.instagram.com/${sosial_media}/`;
+        const link_twitter = `https://twitter.com/${twitter}/`;
+
         const userAccountById = await AkunDB.findOne({
             where:{
                 id_akun : id_akun
@@ -41,6 +44,7 @@ export const createUser = async (req, res) => {
                 const newUser = await UserDB.create({
                     id_akun,
                     nama,
+                    profesi,
                     tempat_lahir,
                     tanggal_lahir,
                     alamat,
@@ -48,11 +52,14 @@ export const createUser = async (req, res) => {
                     telp,
                     email,
                     sosial_media,
+                    twitter,
                     linkedin,
                     deskripsi,
                     profile_title : profile_title,
                     profile_pict : fileName,
-                    url: url
+                    url: url,
+                    link_sosmed : link_sosmed,
+                    link_twitter : link_twitter
                 });
         
                 res.json(newUser);
@@ -100,6 +107,9 @@ export const updateUser = async (req, res) => {
       const { id_akun } = req.params;
       const fieldsToUpdate = req.body;
   
+      const link_sosmed = `https://www.instagram.com/${fieldsToUpdate.sosial_media}/`;
+      const link_twitter = `https://twitter.com/${fieldsToUpdate.twitter}/`;
+
       const user = await UserDB.findOne({
         where: {
           id_akun: id_akun
@@ -140,6 +150,8 @@ export const updateUser = async (req, res) => {
       const url = `${req.protocol}://${req.get("host")}/profilePict/${fileName}`;
       user.url = url;
       user.profile_pict = fileName;
+      user.link_sosmed = link_sosmed;
+      user.link_twitter = link_twitter;
   
       // Update the specified fields
       for (const field in fieldsToUpdate) {

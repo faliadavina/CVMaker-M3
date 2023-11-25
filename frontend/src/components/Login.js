@@ -82,11 +82,7 @@ const Login = () => {
       >
         <NavbarLogin />
         <div className="container h-100 d-flex justify-content-center align-items-center">
-          <form
-            onSubmit={Auth}
-            className="card p-4"
-            style={{ maxWidth: "800px" }}
-          >
+        <form onSubmit={Auth} className="card p-4" style={{ width: "80%", maxWidth: "400px", marginTop:"-100px" }}>
             <h3 className="mb-4 text-center">Sign In</h3>
             {isError && message && <p className="error-message">{message}</p>}
             <div className="mb-3">
@@ -127,9 +123,7 @@ const Login = () => {
                   style={{ backgroundColor: "#f0f0f0" }}
                 />
                 <div
-                  className={`password-toggle ${
-                    passwordError ? "error" : ""
-                  }`}
+                  className={`password-toggle ${passwordError ? "error" : ""}`}
                   onClick={togglePasswordVisibility}
                 >
                   {showPassword ? <BsEyeSlashFill /> : <BsEyeFill />}
@@ -150,13 +144,14 @@ const Login = () => {
             </div>
             <div className="register-link">
               <span style={{ marginRight: "8px" }}>
-                Don't Have an Account Yet?
-              </span>
-              <span>
+                Don't Have an Account Yet?   <>&nbsp;</>
                 <Link to="/register" className="sign-up">
-                  Sign Up Here
+                   Sign Up Here
                 </Link>
               </span>
+            </div>
+            <div className="forgot-password">
+              <Link to ="/forgot-password" className="forgot-pw"><span>Forgot Password?</span></Link>
             </div>
           </form>
         </div>

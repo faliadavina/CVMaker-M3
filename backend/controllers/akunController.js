@@ -149,3 +149,30 @@ export const deleteAkun = async(req, res)=>{
         console.log(error.message);
     }
 }
+
+export const forgotPassword = async (req, res) => {
+  const { email, newPassword } = req.body;
+
+  try {
+    // Check if the email exists in the database
+    const existingUser = await AkunDB.findOne({ where: { email } });
+
+    if (!existingUser) {
+      return res.status(404).json({ msg: "Email not found" });
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the password for the user with the matching email
+    await AkunDB.update(
+      { password: hashedPassword },
+      { where: { email } }
+    );
+
+    return res.status(200).json({ msg: "Password updated successfully" });
+  } catch (error) {
+    console.error("Error in forgotPassword:", error.message);
+    return res.status(500).json({ msg: "Internal Server Error" });
+  }
+};

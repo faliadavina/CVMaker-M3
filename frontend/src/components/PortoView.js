@@ -43,37 +43,44 @@ const PortoView = () => {
 
   return (
     <body>
-        <section id="uploadPorto" className="portfolio">
+       <section id="Porto" className="portfolio">
+        <div className="container">
+          <div className="section-title">
+            <h2>Portfolio</h2>
+          </div>
+
           <div className="container">
-
-            <div className="section-title">
-              <h2>Portfolio Section</h2>
+            {portofolios === null || portofolios.length === 0 ? (
+            <div class="title d-flex justify-content-center align-items-center text-center mt-5">
+              <h5></h5>
             </div>
-
-            <div className="container">
-              {portofolios === null || portofolios.length === 0 ? (
-                <div className="container text-center contStyle">
-                  <h3>No Data Portofolio Available, Please Add Data First</h3>
-                </div>
-              ) : (
-                <div className="container">
-                  <div className="row">
-                    {portofolios.map((portofolio) => (
-                      <div className="col-md-6 mx-auto" key={portofolio.id_porto}>
-                        <div className="card porto" style={{ marginBottom: '15px' }}>
-                          {renderPortofolioContent(portofolio.url)}
-                          <div className="deskripsi">
-                            <p>{portofolio.deskripsi}</p>
-                          </div>
+            ) : (
+              <div className="container">
+                <div className="row">
+                  {portofolios.map((portofolio) => (
+                    <div className="col-md-6 mx-auto" key={portofolio.id_porto}>
+                      <div
+                        className="card porto"
+                        style={{
+                          marginBottom: "15px",
+                          height: "300px",
+                          width: "300px",
+                          marginRight: "50px",
+                        }}
+                      >
+                        {renderPortofolioContent(portofolio.url)}
+                        <div className="deskripsi">
+                          <p>{portofolio.deskripsi}</p>
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
-        </section>
+        </div>
+      </section>
     </body>
   );
 }

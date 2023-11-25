@@ -26,6 +26,8 @@ import GenerateCV from "./pages/GenerateCVPage";
 import MenuCV from "./pages/MenuCvPage";
 import Template1 from "./pages/CVTemplate1Page";
 import Template3 from "./components/CVTemplate3/CVTemplate3";
+import Template4 from "./pages/CVTemplate4Page";
+
 
 function App() {
   return (
@@ -61,6 +63,7 @@ function App() {
         <Route path="/:id_akun" element={<PageView />} />
         <Route path="/cv-template-1" element={<Template1 />} />
         <Route path="/cv-template-3" element={<Template3 />} />
+        <Route path="/cv-template-4" element={<Template4 />} />
       </Routes>
     </BrowserRouter>
   );

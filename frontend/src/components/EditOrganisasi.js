@@ -46,12 +46,12 @@ const EditOrganisasi = () => {
   }, [id_akun, id_org]);
 
   const handleNamaOrganisasiChange = (value) => {
-    setNamaOrganisasi(value);
+    setNamaOrganisasi(value.toUpperCase());
     clearErrorMessage();
   };
 
   const handleJabatanChange = (value) => {
-    setJabatan(value);
+    setJabatan(value.toUpperCase());
     clearErrorMessage();
   };
 
@@ -104,6 +104,11 @@ const EditOrganisasi = () => {
       return;
     }
 
+    if (parseInt(periodeAwal) > parseInt(periodeAkhir)) {
+      setErrorMsg("Periode Awal atau Periode Akhir tidak sesuai.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -141,7 +146,7 @@ const EditOrganisasi = () => {
 
   return (
     <div>
-      <section id="editOrganisasi" className="organisasi">
+      <section id="editOrganisasi" className="editOrganisasi">
         <div className="container">
           <div className="section-title">
             <h2>Edit Organization</h2>
@@ -166,6 +171,7 @@ const EditOrganisasi = () => {
                       }
                       type="text"
                       className="form-control"
+                      style={{ textTransform: 'uppercase' }}
                       placeholder="Nama Organisasi"
                     />
                   </label>
@@ -179,6 +185,7 @@ const EditOrganisasi = () => {
                       onChange={(e) => handleJabatanChange(e.target.value)}
                       type="text"
                       className="form-control"
+                      style={{ textTransform: 'uppercase' }}
                       placeholder="Jabatan"
                     />
                   </label>
@@ -237,9 +244,7 @@ const EditOrganisasi = () => {
                   </label>
                 </div>
 
-                {errorMsg && (
-                  <p className="text-center text-danger">{errorMsg}</p>
-                )}
+               
 
                 <div className="text-center">
                   <button

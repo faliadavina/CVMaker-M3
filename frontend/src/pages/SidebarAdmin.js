@@ -39,7 +39,7 @@ const SidebarAdmin = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/akun/${id_akun}`);
+        const response = await axios.get(`http://194.233.93.124:8000/akun/${id_akun}`);
         const { username } = response.data.akunById;
         setUserData({ username });
       } catch (error) {

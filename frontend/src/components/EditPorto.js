@@ -14,7 +14,7 @@ const EditPorto = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/porto/${id_porto}`);
+                const response = await axios.get(`http://194.233.93.124:8000/porto/${id_porto}`);
                 setTitle(response.data.deskripsi);
                 setFile(response.data.portofolio);
             } catch (error) {
@@ -61,7 +61,7 @@ const EditPorto = () => {
         formData.append("title", title);
 
         try {
-            await axios.patch(`http://localhost:5000/porto/${id_porto}`, formData, {
+            await axios.patch(`http://194.233.93.124:8000/porto/${id_porto}`, formData, {
                 headers: {
                     "Content-type": "multipart/form-data",
                 },

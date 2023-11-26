@@ -22,7 +22,7 @@ const GenerateCV= () => {
   const getUsers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/${id_akun}`
+        `http://194.233.93.124:8000/users/${id_akun}`
       );
       setUsers(response.data);
     } catch (error) {
@@ -44,7 +44,7 @@ const GenerateCV= () => {
   const getSkills = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/skills/akun/${id_akun}`
+        `http://194.233.93.124:8000/skills/akun/${id_akun}`
       );
       setSkill(response.data);
 
@@ -72,7 +72,7 @@ const GenerateCV= () => {
     const fetchDataOrganisasi = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/organisasi-by-id-akun/${id_akun}`
+          `http://194.233.93.124:8000/organisasi-by-id-akun/${id_akun}`
         );
         setOrganisasi(response.data);
       } catch (error) {
@@ -93,7 +93,7 @@ const GenerateCV= () => {
   const getPorto = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/porto/${id_akun}`
+        `http://194.233.93.124:8000/porto/${id_akun}`
       );
       setPorto(response.data);
     } catch (error) {
@@ -135,7 +135,7 @@ const GenerateCV= () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/pendidikan/akun/${id_akun}`
+          `http://194.233.93.124:8000/pendidikan/akun/${id_akun}`
         );
 
         // Pastikan respons dari API berupa array atau ubah sesuai kebutuhan

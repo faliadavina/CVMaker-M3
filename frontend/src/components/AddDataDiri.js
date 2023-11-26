@@ -35,7 +35,7 @@ const AddDataDiri = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/akun/${id_akun}`
+          `http://194.233.93.124:8000/akun/${id_akun}`
         );
 
         // Mengatur email sebagai nilai awal dari data akun
@@ -195,7 +195,7 @@ const AddDataDiri = () => {
       }
 
       await axios.patch(
-        `http://localhost:5000/akun/${id_akun}`,
+        `http://194.233.93.124:8000/akun/${id_akun}`,
         { email: email },
         {
           headers: {
@@ -204,7 +204,7 @@ const AddDataDiri = () => {
         }
       );
       await axios.post(
-        `http://localhost:5000/users/${id_akun}`,
+        `http://194.233.93.124:8000/users/${id_akun}`,
         formDataObject,
         {
           headers: {

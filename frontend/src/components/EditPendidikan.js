@@ -29,7 +29,7 @@ const EditPendidikan = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/pendidikan/akun/${id_akun}/pendidikan/${id_pend}`
+          `http://194.233.93.124:8000/pendidikan/akun/${id_akun}/pendidikan/${id_pend}`
           );
         const dataPendidikan = response.data.pendidikan;
         setJenjang(dataPendidikan.jenjang);
@@ -110,7 +110,7 @@ const EditPendidikan = () => {
     setIsSubmitting(true);
 
     try {
-      await axios.patch(`http://localhost:5000/pendidikan/${id_pend}`, {
+      await axios.patch(`http://194.233.93.124:8000/pendidikan/${id_pend}`, {
         jenjang: jenjang,
         nama_sekolah: nama_sekolah,
         jurusan: jurusan,

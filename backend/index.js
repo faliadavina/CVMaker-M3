@@ -13,7 +13,7 @@ const app = express();
 //middlewares
 app.use(cors({
   credentials: true,
-  origin: 'http://localhost:3000'
+  origin: 'http://194.233.93.124:3000'
 }));
 
 app.use(express.json());
@@ -30,6 +30,6 @@ app.use(AuthRoute);
 // Menyajikan file statis dari folder 'public'
 app.use('/profilePict', express.static('public/profilePict'));
 
-app.listen(5000, () => {
-  console.log("Server is running on port 5000");
+app.listen(8000, () => {
+  console.log("Server is running on port 8000");
 });

@@ -85,7 +85,7 @@ const AddOrganisasi = () => {
     setIsSubmitting(true);
 
     try {
-      await axios.post(`http://localhost:5000/organisasi/${id}`, {
+      await axios.post(`http://194.233.93.124:8000/organisasi/${id}`, {
         id_akun: id,
         nama_organisasi: namaOrganisasi,
         jabatan: jabatan,

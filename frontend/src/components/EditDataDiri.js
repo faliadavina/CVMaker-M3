@@ -22,7 +22,7 @@ const EditDataDiri = () => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get(`http://localhost:5000/akun/${id_akun}`);
+            const response = await axios.get(`http://194.233.93.124:8000/akun/${id_akun}`);
 
             // Mengatur email sebagai nilai awal dari data akun
             setEmail(response.data.akunById.email);
@@ -70,7 +70,7 @@ const EditDataDiri = () => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get(`http://localhost:5000/users/${id_akun}`);
+            const response = await axios.get(`http://194.233.93.124:8000/users/${id_akun}`);
             console.log(response.data);
 
             // Mengatur data-data pada data diri sebagai nilai awal
@@ -238,14 +238,14 @@ const EditDataDiri = () => {
           formDataObject.append('deskripsi', deskripsi);
           formDataObject.append('file', file);
 
-          await axios.patch(`http://localhost:5000/akun/${id_akun}`,{ email: email },{
+          await axios.patch(`http://194.233.93.124:8000/akun/${id_akun}`,{ email: email },{
             headers: {
               'Content-Type': 'application/json',
               },
             }
           );
 
-          await axios.patch(`http://localhost:5000/users/${id_akun}`, formDataObject , {
+          await axios.patch(`http://194.233.93.124:8000/users/${id_akun}`, formDataObject , {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },

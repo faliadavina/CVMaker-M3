@@ -26,7 +26,7 @@ const PageView2 = () => {
   const getUsers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/${decryptedIdAkun}`
+        `http://194.233.93.124:8000/users/${decryptedIdAkun}`
       );
       setUsers(response.data);
     } catch (error) {
@@ -50,7 +50,7 @@ const PageView2 = () => {
   const getSkills = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/skills/akun/${decryptedIdAkun}`
+        `http://194.233.93.124:8000/skills/akun/${decryptedIdAkun}`
       );
       setSkill(response.data);
 
@@ -78,7 +78,7 @@ const PageView2 = () => {
     const fetchOrganisasi = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/organisasi/akun/${decryptedIdAkun}`
+          `http://194.233.93.124:8000/organisasi/akun/${decryptedIdAkun}`
         );
 
         console.log("Raw response:", response);
@@ -109,7 +109,7 @@ const PageView2 = () => {
   const getPorto = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/porto/${decryptedIdAkun}`
+        `http://194.233.93.124:8000/porto/${decryptedIdAkun}`
       );
       setPorto(response.data);
     } catch (error) {
@@ -151,7 +151,7 @@ const PageView2 = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/pendidikan/akun/${decryptedIdAkun}`
+          `http://194.233.93.124:8000/pendidikan/akun/${decryptedIdAkun}`
         );
 
         // Pastikan respons dari API berupa array atau ubah sesuai kebutuhan

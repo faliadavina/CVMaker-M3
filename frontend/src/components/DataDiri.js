@@ -20,7 +20,7 @@ const DataDiri = () => {
   const getUsers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/${id_akun}`
+        `http://194.233.93.124:8000/users/${id_akun}`
       );
       setUsers(response.data);
     } catch (error) {

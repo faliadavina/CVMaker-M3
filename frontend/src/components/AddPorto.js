@@ -69,7 +69,7 @@ const AddPorto = () => {
     setIsSubmitting(true);
 
     try {
-      await axios.post(`http://localhost:5000/porto/${id}`, formData, {
+      await axios.post(`http://194.233.93.124:8000/porto/${id}`, formData, {
         headers: {
           "Content-type": "multipart/form-data",
         },

@@ -13,7 +13,7 @@ const OrganisasiView = () => {
   const getOrganisasi = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/organisasi/akun/${accountId}`
+        `http://194.233.93.124:8000/organisasi/akun/${accountId}`
       );
       setOrganisasi(response.data.organisasi);
     } catch (error) {

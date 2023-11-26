@@ -15,7 +15,7 @@ const LandingPageMain = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/users");
+                const response = await axios.get("http://194.233.93.124:8000/users");
                 setUsers(response.data);
                 setLoading(false);
             } catch (error) {
@@ -73,7 +73,7 @@ const LandingPageMain = () => {
                                         </p>
                                         <div className="zoom-image" style={{ overflow: "hidden" }}>
                                             <img
-                                                src={`http://localhost:5000/profilePict/${user.profile_pict}`}
+                                                src={`http://194.233.93.124:8000/profilePict/${user.profile_pict}`}
                                                 className="testimonial-img"
                                                 alt=""
                                             />

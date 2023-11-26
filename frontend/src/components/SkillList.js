@@ -36,7 +36,7 @@ const SkillList = () => {
   const getSkills = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/skills/akun/${id}`
+        `http://194.233.93.124:8000/skills/akun/${id}`
       );
       setSkill(response.data);
 
@@ -72,7 +72,7 @@ const SkillList = () => {
   const deleteSkill = async (skillId) => {
     try {
       hideDeleteConfirmationModal(); // Hide the modal after successful deletion
-      await axios.delete(`http://localhost:5000/skills/${skillId}`);
+      await axios.delete(`http://194.233.93.124:8000/skills/${skillId}`);
       getSkills();
       setSuccessMessage("Skill deleted successfully!");
       setErrorMessage("");
@@ -105,11 +105,11 @@ const SkillList = () => {
   const deleteSelectedSkills = async () => {
     try {
       for (const skillId of selectedSoftSkills) {
-        await axios.delete(`http://localhost:5000/skills/${skillId}`);
+        await axios.delete(`http://194.233.93.124:8000/skills/${skillId}`);
       }
 
       for (const skillId of selectedHardSkills) {
-        await axios.delete(`http://localhost:5000/skills/${skillId}`);
+        await axios.delete(`http://194.233.93.124:8000/skills/${skillId}`);
       }
 
       getSkills();

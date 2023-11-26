@@ -21,7 +21,7 @@ const Portfolio = () => {
 
   const getPorto = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/porto/${id}`);
+      const response = await axios.get(`http://194.233.93.124:8000/porto/${id}`);
       setPorto(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -58,7 +58,7 @@ const Portfolio = () => {
   // ============= CODE FOR DELETE DATA =============
   const deletePorto = async (portoID) => {
     try {
-      await axios.delete(`http://localhost:5000/porto/${portoID}`);
+      await axios.delete(`http://194.233.93.124:8000/porto/${portoID}`);
       getPorto();
     } catch (error) {
       console.log(error);
@@ -77,7 +77,7 @@ const Portfolio = () => {
     try {
       // Menghapus portofolio yang dipilih satu per satu
       for (const portoId of selectedPortofolios) {
-        await axios.delete(`http://localhost:5000/porto/${portoId}`);
+        await axios.delete(`http://194.233.93.124:8000/porto/${portoId}`);
       }
       getPorto(); // Ambil data portofolio setelah menghapus
       setSelectedPortofolios([]); // Kosongkan daftar yang dipilih

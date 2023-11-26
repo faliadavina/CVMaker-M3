@@ -26,7 +26,7 @@ const Template3 = () => {
   const getUsers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/${id_akun}`
+        `http://194.233.93.124:8000/users/${id_akun}`
       );
       setUsers(response.data);
     } catch (error) {
@@ -49,7 +49,7 @@ const Template3 = () => {
   const getSkills = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/skills/akun/${id_akun}`
+        `http://194.233.93.124:8000/skills/akun/${id_akun}`
       );
       setSkill(response.data);
 
@@ -77,7 +77,7 @@ const Template3 = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/pendidikan/akun/${id_akun}`
+          `http://194.233.93.124:8000/pendidikan/akun/${id_akun}`
         );
 
         // Pastikan respons dari API berupa array atau ubah sesuai kebutuhan
@@ -97,7 +97,7 @@ const Template3 = () => {
     const fetchOrganisasi = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/organisasi/akun/${id_akun}`
+          `http://194.233.93.124:8000/organisasi/akun/${id_akun}`
         );
       
           console.log("Raw response:", response);
@@ -129,7 +129,7 @@ const Template3 = () => {
   const getPorto = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/porto/${id_akun}`
+        `http://194.233.93.124:8000/porto/${id_akun}`
       );
       setPorto(response.data);
     } catch (error) {

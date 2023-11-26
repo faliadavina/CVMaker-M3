@@ -21,7 +21,7 @@ const SkillView = () => {
   const getSkills = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/skills/akun/${accountId}`
+        `http://194.233.93.124:8000/skills/akun/${accountId}`
       );
       setSkill(response.data);
 

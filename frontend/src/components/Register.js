@@ -151,7 +151,7 @@ const Register = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const response = await axios.post("http://localhost:5000/akun", {
+        const response = await axios.post("http://194.233.93.124:8000/akun", {
           username: values.username,
           email: values.email,
           password: values.password,

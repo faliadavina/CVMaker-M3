@@ -14,7 +14,7 @@ const DataView = () => {
   const getUsers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/${accountId}`
+        `http://194.233.93.124:8000/users/${accountId}`
       );
       setUsers(response.data);
     } catch (error) {

@@ -46,7 +46,7 @@ const Sidebar = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/users/${id_akun}`);
+        const response = await axios.get(`http://194.233.93.124:8000/users/${id_akun}`);
         console.log(response.data);
         const username = response.data.nama;
         const profileImage = response.data.url;

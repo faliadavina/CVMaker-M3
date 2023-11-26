@@ -19,9 +19,9 @@ const MenuCV = () => {
 
   const templatesCreative = [
     { id: 3, title: "Lilac Serenity", imageUrl: "/img/cv/cv_3.png" },
-    { id: 4, title: "Creative Template 2", imageUrl: "/img/cv/cv_1.jpg" },
+    { id: 4, title: "NavyOR CV", imageUrl: "/img/cv/cv_4.png" },
     { id: 5, title: "Creative Template 3", imageUrl: "/img/cv/cv_5.png" },
-    { id: 6, title: "Creative Template 4", imageUrl: "/img/cv/cv_1.jpg" },
+    { id: 6, title: "Creative Template 4", imageUrl: "/img/cv/cv_6.png" },
   ];
 
   const selectedTemplates = activeButton === "ATS" ? templatesATS : templatesCreative;

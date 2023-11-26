@@ -76,9 +76,6 @@
 }
 
 @media print {
-  @page {
-    size: A4; /* or specify your preferred paper size, e.g., letter, legal, etc. */
-  }
 
   body * {
     visibility: hidden;

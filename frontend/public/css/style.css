@@ -1517,6 +1517,14 @@ input.form-check-input:checked {
   display: block;
 }
 
+/* Media query for smaller screens */
+@media (max-width: 1300px) {
+  .porto {
+    width: 100%; /* Set width to 100% for single column layout */
+    margin-left: 0; /* Remove negative margin */
+  }
+}
+
 .conStyle {
   display: flex;
   flex-direction: column;
@@ -1524,7 +1532,7 @@ input.form-check-input:checked {
 }
 
 .add {
-  width: 700px;
+  width: 550px;
   height: 300px;
   border: 1px solid #ccc;
   padding: 10px;

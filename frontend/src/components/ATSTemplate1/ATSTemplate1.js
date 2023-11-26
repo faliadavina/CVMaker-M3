@@ -176,52 +176,45 @@ const GenerateCV = () => {
         <p className="mr-1">Download CV as PDF</p>
       </button>
       <div className="page-ats-1">
-        <header>
-          <div className="header-container">
-            {/* Check if data_diri is not null before accessing its properties */}
-            {data_diri ? (
-              <>
-                <img src={data_diri.url} alt="Your Name" className="img-cv" />
-                <h1 className="text" id="title-name">
-                  {data_diri.nama ? data_diri.nama : "No Data"}
-                </h1>
-                <p className="detail-ats-1">
-                  Alamat :{" "}
-                  <span className="text" id="ats-1">
-                    {data_diri.alamat}
-                  </span>{" "}
-                  | Email: {data_diri.email} | Phone: {data_diri.telp} <br /> LinkedIn:{" "}
-                  <a className="text-sosial-media" id="ats-1" href={`https://www.linkedin.com/in/${data_diri.linkedin}`}>
-                    @{data_diri.linkedin}
-                  </a>{" "}
-                  | Instagram:{" "}
-                  <a className="text-sosial-media" id="ats-1" href={`https://www.instagram.com/${data_diri.sosial_media}`}>
-                    @{data_diri.sosial_media}
-                  </a>{" "}
-                  | Twitter:{" "}
-                  <a className="text-sosial-media" id="ats-1" href={`https://www.twitter.com/${data_diri.twitter}`}>
-                    @{data_diri.twitter}
-                  </a>
-                </p>
-              </>
-            ) : (
-              <h3 className="text">Personal Data Has Not Been Added</h3>
-            )}
-          </div>
-        </header>
-        <br />
-        <br />
-        <section className="section" id="text-content">
-          <h3>TENTANG SAYA</h3>
-          {data_diri && data_diri.deskripsi ? data_diri.deskripsi : "Description not available."}
-        </section>
+        <div className="header-container-ats-1">
+          {/* Check if data_diri is not null before accessing its properties */}
+          {data_diri ? (
+            <>
+              <img src={data_diri.url} alt="Your Name" className="img-cv-ats-1" />
+              <p className="title-name-ats-1">{data_diri.nama ? data_diri.nama : "No Data"}</p>
+              <p className="detail-ats-1">
+                Alamat : {data_diri.alamat} | Email: {data_diri.email} | Phone: {data_diri.telp} <br /> LinkedIn:{" "}
+                <a className="text-social-ats-1" href={`https://www.linkedin.com/in/${data_diri.linkedin}`}>
+                  @{data_diri.linkedin}
+                </a>{" "}
+                | Instagram:{" "}
+                <a className="text-social-ats-1" href={`https://www.instagram.com/${data_diri.sosial_media}`}>
+                  @{data_diri.sosial_media}
+                </a>{" "}
+                | Twitter:{" "}
+                <a className="text-social-ats-1" href={`https://www.twitter.com/${data_diri.twitter}`}>
+                  @{data_diri.twitter}
+                </a>
+              </p>
+            </>
+          ) : (
+            <h3 className="detail-ats-1">Personal Data Has Not Been Added</h3>
+          )}
+        </div>
 
-        <section className="section" id="space">
-          <h3>PENDIDIKAN</h3>
+        <br />
+        <br />
+        <div className="detail-ats-1" id="section-area-ats-1">
+          <h3 className="section-ats-1-h3">TENTANG SAYA</h3>
+          <p> {data_diri && data_diri.deskripsi ? data_diri.deskripsi : "Description not available."}</p>
+        </div>
+
+        <div className="detail-ats-1" id="section-area-ats-1">
+          <h3 className="section-ats-1-h3">PENDIDIKAN</h3>
           {sortedPendidikan.length === 0 ? (
             <p>Pendidikan Data Has Not Been Added</p>
           ) : (
-            <ul className="Pendidikan">
+            <ul className="section-ul-ats-1">
               {sortedPendidikan.map((pendidikan, index) => (
                 <li key={index}>
                   <div className="row">
@@ -244,14 +237,14 @@ const GenerateCV = () => {
               ))}
             </ul>
           )}
-        </section>
+        </div>
 
-        <section className="section" id="space">
-          <h3>PENGALAMAN ORGANISASI</h3>
+        <div className="detail-ats-1" id="section-area-ats-1">
+          <h3 className="section-ats-1-h3">PENGALAMAN ORGANISASI</h3>
           {organisasi.length === 0 ? (
             <p>Pengalaman Organisasi Has Not Been Added</p>
           ) : (
-            <ul className="Organisasi">
+            <ul className="section-ul-ats-1">
               {organisasi.map((organisasi, index) => (
                 <li key={index}>
                   <div className="row">
@@ -268,23 +261,21 @@ const GenerateCV = () => {
               ))}
             </ul>
           )}
-        </section>
+        </div>
 
-        <section className="section" id="space">
-          <h3>SKILL</h3>
+        <div className="detail-ats-1" id="section-area-ats-1">
+          <h3 className="section-ats-1-h3">SKILL</h3>
           {softSkills.length === 0 && hardSkills.length === 0 ? (
             <p>Skill Data Has Not Been Added</p>
           ) : (
             <div className="row">
-              <div className="col-sm-6">
+              <div className="col-sm-6 ">
                 <strong>Soft Skill</strong>
                 <br />
                 {softSkills.length > 0 ? (
-                  <ul className="Skill">
+                  <ul className="section-ul-ats-1">
                     {softSkills.map((softSkill, index) => (
-                      <li key={index} className="skill-name" id="text-content">
-                        {softSkill.nama_skill}
-                      </li>
+                      <li key={index}>{softSkill.nama_skill}</li>
                     ))}
                   </ul>
                 ) : (
@@ -296,11 +287,9 @@ const GenerateCV = () => {
                 <strong>Hard Skill</strong>
                 <br />
                 {hardSkills.length > 0 ? (
-                  <ul className="Skill">
+                  <ul className="section-ul-ats-1">
                     {hardSkills.map((hardSkill, index) => (
-                      <li key={index} className="skill-name" id="text-content">
-                        {hardSkill.nama_skill}
-                      </li>
+                      <li key={index}>{hardSkill.nama_skill}</li>
                     ))}
                   </ul>
                 ) : (
@@ -309,14 +298,14 @@ const GenerateCV = () => {
               </div>
             </div>
           )}
-        </section>
+        </div>
 
-        <section className="section" id="space">
-          <h3>PORTOFOLIO</h3>
+        <div className="detail-ats-1" id="section-area-ats-1">
+          <h3 className="section-ats-1-h3">PORTOFOLIO</h3>
           {portofolios.length === 0 ? (
             <p>Portfolio Data Has Not Been Added</p>
           ) : (
-            <ul className="Portofolio">
+            <ul className="section-ul-ats-1">
               {portofolios.map((portofolio, index) => (
                 <li key={index}>
                   <div className="row">
@@ -328,7 +317,7 @@ const GenerateCV = () => {
               ))}
             </ul>
           )}
-        </section>
+        </div>
       </div>
       <button onClick={() => window.scrollTo(0, 0)} className="back-button-cv1" style={{ marginLeft: "50px" }}>
         <FaArrowUp />

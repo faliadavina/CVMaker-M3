@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaPlus } from 'react-icons/fa';
+import { FaPlus, FaEdit } from "react-icons/fa";
 import { Card, Button, Alert, Container, Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
@@ -128,7 +128,7 @@ const OrganisasiList = () => {
             </Col>
             <Col>
               <div className="organisasi-details">
-                <Card.Title>{organisasi.nama_organisasi}</Card.Title>
+                <Card.Title>{organisasi.nama_organisasi.toUpperCase()}</Card.Title>
                 <Card.Subtitle>{`${organisasi.periode_awal} - ${organisasi.periode_akhir}`}</Card.Subtitle>
                 <Card.Text>
                   {organisasi.jabatan}
@@ -141,12 +141,13 @@ const OrganisasiList = () => {
             </Col>
           </Row>
           <div className="card-action">
+            
             <Button
-              variant="primary"
-              onClick={() => handleEditClick(organisasi.id_org)}
-            >
-              <img src="/src/img/edit.png" alt="Edit" />
-            </Button>
+                  onClick={() => handleEditClick(organisasi.id_org)}
+                  className="btn btn-sm edit-button"
+                >
+                  <FaEdit />
+                </Button>
           </div>
         </Card.Body>
       </Card>

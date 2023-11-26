@@ -198,25 +198,25 @@ const Template1 = () => {
 
   return (
     <div className="body-cv1">
-        <Modal show={show} onHide={handleClose} centered>
+      <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Information</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ul>
             <li>
-            only the first 3 educational data will be displayed
+              only the first 3 educational data will be displayed
             </li>
             <li>
-            only the first 3 organization data will be displayed
+              only the first 3 organization data will be displayed
             </li>
             <li>
-            only the first 2 hardskill data will be displayed
+              only the first 2 hardskill data will be displayed
             </li>
             <li>
-            only the first 1 softskill data will be displayed
+              only the first 1 softskill data will be displayed
             </li>
-              
+
           </ul>
         </Modal.Body>
         <Modal.Footer>
@@ -406,7 +406,7 @@ const Template1 = () => {
                           }
                         >
                           {isDescriptionClicked ||
-                          portofolio.deskripsi.length <= 20
+                            portofolio.deskripsi.length <= 20
                             ? portofolio.deskripsi
                             : `${portofolio.deskripsi.substring(0, 20)}...`}
                         </p>
@@ -447,7 +447,7 @@ const Template1 = () => {
                         }
                       >
                         {isDescriptionClicked ||
-                        org.deskripsi_jabatan.length <= 40
+                          org.deskripsi_jabatan.length <= 40
                           ? org.deskripsi_jabatan
                           : `${org.deskripsi_jabatan.substring(0, 40)}...`}
                       </p>
@@ -512,7 +512,7 @@ const Template1 = () => {
                       }
                     >
                       {clickedDescriptions[`hardSkill${index}`] ||
-                      skill.deskripsi.length <= 40
+                        skill.deskripsi.length <= 40
                         ? skill.deskripsi
                         : `${skill.deskripsi.substring(0, 40)}...`}
                     </p>
@@ -567,7 +567,7 @@ const Template1 = () => {
                       }
                     >
                       {clickedDescriptions[`softSkill${index}`] ||
-                      skill.deskripsi.length <= 40
+                        skill.deskripsi.length <= 40
                         ? skill.deskripsi
                         : `${skill.deskripsi.substring(0, 40)}...`}
                     </p>

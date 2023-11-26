@@ -20,12 +20,12 @@ const AddOrganisasi = () => {
   };
 
   const handleNamaOrganisasiChange = (value) => {
-    setNamaOrganisasi(value);
+    setNamaOrganisasi(value.toUpperCase());
     clearErrorMessage();
   };
 
   const handleJabatanChange = (value) => {
-    setJabatan(value);
+    setJabatan(value.toUpperCase());
     clearErrorMessage();
   };
 
@@ -71,6 +71,10 @@ const AddOrganisasi = () => {
 
     if (!periodeAwal) {
       pesanKesalahan.push("Periode Awal tidak boleh kosong.");
+    }
+
+    if (parseInt(periodeAwal) > parseInt(periodeAkhir)) {
+      pesanKesalahan.push("Periode Awal atau Periode Akhir tidak sesuai.");
     }
 
     if (!deskripsiJabatan) {
@@ -121,7 +125,7 @@ const AddOrganisasi = () => {
 
   return (
     <div>
-      <section id="addOrganisasi" className="organisasi">
+      <section id="addOrganisasi" className="addOrganisasi">
         <div className="container">
           <div className="section-title">
             <h2>Tambah Organisasi</h2>
@@ -217,9 +221,6 @@ const AddOrganisasi = () => {
                   </label>
                 </div>
 
-                {errorMsg && (
-                  <p className="text-center text-danger">{errorMsg}</p>
-                )}
 
                 <div className="text-center">
                   <button

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate, NavLink } from "react-router-dom";
 import { FaDownload, FaArrowUp } from "react-icons/fa";
 import "./ATSTemplate2.css";
@@ -138,7 +138,7 @@ const GenerateCV = () => {
     fetchData();
   }, [id_akun]);
 
-  const handleDownloadPDF = () => {
+  const handleDownloadPDFATS = async () => {
     const printContent = document.querySelector(".page-ats-2");
 
     if (printContent) {
@@ -169,135 +169,222 @@ const GenerateCV = () => {
     return jenjangOrder[a.jenjang] - jenjangOrder[b.jenjang];
   });
 
+  function getSkillLevel(level) {
+    if (level >= 1 && level <= 4) {
+      return "Beginner";
+    } else if (level >= 5 && level <= 8) {
+      return "Intermediate";
+    } else if (level >= 9 && level <= 10) {
+      return "Advanced";
+    } else {
+      return "Unknown"; // Handle other cases as needed
+    }
+  }
+
   return (
     <div className="body-cv-ats-2">
-      <button className="custom-button-cv1 purple-button-cv1 mr-4 margin-around-button" onClick={handleDownloadPDF}>
+      <button className="custom-button-cv1 purple-button-cv1 mr-4 margin-around-button" onClick={handleDownloadPDFATS}>
         <FaDownload className="download-icon" />
         <p className="mr-1">Download CV as PDF</p>
       </button>
       <div className="page-ats-2">
-        {data_diri ? (
-          <>
-            <h1 className="name" id="name-ats-2">
-              {data_diri && data_diri.nama ? data_diri.nama : "No Data"}
-            </h1>
-            <p className="detail">
-              <span className="text">{data_diri.alamat ? data_diri.alamat : "No Data"}</span> | {data_diri.email} | {data_diri.telp} <br />
-              <a className="text-sosial-media" href={`https://www.linkedin.com/in/${data_diri.linkedin}`}>
-                LinkedIn: {data_diri.linkedin} |
-              </a>{" "}
-              <a className="text-sosial-media" href={`https://www.instagram.com/in/${data_diri.sosial_media}`}>
-                Instagram: {data_diri.sosial_media}
-              </a>{" "}
-              <a className="text-sosial-media" id="ats-1" href={`https://www.twitter.com/${data_diri.twitter}`}>
-                | Twitter:@{data_diri.twitter}
-              </a>
-            </p>
-          </>
-        ) : (
-          <h3 className="text">Personal Data Has Not Been Added</h3>
-        )}
-        <br />
-        <br />
-        <section className="section">{data_diri && data_diri.deskripsi ? data_diri.deskripsi : "Description not available."}</section>
-
-        <section className="section">
-          <strong className="title">SKILLS</strong>
-          {softSkills.length === 0 && hardSkills.length === 0 ? (
-            <p>Skills Data Has Not Been Added</p>
+        <div className="header-container-ats-2">
+          {/* Check if data_diri is not null before accessing its properties */}
+          {data_diri ? (
+            <>
+              <h2 className="text" id="title-name-ats-2">
+                {data_diri.nama ? data_diri.nama : "No Data"}, {data_diri.profesi}
+              </h2>
+              <p className="detail-ats-2">
+                <span className="text" id="ats-1">
+                  {data_diri.alamat}, {data_diri.telp}, {data_diri.email}
+                </span>{" "}
+                <br />
+              </p>
+            </>
           ) : (
-            <div className="row">
-              <div className="col-sm-6">
-                <ul className="Skill">
-                  {softSkills.length > 0 &&
-                    softSkills.map((softSkill, index) => (
-                      <li key={index} className="skill-name">
-                        {softSkill.nama_skill}
-                      </li>
-                    ))}
-                  {hardSkills.length > 0 &&
-                    hardSkills.map((hardSkill, index) => (
-                      <li key={index} className="skill-name">
-                        {hardSkill.nama_skill}
-                      </li>
-                    ))}
-                </ul>
-              </div>
+            <h3 className="text">Personal Data Has Not Been Added</h3>
+          )}
+        </div>
+
+        <div className="section-ats-2">
+          <div className="row">
+            <div className="col-md-3" id="title-content-ats-2">
+              TENTANG SAYA
             </div>
-          )}
-        </section>
+            <div className="col-md-9" id="text-content-ats-2">
+              {" "}
+              {data_diri && data_diri.deskripsi ? data_diri.deskripsi : "Description not available."}
+            </div>
+          </div>
+        </div>
 
-        <section className="section">
-          <strong className="title">PORTOFOLIO</strong>
-          {portofolios.length === 0 ? (
-            <p>Portofolio Has Not Been Added</p>
-          ) : (
-            <ul className="Portofolio">
-              {portofolios.map((portofolio, index) => (
-                <li key={index}>
-                  <div className="row">
-                    <div className="col-sm-9">{portofolio.deskripsi}</div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+        <div className="section-ats-2">
+          <span id="title-content-ats-2">PENGALAMAN ORGANISASI</span>
+          <div className="row" id="row-space">
+            {organisasi.length === 0 ? (
+              <p>Pengalaman Organisasi Has Not Been Added</p>
+            ) : (
+              <>
+                {organisasi.map((organisasi, index) => (
+                  <React.Fragment key={index}>
+                    <div className="col-md-3" id="text-content-ats-2">
+                      {organisasi.periode_awal} - {organisasi.periode_akhir}
+                    </div>
+                    <div className="col-md-9" id="text-content-ats-2">
+                      <ul className="organisasi-ul">
+                        <li>
+                          <strong>{organisasi.nama_organisasi}</strong>
+                          <br />
+                          {organisasi.jabatan}
+                          <br />
+                          {organisasi.deskripsi_jabatan}
+                        </li>
+                      </ul>
+                    </div>
+                  </React.Fragment>
+                ))}
+              </>
+            )}
+          </div>
+        </div>
 
-        <section className="section">
-          <strong className="title">PENGALAMAN ORGANISASI</strong>
-          {organisasi.length === 0 ? (
-            <p>Pengalaman Organisasi Has Not Been Added</p>
-          ) : (
-            <ul className="Organisasi">
-              {organisasi.map((organisasi, index) => (
-                <li key={index}>
-                  <div className="row">
-                    <div className="col-sm-10">
-                      <strong>
-                        {organisasi.nama_organisasi} | {organisasi.jabatan}
-                      </strong>
-                      <br />
-                      {organisasi.deskripsi_jabatan}
+        <div className="section-ats-2">
+          <span id="title-content-ats-2">PENDIDIKAN</span>
+          <div className="row" id="row-space">
+            {sortedPendidikan.length === 0 ? (
+              <p>Pendidikan Data Has Not Been Added</p>
+            ) : (
+              <ul className="pendidikan-ul">
+                {sortedPendidikan.map((pendidikan, index) => (
+                  <li key={index}>
+                    <div className="row">
+                      <div className="col-sm-3" text-content-ats-2>
+                        {pendidikan.tahun_masuk} - {pendidikan.tahun_lulus}
+                      </div>
+                      <div className="col-sm-9" text-content-ats-2>
+                        <strong>{pendidikan.nama_sekolah}</strong>
+                        <br />
+                        {pendidikan.jenjang === "SMA" || pendidikan.jenjang === "SMK" ? (
+                          <>JURUSAN {pendidikan.jurusan}</>
+                        ) : pendidikan.jenjang === "D3" || pendidikan.jenjang === "S1" || pendidikan.jenjang === "D4" || pendidikan.jenjang === "S2" ? (
+                          <>
+                            {pendidikan.jenjang} - {pendidikan.jurusan}
+                          </>
+                        ) : null}
+                      </div>
                     </div>
-                    <div className="col-sm-2">{organisasi.periode}</div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
 
-        <section className="section">
-          <strong className="title">PENDIDIKAN</strong>
-          {sortedPendidikan.length === 0 ? (
-            <p>Pendidikan Has Not Been Added</p>
-          ) : (
-            <ul className="Pendidikan">
-              {sortedPendidikan.map((pendidikan, index) => (
-                <li key={index}>
-                  <div className="row">
-                    <div className="col-sm-9">
-                      <strong>{pendidikan.nama_sekolah}</strong>
-                      <br />
-                      {pendidikan.jenjang === "SMA" || pendidikan.jenjang === "SMK" ? (
-                        <>JURUSAN {pendidikan.jurusan}</>
-                      ) : pendidikan.jenjang === "D3" || pendidikan.jenjang === "S1" || pendidikan.jenjang === "D4" || pendidikan.jenjang === "S2" ? (
-                        <>
-                          {pendidikan.jenjang} - {pendidikan.jurusan}
-                        </>
-                      ) : null}
-                    </div>
-                    <div className="col-sm-3">
-                      {pendidikan.tahun_masuk} - {pendidikan.tahun_lulus}
+        <div className="section-ats-2">
+          <div className="row">
+            <div className="col-md-3" id="title-content-ats-2">
+              SKILLS
+            </div>
+            <div className="col-md-9" id="text-content-ats-2">
+              {softSkills.length === 0 && hardSkills.length === 0 ? (
+                <p>Skill Data Has Not Been Added</p>
+              ) : (
+                <div className="row">
+                  <div className="col-sm-6">
+                    <div className="row">
+                      <div className="col-sm-6">
+                        {softSkills.length > 0 ? (
+                          <ul className="skill-ul">
+                            {softSkills.map((softSkill, index) => (
+                              <li key={index} className="skill-name" id="text-content">
+                                {softSkill.nama_skill}
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p>No Soft Skills</p>
+                        )}
+                      </div>
+                      <div className="col-sm-6">
+                        {" "}
+                        {softSkills.length > 0 ? (
+                          <ul className="skill-ul">
+                            {softSkills.map((softSkill, index) => (
+                              <li key={index} id="text-content">
+                                <p id="skill-level"> {getSkillLevel(softSkill.level)}</p>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p>No Soft Skills</p>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+
+                  <div className="col-sm-6">
+                    <div className="row">
+                      <div className="col-sm-6">
+                        {hardSkills.length > 0 ? (
+                          <ul className="skill-ul">
+                            {hardSkills.map((hardSkill, index) => (
+                              <li key={index} className="skill-name" id="text-content">
+                                {hardSkill.nama_skill}
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p>No Hard Skills</p>
+                        )}
+                      </div>
+                      <div className="col-sm-6">
+                        {hardSkills.length > 0 ? (
+                          <ul className="skill-ul">
+                            {hardSkills.map((hardSkill, index) => (
+                              <li key={index} id="text-content">
+                                <p id="skill-level">{getSkillLevel(hardSkill.level)}</p>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p>No Hard Skills</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="section-ats-2">
+          <div className="row">
+            <div className="col-md-3" id="title-content-ats-2">
+              PORTOFOLIO
+            </div>
+            <div className="col-md-9" id="text-content-ats-2">
+              {portofolios.length === 0 ? (
+                <p>Portfolio Data Has Not Been Added</p>
+              ) : (
+                <ul className="portofolio-ul">
+                  {portofolios.map((portofolio, index) => (
+                    <li key={index}>
+                      <div className="row">
+                        <div className="col-sm-9" id="text-content">
+                          {portofolio.deskripsi}
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
+
       <button onClick={() => window.scrollTo(0, 0)} className="back-button-cv1" style={{ marginLeft: "50px" }}>
         <FaArrowUp />
       </button>

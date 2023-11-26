@@ -53,7 +53,7 @@ const CVTemplate2 = () => {
     const getUsers = async () => {
         try {
             const response = await axios.get(
-                `http://localhost:5000/users/${id_akun}`
+                `http://194.233.93.124:8000/users/${id_akun}`
             );
             setUsers(response.data);
         } catch (error) {
@@ -74,7 +74,7 @@ const CVTemplate2 = () => {
     const getPendidikan = async () => {
         try {
             const response = await axios.get(
-                `http://localhost:5000/pendidikan/akun/${id}`
+                `http://194.233.93.124:8000/pendidikan/akun/${id}`
             );
             setPendidikan(response.data.pendidikan);
             console.log("pendidikan:", response.data.pendidikan);
@@ -100,7 +100,7 @@ const CVTemplate2 = () => {
     const getSkills = async () => {
         try {
             const response = await axios.get(
-                `http://localhost:5000/skills/akun/${id_akun}`
+                `http://194.233.93.124:8000/skills/akun/${id_akun}`
             );
             setSkill(response.data);
 
@@ -127,7 +127,7 @@ const CVTemplate2 = () => {
     useEffect(() => {
         const fetchOrganisasi = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/organisasi/akun/${id_akun}`);
+                const response = await axios.get(`http://194.233.93.124:8000/organisasi/akun/${id_akun}`);
 
                 console.log("Raw response:", response);
 
@@ -155,7 +155,7 @@ const CVTemplate2 = () => {
 
     const getPorto = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/porto/${id}`);
+            const response = await axios.get(`http://194.233.93.124:8000/porto/${id}`);
             setPorto(response.data);
         } catch (error) {
             console.error("Error fetching data:", error);

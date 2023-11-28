@@ -402,12 +402,18 @@ const My = () => {
                 </li>
               ))}
             </ul>
-          ) : (
-            <div className="container">
-              <div className="title d-flex justify-content-center align-items-center text-center mt-5">
-                <h3>{Array.isArray(organisasi) ? "Organization Data Has Not Been Added" : "Loading..."}</h3>
-              </div>
-            </div>
+          ) : (<div class="title d-flex justify-content-center align-items-center text-center mt-5">
+          <div
+            className="text-center"
+            style={{
+              marginBottom: "20px",
+              color: "grey",
+              fontSize: "16px",
+            }}
+          >
+            Organization data Hasn't Been Added
+          </div>
+        </div>
           )}
         </div>
       </section>

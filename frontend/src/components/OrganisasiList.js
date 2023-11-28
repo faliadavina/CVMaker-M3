@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaPlus, FaEdit } from "react-icons/fa";
-import { Card, Button, Alert, Container, Row, Col } from 'react-bootstrap';
+import { Card, Button, Alert, Container, Row, Col, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 const OrganisasiList = () => {
@@ -60,6 +60,39 @@ const OrganisasiList = () => {
     }
   };
 
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState(null);
+
+  const showDeleteConfirmationModal = (id_org) => {
+    setDeleteTarget(id_org);
+    setShowDeleteConfirmation(true);
+  };
+
+  const hideDeleteConfirmationModal = () => {
+    setDeleteTarget(null);
+    setShowDeleteConfirmation(false);
+  };
+
+  const deleteOrganisasiWithConfirmation = async (id_org) => {
+    hideDeleteConfirmationModal();
+    await deleteOrganisasi(id_org);
+  };
+
+  const [showDeleteSelectionConfirmation, setShowDeleteSelectionConfirmation] = useState(false);
+
+  const showDeleteSelectionConfirmationModal = () => {
+    setShowDeleteSelectionConfirmation(true);
+  };
+
+  const hideDeleteSelectionConfirmationModal = () => {
+    setShowDeleteSelectionConfirmation(false);
+  };
+
+  const deleteSelectedOrganisasiWithConfirmation = async () => {
+    hideDeleteSelectionConfirmationModal();
+    await deleteSelectedOrganisasi();
+  };
+
   const toggleSelect = (id_org) => {
     if (selectAll) {
       setSelectedItems([]);
@@ -102,58 +135,64 @@ const OrganisasiList = () => {
   };
 
   const OrganisasiDetail = organisasi
-  ? organisasi.map((organisasi, index) => (
-    <Col
-      key={organisasi.id_org}
-      xs={12}
-      md={6}
-      lg={6}
-      xl={6}
-      className="mb-3"
-    >
-      <Card
-        className={`custom-card ${selectedItems.includes(organisasi.id_org) ? 'selected' : ''
-          }`}
+    ? organisasi.map((organisasi, index) => (
+      <Col
+        key={organisasi.id_org}
+        xs={12}
+        md={6}
+        lg={6}
+        xl={6}
+        className="mb-3"
       >
-        <Card.Body>
-          <Row>
-            <Col xs="auto" className="d-flex align-items-start">
-              <div className="checkbox-container">
-                <input
-                  type="checkbox"
-                  checked={selectedItems.includes(organisasi.id_org)}
-                  onChange={() => toggleSelect(organisasi.id_org)}
-                />
-              </div>
-            </Col>
-            <Col>
-              <div className="organisasi-details">
-                <Card.Title>{organisasi.nama_organisasi.toUpperCase()}</Card.Title>
-                <Card.Subtitle>{`${organisasi.periode_awal} - ${organisasi.periode_akhir}`}</Card.Subtitle>
-                <Card.Text>
-                  {organisasi.jabatan}
-                  <br />
-                  <span style={{ color: 'gray' }}>
-                    {organisasi.deskripsi_jabatan}
-                  </span>
-                </Card.Text>
-              </div>
-            </Col>
-          </Row>
-          <div className="card-action">
-            
-            <Button
-                  onClick={() => handleEditClick(organisasi.id_org)}
-                  className="btn btn-sm edit-button"
-                >
-                  <FaEdit />
-                </Button>
-          </div>
-        </Card.Body>
-      </Card>
-    </Col>
-  ))
-  : null;
+        <Card
+          className={`custom-card ${selectedItems.includes(organisasi.id_org) ? 'selected' : ''
+            }`}
+        >
+          <Card.Body>
+            <Row>
+              <Col xs="auto" className="d-flex align-items-start">
+                <div className="checkbox-container">
+                  <input
+                    type="checkbox"
+                    checked={selectedItems.includes(organisasi.id_org)}
+                    onChange={() => toggleSelect(organisasi.id_org)}
+                  />
+                </div>
+              </Col>
+              <Col>
+                <div className="organisasi-details">
+                  <Card.Title>{organisasi.nama_organisasi.toUpperCase()}</Card.Title>
+                  <Card.Subtitle>{`${organisasi.periode_awal} - ${organisasi.periode_akhir}`}</Card.Subtitle>
+                  <Card.Text>
+                    {organisasi.jabatan}
+                    <br />
+                    <span style={{ color: 'gray' }}>
+                      {organisasi.deskripsi_jabatan}
+                    </span>
+                  </Card.Text>
+                </div>
+              </Col>
+            </Row>
+            <div className="card-action">
+              <Button
+                onClick={() => handleEditClick(organisasi.id_org)}
+                className="btn btn-sm edit-button"
+              >
+                <FaEdit />
+              </Button>
+              <Button
+                variant="danger"
+                onClick={() => showDeleteConfirmationModal(organisasi.id_org)}
+                className="btn btn-sm delete-button"
+              >
+                Delete
+              </Button>
+            </div>
+          </Card.Body>
+        </Card>
+      </Col>
+    ))
+    : null;
 
   return (
     <div>
@@ -182,6 +221,47 @@ const OrganisasiList = () => {
                 <Alert variant="success">{successMessage}</Alert>
               )}
               <div className="btn-container" style={{ marginLeft: 'auto' }}>
+                {selectedItems.length > 0 && (
+                  <>
+                    <Button
+                      variant="danger"
+                      onClick={showDeleteSelectionConfirmationModal}
+                      style={{
+                        borderRadius: '50px',
+                        fontSize: '14px',
+                        fontWeight: 'bold',
+                        marginLeft: '10px',
+                      }}
+                    >
+                      Delete
+                    </Button>
+                    <Modal
+                      show={showDeleteSelectionConfirmation}
+                      onHide={hideDeleteSelectionConfirmationModal}
+                    >
+                      <Modal.Header closeButton>
+                        <Modal.Title>Delete Confirmation</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        Are you sure you want to delete the selected organizations?
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button
+                          variant="danger"
+                          onClick={deleteSelectedOrganisasiWithConfirmation}
+                        >
+                          Delete
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          onClick={hideDeleteSelectionConfirmationModal}
+                        >
+                          Cancel
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+                  </>
+                )}
                 <NavLink to="/add_organisasi">
                   <Button
                     variant="dark"
@@ -194,23 +274,34 @@ const OrganisasiList = () => {
                     <FaPlus style={{ marginRight: '10px' }} /> Add Data
                   </Button>
                 </NavLink>
-                {selectedItems.length > 0 && (
-                  <Button
-                    variant="danger"
-                    onClick={deleteSelectedOrganisasi}
-                    style={{
-                      borderRadius: '50px',
-                      fontSize: '14px',
-                      fontWeight: 'bold',
-                      marginLeft: '10px',
-                    }}
-                  >
-                    Delete Selected
-                  </Button>
-                )}
               </div>
             </div>
             <Row>{OrganisasiDetail}</Row>
+            <Modal
+              show={showDeleteConfirmation}
+              onHide={hideDeleteConfirmationModal}
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>Delete Confirmation</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                Are you sure you want to delete the selected organization?
+              </Modal.Body>
+              <Modal.Footer>
+                <Button
+                  variant="danger"
+                  onClick={() => deleteOrganisasiWithConfirmation(deleteTarget)}
+                >
+                  Delete
+                </Button>
+                <Button
+                  variant="secondary"
+                  onClick={hideDeleteConfirmationModal}
+                >
+                  Cancel
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </div>
         ) : (
           <div className="container d-flex flex-column justify-content-center align-items-center vh-100">

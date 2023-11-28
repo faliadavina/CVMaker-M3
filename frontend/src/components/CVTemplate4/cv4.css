@@ -1,323 +1,333 @@
 .body {
-    margin: 0;
-  }
-  
-  .latar {
-    width: 21cm;
-    height: 29.7cm;
-    padding: 2cm;
-    margin: 1cm auto;
-    background-image: url("bg.png");
-    background-size: cover;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    position: relative;
-  }
-  
-  .photo {
-    position: absolute;
-    z-index: 2;
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    top: 8%;
-    left: 9%;
-    border: 20px solid #BBB1A6;
-  }
-  
-  .name {
-    position: absolute;
-    top: 30%;
-    left: 5%;
-    color: #847B70;
-    font-size: 38px;
-    font-weight: bold;
-    z-index: 2;
-    font-family: 'League Spartan', sans-serif;
-    text-align: left;
-    max-width: 300px;
-    letter-spacing: -1px;
-  }
-  .batas {
-      width: 90%;
-      background-color: transparent;
-      text-align: left;
-    
-  }
-  .intro {
-    position: absolute;
-    top: 39%;
-    color: #847B70;
-    font-size: 18px;
-    z-index: 2;
-    font-family: 'inter', sans-serif;
-    margin-left: 21px;
-    text-align: left;
-    max-width: 300px;
-    letter-spacing: -1px;
-    left: 2.5%;
-  }
-  
-  .intro2 {
-    position: absolute;
-    top: 41%;
-    left: 2.5%;
-    color: #847B70;
-    font-size: 18px;
-    z-index: 2;
-    font-family: 'inter', sans-serif;
-    margin-left: 21px;
-    text-align: left;
-    max-width: 300px;
-    letter-spacing: -1px;
-  }
-  
-  .intro3 {
-    position: absolute;
-    top: 41%;
-    bottom: 2%;
-    left: 2.5%;
-    color: #847B70;
-    font-size: 18px;
-    z-index: 2;
-    font-family: 'inter', sans-serif;
-    margin-left: 21px;
-    text-align: left;
-    max-width: 300px;
-    letter-spacing: -1px;
-  }
-  
-  .sidePanel h2,
-  .aside h2 {
-    font-size: 22px;
-    margin-top: 16px;
-    padding: 0;
-    color: #604D42;
-    font-weight: bold;
-    text-align: left;
-  }
-  
-  .sidePanel {
-    width: 67%;
-    left: 45%;
+  margin: 0;
+}
+
+.latar {
+  width: 21cm;
+  height: 29.7cm;
+  padding: 2cm;
+  margin: 1cm auto;
+  background-image: url("bg.png");
+  background-size: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.photo {
+  position: relative;
+  z-index: 2;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 20px solid #BBB1A6;
+}
+
+.name {
+  position: relative;
+  color: #847B70;
+  margin: 10px 0 -10px 40px;
+  font-size: 38px;
+  font-weight: bold;
+  z-index: 2;
+  font-family: 'League Spartan', sans-serif;
+  text-align: left;
+  max-width: 300px;
+  letter-spacing: -1px;
+}
+.batas {
+    width: 90%;
     background-color: transparent;
     text-align: left;
-    position: relative;
-    /* Tambahkan z-index untuk memastikan posisi di atas elemen lain jika diperlukan */
-    z-index: 3;
+  
+}
+.intro {
+  position:relative;
+  color: #847B70;
+  font-size: 20px;
+  z-index: 2;
+  font-family: 'inter', sans-serif;
+  margin: 15px 0 5px 25px;
+  text-align: left;
+  max-width: 300px;
+  letter-spacing: -1px;
+  left: 5%;
+  max-height: 20px;
+
+}
+.intro2 {
+  position:relative;
+  color: #847B70;
+  font-size: 20px;
+  z-index: 2;
+  font-family: 'inter', sans-serif;
+  margin: 0 0 5px 25px;
+  text-align: left;
+  max-width: 300px;
+  letter-spacing: -1px;
+  left: 5%;
+  margin-bottom: 20px;
+  min-height: 50px;
+}
+
+
+.mt-3 {
+  top: 500px;
+
+}
+.intro3 {
+  position: absolute;
+  top: 41%;
+  bottom: 2%;
+  left: 2.5%;
+  color: #847B70;
+  font-size: 18px;
+  z-index: 2;
+  font-family: 'inter', sans-serif;
+  margin-left: 21px;
+  text-align: left;
+  max-width: 300px;
+  letter-spacing: -1px;
+}
+
+.sidePanel h2,
+.konten h2 {
+  font-size: 22px;
+  margin-top: 16px;
+  padding: 0;
+  color: #604D42;
+  font-weight: bold;
+  text-align: left;
+}
+
+.sidePanel {
+  width: 67%;
+  left: 45%;
+  background-color: transparent;
+  text-align: left;
+  position: relative;
+  /* Tambahkan z-index untuk memastikan posisi di atas elemen lain jika diperlukan */
+  z-index: 2;
+}
+
+
+.sidePanel h2 {
+  text-align: left;
+  margin-left: 3px;
+}
+
+.konten h2 {
+  text-align: left;
+  margin-left: 40px;
+}
+
+
+.info-section {
+  color: #604D42;
+  text-align: start;
+  padding: 0 20px 7px 30px;
+  flex-wrap: wrap;
+  font-size: 15px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.medsos {
+  display: flex;
+  flex-direction: row; 
+  align-items: center; 
+  max-width: 400px;
+  margin-left: 10%;
+  letter-spacing: -1;
+  flex-wrap: wrap;
+}
+
+.icons-section {
+  margin-right: 10px; 
+  min-width: 200px;
+
+}
+
+.icons-section a {
+  color: #604D42;
+  text-decoration: none;
+}
+
+.icons-section span {
+  color: #604D42;
+  font-size: small;
+  margin-left: 10px;
+}
+
+
+
+.isi {
+  padding: 0 20px 10px 25px;
+  color: #604D42;
+  font-family: 'Roboto', sans-serif;
+}
+.education-isi {
+  padding: 0 20px 10px 25px;
+  color: #604D42;
+  font-family: 'Roboto', sans-serif;
+}
+
+.data {
+  margin-top: 0px;
+  color: #604D42;
+  font-family: 'Roboto', sans-serif;
+  margin-left: 20px;
+  min-height: 230px;
+}
+
+
+
+.sSkill,
+.hSkill {
+  padding: 0 20px 10px 25px;
+}
+
+.description {
+  max-width: 350px;
+  text-align: justify;
+  margin-left: 2%;
+  max-height: 300px;
+  min-height: 200px;
+}
+
+
+.educationItem,
+.organizationItem {
+  display: flex;
+}
+
+.portfolio-isi {
+  padding: 0 20px 10px 25px;
+}
+
+.dataNama{
+  flex: 3;
+}
+
+.periode {
+  flex: 1.5;
+  font-weight: bolder;;
+}
+.instansi{
+  flex:4;
+}
+.instansi,
+.skillCategory {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 17px;
+}
+
+.detail {
+  margin-bottom: 5px;
+  margin-top: -10px;
+}
+
+.skillList{
+  margin-top: -7px;
+}
+.aside {
+  position: absolute;
+  left: 1%;
+  margin-top: 0px;
+  max-width: 46%;
+}
+.konten {
+  position: absolute;
+  left: 1%;
+  top: 47.5%;
+  margin-top: 0px;
+  max-width: 46%;
+}
+
+.portfolioCard {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.portfolioName {
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+
+.portfolioDetail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1px;
+  align-items: center;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
   }
-  
-  
-  .sidePanel h2 {
-    text-align: left;
-    margin-left: 3px;
+  .latar,
+  .latar * {
+    visibility: visible;
   }
-  
-  .aside h2 {
-    text-align: left;
-    margin-left: 40px;
-  }
-  
-  
-  .info-section {
-    color: #604D42;
-    text-align: start;
-    padding: 0 20px 7px 30px;
-    flex-wrap: wrap;
-    font-size: 15px;
-    font-family: 'Roboto', sans-serif;
-  }
-  
-  .medsos {
-    display: flex;
-    flex-direction: row; 
-    align-items: center; 
-    max-width: 400px;
-    margin-left: 10%;
-    letter-spacing: -1;
-    flex-wrap: wrap;
-  }
-  
-  .icons-section {
-    margin-right: 10px; 
-    min-width: 200px;
-  
-  }
-  
-  .icons-section a {
-    color: #604D42;
-    text-decoration: none;
-  }
-  
-  .icons-section span {
-    color: #604D42;
-    font-size: small;
-    margin-left: 10px;
-  }
-  
-  
-  
-  .isi {
-    padding: 0 20px 10px 25px;
-    color: #604D42;
-    font-family: 'Roboto', sans-serif;
-  }
-  .education-isi {
-    padding: 0 20px 10px 25px;
-    color: #604D42;
-    font-family: 'Roboto', sans-serif;
-  }
-  
-  .data {
-    margin-top: 0px;
-    color: #604D42;
-    font-family: 'Roboto', sans-serif;
-    margin-left: 20px;
-  }
-  
-  
-  
-  .sSkill,
-  .hSkill {
-    padding: 0 20px 10px 25px;
-  }
-  
-  .description {
-    max-width: 350px;
-    text-align: justify;
-    margin-left: 2%;
-    max-height: 300px;
-  }
-  
-  
-  .educationItem,
-  .organizationItem {
-    display: flex;
-  }
-  
-  .portfolio-isi {
-    padding: 0 20px 10px 25px;
-  }
-  
-  .dataNama{
-    flex: 3;
-  }
-  
-  .periode {
-    flex: 1.5;
-    font-weight: bolder;;
-  }
-  .instansi{
-    flex:4;
-  }
-  .instansi,
-  .skillCategory {
-    font-weight: bold;
-    margin-bottom: 5px;
-    font-size: 17px;
-  }
-  
-  .detail {
-    margin-bottom: 5px;
-    margin-top: -10px;
-  }
-  
-  .skillList{
-    margin-top: -7px;
-  }
-  .aside {
+  .latar {
     position: absolute;
-    top: 13%;
-    left: 1%;
-    transform: translate(0, 390px);
-    max-width: 46%;
-  }
-  
-  .portfolioCard {
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-  }
-  
-  .portfolioName {
-    word-wrap: break-word;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: center;
-  }
-  
-  
-  .portfolioDetail {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1px;
-    align-items: center;
-  }
-  
-  @media print {
-    body * {
-      visibility: hidden;
-    }
-    .latar,
-    .latar * {
-      visibility: visible;
-    }
-    .latar {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 210mm;
-      height: 297mm;
-      margin: 0;
-      transform: scale(2);
-      transform-origin: top left;
-    }
-  }
-  
-  .customButton {
-    background-color: #15121b;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-  }
-  
-  .customButton:hover {
-    background-color: #d5d0e0;
-    color: black;
-  }
-  
-  .backButton {
-    background-color: white;
-  }
-  
-  .backButton:hover {
-    background-color: rgb(241, 214, 237);
-  }
-  
-  .customButton .download-icon {
-    margin-right: 5px;
-  }
-  
-  .customButton p {
+    left: 0;
+    top: 0;
+    width: 210mm;
+    height: 297mm;
     margin: 0;
+    transform: scale(2);
+    transform-origin: top left;
   }
-  
-  .margin-around-button {
-    margin: 20px;
+}
+
+.customButton {
+  background-color: #15121b;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.customButton:hover {
+  background-color: #d5d0e0;
+  color: black;
+}
+
+.backButton {
+  background-color: white;
+}
+
+.backButton:hover {
+  background-color: rgb(241, 214, 237);
+}
+
+.customButton .download-icon {
+  margin-right: 5px;
+}
+
+.customButton p {
+  margin: 0;
+}
+
+.margin-around-button {
+  margin: 20px;
+}
+
+@media print {
+  body {
+    background-image: url("bg.png") !important;
+    background-size: cover !important;
   }
-  
-  @media print {
-    body {
-      background-image: url("bg.png") !important;
-      background-size: cover !important;
-    }
-    .latar,
-    .latar * {
-      visibility: visible !important;
-    }
+  .latar,
+  .latar * {
+    visibility: visible !important;
   }
-  
+}

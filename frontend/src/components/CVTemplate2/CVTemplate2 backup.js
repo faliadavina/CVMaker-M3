@@ -20,6 +20,7 @@ const CVTemplate2 = () => {
     const id_akun = user && user.user && user.user.id_akun;
     const handleClose = () => setShow(false);
     const [show, setShow] = useState(true);
+    const handleShow = () => setShow(true);
 
     const handleReopenModal = () => {
         setShow(true);
@@ -167,200 +168,163 @@ const CVTemplate2 = () => {
     };
 
     // ========================== Select Data on Modal ==========================
-    const [currentModal, setCurrentModal] = useState(1);
-    const [selectedData, setSelectedData] = useState({
-        educational: [],
-        hardSkills: [],
-        softSkills: [],
-        organizations: [],
-        portfolios: [],
-    });
+    const [selectedEducation, setSelectedEducation] = useState([]);
+    const [selectedSkills, setSelectedSkills] = useState([]);
+    const [selectedOrganizations, setSelectedOrganizations] = useState([]);
+    const [selectedPortfolios, setSelectedPortfolios] = useState([]);
+    const [selectedHardSkills, setSelectedHardSkills] = useState([]);
+    const [selectedSoftSkills, setSelectedSoftSkills] = useState([]);
 
-    const handleShow = (modalNumber) => {
-        setCurrentModal(modalNumber);
+    const toggleSelection = (pendID) => {
+        if (selectedEducation.includes(pendID)) {
+            setSelectedEducation(selectedEducation.filter((id) => id !== pendID));
+        } else {
+            setSelectedEducation([...selectedEducation, pendID]);
+        }
     };
 
-    const handleNext = () => {
-        // Handle logic for moving to the next modal
-        // You can add data processing logic here if needed
-        setCurrentModal(currentModal + 1);
+    const toggleSelectionSkills = (skillID, isHardSkill) => {
+        if (isHardSkill) {
+            if (selectedHardSkills.includes(skillID)) {
+                setSelectedHardSkills(selectedHardSkills.filter((id) => id !== skillID));
+            } else {
+                if (selectedHardSkills.length < 3) {
+                    setSelectedHardSkills([...selectedHardSkills, skillID]);
+                }
+            }
+        } else {
+            if (selectedSoftSkills.includes(skillID)) {
+                setSelectedSoftSkills(selectedSoftSkills.filter((id) => id !== skillID));
+            } else {
+                if (selectedSoftSkills.length < 2) {
+                    setSelectedSoftSkills([...selectedSoftSkills, skillID]);
+                }
+            }
+        }
     };
 
-    const handleBack = () => {
-        // Handle logic for going back to the previous modal
-        setCurrentModal(currentModal - 1);
+    const toggleSelectionOrganization = (orgID) => {
+        if (selectedOrganizations.includes(orgID)) {
+            setSelectedOrganizations(selectedOrganizations.filter((id) => id !== orgID));
+        } else {
+            setSelectedOrganizations([...selectedOrganizations, orgID]);
+        }
     };
 
-    const handleFinish = () => {
-        // Handle logic for finishing the modal sequence
-        console.log("Selected Data:", selectedData);
-        // Hide the modal without resetting state
-        setCurrentModal(null);
-    };
-
-    const toggleSelection = (id, category) => {
-        const newData = { ...selectedData };
-        newData[category] = newData[category].includes(id)
-            ? newData[category].filter((selectedId) => selectedId !== id)
-            : [...newData[category], id];
-
-        setSelectedData(newData);
-    };
-
-    const renderModalContent = () => {
-        switch (currentModal) {
-            case 1:
-                return (
-                    <div>
-                        {/* Modal Content for Step 1 */}
-                        <strong>Only 2 educational data will be displayed, select 2 below:</strong>
-                        <ul style={{ listStyle: 'none', lineHeight: '0px', marginTop: '10px' }}>
-                            {pendidikan &&
-                                pendidikan.map((pendidikanItem) => (
-                                    <li key={pendidikanItem.id_pend}>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                className="checkbox-input-cv2"
-                                                checked={selectedData.educational.includes(pendidikanItem.id_pend)}
-                                                onChange={() => toggleSelection(pendidikanItem.id_pend, 'educational')}
-                                                disabled={selectedData.educational.length >= 2 && !selectedData.educational.includes(pendidikanItem.id_pend)}
-                                            />
-                                            {pendidikanItem.nama_sekolah}
-                                        </label>
-                                    </li>
-                                ))}
-                        </ul>
-                    </div>
-                );
-
-            case 2:
-                return (
-                    <div>
-                        {/* Modal Content for Step 2 */}
-                        <strong>Only 3 hardskills and 2 softskill data will be displayed, select below:</strong>
-                        <strong style={{ color: 'black' }}>Hard Skill</strong>
-                        <ul style={{ listStyle: 'none', lineHeight: '0px', marginTop: '10px' }}>
-                            {hardSkills &&
-                                hardSkills.map((skill) => (
-                                    <li key={skill.id_skill}>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                className="checkbox-input-cv2"
-                                                checked={selectedData.hardSkills.includes(skill.id_skill)}
-                                                onChange={() => toggleSelection(skill.id_skill, 'hardSkills')}
-                                                disabled={selectedData.hardSkills.length >= 3 && !selectedData.hardSkills.includes(skill.id_skill)}
-                                            />
-                                            {skill.nama_skill}
-                                        </label>
-                                    </li>
-                                ))}
-                        </ul>
-                        <strong style={{ color: 'black' }}>Soft Skill</strong>
-                        <ul style={{ listStyle: 'none', lineHeight: '0px', marginTop: '10px' }}>
-                            {softSkills &&
-                                softSkills.map((skill) => (
-                                    <li key={skill.id_skill}>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                className="checkbox-input-cv2"
-                                                checked={selectedData.softSkills.includes(skill.id_skill)}
-                                                onChange={() => toggleSelection(skill.id_skill, 'softSkills')}
-                                                disabled={selectedData.softSkills.length >= 2 && !selectedData.softSkills.includes(skill.id_skill)}
-                                            />
-                                            {skill.nama_skill}
-                                        </label>
-                                    </li>
-                                ))}
-                        </ul>
-                    </div>
-                );
-
-            case 3:
-                return (
-                    <div>
-                        {/* Modal Content for Step 3 */}
-                        <strong>only 2 organizational data will be displayed, select 2 below:</strong>
-                        <ul style={{ listStyle: 'none', lineHeight: '0px', marginTop: '10px' }}>
-                            {organisasi &&
-                                organisasi.map((org) => (
-                                    <li key={org.id_org}>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                className="checkbox-input-cv2"
-                                                checked={selectedData.organizations.includes(org.id_org)}
-                                                onChange={() => toggleSelection(org.id_org, 'organizations')}
-                                                disabled={selectedData.organizations.length >= 2 && !selectedData.organizations.includes(org.id_org)}
-                                            // disabled={selectedData.softSkills.length >= 2 && !selectedData.softSkills.includes(skill.id_skill)}
-
-                                            />
-                                            {org.nama_organisasi}
-                                        </label>
-                                    </li>
-                                ))}
-                        </ul>
-                    </div>
-                );
-
-            case 4:
-                return (
-                    <div>
-                        {/* Modal Content for Step 4 */}
-                        <strong>only 2 portfolio data will be displayed, select 2 below:</strong>
-                        <ul style={{ listStyle: 'none', lineHeight: '0px', marginTop: '10px' }}>
-                            {portofolios &&
-                                portofolios.map((portfolio) => (
-                                    <li key={portfolio.id_porto}>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                className="checkbox-input-cv2"
-                                                checked={selectedData.portfolios.includes(portfolio.id_porto)}
-                                                onChange={() => toggleSelection(portfolio.id_porto, 'portfolios')}
-                                                disabled={selectedData.portfolios.length >= 2 && !selectedData.portfolios.includes(portfolio.id_porto)}
-                                            />
-                                            {portfolio.judul}
-                                        </label>
-                                    </li>
-                                ))}
-                        </ul>
-                    </div>
-                );
-
-            default:
-                return null;
+    const toggleSelectionPorto = (portoID) => {
+        if (selectedPortfolios.includes(portoID)) {
+            setSelectedPortfolios(selectedPortfolios.filter((id) => id !== portoID));
+        } else {
+            setSelectedPortfolios([...selectedPortfolios, portoID]);
         }
     };
 
 
+
+
     return (
         <div>
-            <Modal show={currentModal !== null} onHide={() => setCurrentModal(null)} centered>
+            <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Information</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {renderModalContent()}
+                    <strong>only 2 educational data will be displayed, select 2 below:</strong>
+                    <ul style={{ listStyle: 'none', lineHeight: '0px', marginTop: '10px' }}>
+                        {pendidikan &&
+                            pendidikan.map((pendidikanItem) => (
+                                <li key={pendidikanItem.id_pend}>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            className="checkbox-input-cv2"
+                                            checked={selectedEducation.includes(pendidikanItem.id_pend)}
+                                            onChange={() => toggleSelection(pendidikanItem.id_pend)}
+                                            disabled={selectedEducation.length >= 2 && !selectedEducation.includes(pendidikanItem.id_pend)}
+                                        />
+                                        {pendidikanItem.nama_sekolah}
+                                    </label>
+                                </li>
+                            ))}
+                    </ul>
+                    <strong>only 3 hardskills and 2 softskill data will be displayed, select below:</strong><br />
+                    <strong style={{ color: 'black' }}>Hard Skill</strong>
+                    <ul style={{ listStyle: 'none', lineHeight: '0px', marginTop: '10px' }}>
+                        {hardSkills &&
+                            hardSkills.map((skill) => (
+                                <li key={skill.id_skill}>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            className="checkbox-input-cv2"
+                                            checked={selectedHardSkills.includes(skill.id_skill)}
+                                            onChange={() => toggleSelectionSkills(skill.id_skill, true)}
+                                            disabled={selectedHardSkills.length >= 3 && !selectedHardSkills.includes(skill.id_skill)}
+                                        />
+                                        {skill.nama_skill}
+                                    </label>
+                                </li>
+                            ))}
+                    </ul>
+                    <strong style={{ color: 'black' }}>Soft Skill</strong>
+                    <ul style={{ listStyle: 'none', lineHeight: '0px', marginTop: '10px' }}>
+                        {softSkills &&
+                            softSkills.map((skill) => (
+                                <li key={skill.id_skill}>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            className="checkbox-input-cv2"
+                                            checked={selectedSoftSkills.includes(skill.id_skill)}
+                                            onChange={() => toggleSelectionSkills(skill.id_skill, false)}
+                                            disabled={selectedSoftSkills.length >= 2 && !selectedSoftSkills.includes(skill.id_skill)}
+                                        />
+                                        {skill.nama_skill}
+                                    </label>
+                                </li>
+                            ))}
+                    </ul>
+                    <strong>only 2 organizational data will be displayed, select 2 below:</strong>
+                    <ul style={{ listStyle: 'none', lineHeight: '0px', marginTop: '10px' }}>
+                        {organisasi &&
+                            organisasi.map((org) => (
+                                <li key={org.id_org}>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            className="checkbox-input-cv2"
+                                            checked={selectedOrganizations.includes(org.id_org)}
+                                            onChange={() => toggleSelectionOrganization(org.id_org)}
+                                            disabled={selectedOrganizations.length >= 2 && !selectedOrganizations.includes(org.id_org)}
+                                        />
+                                        {org.nama_organisasi}
+                                    </label>
+                                </li>
+                            ))}
+                    </ul>
+                    <strong>only 2 portfolio data will be displayed, select 2 below:</strong>
+                    <ul style={{ listStyle: 'none', lineHeight: '0px', marginTop: '10px' }}>
+                        {portofolios &&
+                            portofolios.map((portfolio) => (
+                                <li key={portfolio.id_porto}>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            className="checkbox-input-cv2"
+                                            checked={selectedPortfolios.includes(portfolio.id_porto)}
+                                            onChange={() => toggleSelectionPorto(portfolio.id_porto)}
+                                            disabled={selectedPortfolios.length >= 2 && !selectedPortfolios.includes(portfolio.id_porto)}
+                                        />
+                                        {portfolio.judul}
+                                    </label>
+                                </li>
+                            ))}
+                    </ul>
                 </Modal.Body>
                 <Modal.Footer>
-                    {currentModal !== 1 && (
-                        <Button variant="secondary" onClick={handleBack}>
-                            Back
-                        </Button>
-                    )}
-                    {currentModal < 4 && (
-                        <Button variant="primary" onClick={handleNext}>
-                            Next
-                        </Button>
-                    )}
-                    {currentModal === 4 && (
-                        <Button variant="success" onClick={handleFinish}>
-                            Finish
-                        </Button>
-                    )}
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
                 </Modal.Footer>
             </Modal>
 
@@ -372,6 +336,10 @@ const CVTemplate2 = () => {
                     <FaDownload className="download-icon" />
                     <p className="mr-1">Download CV as PDF</p>
                 </button>
+
+                <Button variant="primary" onClick={handleShow}>
+                    Select Data For CV
+                </Button>
             </div>
             <div className="page-cv2">
                 <header>
@@ -398,7 +366,7 @@ const CVTemplate2 = () => {
                                 {hardSkills && (
                                     <table>
                                         <tbody>
-                                            {hardSkills.filter((skill) => selectedData.hardSkills.includes(skill.id_skill)).slice(0, 3).map((skill) => (
+                                            {hardSkills.filter((skill) => selectedHardSkills.includes(skill.id_skill)).slice(0, 3).map((skill) => (
                                                 // {hardSkills.slice(0, 3).map((skill) => (
                                                 <tr key={skill.id_skill} style={{ height: '30px', color: 'white', fontWeight: '500', fontSize: '14px' }}>
                                                     <td>{skill.nama_skill}</td>
@@ -418,7 +386,7 @@ const CVTemplate2 = () => {
                                             <strong style={{ color: 'white' }}>Soft Skill</strong>
                                             <tbody>
                                                 {/* {softSkills.slice(0, 2).map((skill) => ( */}
-                                                {softSkills.filter((skill) => selectedData.softSkills.includes(skill.id_skill)).slice(0, 2).map((skill) => (
+                                                {softSkills.filter((skill) => selectedSoftSkills.includes(skill.id_skill)).slice(0, 2).map((skill) => (
 
                                                     <tr key={skill.id_skill} style={{ height: '35px', color: 'white', fontWeight: '500', fontSize: '14px' }}>
                                                         <td>{skill.nama_skill}</td>
@@ -530,7 +498,7 @@ const CVTemplate2 = () => {
                                 <hr style={{ borderTop: '3px solid #FF7F09', margin: '5px 0', opacity: 1.0 }} />
                                 <ul style={{ lineHeight: '20px' }}>
                                     {pendidikan &&
-                                        pendidikan.filter((pendidikanItem) => selectedData.educational.includes(pendidikanItem.id_pend)).slice(0, 2).map((pendidikanItem) => (
+                                        pendidikan.filter((pendidikanItem) => selectedEducation.includes(pendidikanItem.id_pend)).slice(0, 2).map((pendidikanItem) => (
                                             <li key={pendidikanItem.id_pend}>
                                                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                                                     <b style={{ textAlign: "left", marginBottom: '1px' }}>
@@ -550,7 +518,7 @@ const CVTemplate2 = () => {
                                     <ul style={{ marginTop: '10px', marginBottom: '20px', lineHeight: '20px' }}>
                                         {organisasi &&
                                             // organisasi.slice(0, 2).map((org) => (
-                                            organisasi.filter((org) => selectedData.organizations.includes(org.id_org)).slice(0, 2).map((org) => (
+                                            organisasi.filter((org) => selectedOrganizations.includes(org.id_org)).slice(0, 2).map((org) => (
                                                 <li key={org.id_org} style={{ marginBottom: '15px' }}>
                                                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                                                         <b style={{ textAlign: "left" }}>
@@ -571,7 +539,7 @@ const CVTemplate2 = () => {
                                     <hr style={{ borderTop: '3px solid #FF7F09', margin: '5px 0', opacity: 1.0 }} />
                                     <ul>
                                         {portofolios &&
-                                            portofolios.filter((portfolio) => selectedData.portfolios.includes(portfolio.id_porto)).slice(0, 2).map((portfolio) => (
+                                            portofolios.filter((portfolio) => selectedPortfolios.includes(portfolio.id_porto)).slice(0, 2).map((portfolio) => (
                                                 <li key={portfolio.id_porto}>
                                                     <strong><p style={{ marginBottom: '5px', marginTop: '10px' }}>{portfolio.judul}</p></strong>
                                                     <p style={{ marginBottom: '2px' }}>{portfolio.deskripsi}</p>

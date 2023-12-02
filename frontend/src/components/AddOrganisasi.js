@@ -125,7 +125,7 @@ const AddOrganisasi = () => {
 
   return (
     <div>
-      <section id="addOrganisasi" className="addOrganisasi">
+      <section id="addOrganisasi" className="organisasi">
         <div className="container">
           <div className="section-title">
             <h2>Tambah Organisasi</h2>

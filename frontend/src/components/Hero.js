@@ -6,22 +6,20 @@ import axios from "axios";
 const Hero = () => {
   const { user } = useSelector((state) => state.auth);
   const id = user && user.user && user.user.id_akun;
-  const [skillNames, setSkillNames] = useState([
-    "(No skills added yet)",
-  ]);
+  const [profesi, setProfesi] = useState("(Profession not added yet)");
   const [data_diri, setUsers] = useState(null);
 
   useEffect(() => {
     if (id) {
-      getSkills();
+      getProfesi();
       fetchData();
     }
   }, [id]);
 
   useEffect(() => {
-    if (skillNames.length > 0) {
+    if (profesi) {
       const options = {
-        strings: skillNames,
+        strings: [profesi],
         typeSpeed: 100,
         backSpeed: 50,
         loop: true
@@ -32,20 +30,16 @@ const Hero = () => {
         typed.destroy();
       };
     }
-  }, [skillNames]);
+  }, [profesi]);
 
-  const getSkills = async () => {
+  const getProfesi = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/skills/akun/${id}`);
-      const skills = response.data.skills;
-      const hardSkills = skills.filter((skill) => skill.kategori_skill === "hardskill");
-      const skillNames = hardSkills.length > 0
-        ? hardSkills.map((skill) => skill.nama_skill)
-        : ["No Hardskills added yet"];
-      setSkillNames(skillNames);
+      const response = await axios.get(`http://localhost:5000/users/${id}`);
+      const profesiData = response.data.profesi || "(Profession not added yet)";
+      setProfesi(profesiData);
     } catch (error) {
-      console.error("Error fetching skills:", error);
-      setSkillNames(["No Hardskills added yet"]);
+      console.error("Error fetching profession:", error);
+      setProfesi("Profesi not added yet");
     }
   };
 
@@ -68,7 +62,7 @@ const Hero = () => {
         <div className="hero-container text-center p-4" data-aos="fade-in">
           <h1>{data_diri && data_diri.username}</h1>
           <p>
-            I am an expert in {" "}
+            I'm {" "}
             <span className="typed"></span>
           </p>
         </div>

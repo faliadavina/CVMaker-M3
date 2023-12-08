@@ -461,7 +461,7 @@ const Template4 = () => {
         <FaArrowUp />
       </button>
       <div style={{ textAlign: "center" }}>
-        <NavLink to="/My">
+        <NavLink to="/menu_cv">
           <button
             className="btn btn-dark"
             id="add-button-skill"

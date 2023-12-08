@@ -3,7 +3,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Hero from "./Hero";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Row , Card, Col} from "react-bootstrap";
 
 const My = () => {
   const dispatch = useDispatch();
@@ -47,6 +47,8 @@ const My = () => {
     document.body.removeChild(el);
     setShowModal(false); // Hide modal after link is copied
   };
+
+ 
 
   // Data Skill
   const [softSkills, setSoftSkills] = useState([]);
@@ -135,7 +137,7 @@ const My = () => {
             <medium>{skill.level * 10}%</medium>
           </div>
         </div>
-        <div className="description" style={{ fontSize: "14px" }}>
+        <div className="description-skill-list" style={{ fontSize: "14px" }}>
           <b>Deskripsi:</b> {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
         </div>
       </div>
@@ -179,6 +181,52 @@ const My = () => {
     };
     fetchData();
   }, [id_akun]);
+
+  const PendidikanDetail = pendidikan
+  ? pendidikan.map((pendidikan, index) => (
+      <Col
+        key={pendidikan.id_pend}
+        xs={12}
+        md={6}
+        lg={6}
+        xl={6}
+        className="mb-3"
+      >
+        <Card className="custom-card" data-aos="fade-up">
+          <Card.Body>
+            <div className="pendidikan-details">
+              <div
+                style={{ display: "flex", justifyContent: "space-between" }}
+              >
+                <div>
+                  <Card.Title
+                    style={{ fontSize: "20px", marginBottom: "8px" }}
+                  >
+                    {pendidikan.jenjang.toUpperCase()}
+                  </Card.Title>
+                  <Card.Subtitle
+                    style={{ fontSize: "17px", marginBottom: "8px" }}
+                  >
+                    {pendidikan.nama_sekolah}
+                  </Card.Subtitle>
+                  <Card.Text
+                    style={{ fontSize: "14px", marginBottom: "8px" }}
+                  >
+                    JURUSAN {pendidikan.jurusan}
+                  </Card.Text>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <span style={{ color: "gray", fontSize: "12px" }}>
+                    {pendidikan.tahun_masuk} - {pendidikan.tahun_lulus}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Card.Body>
+        </Card>
+      </Col>
+    ))
+  : null;
 
   const handleMenuCV = () => {
     navigate("/menu_cv");
@@ -342,43 +390,47 @@ const My = () => {
           </div>
         )}
       </section>
-      <section id="pendidikan" class="pendidikan">
-        <div class="container">
-          <div class="section-title">
-            <h2>Education</h2>
-          </div>
-
-          {pendidikan.length > 0 ? (
-            <ul class="education-list">
-              {pendidikan.map((item, index) => (
-                <li key={index} class="education-item">
-                  <h3 class="jenjang">{item.jenjang}</h3>
-                  <div class="school-info">
-                    <p class="nama-sekolah">{item.nama_sekolah}</p>
-                    <p class="jurusan">{item.jurusan}</p>
-                  </div>
-                  <p class="tahun">
-                    {item.tahun_masuk} - {item.tahun_lulus}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <div class="title d-flex justify-content-center align-items-center text-center mt-5">
-              <div
-                className="text-center"
-                style={{
-                  marginBottom: "20px",
-                  color: "grey",
-                  fontSize: "16px",
-                }}
-              >
-                Educational data Hasn't Been Added
+      <section
+        id="pendidikan"
+        className="pendidikan"
+      >
+        {pendidikan.length > 0 ? (
+          <div className="container">
+            <div
+              className="section-title"
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <div className="title-container">
+                <h2>Pendidikan</h2>
               </div>
             </div>
-          )}
-        </div>
+            <Row>{PendidikanDetail}</Row>
+          </div>
+        ) : (
+          <div class="container">
+            <div class="section-title">
+              <h2>Education</h2>
+            </div>
+          <div
+            className="d-flex flex-column justify-content-center align-items-center"
+          >
+            <div
+              className="text-center"
+              style={{
+                marginBottom: "20px",
+                color: "grey",
+                fontSize: "16px",
+              }}
+            >
+              Educational Hasn't Been Added
+            </div>
+          </div>
+          </div>
+        )}
       </section>
+
+
+
 
       {/* Organisasi Section */}
       <section id="organisasi" className="organisasi">
@@ -502,7 +554,7 @@ const My = () => {
                           <medium>{skill.level * 10}%</medium>
                         </div>
                       </div>
-                      <div className="description" style={{ fontSize: "14px" }}>
+                      <div className="description-skill-list" style={{ fontSize: "14px" }}>
                         <b>Deskripsi:</b> {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
                       </div>
                     </div>
@@ -536,7 +588,7 @@ const My = () => {
                           <medium>{skill.level * 10}%</medium>
                         </div>
                       </div>
-                      <div className="description" style={{ fontSize: "14px" }}>
+                      <div className="description-skill-list" style={{ fontSize: "14px" }}>
                         <b>Deskripsi:</b> {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
                       </div>
                     </div>

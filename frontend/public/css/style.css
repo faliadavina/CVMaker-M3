@@ -467,10 +467,16 @@ section {
   overflow: auto; /* Tambahkan efek overflow jika deskripsi terlalu panjang */
 }
 
-.description {
-  max-height: 40px; /* Sesuaikan tinggi maksimum deskripsi */
+.description-skill-list {
+  height: 30px; /* Sesuaikan tinggi maksimum deskripsi */
   margin: 0;
 }
+
+.img-logo{
+  z-index: 1000;
+}
+
+
 
 .description p {
   margin-bottom: 0;

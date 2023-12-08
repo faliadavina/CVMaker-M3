@@ -16,7 +16,7 @@ const AddSkill = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const maxDeskripsiLength = 255;
+  const maxDeskripsiLength = 100;
 
   const clearErrorMessage = () => {
     setMsg("");
@@ -41,10 +41,11 @@ const AddSkill = () => {
   };
 
   const handleDescriptionChange = (value) => {
-    setDescription(value);
-    clearErrorMessage();
+    if (value.length <= maxDeskripsiLength) {
+      setDescription(value);
+      clearErrorMessage();
+    }
   };
-
   const { user } = useSelector((state) => state.auth);
   const id = user && user.user && user.user.id_akun;
 
@@ -64,9 +65,9 @@ const AddSkill = () => {
       return;
     }
 
-    if (description.length > 255) {
+    if (description.length > 100) {
       setMsg(
-        "Description Maximun 255 characters"
+        "Description Maximun 100 characters"
       );
       return;
     }

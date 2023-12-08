@@ -33,7 +33,7 @@ const Pendidikan = db.define('data_pendidikan', {
         allowNull: false
     },
     tahun_lulus: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING, // Mengubah tipe data menjadi string
         allowNull: false
     }
 }, 

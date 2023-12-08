@@ -13,6 +13,7 @@ const EditOrganisasi = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const maxDeskripsiLength = 100;
 
   const navigate = useNavigate();
 
@@ -66,9 +67,13 @@ const EditOrganisasi = () => {
   };
 
   const handleDeskripsiJabatanChange = (value) => {
-    setDeskripsiJabatan(value);
-    clearErrorMessage();
+    // Memeriksa apakah deskripsi jabatan tidak melebihi panjang maksimum
+    if (value.length <= maxDeskripsiLength) {
+      setDeskripsiJabatan(value);
+      clearErrorMessage();
+    }
   };
+
 
   const updateOrganisasi = async (e) => {
     e.preventDefault();
@@ -241,6 +246,9 @@ const EditOrganisasi = () => {
                       rows="4"
                       placeholder="Deskripsi Jabatan"
                     ></textarea>
+                    <p style={{ fontSize: "10px" }}>
+                      {deskripsiJabatan.length} / {maxDeskripsiLength}
+                    </p>
                   </label>
                 </div>
 

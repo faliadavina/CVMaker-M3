@@ -229,7 +229,7 @@ const EditSkill = () => {
                     type="submit"
                     disabled={isSubmitting} // Menonaktifkan tombol saat sedang mengirimkan permintaan
                   >
-                    {isSubmitting ? "Saving..." : "Save"} 
+                    {isSubmitting ? "Saving..." : "Update Data"} 
                   </button>
                   </div>
                 </form>

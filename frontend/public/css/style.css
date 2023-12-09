@@ -467,10 +467,16 @@ section {
   overflow: auto; /* Tambahkan efek overflow jika deskripsi terlalu panjang */
 }
 
-.description {
-  max-height: 40px; /* Sesuaikan tinggi maksimum deskripsi */
+.description-skill-list {
+  height: 30px; /* Sesuaikan tinggi maksimum deskripsi */
   margin: 0;
 }
+
+.img-logo{
+  z-index: 1000;
+}
+
+
 
 .description p {
   margin-bottom: 0;
@@ -1517,6 +1523,14 @@ input.form-check-input:checked {
   display: block;
 }
 
+/* Media query for smaller screens */
+@media (max-width: 1300px) {
+  .porto {
+    width: 100%; /* Set width to 100% for single column layout */
+    margin-left: 0; /* Remove negative margin */
+  }
+}
+
 .conStyle {
   display: flex;
   flex-direction: column;
@@ -1524,7 +1538,7 @@ input.form-check-input:checked {
 }
 
 .add {
-  width: 700px;
+  width: 550px;
   height: 300px;
   border: 1px solid #ccc;
   padding: 10px;

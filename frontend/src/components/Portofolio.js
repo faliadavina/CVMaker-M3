@@ -3,12 +3,15 @@ import axios from "axios";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaPlus } from "react-icons/fa";
+import { Modal, Button } from 'react-bootstrap';
 
 const Portfolio = () => {
   const [portofolios, setPorto] = useState([]);
   const [selectedPortofolios, setSelectedPortofolios] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
 
 
   const { user } = useSelector((state) => state.auth);
@@ -56,15 +59,6 @@ const Portfolio = () => {
   };
 
   // ============= CODE FOR DELETE DATA =============
-  const deletePorto = async (portoID) => {
-    try {
-      await axios.delete(`http://localhost:5000/porto/${portoID}`);
-      getPorto();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const toggleSelection = (portoID) => {
     if (selectedPortofolios.includes(portoID)) {
       setSelectedPortofolios(selectedPortofolios.filter((id) => id !== portoID));
@@ -74,6 +68,19 @@ const Portfolio = () => {
   };
 
   const deleteSelectedPortofolios = async () => {
+    try {
+      // Tampilkan modal konfirmasi
+      handleShowConfirmationModal();
+    } catch (error) {
+      console.error("Error deleting portofolios:", error);
+      setErrorMessage("Error deleting portofolios.");
+      setSuccessMessage("");
+      // Clear error message after 2 seconds
+      setTimeout(() => setErrorMessage(""), 2000);
+    }
+  };
+
+  const handleDeleteConfirmed = async () => {
     try {
       // Menghapus portofolio yang dipilih satu per satu
       for (const portoId of selectedPortofolios) {
@@ -94,13 +101,17 @@ const Portfolio = () => {
     }
   };
 
+  const handleShowConfirmationModal = () => setShowConfirmationModal(true);
+  const handleCloseConfirmationModal = () => setShowConfirmationModal(false);
+
+
   return (
     <body>
       <section id="uploadPorto" className="portfolio">
         <div className="container">
           <div className="container">
             {portofolios === null || portofolios.length === 0 ? (
-              <div className="container d-flex flex-column justify-content-center align-items-center vh-100">
+              <div className="container d-flex flex-column justify-content-center align-items-center" style={{ marginTop: "20%" }}>
                 <div
                   className="text-center"
                   style={{
@@ -128,22 +139,32 @@ const Portfolio = () => {
               <>
                 <div class="section-title d-flex justify-content-between align-items-center">
                   <h2>Portofolio</h2>
-                  <button onClick={deleteSelectedPortofolios} className="btn btn-danger" style={{ marginLeft: "56%", fontWeight: "bold" }}>
-                    Delete Selected
-                  </button>
-                  <NavLink to="/add_portofolio">
-                    <button
-                      className="btn btn-dark"
-                      style={{
-                        borderRadius: "50px",
-                        fontSize: "14px",
-                        fontWeight: "bold",
-                        marginRight: "80px",
-                      }}
-                    >
-                      <FaPlus style={{ marginRight: "10px" }} /> Add Portfolio
-                    </button>
-                  </NavLink>
+                  <div>
+                    {/* <button onClick={deleteSelectedPortofolios} className="btn btn-danger" style={{ fontWeight: "bold" }}>
+                      Delete Selected
+                    </button> */}
+                    {selectedPortofolios.length > 0 && (
+                      <button
+                        onClick={deleteSelectedPortofolios}
+                        className="btn btn-danger"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        Delete Selected
+                      </button>
+                    )}
+                    <NavLink to="/add_portofolio">
+                      <button
+                        className="btn btn-dark"
+                        style={{
+                          borderRadius: "50px",
+                          fontSize: "14px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        <FaPlus style={{ marginRight: "10px" }} /> Add Portfolio
+                      </button>
+                    </NavLink>
+                  </div>
                 </div>
 
                 <div className="container">
@@ -168,40 +189,17 @@ const Portfolio = () => {
                               <div className="deskripsi">
                                 <p>{portofolio.deskripsi}</p>
                                 <div className="buttons">
-                                  {/* <button
-                                    onClick={() => deletePorto(portofolio.id_porto)}
-                                    className="btn btn-danger"
-                                  >
-                                    Delete
-                                  </button> */}
-                                  <Link
+                                  <NavLink
                                     to={`edit_portofolio/${portofolio.id_porto}`}
                                     className="btn btn-primary"
                                   >
                                     Update
-                                  </Link>
+                                  </NavLink>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                        {/* <div
-                          className="card porto"
-                          style={{ marginBottom: "15px" }}
-                        >
-                          {renderPortofolioContent(portofolio.url)}
-                          <div className="deskripsi">
-                            <p>{portofolio.deskripsi}</p>
-                            <div className="buttons">
-                              <Link
-                                to={`edit_portofolio/${portofolio.id_porto}`}
-                                className="btn btn-primary"
-                              >
-                                Update
-                              </Link>
-                            </div>
-                          </div>
-                        </div> */}
                       </div>
                     ))}
                   </div>
@@ -210,6 +208,26 @@ const Portfolio = () => {
             )}
           </div>
         </div>
+        {/* Modal Konfirmasi */}
+        <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Confirmation</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure you want to delete the selected portfolios?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseConfirmationModal}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={() => {
+              handleCloseConfirmationModal();
+              handleDeleteConfirmed();
+            }}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </section>
     </body>
   );

@@ -135,10 +135,10 @@ const PendidikanList = () => {
                 <Col>
                   <div className="pendidikan-details">
                     <Card.Title style={{ fontSize: "17px" }}>
-                      {pendidikan.jenjang}
+                      {pendidikan.jenjang.toUpperCase()}
                     </Card.Title>
                     <Card.Subtitle style={{ fontSize: "15px" }}>
-                      {pendidikan.nama_sekolah}
+                      {pendidikan.nama_sekolah.toUpperCase()}
                     </Card.Subtitle>
                     <Card.Text style={{ fontSize: "12px" }}>
                       JURUSAN {pendidikan.jurusan}
@@ -174,7 +174,7 @@ const PendidikanList = () => {
               style={{ display: "flex", alignItems: "center" }}
             >
               <div className="title-container">
-                <h2>Pendidikan</h2>
+                <h2>Education</h2>
                 <div className="checkbox-container">
                   <label>
                     <input

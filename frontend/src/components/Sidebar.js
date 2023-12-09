@@ -83,7 +83,7 @@ const Sidebar = () => {
           <div className="profile">
             <img src={userData.profileImage || "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"} alt="" />
             <h1 className="text-light m-6 mb-4">
-              <a href="index.html">{userData.username || ""}</a>
+              <a>{userData.username || ""}</a>
             </h1>
           </div>
 

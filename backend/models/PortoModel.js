@@ -27,6 +27,10 @@ const Portofolio = db.define('data_portofolio', {
     url: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    judul: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 }, {
     freezeTableName: true,

@@ -13,6 +13,7 @@ const EditOrganisasi = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const maxDeskripsiLength = 100;
 
   const navigate = useNavigate();
 
@@ -46,12 +47,12 @@ const EditOrganisasi = () => {
   }, [id_akun, id_org]);
 
   const handleNamaOrganisasiChange = (value) => {
-    setNamaOrganisasi(value);
+    setNamaOrganisasi(value.toUpperCase());
     clearErrorMessage();
   };
 
   const handleJabatanChange = (value) => {
-    setJabatan(value);
+    setJabatan(value.toUpperCase());
     clearErrorMessage();
   };
 
@@ -66,9 +67,13 @@ const EditOrganisasi = () => {
   };
 
   const handleDeskripsiJabatanChange = (value) => {
-    setDeskripsiJabatan(value);
-    clearErrorMessage();
+    // Memeriksa apakah deskripsi jabatan tidak melebihi panjang maksimum
+    if (value.length <= maxDeskripsiLength) {
+      setDeskripsiJabatan(value);
+      clearErrorMessage();
+    }
   };
+
 
   const updateOrganisasi = async (e) => {
     e.preventDefault();
@@ -101,6 +106,11 @@ const EditOrganisasi = () => {
         setErrorMsg("Deskripsi Jabatan cannot be empty.");
       }
 
+      return;
+    }
+
+    if (parseInt(periodeAwal) > parseInt(periodeAkhir)) {
+      setErrorMsg("Periode Awal atau Periode Akhir tidak sesuai.");
       return;
     }
 
@@ -166,6 +176,7 @@ const EditOrganisasi = () => {
                       }
                       type="text"
                       className="form-control"
+                      style={{ textTransform: 'uppercase' }}
                       placeholder="Nama Organisasi"
                     />
                   </label>
@@ -179,6 +190,7 @@ const EditOrganisasi = () => {
                       onChange={(e) => handleJabatanChange(e.target.value)}
                       type="text"
                       className="form-control"
+                      style={{ textTransform: 'uppercase' }}
                       placeholder="Jabatan"
                     />
                   </label>
@@ -234,12 +246,13 @@ const EditOrganisasi = () => {
                       rows="4"
                       placeholder="Deskripsi Jabatan"
                     ></textarea>
+                    <p style={{ fontSize: "10px" }}>
+                      {deskripsiJabatan.length} / {maxDeskripsiLength}
+                    </p>
                   </label>
                 </div>
 
-                {errorMsg && (
-                  <p className="text-center text-danger">{errorMsg}</p>
-                )}
+               
 
                 <div className="text-center">
                   <button

@@ -232,6 +232,13 @@ const My = () => {
     navigate("/menu_cv");
   };
 
+  const floatingButtonStyle = {
+    position: 'fixed',
+    right: '20px',
+    bottom: '20px',
+    zIndex: '1000',
+  };
+
   return (
     <body>
       <Hero />
@@ -243,12 +250,15 @@ const My = () => {
           borderRadius: "50px",
           fontSize: "14px",
           fontWeight: "bold",
+          ...floatingButtonStyle,
+          bottom: '80px',
         }}
         onClick={handleMenuCV}
       >
         <i className="bi bi-printer-fill mr-3"></i>{" "}
         Select Template CV
       </button>
+
       <Button
         variant="primary"
         onClick={() => setShowModal(true)}
@@ -257,6 +267,7 @@ const My = () => {
           borderRadius: "50px",
           fontSize: "14px",
           fontWeight: "bold",
+          ...floatingButtonStyle,
         }}
       >
         <i className="bi bi-share-fill mr-3"></i>

@@ -187,10 +187,10 @@ const EditDataDiri = () => {
         }
 
         // Set file dan preview jika valid
-        if (!error) {
-          setFile(selectedFile);
-          setPreview(URL.createObjectURL(selectedFile));
-        }
+        
+        setFile(selectedFile);
+        setPreview(URL.createObjectURL(selectedFile));
+        
 
         // Set pesan error jika tidak valid
         setFileError(error);
@@ -418,8 +418,8 @@ const EditDataDiri = () => {
                               required
                           >
                               <option value="">Select Marriage Status</option>
-                              <option value="Menikah">MENIKAH</option>
-                              <option value="Belum Menikah">BELUM MENIKAH</option>
+                              <option value="MENIKAH">MENIKAH</option>
+                              <option value="BELUM MENIKAH">BELUM MENIKAH</option>
                           </select>
                       </div>
                         <div class="form-group col-md-6">

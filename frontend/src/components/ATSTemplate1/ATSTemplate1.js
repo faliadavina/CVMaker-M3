@@ -22,7 +22,9 @@ const GenerateCV = () => {
 
   const getUsers = async () => {
     try {
-      const response = await axios.get(`https://api-cvmaster.agilearn.id/users/${id_akun}`);
+      const response = await axios.get(
+        `http://localhost:5000/users/${id_akun}`
+      );
       setUsers(response.data);
     } catch (error) {
       // Handle error jika data diri tidak ditemukan
@@ -41,12 +43,18 @@ const GenerateCV = () => {
 
   const getSkills = async () => {
     try {
-      const response = await axios.get(`https://api-cvmaster.agilearn.id/skills/akun/${id_akun}`);
+      const response = await axios.get(
+        `http://localhost:5000/skills/akun/${id_akun}`
+      );
       setSkill(response.data);
 
       // Pisahkan skills berdasarkan kategori_skill
-      const softSkills = response.data.skills.filter((skill) => skill.kategori_skill === "softskill");
-      const hardSkills = response.data.skills.filter((skill) => skill.kategori_skill === "hardskill");
+      const softSkills = response.data.skills.filter(
+        (skill) => skill.kategori_skill === "softskill"
+      );
+      const hardSkills = response.data.skills.filter(
+        (skill) => skill.kategori_skill === "hardskill"
+      );
 
       setSoftSkills(softSkills);
       setHardSkills(hardSkills);
@@ -63,7 +71,9 @@ const GenerateCV = () => {
   useEffect(() => {
     const fetchOrganisasi = async () => {
       try {
-        const response = await axios.get(`https://api-cvmaster.agilearn.id/organisasi/akun/${id_akun}`);
+        const response = await axios.get(
+          `http://localhost:5000/organisasi/akun/${id_akun}`
+        );
 
         console.log("Raw response:", response);
 
@@ -92,7 +102,9 @@ const GenerateCV = () => {
 
   const getPorto = async () => {
     try {
-      const response = await axios.get(`https://api-cvmaster.agilearn.id/porto/${id_akun}`);
+      const response = await axios.get(
+        `http://localhost:5000/porto/${id_akun}`
+      );
       setPorto(response.data);
       console.log("Portfolios:", response.data); // Tambahkan ini untuk memeriksa nilai portofolios
     } catch (error) {
@@ -110,7 +122,14 @@ const GenerateCV = () => {
     if (isImage) {
       return <img src={url} alt="Portofolio" height="600" width="400" />;
     } else if (isPDF) {
-      return <embed src={url} type="application/pdf" className="pdf-embed" height="600" />;
+      return (
+        <embed
+          src={url}
+          type="application/pdf"
+          className="pdf-embed"
+          height="600"
+        />
+      );
     } else if (isAudio) {
       return <audio controls src={url} />;
     } else if (isVideo) {
@@ -126,7 +145,9 @@ const GenerateCV = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://api-cvmaster.agilearn.id/pendidikan/akun/${id_akun}`);
+        const response = await axios.get(
+          `http://localhost:5000/pendidikan/akun/${id_akun}`
+        );
 
         // Pastikan respons dari API berupa array atau ubah sesuai kebutuhan
         setPendidikan(response.data.pendidikan);
@@ -171,7 +192,10 @@ const GenerateCV = () => {
 
   return (
     <div className="body-cv-ats-1">
-      <button className="custom-button-cv1 purple-button-cv1 mr-4 margin-around-button" onClick={handleDownloadPDFATS}>
+      <button
+        className="custom-button-cv1 purple-button-cv1 mr-4 margin-around-button"
+        onClick={handleDownloadPDFATS}
+      >
         <FaDownload className="download-icon" />
         <p className="mr-1">Download CV as PDF</p>
       </button>
@@ -180,19 +204,35 @@ const GenerateCV = () => {
           {/* Check if data_diri is not null before accessing its properties */}
           {data_diri ? (
             <>
-              <img src={data_diri.url} alt="Your Name" className="img-cv-ats-1" />
-              <p className="title-name-ats-1">{data_diri.nama ? data_diri.nama : "No Data"}</p>
+              <img
+                src={data_diri.url}
+                alt="Your Name"
+                className="img-cv-ats-1"
+              />
+              <p className="title-name-ats-1">
+                {data_diri.nama ? data_diri.nama : "No Data"}
+              </p>
               <p className="detail-ats-1">
-                Alamat : {data_diri.alamat} | Email: {data_diri.email} | Phone: {data_diri.telp} <br /> LinkedIn:{" "}
-                <a className="text-social-ats-1" href={`https://www.linkedin.com/in/${data_diri.linkedin}`}>
+                Alamat : {data_diri.alamat} | Email: {data_diri.email} | Phone:{" "}
+                {data_diri.telp} <br /> LinkedIn:{" "}
+                <a
+                  className="text-social-ats-1"
+                  href={`https://www.linkedin.com/in/${data_diri.linkedin}`}
+                >
                   @{data_diri.linkedin}
                 </a>{" "}
                 | Instagram:{" "}
-                <a className="text-social-ats-1" href={`https://www.instagram.com/${data_diri.sosial_media}`}>
+                <a
+                  className="text-social-ats-1"
+                  href={`https://www.instagram.com/${data_diri.sosial_media}`}
+                >
                   @{data_diri.sosial_media}
                 </a>{" "}
                 | Twitter:{" "}
-                <a className="text-social-ats-1" href={`https://www.twitter.com/${data_diri.twitter}`}>
+                <a
+                  className="text-social-ats-1"
+                  href={`https://www.twitter.com/${data_diri.twitter}`}
+                >
                   @{data_diri.twitter}
                 </a>
               </p>
@@ -206,7 +246,11 @@ const GenerateCV = () => {
         <br />
         <div className="detail-ats-1" id="section-area-ats-1">
           <h3 className="section-ats-1-h3">TENTANG SAYA</h3>
-          <p> {data_diri && data_diri.deskripsi ? data_diri.deskripsi : "Description not available."}</p>
+          <p style={{ wordWrap: "break-word" }}>
+            {data_diri && data_diri.deskripsi
+              ? data_diri.deskripsi
+              : "Description not available."}
+          </p>
         </div>
 
         <div className="detail-ats-1" id="section-area-ats-1">
@@ -221,9 +265,13 @@ const GenerateCV = () => {
                     <div className="col-sm-9" id="text-content">
                       <strong>{pendidikan.nama_sekolah}</strong>
                       <br />
-                      {pendidikan.jenjang === "SMA" || pendidikan.jenjang === "SMK" ? (
+                      {pendidikan.jenjang === "SMA" ||
+                      pendidikan.jenjang === "SMK" ? (
                         <>JURUSAN {pendidikan.jurusan}</>
-                      ) : pendidikan.jenjang === "D3" || pendidikan.jenjang === "S1" || pendidikan.jenjang === "D4" || pendidikan.jenjang === "S2" ? (
+                      ) : pendidikan.jenjang === "D3" ||
+                        pendidikan.jenjang === "S1" ||
+                        pendidikan.jenjang === "D4" ||
+                        pendidikan.jenjang === "S2" ? (
                         <>
                           {pendidikan.jenjang} - {pendidikan.jurusan}
                         </>
@@ -248,7 +296,7 @@ const GenerateCV = () => {
               {organisasi.map((organisasi, index) => (
                 <li key={index}>
                   <div className="row">
-                    <div className="col-sm-9" id="text-content">
+                    <div className="col-sm-9" id="text-content"  style={{ wordWrap: 'break-word' }}>
                       <strong>{organisasi.nama_organisasi}</strong>
                       <br />
                       {organisasi.jabatan}
@@ -319,7 +367,11 @@ const GenerateCV = () => {
           )}
         </div>
       </div>
-      <button onClick={() => window.scrollTo(0, 0)} className="back-button-cv1" style={{ marginLeft: "50px" }}>
+      <button
+        onClick={() => window.scrollTo(0, 0)}
+        className="back-button-cv1"
+        style={{ marginLeft: "50px" }}
+      >
         <FaArrowUp />
       </button>
       <div style={{ textAlign: "center" }}>

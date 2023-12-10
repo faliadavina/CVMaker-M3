@@ -121,19 +121,35 @@ const DataDiri = () => {
                       <span>{data_diri.email}</span>
                     </li>
                     <li>
-                      <i class="bi bi-linkedin mr-3"></i>{" "}
-                      {/* <strong> LinkedIn :</strong>{" "} */}
-                      <span>{data_diri.linkedin}</span>
-                    </li>
-                    <li>
-                      <i class="bi bi-instagram mr-3"></i>{" "}
-                      {/* <strong> Social Media :</strong>{" "} */}
-                      <span><a href={data_diri.link_sosmed}>@{data_diri.sosial_media}</a></span>
-                    </li>
-                    <li>
-                      <i class="bi bi-twitter mr-3"></i>{" "}
-                      <span><a href={data_diri.link_twitter}>@{data_diri.twitter}</a></span>
-                    </li>
+                    {data_diri.linkedin && (
+                      <React.Fragment>
+                        <i className="bi bi-linkedin mr-3"></i>{" "}
+                        {/* <strong> LinkedIn :</strong>{" "} */}
+                        <span>{data_diri.linkedin}</span>
+                      </React.Fragment>
+                    )}
+                  </li>
+                  <li>
+                    {data_diri.link_sosmed && (
+                      <React.Fragment>
+                        <i className="bi bi-instagram mr-3"></i>{" "}
+                        <span>
+                          <a href={data_diri.link_sosmed}>@{data_diri.sosial_media}</a>
+                        </span>
+                      </React.Fragment>
+                    )}
+                  </li>
+                  <li>
+                    {data_diri.link_twitter && (
+                      <React.Fragment>
+                        <i className="bi bi-twitter mr-3"></i>{" "}
+                        <span>
+                          <a href={data_diri.link_twitter}>@{data_diri.twitter}</a>
+                        </span>
+                      </React.Fragment>
+                    )}
+                  </li>
+
                   </ul>
                 </div>
 

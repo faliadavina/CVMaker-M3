@@ -15,15 +15,22 @@ const EditSkill = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [description, setDescription] = useState(""); // Define description here
-  const maxDeskripsiLength = 255; // Define maxDeskripsiLength here
+  const maxDeskripsiLength = 100;
 
 
   // Get the user ID from Redux
   const { user } = useSelector((state) => state.auth);
   const id_akun = user && user.user && user.user.id_akun;
 
+  const clearErrorMessage = () => {
+    setMsg("");
+  };
+
   const handleDescriptionChange = (value) => {
-    setDescription(value);
+    if (value.length <= maxDeskripsiLength) {
+      setDescription(value);
+      clearErrorMessage();
+    }
   };
 
   useEffect(() => {
@@ -222,7 +229,7 @@ const EditSkill = () => {
                     type="submit"
                     disabled={isSubmitting} // Menonaktifkan tombol saat sedang mengirimkan permintaan
                   >
-                    {isSubmitting ? "Saving..." : "Save"} 
+                    {isSubmitting ? "Saving..." : "Update Data"} 
                   </button>
                   </div>
                 </form>

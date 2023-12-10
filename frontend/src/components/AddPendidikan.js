@@ -7,19 +7,18 @@ const AddPendidikan = () => {
   const [jenjang, setJenjang] = useState("");
   const [nama_sekolah, setNamaSekolah] = useState("");
   const [jurusan, setJurusan] = useState("");
-  const [tahun_masuk, setTahunMasuk] = useState("Pilih Tahun");
-  const [tahun_lulus, setTahunLulus] = useState("Pilih Tahun");
+  const [tahun_masuk, setTahunMasuk] = useState("");
+  const [tahun_lulus, setTahunLulus] = useState("Sekarang");
 
   const [errorMsg, setErrorMsg] = useState("");
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
-  const [jenjangLainnya, setJenjangLainnya] = useState(""); // Untuk input "Lainnya"
+  const [jenjangLainnya, setJenjangLainnya] = useState("");
 
-  const [jenjangFilled, setJenjangFilled] = useState(false);
   const [namaSekolahFilled, setNamaSekolahFilled] = useState(false);
   const [jurusanFilled, setJurusanFilled] = useState(false);
   const [tahunMasukFilled, setTahunMasukFilled] = useState(false);
-  const [tahunLulusFilled, setTahunLulusFilled] = useState(false);
+  const [tahunLulusFilled, setTahunLulusFilled] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -29,10 +28,9 @@ const AddPendidikan = () => {
 
   const handleJenjangChange = (value) => {
     if (value === "Lainnya") {
-      setJenjang("Lainnya"); // Reset nilai dropdown
+      setJenjang("Lainnya");
     } else {
-      setJenjang(value); // Tetapkan nilai dropdown
-      setJenjangFilled(!!value);
+      setJenjang(value);
     }
     clearErrorMessage();
   };
@@ -55,34 +53,44 @@ const AddPendidikan = () => {
         "Tahun masuk harus lebih kecil atau sama dengan tahun lulus."
       );
     } else {
-      setTahunMasuk(year); // Menggunakan integer untuk tahun masuk
+      setTahunMasuk(year);
       clearErrorMessage();
       setTahunMasukFilled(!!year);
     }
   };
 
   const handleTahunLulusChange = (year) => {
-    if (year < tahun_masuk) {
-      setErrorMsg(
-        "Tahun lulus harus lebih besar atau sama dengan tahun masuk."
-      );
-    } else {
-      setTahunLulus(year); // Menggunakan integer untuk tahun lulus
+    if (year === "Sekarang") {
+      setTahunLulus("Sekarang");
       setErrorMsg("");
-      setTahunLulusFilled(!!year);
+      setTahunLulusFilled(true);
+    } else {
+      if (year < tahun_masuk) {
+        setErrorMsg(
+          "Tahun lulus harus lebih besar atau sama dengan tahun masuk."
+        );
+      } else {
+        setTahunLulus(year.toString()); // Mengubah ke tipe string sebelum disimpan
+        setErrorMsg("");
+        setTahunLulusFilled(!!year);
+      }
     }
   };
 
-  function generateYearOptions() {
-    const startYear = 1970; // Tahun awal
-    const currentYear = new Date().getFullYear(); // Tahun saat ini
+  function generateYearOptions(includeNowOption = false) {
+    const startYear = 1970;
+    const currentYear = new Date().getFullYear();
     const years = [];
     for (let year = startYear; year <= currentYear; year++) {
       years.push(year);
     }
+    if (includeNowOption) {
+      years.push("Sekarang");
+    }
+
     return years.map((year) => (
       <option key={year} value={year}>
-        {year}
+        {year === "Sekarang" ? "Sekarang" : year}
       </option>
     ));
   }
@@ -92,13 +100,9 @@ const AddPendidikan = () => {
 
   const savePendidikan = async (e) => {
     e.preventDefault();
-
-    // Reset error message
     setMsg("");
 
-    // Check if all fields are filled
     if (
-      !jenjangFilled ||
       !namaSekolahFilled ||
       !jurusanFilled ||
       !tahunMasukFilled ||
@@ -110,27 +114,36 @@ const AddPendidikan = () => {
 
     const yearRegex = /^\d{4}$/;
 
-    // Contoh penggunaan dalam validasi tahun_masuk dan tahun_lulus
-    if (!yearRegex.test(tahun_masuk) || !yearRegex.test(tahun_lulus)) {
+    if (
+      !yearRegex.test(tahun_masuk) ||
+      (tahun_lulus !== "Sekarang" && !yearRegex.test(tahun_lulus))
+    ) {
       setMsg("Tahun masuk dan tahun lulus harus berupa 4 digit angka.");
-      if (!yearRegex.test(tahun_masuk)) {
-        setTahunMasukFilled(false);
-      } else {
-        setTahunLulusFilled(false);
-      }
       return;
     }
+
     setIsSubmitting(true);
 
     try {
+      let jenjangToSend = jenjang;
+      if (jenjang === "Lainnya" && jenjangLainnya.trim() !== "") {
+        jenjangToSend = jenjangLainnya;
+      }
+
+      let tahunLulusToSend = tahun_lulus;
+      if (tahun_lulus === "Sekarang") {
+        tahunLulusToSend = "Sekarang"; // Kirim string "Sekarang" ke basis data
+      }
+
       await axios.post(`https://api-cvmaster.agilearn.id/pendidikan/${id}`, {
-        jenjang: jenjang,
+        jenjang: jenjangToSend,
         nama_sekolah: nama_sekolah,
         jurusan: jurusan,
-        tahun_masuk: tahun_masuk, // Menggunakan integer untuk tahun masuk
-        tahun_lulus: tahun_lulus, // Menggunakan integer untuk tahun lulus
+        tahun_masuk: tahun_masuk,
+        tahun_lulus: tahunLulusToSend,
       });
-      setSuccessMessage("Education added successfully!"); // Show success message for 2 seconds before navigating
+
+      setSuccessMessage("Education added successfully!");
       setTimeout(() => {
         navigate("/pendidikan");
       }, 2000);
@@ -139,7 +152,7 @@ const AddPendidikan = () => {
         setMsg(error.response.data.message);
       }
     } finally {
-      setIsSubmitting(false); // Menandakan bahwa permintaan telah selesai
+      setIsSubmitting(false);
     }
   };
 
@@ -172,7 +185,9 @@ const AddPendidikan = () => {
                       onChange={(e) => handleJenjangChange(e.target.value)}
                       className="form-select"
                     >
-                      <option value="">Pilih Jenjang</option>
+                      <option value="" disabled>
+                        Pilih Jenjang
+                      </option>
                       <option value="SMA">SMA</option>
                       <option value="SMK">SMK</option>
                       <option value="D3">D3</option>
@@ -190,7 +205,7 @@ const AddPendidikan = () => {
                       <h5>Jenjang Pendidikan (Lainnya)</h5>
                       <input
                         value={jenjangLainnya}
-                        onChange={(e) => setJenjangLainnya(e.target.value)}
+                        onChange={(e) => setJenjangLainnya(e.target.value.toUpperCase())}
                         type="text"
                         className="form-control"
                         placeholder="Jenjang Lainnya"
@@ -239,7 +254,9 @@ const AddPendidikan = () => {
                       }
                       className="form-select"
                     >
-                      <option value="">Pilih Tahun</option>
+                      <option value="" disabled>
+                        Pilih Tahun
+                      </option>
                       {generateYearOptions()}
                     </select>
                   </label>
@@ -251,12 +268,18 @@ const AddPendidikan = () => {
                     <select
                       value={tahun_lulus}
                       onChange={(e) =>
-                        handleTahunLulusChange(parseInt(e.target.value))
+                        handleTahunLulusChange(
+                          e.target.value === "Sekarang"
+                            ? "Sekarang"
+                            : parseInt(e.target.value)
+                        )
                       }
                       className="form-select"
                     >
-                      <option value="">Pilih Tahun</option>
-                      {generateYearOptions()}
+                      <option value="" disabled>
+                        Pilih Tahun
+                      </option>
+                      {generateYearOptions(true)}
                     </select>
                   </label>
                 </div>
@@ -267,14 +290,14 @@ const AddPendidikan = () => {
                   <button
                     className="btn btn-secondary mt-3 me-3"
                     onClick={handleCancel}
-                    disabled={isSubmitting} // Menonaktifkan tombol saat sedang mengirimkan permintaan
+                    disabled={isSubmitting}
                   >
                     Cancel
                   </button>
                   <button
                     className="btn btn-primary mt-3"
                     type="submit"
-                    disabled={isSubmitting} // Menonaktifkan tombol saat sedang mengirimkan permintaan
+                    disabled={isSubmitting}
                   >
                     {isSubmitting ? "Adding..." : "Add Data"}
                   </button>
@@ -284,7 +307,6 @@ const AddPendidikan = () => {
           </div>
         </div>
       </section>
-      {/* End #main */}
     </div>
   );
 };

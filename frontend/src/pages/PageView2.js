@@ -210,47 +210,53 @@ const PageView2 = () => {
       ))
     : null;
 
-  const OrganisasiDetail = organisasi
-    ? organisasi.map((org) => (
-        <Col key={org.id_org} xs={12} md={6} lg={6} xl={6} className="mb-3">
-          <Card className="custom-card " data-aos="fade-up">
-            <Card.Body>
-              <div className="organisasi-details">
-                <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <div>
-                    <Card.Title
-                      style={{ fontSize: "20px", marginBottom: "8px" }}
-                    >
-                      {org.nama_organisasi.toUpperCase()}
-                    </Card.Title>
-                    <Card.Subtitle
-                      style={{ fontSize: "17px", marginBottom: "8px" }}
-                    >
-                      {org.jabatan.charAt(0).toUpperCase() +
-                        org.jabatan.slice(1)}
-                    </Card.Subtitle>
-                    <Card.Text
-                      style={{ fontSize: "14px", marginBottom: "8px" }}
-                    >
-                      {org.deskripsi_jabatan.charAt(0).toUpperCase() +
-                        org.deskripsi_jabatan.slice(1)}
-                    </Card.Text>
+    const OrganisasiDetail = organisasi
+    ? (
+      <Row>
+        {organisasi.map((org, index) => (
+          <React.Fragment key={org.id_org}>
+            <Col xs={12} md={6} lg={6} xl={6} className="mb-3">
+              <Card className="custom-card" data-aos="fade-up">
+                <Card.Body >
+                  <div className="organisasi-details" style={{ maxHeight: '100px', overflowY: 'auto', overflowX: 'hidden' }}>
+                    <div style={{ display: "flex" }}>
+                      <div style={{ width: "75%" }}>
+                        <Card.Title style={{ fontSize: "20px", marginBottom: "8px" }}>
+                          {org.nama_organisasi.toUpperCase()}
+                        </Card.Title>
+                        <Card.Subtitle style={{ fontSize: "17px", marginBottom: "8px" }}>
+                          {org.jabatan.charAt(0).toUpperCase() + org.jabatan.slice(1)}
+                        </Card.Subtitle>
+                        <Card.Text
+                          style={{
+                            fontSize: "14px",
+                            marginBottom: "8px",
+                            wordWrap: "break-word",
+                            width: "100%",
+                          }}
+                        >
+                          {org.deskripsi_jabatan.charAt(0).toUpperCase() + org.deskripsi_jabatan.slice(1)}
+                        </Card.Text>
+                      </div>
+                      <div style={{ width: "25%", textAlign: "right" }}>
+                        <span style={{ color: "gray", fontSize: "12px", marginRight:"15px" }}>
+                          {org.periode_awal} - {org.periode_akhir}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div style={{ textAlign: "right" }}>
-                    <span style={{ color: "gray", fontSize: "12px" }}>
-                      {org.periode_awal} - {org.periode_akhir}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-      ))
+                </Card.Body>
+              </Card>
+            </Col>
+            {index % 2 !== 0 && <div className="w-100 d-none d-md-block" />} {/* Spasi antara dua kolom pada layar besar */}
+          </React.Fragment>
+        ))}
+      </Row>
+    )
     : null;
-
+  
+  
+  
   return (
     <body style={{ backgroundColor: "rgba(212, 224, 241,0.6)" }}>
          <Header />
@@ -383,7 +389,7 @@ const PageView2 = () => {
         id="pendidikan"
         className="pendidikan ml-3 ml-md-4 ml-lg-5 mr-md-4 mr-lg-5"
       >
-        {pendidikan !== null ? (
+        {pendidikan.length > 0 ? (
           <div className="container">
             <div
               className="section-title"
@@ -396,9 +402,12 @@ const PageView2 = () => {
             <Row>{PendidikanDetail}</Row>
           </div>
         ) : (
+          <div class="container">
+            <div class="section-title">
+              <h2>Education</h2>
+            </div>
           <div
             className="d-flex flex-column justify-content-center align-items-center"
-            style={{ marginTop: "20%" }}
           >
             <div
               className="text-center"
@@ -408,8 +417,9 @@ const PageView2 = () => {
                 fontSize: "14px",
               }}
             >
-              Pendidikan Hasn't Been Added
+              Education Hasn't Been Added
             </div>
+          </div>
           </div>
         )}
       </section>
@@ -553,7 +563,7 @@ const PageView2 = () => {
                           <medium>{skill.level * 10}%</medium>
                         </div>
                       </div>
-                      <div className="description" style={{ fontSize: "14px" }}>
+                      <div className="description-skill-list" style={{ fontSize: "14px" }}>
                         <b>Deskripsi:</b>{" "}
                         {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
                       </div>
@@ -596,7 +606,7 @@ const PageView2 = () => {
                           <medium>{skill.level * 10}%</medium>
                         </div>
                       </div>
-                      <div className="description" style={{ fontSize: "14px" }}>
+                      <div className="description-skill-list" style={{ fontSize: "14px" }}>
                         <b>Deskripsi:</b>{" "}
                         {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
                       </div>

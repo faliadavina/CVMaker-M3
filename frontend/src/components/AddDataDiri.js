@@ -70,7 +70,6 @@ const AddDataDiri = () => {
     tempat_lahir: "",
     tanggal_lahir: "",
     alamat: "",
-    status: "",
     telp: "",
     sosial_media: "",
     twitter: "",
@@ -91,7 +90,6 @@ const AddDataDiri = () => {
       "profesi",
       "tempat_lahir",
       "alamat",
-      "status",
       "linkedin",
     ].includes(name);
     const formattedValue = shouldConvertToUpperCase
@@ -159,7 +157,9 @@ const AddDataDiri = () => {
   const [status, setStatus] = useState("");
   const handleStatusChange = (e) => {
     // Update nilai status sesuai dengan opsi yang dipilih
+    console.log("e target value : ", e.target.value);
     setStatus(e.target.value);
+    console.log("status : ", status);
   };
 
   const saveDataDiri = async (e) => {
@@ -185,6 +185,9 @@ const AddDataDiri = () => {
       for (const key in formData) {
         formDataObject.append(key, formData[key]);
       }
+
+      // Menambahkah status
+      formDataObject.append('status', status);
 
       // Menambahkan file foto profil ke FormData
       formDataObject.append("file", file);
@@ -401,8 +404,8 @@ const AddDataDiri = () => {
                   required
                 >
                   <option value="">Select Marriage Status</option>
-                  <option value="Menikah">MENIKAH</option>
-                  <option value="Belum Menikah">BELUM MENIKAH</option>
+                  <option value="MENIKAH">MENIKAH</option>
+                  <option value="BELUM MENIKAH">BELUM MENIKAH</option>
                 </select>
               </div>
               <div class="form-group col-md-6">
@@ -451,7 +454,6 @@ const AddDataDiri = () => {
                   value={formData.sosial_media}
                   onChange={handleChange}
                   placeholder="Enter your instagram username"
-                  required
                 />
               </div>
               <div class="form-group col-md-6">
@@ -466,7 +468,6 @@ const AddDataDiri = () => {
                   value={formData.linkedin}
                   onChange={handleChange}
                   placeholder="Enter your linkedin username"
-                  required
                 />
               </div>
               <div class="form-group col-md-6">
@@ -481,7 +482,6 @@ const AddDataDiri = () => {
                   value={formData.twitter}
                   onChange={handleChange}
                   placeholder="Enter your twitter username"
-                  required
                 />
               </div>
             </div>

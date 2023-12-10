@@ -1,15 +1,15 @@
-import React,{useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const EditPendidikan = () => {
-  const {id_pend} = useParams();
+  const { id_pend } = useParams();
   const [jenjang, setJenjang] = useState("");
   const [nama_sekolah, setNamaSekolah] = useState("");
   const [jurusan, setJurusan] = useState("");
   const [tahun_masuk, setTahunMasuk] = useState(new Date().getFullYear()); // Menggunakan integer untuk tahun
-  const [tahun_lulus, setTahunLulus] = useState(new Date().getFullYear()); // Menggunakan integer untuk tahun
+  const [tahun_lulus, setTahunLulus] = useState(""); // Menggunakan integer untuk tahun
   const [errorMsg, setErrorMsg] = useState("");
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
@@ -36,13 +36,17 @@ const EditPendidikan = () => {
         setNamaSekolah(dataPendidikan.nama_sekolah);
         setJurusan(dataPendidikan.jurusan);
         setTahunMasuk(dataPendidikan.tahun_masuk);
-        setTahunLulus(dataPendidikan.tahun_lulus)
+        setTahunLulus(dataPendidikan.tahun_lulus);
+        // Check if the retrieved 'tahun_lulus' is 'Sekarang'
+        if (dataPendidikan.tahun_lulus === "Sekarang") {
+          setTahunLulus("Sekarang"); // Set the state to "Sekarang" for dropdown
+        }
 
-        console.log('pendidikan di edit:', response.data.pendidikan);
+        console.log("pendidikan di edit:", response.data.pendidikan);
       } catch (error) {
-        console.error('Error fetching education data:', error);
+        console.error("Error fetching education data:", error);
       }
-    }
+    };
     fetchData();
   }, [id_akun, id_pend]);
 
@@ -77,26 +81,35 @@ const EditPendidikan = () => {
   };
 
   const handleTahunLulusChange = (year) => {
-    if (year < tahun_masuk) {
-      setErrorMsg(
-        "Tahun lulus harus lebih besar atau sama dengan tahun masuk."
-      );
-    } else {
-      setTahunLulus(year); // Menggunakan integer untuk tahun lulus
+    if (year === "Sekarang") {
+      setTahunLulus("Sekarang");
       setErrorMsg("");
+    } else {
+      if (year < tahun_masuk) {
+        setErrorMsg(
+          "Tahun lulus harus lebih besar atau sama dengan tahun masuk."
+        );
+      } else {
+        setTahunLulus(year.toString()); // Mengubah ke tipe string sebelum disimpan
+        setErrorMsg("");
+      }
     }
   };
 
-  function generateYearOptions() {
-    const startYear = 1970; // Tahun awal
-    const currentYear = new Date().getFullYear(); // Tahun saat ini
+  function generateYearOptions(includeNowOption = false) {
+    const startYear = 1970;
+    const currentYear = new Date().getFullYear();
     const years = [];
     for (let year = startYear; year <= currentYear; year++) {
       years.push(year);
     }
+    if (includeNowOption) {
+      years.push("Sekarang");
+    }
+
     return years.map((year) => (
       <option key={year} value={year}>
-        {year}
+        {year === "Sekarang" ? "Sekarang" : year}
       </option>
     ));
   }
@@ -110,14 +123,24 @@ const EditPendidikan = () => {
     setIsSubmitting(true);
 
     try {
+      let jenjangToSend = jenjang;
+      if (jenjang === "Lainnya" && jenjangLainnya.trim() !== "") {
+        jenjangToSend = jenjangLainnya;
+      }
+
+      let tahunLulusToSend = tahun_lulus;
+      if (tahun_lulus === "Sekarang") {
+        tahunLulusToSend = "Sekarang"; // Kirim string "Sekarang" ke basis data
+      }
+
       await axios.patch(`https://api-cvmaster.agilearn.id/pendidikan/${id_pend}`, {
-        jenjang: jenjang,
+        jenjang: jenjangToSend,
         nama_sekolah: nama_sekolah,
         jurusan: jurusan,
         tahun_masuk: tahun_masuk, // Menggunakan integer untuk tahun masuk
-        tahun_lulus: tahun_lulus, // Menggunakan integer untuk tahun lulus
+        tahun_lulus: tahunLulusToSend, // Menggunakan integer untuk tahun lulus
       });
-      setSuccessMessage("Educational data added successfully!");
+      setSuccessMessage("Educational data updated successfully!");
       // Show success message for 2 seconds before navigating
       setTimeout(() => {
         navigate("/pendidikan");
@@ -132,7 +155,7 @@ const EditPendidikan = () => {
   };
 
   const handleCancel = () => {
-    navigate('/pendidikan');
+    navigate("/pendidikan");
   };
 
   return (
@@ -160,7 +183,9 @@ const EditPendidikan = () => {
                       onChange={(e) => handleJenjangChange(e.target.value)}
                       className="form-select"
                     >
-                      <option value="">Pilih Jenjang</option>
+                      <option value="" disabled>
+                        Pilih Jenjang
+                      </option>
                       <option value="SMA">SMA</option>
                       <option value="SMK">SMK</option>
                       <option value="D3">D3</option>
@@ -178,7 +203,7 @@ const EditPendidikan = () => {
                       <h5>Jenjang Pendidikan (Lainnya)</h5>
                       <input
                         value={jenjangLainnya}
-                        onChange={(e) => setJenjangLainnya(e.target.value)}
+                        onChange={(e) => setJenjangLainnya(e.target.value.toUpperCase)}
                         type="text"
                         className="form-control"
                         placeholder="Jenjang Lainnya"
@@ -227,7 +252,9 @@ const EditPendidikan = () => {
                       }
                       className="form-select"
                     >
-                      <option value="">Pilih Tahun</option>
+                      <option value="" disabled>
+                        Pilih Tahun
+                      </option>
                       {generateYearOptions()}
                     </select>
                   </label>
@@ -243,8 +270,10 @@ const EditPendidikan = () => {
                       }
                       className="form-select"
                     >
-                      <option value="">Pilih Tahun</option>
-                      {generateYearOptions()}
+                      <option value="" disabled>
+                        Pilih Tahun
+                      </option>
+                      {generateYearOptions(true)}
                     </select>
                   </label>
                 </div>
@@ -278,5 +307,3 @@ const EditPendidikan = () => {
 };
 
 export default EditPendidikan;
-
-

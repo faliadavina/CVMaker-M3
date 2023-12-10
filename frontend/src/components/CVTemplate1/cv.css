@@ -1,448 +1,476 @@
 
 .body-cv1 {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: white;
-  }
-  .header-container-cv1 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: white;
+}
+.header-container-cv1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
-  .page-cv1 {
-    width: 21cm;
-    height: 29.7cm;
-    padding: 2cm;
-    margin: 1cm auto;
-    background: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  /* h1 {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  h2 {
-    font-size: 22px;
-    color: #333;
-  }
-  ul {
-    list-style:none;
-    padding: 0;
-  }
-  li {
-    margin-bottom: 15px;
-  }
-  .section {
-    margin-bottom: 10px;
-  }
-  .section h2 {
-    border-bottom: 2px solid #333;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-  }
-  img{
-    width: 100px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-  }
-  
-  .section ul {
-    list-style-type: disc;
-    margin-left: 20px; 
-    flex-wrap: 2;
-  }
-  
-  .Skill{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  } */
-  
-  .page-cv1 {
-    position: relative;
-  }
-  
-  .gradient-background-cv1 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 200px; /* Sesuaikan tinggi gradien sesuai kebutuhan Anda */
-    background: linear-gradient(to right bottom, #faedf6, #BFA2DB); /* Gradien warna dari kanan ke kiri (abu ke ungu) */
-    z-index: 1;
-  }
+.page-cv1 {
+  width: 21cm;
+  height: 29.7cm;
+  padding: 2cm;
+  margin: 1cm auto;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  .my-image-cv1 {
-    position: absolute;
-    z-index: 2;
-    width: 60%;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    top: 40%;
-    left: 20%;
-    border: 8px solid #d5c7e9; /* Warna border ungu muda */
-  }
+.description-cv1 {
+  max-height: 500px; /* Atur tinggi maksimum */
+  max-width: 100%; /* Menetapkan lebar maksimum */
+  word-wrap: break-word; 
 
-  .name-text-cv1 {
-    position: absolute;
-    top: 20%; /* Sesuaikan dengan posisi yang diinginkan */
-    left: 50%; /* Sesuaikan dengan posisi yang diinginkan */
-    transform: translate(-50%, -50%);
-    color: white; /* Warna teks putih */
-    font-size: 22px; /* Sesuaikan dengan ukuran yang diinginkan */
-    font-weight: bold; /* Atur ketebalan font yang diinginkan */
-    z-index: 2;
-    font-family: 'Roboto', sans-serif;
-    margin:0;
-  }
+}
 
-  .profesi-text-cv1 {
-    position:absolute;
-    top: 35%; /* Sesuaikan dengan posisi yang diinginkan */
-    left: 50%; /* Sesuaikan dengan posisi yang diinginkan */
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 16px; /* Sesuaikan dengan ukuran yang diinginkan */
-    padding-bottom: 20px;
-    font-family: 'Roboto', sans-serif;
-  }
-  
-  .image-container-cv1 {
-    width: 250px;
-    height: 380px;
-    background-color: #8d6ec3; 
-    z-index: 2;
-    position: absolute;
-    top: 0;
-    left: 80px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.2); /* Contoh bayangan yang lebih jelas */
-  }
 
- 
+/* h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
+h2 {
+  font-size: 22px;
+  color: #333;
+}
+ul {
+  list-style:none;
+  padding: 0;
+}
+li {
+  margin-bottom: 15px;
+}
+.section {
+  margin-bottom: 10px;
+}
+.section h2 {
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+img{
+  width: 100px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.section ul {
+  list-style-type: disc;
+  margin-left: 20px; 
+  flex-wrap: 2;
+}
+
+.Skill{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+} */
+
+.page-cv1 {
+  position: relative;
+}
+
+.porto-cv1-img{
+  height:75px;
+  width:100px;
+}
+.gradient-background-cv1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 135px; /* Sesuaikan tinggi gradien sesuai kebutuhan Anda */
+  background: linear-gradient(to right bottom, #faedf6, #BFA2DB); /* Gradien warna dari kanan ke kiri (abu ke ungu) */
+  z-index: 1;
+}
+
+.my-image-cv1 {
+  position: absolute;
+  z-index: 2;
+  width: 60%;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  top: 30%;
+  left: 20%;
+  border: 6px solid #d5c7e9; /* Warna border ungu muda */
+}
+
+.name-text-cv1 {
+  position: absolute;
+  top: 15%; /* Sesuaikan dengan posisi yang diinginkan */
+  left: 50%; /* Sesuaikan dengan posisi yang diinginkan */
+  transform: translate(-50%, -50%);
+  color: white; /* Warna teks putih */
+  font-size: 18px; /* Sesuaikan dengan ukuran yang diinginkan */
+  font-weight: bold; /* Atur ketebalan font yang diinginkan */
+  z-index: 2;
+  font-family: 'Roboto', sans-serif;
+  margin:0 ;
+  padding-bottom: 20px;
+}
+
+.profesi-text-cv1 {
+  position:absolute;
+  top: 25%; /* Sesuaikan dengan posisi yang diinginkan */
+  left: 50%; /* Sesuaikan dengan posisi yang diinginkan */
+  transform: translate(-50%, -50%);
+  color: white;
+  padding-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.image-container-cv1 {
+  width: 250px;
+  height: 310px;
+  background-color: #8d6ec3; 
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 80px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.2); /* Contoh bayangan yang lebih jelas */
+}
+
+
 
 /* Contact Info Styles */
 
 .contact-info-cv1 {
-  padding: 20px;
-  border-radius: 8px;
-  z-index: 2;
-  text-align: start; /* Center align the content */
-  width: 70%;
-  transform: translate(44%, -35%);
+padding: 20px;
+border-radius: 8px;
+z-index: 2;
+text-align: start; /* Center align the content */
+width: 70%;
+transform: translate(44%, -52%);
 }
 
 .contact-info-cv1 h2, .side-panel-cv1 h2, .side-panel-left-cv1 h2{
-  font-size: 22px;
-  margin-bottom: 16px;
-  color: #4A148C; /* Adjusting the color for better contrast */
-  font-weight: bold;
+font-size: 19px;
+margin-bottom: 16px;
+color: #4A148C; /* Adjusting the color for better contrast */
+font-weight: bold;
 }
 
 
 
 .side-panel-cv1 {
-  width: 50%; /* Leba dari page-cv1 */
-  height: 82.20%; /* Tinggi 100% dari page-cv1 */
-  background-color: #f6f3fa;
-  position: absolute; /* Menempatkan side panel secara absolut */
-  top: 0; /* Menempatkan di bagian atas */
-  right: 0; /* Menempatkan di bagian kanan */
-  transform: translate(0, 200px);
+width: 50%; /* Leba dari page-cv1 */
+height: 88.40%; /* Tinggi 100% dari page-cv1 */
+background-color: #f6f3fa;
+position: absolute; /* Menempatkan side panel secara absolut */
+top: 0; /* Menempatkan di bagian atas */
+right: 0; /* Menempatkan di bagian kanan */
+transform: translate(0, 130px);
 }
 
 
 .side-panel-cv1 h2 {
-  padding-top: 10px;
-  text-align: center;
+padding-top: 10px;
+text-align: center;
 }
 
 .side-panel-left-cv1 h2 {
-  text-align: center;
+text-align: center;
 }
 
 /* CSS untuk mengatur tata letak informasi tambahan */
 .additional-info-cv1 {
-  text-align: center; /* Mengatur tata letak menjadi center */
-  margin-top: 20px; /* Jarak atas dari informasi tambahan */
-  transform: translate(0, 300px);
-  
+text-align: center; /* Mengatur tata letak menjadi center */
+margin-top: 20px; /* Jarak atas dari informasi tambahan */
+transform: translate(0, 240px);
+
 }
 
 /* Gaya untuk paragraf di dalam informasi tambahan */
 .additional-info-cv1 p {
-  margin: 5px 0; /* Mengatur jarak antar paragraf */
-  font-size: 15px;
-  font-family: 'Roboto', sans-serif;
-  color: white;
-  
+margin: 5px 0; /* Mengatur jarak antar paragraf */
+font-size: 15px;
+font-family: 'Roboto', sans-serif;
+color: white;
+
 }
 
 
 .info-section {
-  color: #4A148C; /* Mengubah warna teks menjadi putih untuk kontras yang baik */
-  text-align: start; /* Memberikan alignment center pada teks */
-  /* Tambahan styling jika diperlukan */
-  padding: 0 20px 7px 30px; /* Contoh: Memberikan padding */
-  flex-wrap: wrap; 
-  font-size: 20px;
-  font-family: 'Roboto', sans-serif;
+color: #4A148C; /* Mengubah warna teks menjadi putih untuk kontras yang baik */
+text-align: start; /* Memberikan alignment center pada teks */
+/* Tambahan styling jika diperlukan */
+padding: 0 20px 7px 30px; /* Contoh: Memberikan padding */
+flex-wrap: wrap; 
+font-size: 20px;
+font-family: 'Roboto', sans-serif;
 }
 
 .social-icons-cv1 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Center align the child elements */
+display: flex;
+flex-direction: column;
+align-items: flex-start; /* Center align the child elements */
 }
 
 .icons-group-cv1 {
-  display: flex;
-  flex-wrap: wrap; /* Memberikan perintah untuk baris baru jika tidak cukup lebar */
-  justify-content: flex-start; /* Menengahkan ikon jika ada ruang kosong */
+display: flex;
+flex-wrap: wrap; /* Memberikan perintah untuk baris baru jika tidak cukup lebar */
+justify-content: flex-start; /* Menengahkan ikon jika ada ruang kosong */
 }
 
 .icons-section-cv1 {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 8px; /* Adding some space between sections */
-  margin-right: 20px;
+display: flex;
+align-items: flex-start;
+margin-bottom: 8px; /* Adding some space between sections */
+margin-right: 20px;
 }
 
 .icons-section-cv1 > *:not(:last-child) {
-  margin-right: 5px; /* Adjusting spacing between icons and text */
+margin-right: 5px; /* Adjusting spacing between icons and text */
 }
 
 .icons-section-cv1 > * {
-  font-size: 14px; /* Adjusting icon and text size */
+font-size: 14px; /* Adjusting icon and text size */
 }
 
 .icons-section-cv1 a {
-  color: #4A148C; /* Ubah warna tautan menjadi ungu */
-  text-decoration: none; /* Hilangkan garis bawah pada tautan */
+color: #4A148C; /* Ubah warna tautan menjadi ungu */
+text-decoration: none; /* Hilangkan garis bawah pada tautan */
 }
 
 .icons-section-cv1 span {
-  color: #4A148C; /* Ubah warna tautan menjadi ungu */
+color: #4A148C; /* Ubah warna tautan menjadi ungu */
 }
 
 .icons-section-cv1 a:hover {
-  text-decoration: underline; /* Tambahkan garis bawah saat tautan dihover */
+text-decoration: underline; /* Tambahkan garis bawah saat tautan dihover */
 }
 
-.education-section-cv1, .organization-info-cv1, .skill-info-cv1 {
-  margin-top: 10px;
-  padding: 0 20px 10px 25px; 
-  color: #4A148C; /* Ubah warna tautan menjadi ungu */
-  font-family: 'Roboto', sans-serif;
+.education-section-cv1, .organization-info-cv1, .skill-info-cv1, .portfolio-items-cv1 {
+margin-top: 10px;
+padding: 0 20px 0px 20px; 
+color: #4A148C; /* Ubah warna tautan menjadi ungu */
+font-family: 'Roboto', sans-serif;
 }
 
 
 .skill-info-cv1{
-    margin-top: 7px !important;
+  margin-top: 7px !important;
 }
 
 .soft-skills-cv1, .hard-skills-cv1{
-    padding: 0 20px 10px 25px; 
+  padding: 0 20px 10px 25px; 
 }
 .skill-description-cv1 {
-  max-width: 350px;
+max-width: 350px;
 }
 
 .skill-level-cv1{
-  color: #4A148C;
+color: #4A148C;
 }
 
 /* CSS untuk progress bar */
 .progress-bar-cv1 {
-  height: 5px; /* Ubah sesuai kebutuhan */
-  background-color: #4A148C; /* Warna latar belakang */
+height: 5px; /* Ubah sesuai kebutuhan */
+background-color: #4A148C; /* Warna latar belakang */
 }
 
 .progress-cv1 {
-  position: relative;
-  width: 80%;
-  height: 5px;
-  background-color: #ccc;
-  border-radius: 10px;
+position: relative;
+width: 80%;
+height: 5px;
+background-color: #ccc;
+border-radius: 10px;
 }
 
 .progress-bar-cv1 {
-  height: 100%;
-  border-radius: 10px;
-  background: linear-gradient(to right, #512588, #a288a9);
+height: 100%;
+border-radius: 10px;
+background: linear-gradient(to right, #512588, #a288a9);
 }
 
 .skill-level {
-  position: absolute;
-  top: -10px;
-  right: -50px;
-  margin: 0;
-  padding: 0 5px;
-  color: #000;
+position: absolute;
+top: -10px;
+right: -50px;
+margin: 0;
+padding: 0 5px;
+color: #000;
 }
 
 .education-info-cv1 {
-  display: flex;
-  flex-direction: column;
+display: flex;
+flex-direction: column;
 }
 
 .education-item-cv1, .organization-item-cv1 {
-  display: flex;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #ccc; /* Garis batas bawah */
+display: flex;
+margin-bottom: 10px;
+border-bottom: 1px solid #ccc; /* Garis batas bawah */
 }
 
 .portfolio-items-cv1{
-  margin-left: 15px;
+margin-left: 15px;
 }
 
-.education-left-cv1, .organization-left-cv1 {
-  flex: 3;
+.education-left-cv1 {
+flex: 3;
+word-wrap: break-word;
 }
 
-.education-right-cv1, .organizations-right-cv1{
-  flex: 1;
+.organization-left-cv1 {
+  width: 70%;
 }
 
-.education-degree-cv1, .organization-name-cv1, .category-skill-cv1{
-  font-weight: bold;
-  margin-bottom: 5px;
+.organization-right-cv1 {
+  width: 30%;
+  position: relative; /* Menetapkan posisi relatif */
+}
+
+.organization-year-cv1 {
+  position: absolute; /* Menetapkan posisi absolut */
+  right: 0; /* Menempatkan di ujung kanan */
+}
+
+.education-right-cv1{
+flex: 1;
+}
+
+.education-degree-cv1, .organization-name-cv1, .category-skill-cv1, .porto-judul-cv1{
+font-weight: bold;
+margin-bottom: 3px;
 }
 
 .education-school-cv1, .organization-position-cv1 {
-  margin-bottom: 5px;
+margin-bottom: 5px;
 }
 
 
 .section-divider-cv1 {
-  width: 80%;
-  border-bottom: 3px solid #4A148C; /* Warna garis ungu */
-  margin-bottom: 30px; /* Jarak antara garis dan konten */
-  margin-left: auto; /* Menengahkan elemen secara horizontal */
-  margin-right: auto; /* Menengahkan elemen secara horizontal */
+width: 80%;
+border-bottom: 3px solid #4A148C; /* Warna garis ungu */
+margin-bottom: 20px; /* Jarak antara garis dan konten */
+margin-left: auto; /* Menengahkan elemen secara horizontal */
+margin-right: auto; /* Menengahkan elemen secara horizontal */
 }
 
 .side-panel-left-cv1 {
-  position: absolute; /* Menempatkan side panel secara absolut */
-  top: 0; /* Menempatkan di bagian atas */
-  left: 0; /* Menempatkan di bagian kanan */
-  transform: translate(0, 390px);
-  width: 50%;
+position: absolute; /* Menempatkan side panel secara absolut */
+top: 0; /* Menempatkan di bagian atas */
+left: 0; /* Menempatkan di bagian kanan */
+transform: translate(0, 323px);
+width: 50%;
 
 }
 
 /* .no-data{
-  color: #4A148C; 
-  text-align: center; 
-  padding: 0 20px 20px 30px; 
-  font-size: 20px;
-  font-family: 'Roboto', sans-serif;
+color: #4A148C; 
+text-align: center; 
+padding: 0 20px 20px 30px; 
+font-size: 20px;
+font-family: 'Roboto', sans-serif;
 
 } */
 
 /* Add this to your CSS file or style section */
 .porto-card-cv1 {
-  position: relative;
-  overflow: hidden;
+position: relative;
+overflow: hidden;
 }
 
-.portfolio-description-cv1 {
-  word-wrap: break-word; /* Memastikan teks mematahkan baris jika melebihi lebar kontainer */
-  overflow: hidden; /* Memotong teks yang berlebih */
-  text-overflow: ellipsis; /* Menampilkan ellipsis (...) jika teks terpotong */
+.portfolio-description-cv1, .organization-desc-cv1 {
+word-wrap: break-word; /* Memastikan teks mematahkan baris jika melebihi lebar kontainer */
+overflow: hidden; /* Memotong teks yang berlebih */
+text-overflow: ellipsis; /* Menampilkan ellipsis (...) jika teks terpotong */
 }
 
 
-.porto-card-cv1 .deskripsi-cv1 {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 90%;
-  height: 50%;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 1; /* Menampilkan deskripsi secara langsung */
-  transition: opacity 0.3s ease;
-  padding: 10px;
-}
+/* .porto-card-cv1 .deskripsi-cv1 {
+position: absolute;
+bottom: 0;
+left: 0;
+width: 90%;
+height: 50%;
+background-color: rgba(0, 0, 0, 0.8);
+color: white;
+display: flex;
+justify-content: center;
+align-items: center;
+opacity: 1; /* Menampilkan deskripsi secara langsung */
+/* transition: opacity 0.3s ease;
+padding: 10px;
+} */ 
 
 .portfolio-grid-cv1 {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Two columns */
-  grid-gap: 20px; /* Adjust the gap as needed */
+display: grid;
+grid-template-columns: 1fr 1fr; /* Two columns */
+grid-gap: 20px; /* Adjust the gap as needed */
 }
 
 @media print {
-  body * {
-    visibility: hidden;
-  }
-  .page-cv1, .page-cv1 * {
-    visibility: visible;
-  }
-  .page-cv1 {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 210mm; /* Lebar kertas A4 */
-    height: 297mm; /* Tinggi kertas A4 */
-    margin: 0;
-    transform: scale(2); /* Sesuaikan skala untuk mencocokkan kertas A4 */
-    transform-origin: top left; /* Titik asal transformasi */
-  }
+body * {
+  visibility: hidden;
+}
+.page-cv1, .page-cv1 * {
+  visibility: visible;
+}
+.page-cv1 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 210mm; /* Lebar kertas A4 */
+  height: 297mm; /* Tinggi kertas A4 */
+  margin: 0;
+  transform: scale(2); /* Sesuaikan skala untuk mencocokkan kertas A4 */
+  transform-origin: top left; /* Titik asal transformasi */
+}
 }
 
 .purple-button-cv1 {
-  background-color: #8d6ec3;
-  color:white;
-  font-size: 12px;
-  border-radius: 5px;
-  border: none;
-  /* tambahkan gaya lain yang diinginkan */
+background-color: #8d6ec3;
+color:white;
+font-size: 12px;
+border-radius: 5px;
+border: none;
+/* tambahkan gaya lain yang diinginkan */
 
 }
 
 .custom-button-cv1 {
-  background-color: #15121b;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
+background-color: #15121b;
+color: #fff;
+border: none;
+padding: 10px 20px;
+font-size: 16px;
+border-radius: 5px;
+cursor: pointer;
+display: flex;
+align-items: center;
 }
 
 .custom-button-cv1:hover {
-  background-color: #d5d0e0;
-  color:black;
+background-color: #d5d0e0;
+color:black;
 }
 
 .back-button-cv1{
-  background-color: white;
+background-color: white;
 }
 
 .back-button-cv1:hover{
-  background-color: rgb(241, 214, 237);
+background-color: rgb(241, 214, 237);
 }
 
 .custom-button-cv1 .download-icon {
-  margin-right: 5px;
+margin-right: 5px;
 }
 
 .custom-button-cv1 p {
-  margin: 0;
+margin: 0;
 }
 
 /* Untuk memberi jarak di sekitar tombol */
 .margin-around-button {
-  margin: 20px;
+margin: 20px;
 }

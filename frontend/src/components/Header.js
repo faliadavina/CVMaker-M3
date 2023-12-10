@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <Navbar
       expand="lg"
-      className="justify-content-center custom-bg-dark"
+      className="justify-content-center custom-bg-dark mt-0"
     >
       <Navbar.Brand href="#home">
         <img

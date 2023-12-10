@@ -185,7 +185,7 @@ const SkillList = () => {
             <medium>{skill.level * 10}%</medium>
           </div>
         </div>
-        <div className="description" style={{ fontSize: "14px" }}>
+        <div className="description-skill-list" style={{ fontSize: "14px" }}>
           <b>Deskripsi:</b>{" "}
           {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
         </div>

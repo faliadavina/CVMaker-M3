@@ -153,38 +153,274 @@ const Template3 = () => {
     }
   };
 
+  const [currentModal, setCurrentModal] = useState(1);
+  const [selectedData, setSelectedData] = useState({
+    educational: [],
+    hardSkills: [],
+    softSkills: [],
+    organizations: [],
+    portfolios: [],
+  });
+
+  const handleShow = (modalNumber) => {
+    setCurrentModal(modalNumber);
+  };
+
+  const handleNext = () => {
+    setCurrentModal(currentModal + 1);
+  };
+
+  const handleBack = () => {
+    setCurrentModal(currentModal - 1);
+  };
+
+  const handleFinish = () => {
+    console.log("Selected Data:", selectedData);
+    setCurrentModal(null);
+  };
+
+  const toggleSelection = (id, category) => {
+    const newData = { ...selectedData };
+    newData[category] = newData[category].includes(id)
+      ? newData[category].filter((selectedId) => selectedId !== id)
+      : [...newData[category], id];
+
+    setSelectedData(newData);
+  };
+
+  const renderModalContent = () => {
+    switch (currentModal) {
+      case 1:
+        return (
+          <div>
+            {/* Modal Content for Step 1 */}
+            <strong>
+              Only 2 educational data will be displayed, Select below:
+            </strong>
+            <ul
+              style={{
+                listStyle: "none",
+                lineHeight: "0px",
+                marginTop: "10px",
+              }}
+            >
+              {pendidikan &&
+                pendidikan.map((pendidikanItem) => (
+                  <li key={pendidikanItem.id_pend}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        className="checkbox-input-cv2 mr-2"
+                        checked={selectedData.educational.includes(
+                          pendidikanItem.id_pend
+                        )}
+                        onChange={() =>
+                          toggleSelection(pendidikanItem.id_pend, "educational")
+                        }
+                        disabled={
+                          selectedData.educational.length >= 2 &&
+                          !selectedData.educational.includes(
+                            pendidikanItem.id_pend
+                          )
+                        }
+                      />
+                      {pendidikanItem.nama_sekolah}
+                    </label>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        );
+      case 2:
+        return (
+          <div>
+            {/* Modal Content for Step 2 */}
+            <strong>
+              Only 2 Hardskills and 1 Softskill data will be displayed, Select
+              below:
+            </strong>
+            <br />
+            <br />
+            <strong style={{ color: "grey",fontSize:"16px"}}>Hard Skill</strong>
+            <ul
+              style={{
+                listStyle: "none",
+                lineHeight: "0px",
+                marginTop: "10px",
+            
+              }}
+            >
+              {hardSkills &&
+                hardSkills.map((skill) => (
+                  <li key={skill.id_skill}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        className="checkbox-input-cv2 mr-2"
+                        checked={selectedData.hardSkills.includes(
+                          skill.id_skill
+                        )}
+                        onChange={() =>
+                          toggleSelection(skill.id_skill, "hardSkills")
+                        }
+                        disabled={
+                          selectedData.hardSkills.length >= 2 &&
+                          !selectedData.hardSkills.includes(skill.id_skill)
+                        }
+                      />
+                      {skill.nama_skill}
+                    </label>
+                  </li>
+                ))}
+            </ul>
+            <strong style={{ color: "grey",fontSize:"16px"}}>Soft Skill</strong>
+            <ul
+              style={{
+                listStyle: "none",
+                lineHeight: "0px",
+                marginTop: "10px",
+              }}
+            >
+              {softSkills &&
+                softSkills.map((skill) => (
+                  <li key={skill.id_skill}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        className="checkbox-input-cv2 mr-2"
+                        checked={selectedData.softSkills.includes(
+                          skill.id_skill
+                        )}
+                        onChange={() =>
+                          toggleSelection(skill.id_skill, "softSkills")
+                        }
+                        disabled={
+                          selectedData.softSkills.length >= 1 &&
+                          !selectedData.softSkills.includes(skill.id_skill)
+                        }
+                      />
+                      {skill.nama_skill}
+                    </label>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        );
+
+      case 3:
+        return (
+          <div>
+            {/* Modal Content for Step 3 */}
+            <strong>
+              only 2 organizational data will be displayed, Select below:
+            </strong>
+            <ul
+              style={{
+                listStyle: "none",
+                lineHeight: "0px",
+                marginTop: "10px",
+              }}
+            >
+              {organisasi &&
+                organisasi.map((org) => (
+                  <li key={org.id_org}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        className="checkbox-input-cv2 mr-2"
+                        checked={selectedData.organizations.includes(
+                          org.id_org
+                        )}
+                        onChange={() =>
+                          toggleSelection(org.id_org, "organizations")
+                        }
+                        disabled={
+                          selectedData.organizations.length >= 2 &&
+                          !selectedData.organizations.includes(org.id_org)
+                        }
+                        // disabled={selectedData.softSkills.length >= 2 && !selectedData.softSkills.includes(skill.id_skill)}
+                      />
+                      {org.nama_organisasi}
+                    </label>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        );
+
+      case 4:
+        return (
+          <div>
+            {/* Modal Content for Step 4 */}
+            <strong>
+              only 3 portfolio data will be displayed, Select  below:
+            </strong>
+            <ul
+              style={{
+                listStyle: "none",
+                lineHeight: "0px",
+                marginTop: "10px",
+              }}
+            >
+              {portofolios &&
+                portofolios.map((portfolio) => (
+                  <li key={portfolio.id_porto}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        className="checkbox-input-cv2 mr-2"
+                        checked={selectedData.portfolios.includes(
+                          portfolio.id_porto
+                        )}
+                        onChange={() =>
+                          toggleSelection(portfolio.id_porto, "portfolios")
+                        }
+                        disabled={
+                          selectedData.portfolios.length >= 3 &&
+                          !selectedData.portfolios.includes(portfolio.id_porto)
+                        }
+                      />
+                      {portfolio.judul}
+                    </label>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
 
   return (
     <div>
 
-      <Modal show={show} onHide={handleClose} centered>
+<Modal
+        show={currentModal !== null}
+        onHide={() => setCurrentModal(null)}
+        centered
+      >
         <Modal.Header closeButton>
           <Modal.Title>Information</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <ul>
-            <li>
-            only the first 2 educational data will be displayed
-            </li>
-            <li>
-            only the first 2 organization data will be displayed
-            </li>
-            <li>
-            only the first 2 hardskill data will be displayed
-            </li>
-            <li>
-            only the first 1 softskill data will be displayed
-            </li>
-            <li>
-            only the first 2 portofolio data will be displayed
-            </li>
-              
-          </ul>
-        </Modal.Body>
+        <Modal.Body>{renderModalContent()}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
+          {currentModal !== 1 && (
+            <Button variant="secondary" onClick={handleBack}>
+              Back
+            </Button>
+          )}
+          {currentModal < 4 && (
+            <Button variant="primary" onClick={handleNext}>
+              Next
+            </Button>
+          )}
+          {currentModal === 4 && (
+            <Button variant="success" onClick={handleFinish}>
+              Finish
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
 
@@ -266,7 +502,9 @@ const Template3 = () => {
 
           <div id="pendidikan" class="section-edu-cv-3">
             <ul>
-              {pendidikan.slice(0, 2).map((item, index) => (
+              {pendidikan.filter((edu) =>
+                      selectedData.educational.includes(edu.id_pend)
+                    ).slice(0, 2).map((item, index) => (
                 <li key={index} class="">
                   <strong><div class="font-edu-cv-3">{item.jenjang}</div></strong>
                   <div class="font-edu-cv-3">{item.nama_sekolah}</div>
@@ -286,9 +524,11 @@ const Template3 = () => {
 
         <div id="pendidikan" class="section-porto-cv-3">
             <ul >
-              {portofolios.slice(0, 2).map((portofolio, index) => (
+              {portofolios.filter((portofolio) =>
+                      selectedData.portfolios.includes(portofolio.id_porto)
+                    ).slice(0, 2).map((portofolio, index) => (
                 <li key={index} class="">
-                  <div class="font-porto-cv-3"><i class="bi bi-file-pdf mr-2"></i>{" "}{portofolio.deskripsi}</div>
+                  <div class="font-porto-cv-3"><i class="bi bi-file-pdf mr-2"></i>{" "}<strong>{portofolio.judul}</strong> : {portofolio.deskripsi}</div>
                 </li>
               ))}
             </ul>
@@ -324,7 +564,9 @@ const Template3 = () => {
         <div className="title-1-cv-3">Organizational Experience</div>
         <div className="cv-content-experience-cv-3">
           <ul className="organisasi-list">
-            {organisasi.slice(0, 2).map((item, index) => (
+            {organisasi.filter((org) =>
+                      selectedData.organizations.includes(org.id_org)
+                    ).slice(0, 2).map((item, index) => (
               <li key={index} className="">
                 <strong><div className="font-org-cv-3">{item.nama_organisasi}</div></strong>
                 <div className="font-org-cv-3">- {item.jabatan} -</div>
@@ -344,7 +586,9 @@ const Template3 = () => {
               <div className="row skills-content">
 
                 <div className="col-lg-6">
-                  {hardSkills.slice(0, 2).map((skill, index) => (
+                  {hardSkills.filter((skill) =>
+                    selectedData.hardSkills.includes(skill.id_skill)
+                  ).slice(0, 2).map((skill, index) => (
                     <div
                       className="progress-container"
                       key={skill.id_skill}
@@ -369,7 +613,9 @@ const Template3 = () => {
                 </div>
 
                 <div className="col-lg-6">
-                  {softSkills.slice(0, 1).map((skill, index) => (
+                  {softSkills.filter((skill) =>
+                    selectedData.softSkills.includes(skill.id_skill)
+                  ).slice(0, 1).map((skill, index) => (
                     <div
                       className="progress-container"
                       key={skill.id_skill}
@@ -411,7 +657,7 @@ const Template3 = () => {
     </button>
 
     <div style={{ textAlign: "center" }}>
-        <NavLink to="/My">
+        <NavLink to="/menu_cv">
           <button
             className="btn btn-dark"
             id="add-button-skill"

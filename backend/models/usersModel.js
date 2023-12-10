@@ -53,23 +53,23 @@ const UserDB = db.define('data_diri', {
   },
   sosial_media: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   twitter: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   linkedin: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   link_sosmed: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   link_twitter: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   deskripsi: {
     type : DataTypes.TEXT,

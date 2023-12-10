@@ -23,7 +23,7 @@ const GenerateCV = () => {
   const getUsers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/${id_akun}`
+        `https://api-cvmaster.agilearn.id/users/${id_akun}`
       );
       setUsers(response.data);
     } catch (error) {
@@ -44,7 +44,7 @@ const GenerateCV = () => {
   const getSkills = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/skills/akun/${id_akun}`
+        `https://api-cvmaster.agilearn.id/skills/akun/${id_akun}`
       );
       setSkill(response.data);
 
@@ -72,7 +72,7 @@ const GenerateCV = () => {
     const fetchOrganisasi = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/organisasi/akun/${id_akun}`
+          `https://api-cvmaster.agilearn.id/organisasi/akun/${id_akun}`
         );
 
         console.log("Raw response:", response);
@@ -103,7 +103,7 @@ const GenerateCV = () => {
   const getPorto = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/porto/${id_akun}`
+        `https://api-cvmaster.agilearn.id/porto/${id_akun}`
       );
       setPorto(response.data);
       console.log("Portfolios:", response.data); // Tambahkan ini untuk memeriksa nilai portofolios
@@ -146,7 +146,7 @@ const GenerateCV = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/pendidikan/akun/${id_akun}`
+          `https://api-cvmaster.agilearn.id/pendidikan/akun/${id_akun}`
         );
 
         // Pastikan respons dari API berupa array atau ubah sesuai kebutuhan

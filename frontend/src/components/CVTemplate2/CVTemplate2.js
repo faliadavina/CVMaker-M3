@@ -57,7 +57,7 @@ const CVTemplate2 = () => {
   const getUsers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/${id_akun}`
+        `https://api-cvmaster.agilearn.id/users/${id_akun}`
       );
       setUsers(response.data);
     } catch (error) {
@@ -78,7 +78,7 @@ const CVTemplate2 = () => {
   const getPendidikan = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/pendidikan/akun/${id}`
+        `https://api-cvmaster.agilearn.id/pendidikan/akun/${id}`
       );
       setPendidikan(response.data.pendidikan);
       console.log("pendidikan:", response.data.pendidikan);
@@ -104,7 +104,7 @@ const CVTemplate2 = () => {
   const getSkills = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/skills/akun/${id_akun}`
+        `https://api-cvmaster.agilearn.id/skills/akun/${id_akun}`
       );
       setSkill(response.data);
 
@@ -132,7 +132,7 @@ const CVTemplate2 = () => {
     const fetchOrganisasi = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/organisasi/akun/${id_akun}`
+          `https://api-cvmaster.agilearn.id/organisasi/akun/${id_akun}`
         );
 
         console.log("Raw response:", response);
@@ -161,7 +161,7 @@ const CVTemplate2 = () => {
 
   const getPorto = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/porto/${id}`);
+      const response = await axios.get(`https://api-cvmaster.agilearn.id/porto/${id}`);
       setPorto(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);

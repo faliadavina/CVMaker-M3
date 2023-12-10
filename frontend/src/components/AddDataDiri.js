@@ -454,7 +454,6 @@ const AddDataDiri = () => {
                   value={formData.sosial_media}
                   onChange={handleChange}
                   placeholder="Enter your instagram username"
-                  required
                 />
               </div>
               <div class="form-group col-md-6">
@@ -469,7 +468,6 @@ const AddDataDiri = () => {
                   value={formData.linkedin}
                   onChange={handleChange}
                   placeholder="Enter your linkedin username"
-                  required
                 />
               </div>
               <div class="form-group col-md-6">
@@ -484,7 +482,6 @@ const AddDataDiri = () => {
                   value={formData.twitter}
                   onChange={handleChange}
                   placeholder="Enter your twitter username"
-                  required
                 />
               </div>
             </div>

@@ -460,7 +460,6 @@ const EditDataDiri = () => {
                                 value={sosial_media}
                                 onChange={handleDataDiriChange}
                                 placeholder="Enter your instagram username"
-                                required
                             />
                         </div>
                         <div class="form-group col-md-6">
@@ -473,7 +472,6 @@ const EditDataDiri = () => {
                                 value={linkedin}
                                 onChange={handleDataDiriChange}
                                 placeholder="Enter your linkedin username"
-                                required
                             />
                         </div>
                         <div class="form-group col-md-6">
@@ -486,7 +484,6 @@ const EditDataDiri = () => {
                                 value={twitter}
                                 onChange={handleDataDiriChange}
                                 placeholder="Enter your twitter username"
-                                required
                             />
                         </div>
                     </div>

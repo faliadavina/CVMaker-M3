@@ -11,7 +11,7 @@ const initialState = {
 
 export const LoginUser = createAsyncThunk("user/loginUser", async (user, thunkAPI) => {
     try {
-      const response = await axios.post('http://194.233.93.124:8000/login', {
+      const response = await axios.post('https://api-cvmaster.agilearn.id/login', {
         username: user.username,
         password: user.password
       });
@@ -34,7 +34,7 @@ export const getMe = createAsyncThunk("user/getMe", async (_, thunkAPI) => {
   try {
     const token = localStorage.getItem('token');
 
-    const response = await axios.get('http://194.233.93.124:8000/protected', {
+    const response = await axios.get('https://api-cvmaster.agilearn.id/protected', {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -53,7 +53,7 @@ export const getMe = createAsyncThunk("user/getMe", async (_, thunkAPI) => {
 export const LogOut = createAsyncThunk("user/LogOut", async () => {
   localStorage.removeItem('token');
 
-  await axios.delete('http://194.233.93.124:8000/logout');
+  await axios.delete('https://api-cvmaster.agilearn.id/logout');
 });
 
 export const authSlice = createSlice({

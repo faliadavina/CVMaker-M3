@@ -13,7 +13,7 @@ const PendidikanView = () => {
   const getPendidikan = async () => {
     try {
       const response = await axios.get(
-        `http://194.233.93.124:8000/pendidikan/akun/${accountId}`
+        `https://api-cvmaster.agilearn.id/pendidikan/akun/${accountId}`
       );
       setPendidikan(response.data.pendidikan);
     } catch (error) {

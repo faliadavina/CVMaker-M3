@@ -30,7 +30,7 @@ const EditSkill = () => {
     const getSkillById = async () => {
       try {
         const response = await axios.get(
-          `http://194.233.93.124:8000/skills/akun/${id_akun}/skill/${skillId}`
+          `https://api-cvmaster.agilearn.id/skills/akun/${id_akun}/skill/${skillId}`
         );
         const skillData = response.data.skill;
         setName(skillData.nama_skill);
@@ -72,7 +72,7 @@ const EditSkill = () => {
     }
 
     try {
-      await axios.patch(`http://194.233.93.124:8000/skills/${skillId}`, {
+      await axios.patch(`https://api-cvmaster.agilearn.id/skills/${skillId}`, {
         nama_skill: name,
         kategori_skill: category,
         level: level,

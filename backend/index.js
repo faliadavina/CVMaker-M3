@@ -13,7 +13,7 @@ const app = express();
 //middlewares
 app.use(cors({
   credentials: true,
-  origin: 'http://194.233.93.124:3000'
+  origin: 'https://cvmaster.agilearn.id'
 }));
 
 app.use(express.json());

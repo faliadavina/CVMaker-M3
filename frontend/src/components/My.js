@@ -23,13 +23,13 @@ const My = () => {
   useEffect(() => {
     getUsers();
     if (id_akun) {
-      setShareLink(`http://194.233.93.124:3000/${encodedIdAkun}`);
+      setShareLink(`https://cvmaster.agilearn.id/${encodedIdAkun}`);
     }
   }, [id_akun]);
 
   const getUsers = async () => {
     try {
-      const response = await axios.get(`http://194.233.93.124:8000/users/${id_akun}`);
+      const response = await axios.get(`https://api-cvmaster.agilearn.id/users/${id_akun}`);
       setUsers(response.data);
     } catch (error) {
       // Handle error jika data diri tidak ditemukan
@@ -59,7 +59,7 @@ const My = () => {
 
   const getSkills = async () => {
     try {
-      const response = await axios.get(`http://194.233.93.124:8000/skills/akun/${id_akun}`);
+      const response = await axios.get(`https://api-cvmaster.agilearn.id/skills/akun/${id_akun}`);
       setSkill(response.data);
 
       // Pisahkan skills berdasarkan kategori_skill
@@ -81,7 +81,7 @@ const My = () => {
   useEffect(() => {
     const fetchOrganisasi = async () => {
       try {
-        const response = await axios.get(`http://194.233.93.124:8000/organisasi/akun/${id_akun}`);
+        const response = await axios.get(`https://api-cvmaster.agilearn.id/organisasi/akun/${id_akun}`);
 
         console.log("Raw response:", response);
 
@@ -110,7 +110,7 @@ const My = () => {
 
   const getPorto = async () => {
     try {
-      const response = await axios.get(`http://194.233.93.124:8000/porto/${id_akun}`);
+      const response = await axios.get(`https://api-cvmaster.agilearn.id/porto/${id_akun}`);
       setPorto(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -168,7 +168,7 @@ const My = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://194.233.93.124:8000/pendidikan/akun/${id_akun}`);
+        const response = await axios.get(`https://api-cvmaster.agilearn.id/pendidikan/akun/${id_akun}`);
 
         // Pastikan respons dari API berupa array atau ubah sesuai kebutuhan
         setPendidikan(response.data.pendidikan);

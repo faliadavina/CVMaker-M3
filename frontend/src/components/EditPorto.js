@@ -15,7 +15,7 @@ const EditPorto = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://194.233.93.124:8000/porto/${id_porto}`);
+                const response = await axios.get(`https://api-cvmaster.agilearn.id/porto/${id_porto}`);
                 if (response.data) {
                     setJudul(response.data.judul || "");
                     setTitle(response.data.deskripsi || "");
@@ -83,7 +83,7 @@ const EditPorto = () => {
         formData.append("title", title);
 
         try {
-            await axios.patch(`http://194.233.93.124:8000/porto/${id_porto}`, formData, {
+            await axios.patch(`https://api-cvmaster.agilearn.id/porto/${id_porto}`, formData, {
                 headers: {
                     "Content-type": "multipart/form-data",
                 },

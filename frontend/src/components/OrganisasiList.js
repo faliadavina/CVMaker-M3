@@ -31,7 +31,7 @@ const OrganisasiList = () => {
   const getOrganisasi = async () => {
     try {
       const response = await axios.get(
-        `http://194.233.93.124:8000/organisasi/akun/${id}`
+        `https://api-cvmaster.agilearn.id/organisasi/akun/${id}`
       );
       setOrganisasi(response.data.organisasi);
       setErrorMessage('');
@@ -48,7 +48,7 @@ const OrganisasiList = () => {
 
   const deleteOrganisasi = async (id_org) => {
     try {
-      await axios.delete(`http://194.233.93.124:8000/organisasi/${id_org}`);
+      await axios.delete(`https://api-cvmaster.agilearn.id/organisasi/${id_org}`);
       getOrganisasi();
       setSuccessMessage('Organization deleted successfully!');
       setErrorMessage('');
@@ -119,7 +119,7 @@ const OrganisasiList = () => {
   const deleteSelectedOrganisasi = async () => {
     try {
       for (const id_org of selectedItems) {
-        await axios.delete(`http://194.233.93.124:8000/organisasi/${id_org}`);
+        await axios.delete(`https://api-cvmaster.agilearn.id/organisasi/${id_org}`);
       }
       getOrganisasi();
       setSelectedItems([]);

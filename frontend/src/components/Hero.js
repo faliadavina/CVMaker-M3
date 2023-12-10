@@ -36,7 +36,7 @@ const Hero = () => {
 
   const getSkills = async () => {
     try {
-      const response = await axios.get(`http://194.233.93.124:8000/skills/akun/${id}`);
+      const response = await axios.get(`https://api-cvmaster.agilearn.id/skills/akun/${id}`);
       const skills = response.data.skills;
       const hardSkills = skills.filter((skill) => skill.kategori_skill === "hardskill");
       const skillNames = hardSkills.length > 0
@@ -51,7 +51,7 @@ const Hero = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://194.233.93.124:8000/users/${id}`);
+      const response = await axios.get(`https://api-cvmaster.agilearn.id/users/${id}`);
       const username = response.data.nama;
       setUsers({ username });
     } catch (error) {

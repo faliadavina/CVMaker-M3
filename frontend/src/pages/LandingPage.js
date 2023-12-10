@@ -15,7 +15,7 @@ const LandingPageMain = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get("http://194.233.93.124:8000/users");
+                const response = await axios.get("https://api-cvmaster.agilearn.id/users");
                 setUsers(response.data);
                 setLoading(false);
             } catch (error) {
@@ -73,7 +73,7 @@ const LandingPageMain = () => {
                                         </p>
                                         <div className="zoom-image" style={{ overflow: "hidden" }}>
                                             <img
-                                                src={`http://194.233.93.124:8000/profilePict/${user.profile_pict}`}
+                                                src={`https://api-cvmaster.agilearn.id/profilePict/${user.profile_pict}`}
                                                 className="testimonial-img"
                                                 alt=""
                                             />

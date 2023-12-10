@@ -14,7 +14,7 @@ const PortoView = () => {
 
   const getPorto = async () => {
     try {
-      const response = await axios.get(`http://194.233.93.124:8000/porto/${accountId}`);
+      const response = await axios.get(`https://api-cvmaster.agilearn.id/porto/${accountId}`);
       setPorto(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);

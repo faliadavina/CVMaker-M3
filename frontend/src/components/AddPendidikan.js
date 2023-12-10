@@ -123,7 +123,7 @@ const AddPendidikan = () => {
     setIsSubmitting(true);
 
     try {
-      await axios.post(`http://194.233.93.124:8000/pendidikan/${id}`, {
+      await axios.post(`https://api-cvmaster.agilearn.id/pendidikan/${id}`, {
         jenjang: jenjang,
         nama_sekolah: nama_sekolah,
         jurusan: jurusan,

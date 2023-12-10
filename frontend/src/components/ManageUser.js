@@ -22,7 +22,7 @@ const ManageUser = () => {
 
   const getUsers = async () => {
     try {
-      const response = await axios.get('http://194.233.93.124:8000/akun');
+      const response = await axios.get('https://api-cvmaster.agilearn.id/akun');
       setUsers(response.data.allAkun);
     } catch (error) {
       console.error('Error fetching users: ', error);
@@ -35,7 +35,7 @@ const ManageUser = () => {
 
   const handleAddUser = async () => {
     try {
-      await axios.post('http://194.233.93.124:8000/akun', formData);
+      await axios.post('https://api-cvmaster.agilearn.id/akun', formData);
       getUsers();
       setFormData({ username: '', email: '', password: '', role: 2 });
       setShowModal(false);
@@ -46,7 +46,7 @@ const ManageUser = () => {
 
   const handleEditUser = async () => {
     try {
-      await axios.patch(`http://194.233.93.124:8000/akun/${editingUserId}`, formData);
+      await axios.patch(`https://api-cvmaster.agilearn.id/akun/${editingUserId}`, formData);
       getUsers();
       setFormData({ id_akun: '', username: '', email: '', password: '', role: 2 });
       setShowModal(false);
@@ -58,7 +58,7 @@ const ManageUser = () => {
 
   const handleDeleteUser = async (id) => {
     try {
-      await axios.delete(`http://194.233.93.124:8000/akun/${id}`);
+      await axios.delete(`https://api-cvmaster.agilearn.id/akun/${id}`);
       getUsers();
     } catch (error) {
       console.error('Error deleting user: ', error);

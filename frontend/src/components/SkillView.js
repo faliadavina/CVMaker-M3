@@ -21,7 +21,7 @@ const SkillView = () => {
   const getSkills = async () => {
     try {
       const response = await axios.get(
-        `http://194.233.93.124:8000/skills/akun/${accountId}`
+        `https://api-cvmaster.agilearn.id/skills/akun/${accountId}`
       );
       setSkill(response.data);
 

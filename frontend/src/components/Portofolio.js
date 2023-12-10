@@ -24,7 +24,7 @@ const Portfolio = () => {
 
   const getPorto = async () => {
     try {
-      const response = await axios.get(`http://194.233.93.124:8000/porto/${id}`);
+      const response = await axios.get(`https://api-cvmaster.agilearn.id/porto/${id}`);
       setPorto(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -84,7 +84,7 @@ const Portfolio = () => {
     try {
       // Menghapus portofolio yang dipilih satu per satu
       for (const portoId of selectedPortofolios) {
-        await axios.delete(`http://194.233.93.124:8000/porto/${portoId}`);
+        await axios.delete(`https://api-cvmaster.agilearn.id/porto/${portoId}`);
       }
       getPorto(); // Ambil data portofolio setelah menghapus
       setSelectedPortofolios([]); // Kosongkan daftar yang dipilih

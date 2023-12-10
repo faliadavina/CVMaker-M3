@@ -7,6 +7,9 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    volumes:
+      - profile-pict-data:/backend/public/profilePict
+      - file-porto-data:/backend/public/filePorto
 
   frontend:
     build:
@@ -27,3 +30,5 @@ services:
 
 volumes:
   postgres-data:
+  profile-pict-data:
+  file-porto-data:

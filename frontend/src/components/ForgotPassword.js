@@ -111,7 +111,7 @@ const ForgotPassword = () => {
 
     if (Object.keys(validationErrors).length === 0) {
         try {
-            const response = await axios.post("http://194.233.93.124:8000/forgot-password", {
+            const response = await axios.post("https://api-cvmaster.agilearn.id/forgot-password", {
               email: values.email,
               newPassword: values.newPassword,
             });

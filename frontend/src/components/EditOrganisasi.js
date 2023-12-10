@@ -27,7 +27,7 @@ const EditOrganisasi = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://194.233.93.124:8000/organisasi/akun/${id_akun}/organisasi/${id_org}`
+          `https://api-cvmaster.agilearn.id/organisasi/akun/${id_akun}/organisasi/${id_org}`
         );
         const organisasiData = response.data.organisasi;
 
@@ -112,7 +112,7 @@ const EditOrganisasi = () => {
     setIsSubmitting(true);
 
     try {
-      await axios.put(`http://194.233.93.124:8000/organisasi/${id_org}`, {
+      await axios.put(`https://api-cvmaster.agilearn.id/organisasi/${id_org}`, {
         id_akun: id_akun,
         nama_organisasi: namaOrganisasi,
         jabatan: jabatan,

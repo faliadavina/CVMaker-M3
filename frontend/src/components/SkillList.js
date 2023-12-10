@@ -36,7 +36,7 @@ const SkillList = () => {
   const getSkills = async () => {
     try {
       const response = await axios.get(
-        `http://194.233.93.124:8000/skills/akun/${id}`
+        `https://api-cvmaster.agilearn.id/skills/akun/${id}`
       );
       setSkill(response.data);
 
@@ -72,7 +72,7 @@ const SkillList = () => {
   const deleteSkill = async (skillId) => {
     try {
       hideDeleteConfirmationModal(); // Hide the modal after successful deletion
-      await axios.delete(`http://194.233.93.124:8000/skills/${skillId}`);
+      await axios.delete(`https://api-cvmaster.agilearn.id/skills/${skillId}`);
       getSkills();
       setSuccessMessage("Skill deleted successfully!");
       setErrorMessage("");
@@ -105,11 +105,11 @@ const SkillList = () => {
   const deleteSelectedSkills = async () => {
     try {
       for (const skillId of selectedSoftSkills) {
-        await axios.delete(`http://194.233.93.124:8000/skills/${skillId}`);
+        await axios.delete(`https://api-cvmaster.agilearn.id/skills/${skillId}`);
       }
 
       for (const skillId of selectedHardSkills) {
-        await axios.delete(`http://194.233.93.124:8000/skills/${skillId}`);
+        await axios.delete(`https://api-cvmaster.agilearn.id/skills/${skillId}`);
       }
 
       getSkills();

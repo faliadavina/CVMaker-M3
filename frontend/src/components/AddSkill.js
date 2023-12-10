@@ -80,7 +80,7 @@ const AddSkill = () => {
     setIsSubmitting(true);
 
     try {
-      await axios.post(`http://194.233.93.124:8000/skills/${id}`, {
+      await axios.post(`https://api-cvmaster.agilearn.id/skills/${id}`, {
         nama_skill: name,
         kategori_skill: category,
         level: level,

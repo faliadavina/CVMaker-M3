@@ -10,6 +10,8 @@ COPY package*.json ./
 # Install dependensi proyek
 RUN npm install
 
+RUN npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
+
 # Salin seluruh file proyek ke direktori kerja
 COPY . .
 

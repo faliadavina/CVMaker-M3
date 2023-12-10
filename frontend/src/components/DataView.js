@@ -14,7 +14,7 @@ const DataView = () => {
   const getUsers = async () => {
     try {
       const response = await axios.get(
-        `http://194.233.93.124:8000/users/${accountId}`
+        `https://api-cvmaster.agilearn.id/users/${accountId}`
       );
       setUsers(response.data);
     } catch (error) {

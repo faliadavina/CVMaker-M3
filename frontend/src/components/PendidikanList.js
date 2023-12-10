@@ -40,7 +40,7 @@ const PendidikanList = () => {
   const getPendidikan = async () => {
     try {
       const response = await axios.get(
-        `http://194.233.93.124:8000/pendidikan/akun/${id}`
+        `https://api-cvmaster.agilearn.id/pendidikan/akun/${id}`
       );
       setPendidikan(response.data.pendidikan);
       setErrorMessage("");
@@ -89,7 +89,7 @@ const PendidikanList = () => {
   const deleteSelectedPendidikan = async () => {
     try {
       for (const id_pend of selectedItems) {
-        await axios.delete(`http://194.233.93.124:8000/pendidikan/${id_pend}`);
+        await axios.delete(`https://api-cvmaster.agilearn.id/pendidikan/${id_pend}`);
       }
       getPendidikan();
       setSelectedItems([]);

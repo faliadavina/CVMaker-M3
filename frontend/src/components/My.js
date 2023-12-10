@@ -3,7 +3,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Hero from "./Hero";
-import { Modal, Button, Row , Card, Col} from "react-bootstrap";
+import { Modal, Button, Row, Card, Col } from "react-bootstrap";
 
 const My = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,6 @@ const My = () => {
   const { user } = useSelector((state) => state.auth);
   const id_akun = user && user.user && user.user.id_akun;
 
-
   let encodedIdAkun = btoa(id_akun);
 
   useEffect(() => {
@@ -29,7 +28,9 @@ const My = () => {
 
   const getUsers = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/users/${id_akun}`);
+      const response = await axios.get(
+        `http://localhost:5000/users/${id_akun}`
+      );
       setUsers(response.data);
     } catch (error) {
       // Handle error jika data diri tidak ditemukan
@@ -48,8 +49,6 @@ const My = () => {
     setShowModal(false); // Hide modal after link is copied
   };
 
- 
-
   // Data Skill
   const [softSkills, setSoftSkills] = useState([]);
   const [hardSkills, setHardSkills] = useState([]);
@@ -61,12 +60,18 @@ const My = () => {
 
   const getSkills = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/skills/akun/${id_akun}`);
+      const response = await axios.get(
+        `http://localhost:5000/skills/akun/${id_akun}`
+      );
       setSkill(response.data);
 
       // Pisahkan skills berdasarkan kategori_skill
-      const softSkills = response.data.skills.filter((skill) => skill.kategori_skill === "softskill");
-      const hardSkills = response.data.skills.filter((skill) => skill.kategori_skill === "hardskill");
+      const softSkills = response.data.skills.filter(
+        (skill) => skill.kategori_skill === "softskill"
+      );
+      const hardSkills = response.data.skills.filter(
+        (skill) => skill.kategori_skill === "hardskill"
+      );
 
       setSoftSkills(softSkills);
       setHardSkills(hardSkills);
@@ -83,7 +88,9 @@ const My = () => {
   useEffect(() => {
     const fetchOrganisasi = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/organisasi/akun/${id_akun}`);
+        const response = await axios.get(
+          `http://localhost:5000/organisasi/akun/${id_akun}`
+        );
 
         console.log("Raw response:", response);
 
@@ -112,7 +119,9 @@ const My = () => {
 
   const getPorto = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/porto/${id_akun}`);
+      const response = await axios.get(
+        `http://localhost:5000/porto/${id_akun}`
+      );
       setPorto(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -124,21 +133,34 @@ const My = () => {
       <div className="card-body">
         <div className="d-flex justify-content-between align-items-center">
           <div>
-            <span className="skill mb-4" style={{ fontWeight: "bold", color: "#001F3F", fontSize: "14px" }}>
-              <input type="checkbox" checked={isChecked} onChange={onCheckboxChange} className="mr-2" />
+            <span
+              className="skill mb-4"
+              style={{ fontWeight: "bold", color: "#001F3F", fontSize: "14px" }}
+            >
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={onCheckboxChange}
+                className="mr-2"
+              />
               {skill.nama_skill.toUpperCase()}
             </span>
           </div>
         </div>
         <div className="progress mt-3">
-          <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style={{ width: `${skill.level * 10}%` }}></div>
+          <div
+            className="progress-bar progress-bar-striped progress-bar-animated"
+            role="progressbar"
+            style={{ width: `${skill.level * 10}%` }}
+          ></div>
           {/* Move the percentage to the right */}
           <div className="progress-percent text-right mt-3">
             <medium>{skill.level * 10}%</medium>
           </div>
         </div>
         <div className="description-skill-list" style={{ fontSize: "14px" }}>
-          <b>Deskripsi:</b> {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
+          <b>Deskripsi:</b>{" "}
+          {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
         </div>
       </div>
     </div>
@@ -154,7 +176,14 @@ const My = () => {
     if (isImage) {
       return <img src={url} alt="Portofolio" height="600" width="400" />;
     } else if (isPDF) {
-      return <embed src={url} type="application/pdf" className="pdf-embed" height="600" />;
+      return (
+        <embed
+          src={url}
+          type="application/pdf"
+          className="pdf-embed"
+          height="600"
+        />
+      );
     } else if (isAudio) {
       return <audio controls src={url} />;
     } else if (isVideo) {
@@ -170,7 +199,9 @@ const My = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/pendidikan/akun/${id_akun}`);
+        const response = await axios.get(
+          `http://localhost:5000/pendidikan/akun/${id_akun}`
+        );
 
         // Pastikan respons dari API berupa array atau ubah sesuai kebutuhan
         setPendidikan(response.data.pendidikan);
@@ -183,60 +214,60 @@ const My = () => {
   }, [id_akun]);
 
   const PendidikanDetail = pendidikan
-  ? pendidikan.map((pendidikan, index) => (
-      <Col
-        key={pendidikan.id_pend}
-        xs={12}
-        md={6}
-        lg={6}
-        xl={6}
-        className="mb-3"
-      >
-        <Card className="custom-card" data-aos="fade-up">
-          <Card.Body>
-            <div className="pendidikan-details">
-              <div
-                style={{ display: "flex", justifyContent: "space-between" }}
-              >
-                <div>
-                  <Card.Title
-                    style={{ fontSize: "20px", marginBottom: "8px" }}
-                  >
-                    {pendidikan.jenjang.toUpperCase()}
-                  </Card.Title>
-                  <Card.Subtitle
-                    style={{ fontSize: "17px", marginBottom: "8px" }}
-                  >
-                    {pendidikan.nama_sekolah}
-                  </Card.Subtitle>
-                  <Card.Text
-                    style={{ fontSize: "14px", marginBottom: "8px" }}
-                  >
-                    JURUSAN {pendidikan.jurusan}
-                  </Card.Text>
-                </div>
-                <div style={{ textAlign: "right" }}>
-                  <span style={{ color: "gray", fontSize: "12px" }}>
-                    {pendidikan.tahun_masuk} - {pendidikan.tahun_lulus}
-                  </span>
+    ? pendidikan.map((pendidikan, index) => (
+        <Col
+          key={pendidikan.id_pend}
+          xs={12}
+          md={6}
+          lg={6}
+          xl={6}
+          className="mb-3"
+        >
+          <Card className="custom-card" data-aos="fade-up">
+            <Card.Body>
+              <div className="pendidikan-details">
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <div>
+                    <Card.Title
+                      style={{ fontSize: "20px", marginBottom: "8px" }}
+                    >
+                      {pendidikan.jenjang.toUpperCase()}
+                    </Card.Title>
+                    <Card.Subtitle
+                      style={{ fontSize: "17px", marginBottom: "8px" }}
+                    >
+                      {pendidikan.nama_sekolah}
+                    </Card.Subtitle>
+                    <Card.Text
+                      style={{ fontSize: "14px", marginBottom: "8px" }}
+                    >
+                      JURUSAN {pendidikan.jurusan}
+                    </Card.Text>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <span style={{ color: "gray", fontSize: "12px" }}>
+                      {pendidikan.tahun_masuk} - {pendidikan.tahun_lulus}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Card.Body>
-        </Card>
-      </Col>
-    ))
-  : null;
+            </Card.Body>
+          </Card>
+        </Col>
+      ))
+    : null;
 
   const handleMenuCV = () => {
     navigate("/menu_cv");
   };
 
   const floatingButtonStyle = {
-    position: 'fixed',
-    right: '20px',
-    bottom: '20px',
-    zIndex: '1000',
+    position: "fixed",
+    right: "20px",
+    bottom: "20px",
+    zIndex: "1000",
   };
 
   return (
@@ -251,12 +282,11 @@ const My = () => {
           fontSize: "14px",
           fontWeight: "bold",
           ...floatingButtonStyle,
-          bottom: '80px',
+          bottom: "80px",
         }}
         onClick={handleMenuCV}
       >
-        <i className="bi bi-printer-fill mr-3"></i>{" "}
-        Select Template CV
+        <i className="bi bi-printer-fill mr-3"></i> Select Template CV
       </button>
 
       <Button
@@ -317,31 +347,37 @@ const My = () => {
                   <div class="col-lg-6">
                     <ul>
                       <li>
-                        <i className="bi bi-person-vcard mr-3"></i> {/* <strong> Name </strong>  */}
+                        <i className="bi bi-person-vcard mr-3"></i>{" "}
+                        {/* <strong> Name </strong>  */}
                         <br />
                         <span>{data_diri.nama}</span>
                       </li>
                       <li>
-                        <i className="bi bi-person-gear mr-3"></i> {/* <strong> Name </strong>  */}
+                        <i className="bi bi-person-gear mr-3"></i>{" "}
+                        {/* <strong> Name </strong>  */}
                         <br />
                         <span>{data_diri.profesi}</span>
                       </li>
                       <li>
-                        <i class="bi bi-cake mr-3"></i> {/* <strong> Place, Date of Birth :</strong>{" "} */}
+                        <i class="bi bi-cake mr-3"></i>{" "}
+                        {/* <strong> Place, Date of Birth :</strong>{" "} */}
                         <span>
                           {data_diri.tempat_lahir}, {data_diri.tanggal_lahir}
                         </span>
                       </li>
                       <li>
-                        <i class="bi bi-house-door mr-3"></i> {/* <strong> Address :</strong>{" "} */}
+                        <i class="bi bi-house-door mr-3"></i>{" "}
+                        {/* <strong> Address :</strong>{" "} */}
                         <span>{data_diri.alamat}</span>
                       </li>
                       <li>
-                        <i className="bi bi-people mr-3"></i> {/* <strong> Marriage Status :</strong>{" "} */}
+                        <i className="bi bi-people mr-3"></i>{" "}
+                        {/* <strong> Marriage Status :</strong>{" "} */}
                         <span>{data_diri.status}</span>
                       </li>
                       <li>
-                        <i class="bi bi-telephone mr-3"></i> {/* <strong> Phone Number :</strong>{" "} */}
+                        <i class="bi bi-telephone mr-3"></i>{" "}
+                        {/* <strong> Phone Number :</strong>{" "} */}
                         <span>{data_diri.telp}</span>
                       </li>
                     </ul>
@@ -356,24 +392,42 @@ const My = () => {
                         <i class=""></i> <span></span>
                       </li>
                       <li>
-                        <i class="bi bi-envelope mr-3"></i> {/* <strong> Email :</strong>  */}
+                        <i class="bi bi-envelope mr-3"></i>{" "}
+                        {/* <strong> Email :</strong>  */}
                         <span>{data_diri.email}</span>
                       </li>
                       <li>
-                        <i class="bi bi-linkedin mr-3"></i> {/* <strong> LinkedIn :</strong>{" "} */}
-                        <span>{data_diri.linkedin}</span>
+                        {data_diri.linkedin && (
+                          <React.Fragment>
+                            <i className="bi bi-linkedin mr-3"></i>{" "}
+                            {/* <strong> LinkedIn :</strong>{" "} */}
+                            <span>{data_diri.linkedin}</span>
+                          </React.Fragment>
+                        )}
                       </li>
                       <li>
-                        <i class="bi bi-instagram mr-3"></i> {/* <strong> Social Media :</strong>{" "} */}
-                        <span>
-                          <a href={data_diri.link_sosmed}>@{data_diri.sosial_media}</a>
-                        </span>
+                        {data_diri.link_sosmed && (
+                          <React.Fragment>
+                            <i className="bi bi-instagram mr-3"></i>{" "}
+                            <span>
+                              <a href={data_diri.link_sosmed}>
+                                @{data_diri.sosial_media}
+                              </a>
+                            </span>
+                          </React.Fragment>
+                        )}
                       </li>
                       <li>
-                        <i class="bi bi-twitter mr-3"></i>{" "}
-                        <span>
-                          <a href={data_diri.link_twitter}>@{data_diri.twitter}</a>
-                        </span>
+                        {data_diri.link_twitter && (
+                          <React.Fragment>
+                            <i className="bi bi-twitter mr-3"></i>{" "}
+                            <span>
+                              <a href={data_diri.link_twitter}>
+                                @{data_diri.twitter}
+                              </a>
+                            </span>
+                          </React.Fragment>
+                        )}
                       </li>
                     </ul>
                   </div>
@@ -401,10 +455,7 @@ const My = () => {
           </div>
         )}
       </section>
-      <section
-        id="pendidikan"
-        className="pendidikan"
-      >
+      <section id="pendidikan" className="pendidikan">
         {pendidikan.length > 0 ? (
           <div className="container">
             <div
@@ -422,26 +473,21 @@ const My = () => {
             <div class="section-title">
               <h2>Education</h2>
             </div>
-          <div
-            className="d-flex flex-column justify-content-center align-items-center"
-          >
-            <div
-              className="text-center"
-              style={{
-                marginBottom: "20px",
-                color: "grey",
-                fontSize: "16px",
-              }}
-            >
-              Educational Hasn't Been Added
+            <div className="d-flex flex-column justify-content-center align-items-center">
+              <div
+                className="text-center"
+                style={{
+                  marginBottom: "20px",
+                  color: "grey",
+                  fontSize: "16px",
+                }}
+              >
+                Educational Hasn't Been Added
+              </div>
             </div>
-          </div>
           </div>
         )}
       </section>
-
-
-
 
       {/* Organisasi Section */}
       <section id="organisasi" className="organisasi">
@@ -461,22 +507,25 @@ const My = () => {
                     </p>
                     <p className="organisasi-jabatan">{item.jabatan}</p>
                   </div>
-                  <p className="organisasi-deskripsi">{item.deskripsi_jabatan}</p>
+                  <p className="organisasi-deskripsi">
+                    {item.deskripsi_jabatan}
+                  </p>
                 </li>
               ))}
             </ul>
-          ) : (<div class="title d-flex justify-content-center align-items-center text-center mt-5">
-          <div
-            className="text-center"
-            style={{
-              marginBottom: "20px",
-              color: "grey",
-              fontSize: "16px",
-            }}
-          >
-            Organization data Hasn't Been Added
-          </div>
-        </div>
+          ) : (
+            <div class="title d-flex justify-content-center align-items-center text-center mt-5">
+              <div
+                className="text-center"
+                style={{
+                  marginBottom: "20px",
+                  color: "grey",
+                  fontSize: "16px",
+                }}
+              >
+                Organization data Hasn't Been Added
+              </div>
+            </div>
           )}
         </div>
       </section>
@@ -543,7 +592,11 @@ const My = () => {
                   <h5>Soft Skills</h5>
                 </div>
                 {softSkills.map((skill, index) => (
-                  <div className="progress-container mr-4 card mb-4 skill-card" key={skill.id_skill} data-aos="fade-up">
+                  <div
+                    className="progress-container mr-4 card mb-4 skill-card"
+                    key={skill.id_skill}
+                    data-aos="fade-up"
+                  >
                     <div className="card-body">
                       <div className="d-flex justify-content-between align-items-center">
                         <div>
@@ -560,13 +613,21 @@ const My = () => {
                         </div>
                       </div>
                       <div className="progress mt-3">
-                        <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style={{ width: `${skill.level * 10}%` }}></div>
+                        <div
+                          className="progress-bar progress-bar-striped progress-bar-animated"
+                          role="progressbar"
+                          style={{ width: `${skill.level * 10}%` }}
+                        ></div>
                         <div className="progress-percent text-right mt-3">
                           <medium>{skill.level * 10}%</medium>
                         </div>
                       </div>
-                      <div className="description-skill-list" style={{ fontSize: "14px" }}>
-                        <b>Deskripsi:</b> {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
+                      <div
+                        className="description-skill-list"
+                        style={{ fontSize: "14px" }}
+                      >
+                        <b>Deskripsi:</b>{" "}
+                        {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
                       </div>
                     </div>
                   </div>
@@ -577,7 +638,11 @@ const My = () => {
                   <h5>Hard Skills</h5>
                 </div>
                 {hardSkills.map((skill, index) => (
-                  <div className="progress-container mr-4 card mb-4 skill-card" key={skill.id_skill} data-aos="fade-up">
+                  <div
+                    className="progress-container mr-4 card mb-4 skill-card"
+                    key={skill.id_skill}
+                    data-aos="fade-up"
+                  >
                     <div className="card-body">
                       <div className="d-flex justify-content-between align-items-center">
                         <div>
@@ -594,13 +659,21 @@ const My = () => {
                         </div>
                       </div>
                       <div className="progress mt-3">
-                        <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style={{ width: `${skill.level * 10}%` }}></div>
+                        <div
+                          className="progress-bar progress-bar-striped progress-bar-animated"
+                          role="progressbar"
+                          style={{ width: `${skill.level * 10}%` }}
+                        ></div>
                         <div className="progress-percent text-right mt-3">
                           <medium>{skill.level * 10}%</medium>
                         </div>
                       </div>
-                      <div className="description-skill-list" style={{ fontSize: "14px" }}>
-                        <b>Deskripsi:</b> {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
+                      <div
+                        className="description-skill-list"
+                        style={{ fontSize: "14px" }}
+                      >
+                        <b>Deskripsi:</b>{" "}
+                        {skill.deskripsi ? <p>{skill.deskripsi}</p> : <p>-</p>}
                       </div>
                     </div>
                   </div>
@@ -628,7 +701,10 @@ const My = () => {
           </div>
         )}
       </section>
-      <a href="#about" class="back-to-top d-flex align-items-center justify-content-center">
+      <a
+        href="#about"
+        class="back-to-top d-flex align-items-center justify-content-center"
+      >
         <i class="bi bi-arrow-up-short"></i>
       </a>
     </body>

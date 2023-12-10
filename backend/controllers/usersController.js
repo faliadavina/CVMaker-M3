@@ -9,8 +9,8 @@ export const createUser = async (req, res) => {
     try {
         const { nama, profesi, tempat_lahir, tanggal_lahir, alamat, status, telp, sosial_media, twitter, linkedin, deskripsi } = req.body;
         const { id_akun } = req.params;
-        const link_sosmed = `https://www.instagram.com/${sosial_media}/`;
-        const link_twitter = `https://twitter.com/${twitter}/`;
+        const link_sosmed = sosial_media ? `https://www.instagram.com/${sosial_media}/` : "";
+        const link_twitter = twitter ? `https://twitter.com/${twitter}/` : "";
 
         const userAccountById = await AkunDB.findOne({
             where:{
@@ -106,9 +106,11 @@ export const updateUser = async (req, res) => {
     try {
       const { id_akun } = req.params;
       const fieldsToUpdate = req.body;
-  
-      const link_sosmed = `https://www.instagram.com/${fieldsToUpdate.sosial_media}/`;
-      const link_twitter = `https://twitter.com/${fieldsToUpdate.twitter}/`;
+
+      console.log(fieldsToUpdate);
+
+      const link_sosmed = fieldsToUpdate.sosial_media ? `https://www.instagram.com/${fieldsToUpdate.sosial_media}/` : "";
+      const link_twitter = fieldsToUpdate.twitter ? `https://twitter.com/${fieldsToUpdate.twitter}/` : "";
 
       const user = await UserDB.findOne({
         where: {

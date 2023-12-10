@@ -18,10 +18,10 @@ const MenuCV = () => {
   ];
 
   const templatesCreative = [
-    { id: 3, title: "Lilac Serenity", imageUrl: "/img/cv/cv_3.png" },
+    { id: 3, title: "Lilac Dreams", imageUrl: "/img/cv/cv_3.png" },
     { id: 4, title: "NavyOR CV", imageUrl: "/img/cv/cv_4.png" },
-    { id: 5, title: "Creative Template 3", imageUrl: "/img/cv/cv_5.png" },
-    { id: 6, title: "Creative Template 4", imageUrl: "/img/cv/cv_6.png" },
+    { id: 5, title: "Midnight Yellow", imageUrl: "/img/cv/cv_5.png" },
+    { id: 6, title: "Majestic Mocca", imageUrl: "/img/cv/cv_6.png" },
   ];
 
   const selectedTemplates = activeButton === "ATS" ? templatesATS : templatesCreative;

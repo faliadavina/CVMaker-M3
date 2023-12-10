@@ -149,7 +149,7 @@ const Portfolio = () => {
                         className="btn btn-danger"
                         style={{ fontWeight: "bold" }}
                       >
-                        Delete Selected
+                        Delete
                       </button>
                     )}
                     <NavLink to="/add_portofolio">

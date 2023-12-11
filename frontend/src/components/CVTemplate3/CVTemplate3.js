@@ -526,7 +526,7 @@ const Template3 = () => {
             <ul >
               {portofolios.filter((portofolio) =>
                       selectedData.portfolios.includes(portofolio.id_porto)
-                    ).slice(0, 2).map((portofolio, index) => (
+                    ).slice(0, 3).map((portofolio, index) => (
                 <li key={index} class="">
                   <div class="font-porto-cv-3"><i class="bi bi-file-pdf mr-2"></i>{" "}<strong>{portofolio.judul}</strong> : {portofolio.deskripsi}</div>
                 </li>

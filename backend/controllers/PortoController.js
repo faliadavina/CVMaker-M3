@@ -34,7 +34,7 @@ export const savePorto = (req, res) => {
     const ext = path.extname(file.name);
     const fileName = file.md5 + ext;
     const { id_akun } = req.params;
-    const url = `${req.protocol}://${req.get("host")}/filePorto/${fileName}`;
+    const url = `https://${req.get("host")}/filePorto/${fileName}`;
     const allowedType = ['.jpg', '.png', '.jpeg', 'gif', '.pdf', '.mp4', '.webm', '.mp3', '.wav'];
 
     if (!allowedType.includes(ext.toLowerCase())) return res.status(422).json({ msg: "Invalid File" });
